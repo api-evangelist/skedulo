@@ -1,0 +1,28 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Salesforce API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Salesforce
+paths:
+  /salesforce/initialize_tenant:
+    post:
+      description: Installs package and sets up salesforce connection for a tenant when the user first logs in.
+      operationId: initializeTenantSalesforce
+      responses:
+        '200':
+          description: Tenant initialized succesfully.
+      tags:
+      - Salesforce
+components:
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

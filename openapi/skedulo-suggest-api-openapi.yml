@@ -1,0 +1,262 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Suggest API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Suggest
+paths:
+  /suggest:
+    post:
+      summary: Get scheduling suggestions for a job
+      description: Runs an optimization to produce scheduling suggestions for a given job, returning suggested start times across the supplied resources.
+      operationId: Suggest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SuggestRequestShape'
+            example:
+              jobId: e223ee46-ff38-4bcf-b93d-9dff6aa35f67
+              resourceRequirementId: a1b2c3d4-0000-0000-0000-000000000001
+              resourceIds:
+              - f67950ad-5dce-478d-bb22-565e0b072f65
+              - 06988f48-aeb3-422a-bb0c-1d925dd2f47e
+              recipeId: 62cb6c6c-c210-4aa5-92a6-9dccfc327b59
+              suggestWindow:
+                start: '2022-07-05T09:00:00Z'
+                end: '2022-07-06T09:00:00Z'
+              timezone: UTC
+              persistenceStrategy: save
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - result
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/SuggestResponseShape'
+              example:
+                result:
+                  suggestions:
+                  - jobId: e223ee46-ff38-4bcf-b93d-9dff6aa35f67
+                    score: 100
+                    resourceRequirementId: a1b2c3d4-0000-0000-0000-000000000001
+                    resourceId: f67950ad-5dce-478d-bb22-565e0b072f65
+                    suggestedStartTime: '2022-07-05T10:00:00Z'
+                  runId: a52a74c0-8d9e-4e4a-bce9-2d49d66517d7
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+      security:
+      - httpAuth: []
+      tags:
+      - Suggest
+  /suggest/{runId}:
+    get:
+      summary: Get suggestions for a completed suggest run
+      description: Returns the scheduling suggestions produced by a previously completed suggest run.
+      operationId: Get Suggestions
+      parameters:
+      - name: runId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - result
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/SuggestResponseShape'
+              example:
+                result:
+                  suggestions:
+                  - jobId: e223ee46-ff38-4bcf-b93d-9dff6aa35f67
+                    score: 100
+                    resourceRequirementId: a1b2c3d4-0000-0000-0000-000000000001
+                    resourceId: f67950ad-5dce-478d-bb22-565e0b072f65
+                    suggestedStartTime: '2022-07-05T10:00:00Z'
+                  runId: a52a74c0-8d9e-4e4a-bce9-2d49d66517d7
+      security:
+      - httpAuth: []
+      tags:
+      - Suggest
+  /suggest/feature/{runId}:
+    get:
+      summary: Get raw feature model suggestions for a run
+      description: Returns the raw CorePVRP feature model suggestions produced by a previously completed suggest run.
+      operationId: Get Feature Suggestions
+      parameters:
+      - name: runId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - result
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/FeatureSuggestResponseShape'
+              example:
+                result:
+                  suggestions:
+                  - resourceId: f67950ad-5dce-478d-bb22-565e0b072f65
+                    allocationId: e223ee46-ff38-4bcf-b93d-9dff6aa35f67
+                    suggestedStart: '2022-07-05T10:00:00Z'
+                    score:
+                      hard: 0
+                      medium: 0
+                      soft: 0
+      security:
+      - httpAuth: []
+      tags:
+      - Suggest
+components:
+  schemas:
+    SuggestResponseShape:
+      required:
+      - suggestions
+      - runId
+      type: object
+      properties:
+        suggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/SuggestionShape'
+        runId:
+          type: string
+    ScoreShape:
+      required:
+      - hard
+      - medium
+      - soft
+      type: object
+      properties:
+        hard:
+          type: number
+          format: double
+        medium:
+          type: number
+          format: double
+        soft:
+          type: number
+          format: double
+      description: Raw solver penalty breakdown; lower is better, 0 is ideal.
+    CorePVRPSuggestionShape:
+      required:
+      - resourceId
+      - allocationId
+      - suggestedStart
+      - score
+      type: object
+      properties:
+        resourceId:
+          type: string
+        allocationId:
+          type: string
+        suggestedStart:
+          type: string
+          format: date-time
+        score:
+          $ref: '#/components/schemas/ScoreShape'
+    BoundedIntervalInstantShape:
+      required:
+      - start
+      - end
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+    FeatureSuggestResponseShape:
+      required:
+      - suggestions
+      type: object
+      properties:
+        suggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CorePVRPSuggestionShape'
+    SuggestRequestShape:
+      required:
+      - jobId
+      - resourceIds
+      - suggestWindow
+      - timezone
+      type: object
+      properties:
+        jobId:
+          type: string
+        resourceRequirementId:
+          type: string
+        resourceIds:
+          type: array
+          items:
+            type: string
+        recipeId:
+          type: string
+        suggestWindow:
+          $ref: '#/components/schemas/BoundedIntervalInstantShape'
+        timezone:
+          type: string
+        persistenceStrategy:
+          type: string
+          enum:
+          - save
+          - optimize
+    SuggestionShape:
+      required:
+      - jobId
+      - score
+      - resourceId
+      - suggestedStartTime
+      type: object
+      properties:
+        jobId:
+          type: string
+        score:
+          type: number
+          description: Effectiveness of this suggestion from 0 to 100, relative to the others in this response. 100 is the best suggestion; higher is better. Suggestions are returned in descending score order. A single suggestion always scores 100.
+          format: double
+        resourceRequirementId:
+          type: string
+        resourceId:
+          type: string
+        suggestedStartTime:
+          type: string
+          format: date-time
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,140 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Resource allocations API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Resource allocations
+paths:
+  /schedules/job_allocations:
+    post:
+      summary: Create/update job allocations for resources
+      description: Create or update job allocations for certain resources
+      tags:
+      - Resource allocations
+      operationId: upsertJobAllocations
+      responses:
+        '200':
+          description: Jobs allocations has been successfully created or updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - result
+                properties:
+                  result:
+                    description: A list of job allocation IDs that were created or updated.
+                    type: object
+                    required:
+                    - inserted
+                    - updated
+                    properties:
+                      inserted:
+                        type: array
+                        items:
+                          type: string
+                      updated:
+                        type: array
+                        items:
+                          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - from
+              - recurringScheduleId
+              - resourceIds
+              - jobAllocBase
+              properties:
+                from:
+                  type: string
+                  format: date-time
+                  description: Only create/update job allocations for jobs that start after this instant in time.
+                  example: '2017-05-17T03:30:00Z'
+                recurringScheduleId:
+                  type: string
+                excludeJobIds:
+                  type: array
+                  description: Skip updating any job allocations that are attached to these job identifiers.
+                  items:
+                    type: string
+                resourceIds:
+                  type: array
+                  description: IDs of the resources job allocations will be created or updated for. Any existing job allocations not belonging to these resources will not be modified.
+                  items:
+                    type: string
+                  example:
+                  - res_1
+                  - res_2
+                jobAllocBase:
+                  type: object
+                  additionalProperties: true
+                  description: A JSON object containing fields for the job allocation to create. Existing job allocations will be updated too.
+                  example:
+                    Hours: 5
+                    NotificationType: push
+  /schedules/job_allocations/delete:
+    post:
+      summary: Delete job allocation
+      description: Delete job allocations for certain resources
+      tags:
+      - Resource allocations
+      operationId: deleteJobAllocations
+      responses:
+        '200':
+          description: Job allocations deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - result
+                properties:
+                  result:
+                    description: A list of jobs and their job allocations that were deleted.
+                    type: object
+                    example:
+                      job_1:
+                      - job_alloc_1
+                      - job_alloc_2
+                      job_2:
+                      - job_alloc_3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - from
+              - recurringScheduleId
+              - resourceIds
+              properties:
+                from:
+                  type: string
+                  format: date-time
+                  description: Only delete job allocations for jobs that start after this instant.
+                  example: '2017-05-17T03:30:00Z'
+                recurringScheduleId:
+                  type: string
+                resourceIds:
+                  type: array
+                  description: ID of the resources of which job allocations will be deleted.
+                  items:
+                    type: string
+                  example:
+                  - res_1
+                  - res_2
+components:
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

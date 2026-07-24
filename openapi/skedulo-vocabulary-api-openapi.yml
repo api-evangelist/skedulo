@@ -1,0 +1,438 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Vocabulary API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Vocabulary
+paths:
+  /vocabulary/{objectName}/{fieldName}:
+    get:
+      security:
+      - Authorization: []
+      summary: Get vocabulary items for a picklist field
+      description: Get the vocabulary items (allowed values) for a picklist field
+      operationId: vocabularyFetch
+      parameters:
+      - name: objectName
+        in: path
+        description: Name of the object that the picklist field belongs to
+        required: true
+        schema:
+          type: string
+      - name: fieldName
+        in: path
+        description: Name of the picklist field
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VocabularyItem'
+        '400':
+          description: If the field does not exist or is not a picklist or multipicklist field
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Vocabulary
+    post:
+      security:
+      - Authorization: []
+      summary: Add a vocabulary (picklist) item
+      description: Add an allowed item to a picklist field
+      operationId: vocabularyCreate
+      parameters:
+      - name: objectName
+        in: path
+        description: Name of the object that the picklist field belongs to
+        required: true
+        schema:
+          type: string
+      - name: fieldName
+        in: path
+        description: Name of the picklist field
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The item was added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOKVocabulary'
+        '400':
+          description: If the field does not exist or is not a picklist or multipicklist field
+        '403':
+          description: If the user does not have the required permissions
+        '409':
+          description: An item with that value already exists
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VocabularyItem'
+        description: The item to add
+        required: true
+      tags:
+      - Vocabulary
+  /vocabulary/{objectName}/{fieldName}/{value}:
+    put:
+      security:
+      - Authorization: []
+      summary: Update a vocabulary item on a picklist field
+      description: Update a picklist item. Note the value cannot be modified
+      operationId: vocabularyUpdate
+      parameters:
+      - name: objectName
+        in: path
+        description: Name of the object that the picklist field belongs to
+        required: true
+        schema:
+          type: string
+      - name: fieldName
+        in: path
+        description: Name of the picklist field
+        required: true
+        schema:
+          type: string
+      - name: value
+        in: path
+        description: Value of the vocabulary item to modify
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The item was updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOKEmpty'
+        '400':
+          description: If the field does not exist or is not a picklist or multipicklist field
+        '403':
+          description: If the user does not have the required permissions
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModifiedVocabularyItem'
+        description: The item to modify
+        required: true
+      tags:
+      - Vocabulary
+    delete:
+      security:
+      - Authorization: []
+      summary: Deactivate a vocabulary item for a picklist
+      description: Sets the active state of the vocabulary item to false
+      operationId: vocabularyDeactivate
+      parameters:
+      - name: objectName
+        in: path
+        description: Name of the object that the picklist field belongs to
+        required: true
+        schema:
+          type: string
+      - name: fieldName
+        in: path
+        description: Name of the picklist field
+        required: true
+        schema:
+          type: string
+      - name: value
+        in: path
+        description: Vocabulary item value to deactivate
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The item was deactivated
+        '400':
+          description: If the field does not exist or is not a picklist or multipicklist field
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Vocabulary
+  /vocabulary/dependency:
+    post:
+      security:
+      - Authorization: []
+      summary: Create or modify a dependency relationship on a picklist field
+      description: Set up a dependency between picklist items (vocabulary) and another field
+      operationId: upsertFieldDependency
+      responses:
+        '200':
+          description: The dependency relationship was created or updated
+        '400':
+          description: If fields or entries provided were invalid
+        '403':
+          description: If the user does not have the required permissions
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FieldDependencyInput'
+        description: The dependency relationship to be created or updated
+        required: true
+      tags:
+      - Vocabulary
+  /vocabulary/dependency/delete:
+    post:
+      security:
+      - Authorization: []
+      summary: Remove the dependency relationship of a picklist field
+      description: ''
+      operationId: deleteFieldDependency
+      responses:
+        '200':
+          description: The dependency relationship was removed
+        '400':
+          description: If fields provided were invalid
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FieldDependencyKeyInput'
+        description: The dependency relationship to be removed
+        required: true
+      tags:
+      - Vocabulary
+  /vocabulary/dependency/entry:
+    post:
+      security:
+      - Authorization: []
+      summary: Add a dependency to a picklist value
+      description: Add a dependency between a picklist value and another value
+      operationId: addFieldDependencyEntry
+      responses:
+        '200':
+          description: The dependency relationship was created or updated
+        '400':
+          description: If fields or entry provided were invalid
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FieldDependencyEntryInput'
+        description: The dependency relationship to be created or updated
+        required: true
+      tags:
+      - Vocabulary
+  /vocabulary/dependency/entry/delete:
+    post:
+      security:
+      - Authorization: []
+      summary: Remove the dependency on a picklist value
+      description: ''
+      operationId: deleteFieldDependencyEntry
+      responses:
+        '200':
+          description: The dependency relationship was removed
+        '400':
+          description: If fields or entry provided were invalid
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FieldDependencyKeyInput'
+        description: The dependency relationship to be removed
+        required: true
+      tags:
+      - Vocabulary
+components:
+  schemas:
+    FieldDependencyKeyInput:
+      type: object
+      required:
+      - schemaName
+      - dependentField
+      - controllingField
+      properties:
+        schemaName:
+          type: string
+        dependentField:
+          type: string
+        controllingField:
+          type: string
+    FieldDependencyEntry:
+      type: object
+      required:
+      - dependentValue
+      - controllingValue
+      properties:
+        dependentValue:
+          type: string
+        controllingValue:
+          type: string
+    VocabularyItem:
+      type: object
+      required:
+      - label
+      - value
+      - active
+      - defaultValue
+      - validFor
+      properties:
+        label:
+          type: string
+        value:
+          type: string
+        active:
+          type: boolean
+        defaultValue:
+          type: boolean
+        controllingField:
+          type: string
+        validFor:
+          type: array
+          items:
+            type: string
+    FieldDependencyEntryInput:
+      type: object
+      required:
+      - schemaName
+      - dependentField
+      - controllingField
+      - entry
+      properties:
+        schemaName:
+          type: string
+        dependentField:
+          type: string
+        controllingField:
+          type: string
+        entry:
+          $ref: '#/components/schemas/FieldDependencyEntry'
+    ResultOKEmpty:
+      type: object
+      required:
+      - result
+      properties:
+        result:
+          properties: {}
+    FieldMetadataValue:
+      type: object
+      required:
+      - label
+      - value
+      - active
+      - defaultValue
+      properties:
+        label:
+          type: string
+        value:
+          type: string
+        active:
+          type: boolean
+        defaultValue:
+          type: boolean
+    FieldDependencyInput:
+      type: object
+      required:
+      - schemaName
+      - dependentField
+      - controllingField
+      - entries
+      properties:
+        schemaName:
+          type: string
+        dependentField:
+          type: string
+        controllingField:
+          type: string
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldDependencyEntry'
+    ModifiedVocabularyItem:
+      type: object
+      properties:
+        label:
+          type: string
+        active:
+          type: boolean
+        defaultValue:
+          type: boolean
+    ResultOKVocabulary:
+      type: object
+      required:
+      - result
+      properties:
+        result:
+          $ref: '#/components/schemas/FieldMetadataValue'
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,210 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin SMS Messaging API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: SMS Messaging
+paths:
+  /sms:
+    get:
+      security:
+      - Authorization: []
+      summary: Get metadata for sent SMS messages
+      description: Get metadata including phone number, job and resource IDs and delivery status for SMS messages that have been sent. The body of the message is not included. Messages are returned in pages of 250 items, sorted by creation time in descending order.
+      tags:
+      - SMS Messaging
+      parameters:
+      - name: cursor
+        description: Returns messages sent after the message with this cursor.
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SMSSentForTenant'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      security:
+      - Authorization: []
+      summary: Send an SMS to any phone number
+      description: 'Send an SMS message to any phone number, such as a customer.
+
+
+        For example ''Thanks for confirming your booking''. Replies from the recipient will not be tracked back to a job but can be used to trigger an ''inbound_sms'' webhook.'
+      tags:
+      - SMS Messaging
+      responses:
+        '200':
+          description: Result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Phone number or country code was invalid, or message was too long.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - phoneNumber
+              - countryCode
+              - message
+              properties:
+                phoneNumber:
+                  type: string
+                  description: The phone number of the recipient.
+                countryCode:
+                  type: string
+                  description: The two character country code of the phone number.
+                message:
+                  type: string
+                  description: Message to send to the resource. Message length is limited to 800 characters and must not be blank.
+                expectsReply:
+                  type: boolean
+                  default: false
+                  description: Set to true if a reply is expected. The reply should be handled by an external process such as a webhook. If this flag is false or absent and the recipient sends a reply to the message, an error message will be sent back to them.
+        required: true
+  /sms/confirmation_request:
+    post:
+      security:
+      - Authorization: []
+      summary: Request confirmation by SMS
+      description: 'Send an SMS message to any phone number, such as a customer, to request confirmation that a job should proceed. This will set the job''s confirmation status to `Pending`. Upon receiving a Y/YES or N/NO SMS message from the recipient, the job''s confirmation status will be updated accordingly.
+
+
+        Note that while a job''s confirmation status is `Pending`, SMS confirmation requests cannot be sent to the recipient for that job.
+
+
+        Note that a job''s confirmation status is for use by custom workflows. It does not affect the normal workflow of the job.'
+      tags:
+      - SMS Messaging
+      responses:
+        '200':
+          description: Result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Phone number or country code was invalid, message was too long, phone number already has a request outstanding, job has been completed or cancelled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - phoneNumber
+              - countryCode
+              - jobId
+              - message
+              properties:
+                phoneNumber:
+                  type: string
+                  description: The phone number of the recipient.
+                countryCode:
+                  type: string
+                  description: The two character country code of the phone number.
+                jobId:
+                  type: string
+                  description: The UID of the job that this message relates to.
+                message:
+                  type: string
+                  description: Message to send to the resource. Message length is limited to 800 characters.
+        required: true
+components:
+  schemas:
+    SMSSentForTenant:
+      type: object
+      required:
+      - key
+      - to
+      - status
+      - created
+      - updated
+      - cursor
+      properties:
+        key:
+          type: object
+          required:
+          - vendor
+          - id
+          properties:
+            vendor:
+              type: string
+            id:
+              type: string
+        to:
+          type: string
+          description: E164 phone number that the SMS was sent to
+        status:
+          type: string
+          description: 'Should be one of the following strings: accepted, delivered, failed, queued, sending, sent, undelivered'
+        resourceId:
+          type: string
+          nullable: true
+        jobId:
+          type: string
+          nullable: true
+        created:
+          type: string
+          format: date-time
+          description: The time when the SMS was created
+        updated:
+          type: string
+          format: date-time
+          description: The time when the SMS last had its status updated
+        cursor:
+          type: string
+          description: A string to pass as the cursor GET parameter to fetch records that occur after this one
+    Success:
+      type: object
+      properties:
+        success:
+          type: boolean
+          default: true
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

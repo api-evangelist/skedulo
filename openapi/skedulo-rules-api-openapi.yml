@@ -1,0 +1,132 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Rules API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Rules
+paths:
+  /rules/resolve:
+    post:
+      security:
+      - Authorization: []
+      summary: Resolve record access rules
+      description: Resolves the supplied rule definitions into valid EQL filters, combining rules by object type and returning errors for any invalid filter definitions. Requires the Record Access Policies feature to be enabled.
+      operationId: rules_resolve
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accessRules
+              properties:
+                accessRules:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/RecordAccessRule'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOKResolvedAccessRules'
+      tags:
+      - Rules
+  /rules/user:
+    get:
+      security:
+      - Authorization: []
+      summary: Record access rules for the current user
+      description: Returns the current user's record access rules.
+      operationId: rules_user
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOKAccessRules'
+      tags:
+      - Rules
+components:
+  schemas:
+    ResolvedAccessRuleError:
+      description: Error details when resolving access rules for an object type
+      type: object
+      required:
+      - objectType
+      - message
+      properties:
+        objectType:
+          description: The object type of the rule in error
+          type: string
+        message:
+          description: The error message
+          type: string
+    ResultOKResolvedAccessRules:
+      type: object
+      properties:
+        valid:
+          description: Whether all of the supplied rules resolved successfully (i.e. are valid)
+          type: boolean
+        accessRules:
+          description: The resolved access rules (one for each object type)
+          type: array
+          items:
+            $ref: '#/components/schemas/ResolvedAccessRule'
+        errors:
+          description: Any errors for rules that couldn't be resolved
+          type: array
+          items:
+            $ref: '#/components/schemas/ResolvedAccessRuleError'
+    ResolvedAccessRule:
+      type: object
+      required:
+      - objectType
+      - filter
+      properties:
+        objectType:
+          description: The type of object that the rule applies to
+          type: string
+        filter:
+          description: EQL filter that is applied when accessing records of the object type
+          type: string
+    RecordAccessRule:
+      type: object
+      required:
+      - objectType
+      - filter
+      - accessType
+      properties:
+        objectType:
+          description: The type of object that the rule applies to
+          type: string
+        filter:
+          description: EQL filter that is applied when accessing records of the object type
+          type: string
+        accessType:
+          description: Whether the rule allows or denies access
+          type: string
+          enum:
+          - allow
+          - deny
+    ResultOKAccessRules:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResolvedAccessRule'
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

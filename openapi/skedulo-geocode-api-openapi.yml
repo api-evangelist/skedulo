@@ -1,0 +1,180 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Geocode API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Geocode
+paths:
+  /geocode:
+    post:
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GeocodeRequest'
+        required: true
+      summary: Geocode an address
+      description: For a given list of addreseses, returns a list of geocoded `LatLng`, or errors.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeocodeResponse'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Geocode
+components:
+  schemas:
+    GeocodeRequestIndividualRequest:
+      type: object
+      required:
+      - address
+      properties:
+        address:
+          type: string
+        bounds:
+          $ref: '#/components/schemas/GeocodeRequestBounds'
+    GeocodeFailure:
+      required:
+      - address
+      - reason
+      properties:
+        address:
+          type: string
+        reason:
+          $ref: '#/components/schemas/GeocodeError'
+    GeocodeError:
+      type: object
+      required:
+      - msg
+      properties:
+        msg:
+          type: string
+    GeocodeResponse:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/GeocodeResult'
+    GeocodeRequest:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/GeocodeRequestAddressesOnly'
+      - $ref: '#/components/schemas/GeocodeRequestIndividualRequests'
+    GeocodeRequestIndividualRequests:
+      type: object
+      required:
+      - requests
+      properties:
+        requests:
+          type: array
+          items:
+            $ref: '#/components/schemas/GeocodeRequestIndividualRequest'
+        language:
+          type: string
+          description: Return addresses in the given language. Must be a language code.
+        responseType:
+          $ref: '#/components/schemas/GeocodeRequestResponseType'
+    GeocodeRequestResponseType:
+      type: string
+      description: Determines whether GeocodeSuccess or GeocodeMultipleMatchSuccess is returned in the response.
+      enum:
+      - allMatches
+      - firstMatch
+    GeocodeRequestAddressesOnly:
+      type: object
+      required:
+      - addresses
+      properties:
+        addresses:
+          type: array
+          items:
+            type: string
+        language:
+          type: string
+          description: Return addresses in the given language. Must be a language code.
+        responseType:
+          $ref: '#/components/schemas/GeocodeRequestResponseType'
+    GeocodeRequestBounds:
+      type: object
+      required:
+      - northwest
+      - southeast
+      properties:
+        northwest:
+          $ref: '#/components/schemas/LatLng'
+        southeast:
+          $ref: '#/components/schemas/LatLng'
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+    GeocodeSuccess:
+      required:
+      - address
+      - latlng
+      - granularity
+      properties:
+        address:
+          type: string
+        latlng:
+          $ref: '#/components/schemas/LatLng'
+        granularity:
+          type: string
+          enum:
+          - streetAddress
+          - other
+          description: Specifies the most granular address element that matches the geocoding query.
+    GeocodeMultipleMatchSuccess:
+      type: array
+      items:
+        $ref: '#/components/schemas/GeocodeSuccess'
+    GeocodeResult:
+      type: object
+      description: Only one of the keys 'GeocodeSuccess', 'GeocodeMultipleMatchSuccess' or 'GeocodeFailure' will be present in the response.
+      properties:
+        GeocodeSuccess:
+          $ref: '#/components/schemas/GeocodeSuccess'
+        GeocodeFailure:
+          $ref: '#/components/schemas/GeocodeFailure'
+        GeocodeMultipleMatchSuccess:
+          $ref: '#/components/schemas/GeocodeMultipleMatchSuccess'
+    LatLng:
+      type: object
+      required:
+      - lat
+      - lng
+      properties:
+        lat:
+          description: -90 <= y <= 90
+          type: number
+        lng:
+          description: -180 <= x <= 180
+          type: number
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

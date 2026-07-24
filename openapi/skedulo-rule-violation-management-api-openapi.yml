@@ -1,0 +1,1105 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Rule Violation Management API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Rule Violation Management
+paths:
+  /violation:
+    put:
+      tags:
+      - Rule Violation Management
+      summary: Insert or update a custom rule violation
+      operationId: upsertCustomViolation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleViolationInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultBigInteger'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Rule Violation Management
+      summary: Delete a custom rule violation by key
+      operationId: deleteCustomViolation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomRuleViolationKeyInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultBigInteger'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+  /violations:
+    put:
+      tags:
+      - Rule Violation Management
+      summary: Batch insert or update custom rule violations
+      operationId: upsertManyCustomViolation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleViolationsInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultListBigInteger'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Rule Violation Management
+      summary: Delete custom rule violations by key
+      operationId: deleteCustomViolations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomRuleViolationKeysInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultListBigInteger'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+  /violations/{tenantId}/resetOffsets:
+    post:
+      tags:
+      - Rule Violation Management
+      summary: Reset the change event offset of all core (non-custom) violations for a tenant to 0 so event and batch processing can update them again. Internal use only.
+      operationId: resetViolationOffsets
+      parameters:
+      - name: tenantId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultResetViolationOffsetsResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+  /violations/search:
+    post:
+      tags:
+      - Rule Violation Management
+      summary: Find core and custom violations by filter criteria
+      operationId: getViolationsForTargets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleViolationSearchInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultRuleViolationSearchResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+  /violations/findByTargetIds:
+    post:
+      tags:
+      - Rule Violation Management
+      summary: 'Find core and custom violations affecting a list of target objects. Warning: This endpoint does not support pagination of the results and is therefore deprecated. Please use the ''/violations/search'' endpoint instead.'
+      operationId: getViolationsForTargets_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleViolationTargetIdsInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultRuleViolationListResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      deprecated: true
+      security:
+      - ApiKeyAuth: []
+  /violations/assignUser:
+    post:
+      tags:
+      - Rule Violation Management
+      summary: Assign a user to a core or custom violation
+      operationId: assignViolationUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleViolationAssignUserInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultBigInteger'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+  /violations/assignStatus:
+    post:
+      tags:
+      - Rule Violation Management
+      summary: Assign a status to a core or custom violation
+      operationId: assignViolationStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleViolationAssignStatusInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultBigInteger'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+  /violations/{violationId}:
+    get:
+      tags:
+      - Rule Violation Management
+      summary: Find core and custom violations by violation id
+      operationId: getViolationById
+      parameters:
+      - name: violationId
+        in: path
+        description: Rule violation ID
+        required: true
+        schema:
+          type: integer
+        example: 2756
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultRuleViolationResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+  /custom:
+    get:
+      tags:
+      - Rule Violation Management
+      summary: Get a list of the custom rules currently in use.
+      operationId: getCustomRules
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultListCustomRuleResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+  /violations/{targetId}:
+    delete:
+      tags:
+      - Rule Violation Management
+      summary: Delete all custom rule violations for a specific object
+      operationId: deleteCustomViolationByTargetId
+      parameters:
+      - name: targetId
+        in: path
+        description: Target ID
+        required: true
+        schema:
+          type: string
+        example: b055d7c1-ef2f-40e9-bcd2-634e9835e69b
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultListBigInteger'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+  /violations/rule/{ruleId}:
+    delete:
+      tags:
+      - Rule Violation Management
+      summary: Delete all custom rule violations for a given rule ID
+      operationId: deleteCustomViolationByRuleId
+      parameters:
+      - name: ruleId
+        in: path
+        description: Rule ID
+        required: true
+        schema:
+          type: string
+        example: unsafeArea
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultListBigInteger'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+  /violation/{id}:
+    delete:
+      tags:
+      - Rule Violation Management
+      summary: Delete a custom rule violation by ID
+      operationId: deleteCustomViolationById
+      parameters:
+      - name: id
+        in: path
+        description: Rule violation ID
+        required: true
+        schema:
+          type: integer
+        example: 2756
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultBigInteger'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    RuleViolationAssignStatusInput:
+      required:
+      - status
+      - violationId
+      type: object
+      properties:
+        violationId:
+          type: integer
+          description: The ID of the Rule Violation to assign the status
+          example: 2756
+        status:
+          type: string
+          description: The status to assign to the Rule Violation
+          example: In Progress
+      description: Details of the Rule Violation status assignment.
+    ApiResultRuleViolationListResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/RuleViolationListResult'
+    RuleIdSearchFilter:
+      type: object
+      properties:
+        core:
+          $ref: '#/components/schemas/RuleIdFilter'
+        custom:
+          $ref: '#/components/schemas/RuleIdFilter'
+      description: Rule id search filter parameters.
+    ApiResultListBigInteger:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            type: integer
+    RuleViolationSearchResult:
+      required:
+      - hasNextPage
+      - totalCount
+      - violations
+      type: object
+      properties:
+        violations:
+          type: array
+          description: List of violations for the current page.
+          items:
+            $ref: '#/components/schemas/RuleViolationResult'
+        totalCount:
+          type: integer
+          description: Total number of violations.
+          format: int64
+          example: 440
+        hasNextPage:
+          type: boolean
+          description: True if there are more results after the current page.
+          example: true
+        nextOffset:
+          type: integer
+          description: Start offset of the next page (null if hasNextPage is false).
+          format: int64
+          example: 300
+      description: Results of a search Rule Violations query.
+    AssignedToFilter:
+      required:
+      - includeUnassigned
+      type: object
+      properties:
+        userIds:
+          maxItems: 100
+          minItems: 0
+          uniqueItems: true
+          type: array
+          description: Include only violations that are assigned to these specific user IDs.
+          items:
+            type: string
+            example: 44bb347c-457d-4dbe-be9c-a6c6fe5d57f5
+        includeUnassigned:
+          type: boolean
+          description: If true, include violations that are not assigned to user IDs.
+          example: true
+      description: AssignedTo search filter parameters.
+    RuleViolationInput:
+      required:
+      - link
+      - regionId
+      - resourceIds
+      - ruleId
+      - sourceId
+      - sourceType
+      - targetId
+      - targetType
+      type: object
+      properties:
+        ruleId:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: The type of rule that was violated. Custom violations must have any non-empty rule ID.
+          example: unsafeArea
+        targetId:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: The UID of the object that the rule violation affects. Target IDs should be unique across all object types.
+          example: b055d7c1-ef2f-40e9-bcd2-634e9835e69b
+        sourceId:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: The UID of the object that caused rule violation (may be the same as the target). Source IDs should be unique across all object types.
+          example: 5c832cd6-006b-454a-b747-5cb62beef885
+        targetType:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: The object type of the target object. This must be a standard or custom data model object type in singular camelCase.
+          example: job
+        sourceType:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: The object type of the source object. This must be a standard or custom data model object type in singular camelCase.
+          example: job
+        startTime:
+          type: string
+          description: The time at which the violation starts. This is used for filtering by time window.
+          format: date-time
+        endTime:
+          type: string
+          description: The time at which the violation ends. This is used for filtering by time window.
+          format: date-time
+        regionId:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: The region of the target object. Used for filtering results.
+          example: 6cdd3be8-6fab-44c5-a6b7-e9ddc6860eb7
+        resourceIds:
+          maxItems: 100
+          minItems: 0
+          uniqueItems: true
+          type: array
+          description: The resources that the violation applies to, if any. Used for filtering results.
+          items:
+            maxLength: 255
+            minLength: 1
+            type: string
+            example: d5ed41db-87ee-4dd2-a65c-dd37dc253d3b
+        description:
+          maxLength: 1024
+          minLength: 1
+          type: string
+          description: A user-friendly description of the rule violation, to be displayed by the UI.
+          example: Job is in an area that may be unsafe
+        link:
+          $ref: '#/components/schemas/RuleViolationLink'
+        context:
+          type: object
+      description: Details of the custom Rule Violation. The ruleId, targetId and sourceId form a unique key.
+    RuleViolationSearchFilterInput:
+      required:
+      - startTime
+      type: object
+      properties:
+        startTime:
+          type: string
+          description: Start of the search time window.
+          format: date-time
+        endTime:
+          type: string
+          description: End of the search time window. If not specified, it defaults to startTime + 365 days.
+          format: date-time
+        targetTypes:
+          maxItems: 200
+          minItems: 0
+          type: array
+          description: If provided, only violations having these targetType values are included.
+          items:
+            type: string
+            example: job
+        regionIds:
+          maxItems: 200
+          minItems: 0
+          type: array
+          description: If provided, only violations from these regions are included.
+          items:
+            type: string
+            example: 6cdd3be8-6fab-44c5-a6b7-e9ddc6860eb7
+        resourceIds:
+          maxItems: 200
+          minItems: 0
+          type: array
+          description: If provided, only violations for these resources are included.
+          items:
+            type: string
+            example: d5ed41db-87ee-4dd2-a65c-dd37dc253d3b
+        statuses:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: If provided, only violations for these statuses are included.
+          items:
+            type: string
+            example: In Progress
+        ruleIds:
+          $ref: '#/components/schemas/RuleIdSearchFilter'
+        assignedTo:
+          $ref: '#/components/schemas/AssignedToFilter'
+        includeNoTimestamp:
+          type: boolean
+          description: If true, violations with no startTime and endTime are included.
+          example: false
+        targetIds:
+          maxItems: 200
+          minItems: 0
+          type: array
+          description: If provided, only violations for these targetIds are included.
+          items:
+            type: string
+            example: d5ed41db-87ee-4dd2-a65c-dd37dc253d3b
+      description: 'Search Rule Violations filter criteria.
+
+
+        For the time range filter, Rule Violations whose [startTime, endTime] interval overlaps with the provided search time range are returned. Time ranges are treated as half-open intervals, meaning that violations that start at the end time of the range will not be returned.'
+    CustomRuleViolationKeysInput:
+      required:
+      - keys
+      type: object
+      properties:
+        keys:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: The type of rule that was violated.
+          example: unsafeArea
+          items:
+            $ref: '#/components/schemas/CustomRuleViolationKeyInput'
+      description: A list of violation keys.
+    ApiResultListCustomRuleResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomRuleResult'
+    RuleViolationLinkType:
+      type: string
+      enum:
+      - skedulo
+      - external
+    ApiResultRuleViolationSearchResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/RuleViolationSearchResult'
+    ApiResultBigInteger:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          type: integer
+    RuleIdFilter:
+      required:
+      - include
+      type: object
+      properties:
+        include:
+          $ref: '#/components/schemas/IncludeType'
+      description: Filter parameters.
+      discriminator:
+        propertyName: include
+        mapping:
+          all: '#/components/schemas/IncludeAllRuleId'
+          only: '#/components/schemas/IncludeOnlyRuleId'
+    ErrorDetails:
+      type: object
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+    RuleViolationsInput:
+      required:
+      - violations
+      type: object
+      properties:
+        violations:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: The type of rule that was violated.
+          example: unsafeArea
+          items:
+            $ref: '#/components/schemas/RuleViolationInput'
+      description: A list of violations.
+    RuleViolationLink:
+      required:
+      - name
+      - type
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/RuleViolationLinkType'
+        name:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: The name of the link.
+          example: Job
+      description: Link details to the target of the violation.
+      discriminator:
+        propertyName: type
+        mapping:
+          skedulo: '#/components/schemas/SkeduloRuleViolationLink'
+          external: '#/components/schemas/ExternalRuleViolationLink'
+    ResetViolationOffsetsResult:
+      required:
+      - tenantId
+      - violationsReset
+      type: object
+      properties:
+        tenantId:
+          type: string
+          description: The tenant whose violation offsets were reset.
+        violationsReset:
+          type: integer
+          description: The number of core (non-custom) violations whose change event offset was reset to 0.
+          format: int64
+          example: 42
+    RuleViolationResult:
+      required:
+      - context
+      - createdTime
+      - id
+      - isCustom
+      - lastModifiedTime
+      - regionId
+      - resourceIds
+      - ruleId
+      - sourceId
+      - sourceType
+      - status
+      - targetId
+      - targetType
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Globally unique identifier for the violation.
+          example: 123
+        ruleId:
+          type: string
+          description: The type of rule that was violated. Core rule ids are:<br><ul><li>insufficientTravelTime</li><li>jobDependencies</li><li>jobOverallocated</li><li>jobTimeConstraints</li><li>missingJobTags</li><li>missingOptionalJobTags</li><li>resourceAccountExcluded</li><li>resourceAccountNotIncluded</li><li>resourceInactive</li><li>resourceLocationExcluded</li><li>resourceLocationNotIncluded</li><li>resourceUnavailable</li><li>workOverlap</li></ul>
+          example: workOverlap
+        isCustom:
+          type: boolean
+          description: True if the violation was inserted by an external client.
+          example: false
+        targetId:
+          type: string
+          description: The UID of the object that the rule violation affects.
+          example: b055d7c1-ef2f-40e9-bcd2-634e9835e69b
+        sourceId:
+          type: string
+          description: The UID of the object that caused rule violation (may be the same as the target).
+          example: 5c832cd6-006b-454a-b747-5cb62beef885
+        targetType:
+          type: string
+          description: The object type of the target object.
+          example: job
+        sourceType:
+          type: string
+          description: The object type of the source object.
+          example: job
+        startTime:
+          type: string
+          description: The time at which the violation starts.
+          format: date-time
+          example: '2022-01-01T09:00:00Z'
+        endTime:
+          type: string
+          description: The time at which the violation ends.
+          format: date-time
+          example: '2022-01-01T10:00:00Z'
+        regionId:
+          type: string
+          description: The region of the target object. Used for filtering results.
+          example: 6cdd3be8-6fab-44c5-a6b7-e9ddc6860eb7
+        resourceIds:
+          uniqueItems: true
+          type: array
+          description: The resources that the violation applies to, if any.
+          items:
+            type: string
+            example: d5ed41db-87ee-4dd2-a65c-dd37dc253d3b
+        description:
+          type: string
+          description: A user-friendly description of the rule violation.
+          example: Job is in an area that may be unsafe
+        link:
+          $ref: '#/components/schemas/RuleViolationLink'
+        status:
+          type: string
+          description: The current status assigned to the violation
+          example: In Progress
+        assignedTo:
+          type: string
+          description: The user assigned to the violation
+          example: a521ed9f-a353-4952-b6cd-e7b5e02c3591
+        context:
+          $ref: '#/components/schemas/RuleViolationContext'
+        createdTime:
+          type: string
+          description: Created timestamp
+          format: date-time
+        lastModifiedTime:
+          type: string
+          description: Last modified timestamp
+          format: date-time
+      description: Details of a Rule Violation that was either generated by the core engine or inserted by a client.
+    CustomRuleResult:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier for the rule.
+          example: unsafeArea
+      description: Details of a custom rule.
+    CustomRuleViolationKeyInput:
+      required:
+      - ruleId
+      - sourceId
+      - targetId
+      type: object
+      properties:
+        ruleId:
+          type: string
+          description: The type of rule that was violated.
+          example: unsafeArea
+        targetId:
+          type: string
+          description: The UID of the object that the rule violation affects.
+          example: b055d7c1-ef2f-40e9-bcd2-634e9835e69b
+        sourceId:
+          type: string
+          description: The UID of the object that caused rule violation (may be the same as the target).
+          example: 5c832cd6-006b-454a-b747-5cb62beef885
+      description: Uniquely identifies a Custom Rule Violation.
+    RuleViolationContext:
+      required:
+      - _type
+      type: object
+      properties:
+        _type:
+          type: string
+      description: A JSON object containing extra information for the violation
+      discriminator:
+        propertyName: _type
+        mapping:
+          custom: '#/components/schemas/CustomContext'
+          insufficientTravelTime: '#/components/schemas/InsufficientTravelTimeContext'
+          jobDependencies: '#/components/schemas/JobDependenciesContext'
+          jobOverallocated: '#/components/schemas/JobOverallocatedContext'
+          jobTimeConstraints: '#/components/schemas/JobTimeConstraintsContext'
+          missingJobTags: '#/components/schemas/MissingJobTagsContext'
+          missingOptionalJobTags: '#/components/schemas/MissingJobTagsContext'
+          resourceAccountExcluded: '#/components/schemas/ResourceAccountExcludedContext'
+          resourceAccountNotIncluded: '#/components/schemas/ResourceAccountNotIncludedContext'
+          resourceInactive: '#/components/schemas/ResourceInactiveContext'
+          resourceLocationExcluded: '#/components/schemas/ResourceLocationExcludedContext'
+          resourceLocationNotIncluded: '#/components/schemas/ResourceLocationNotIncludedContext'
+          resourceUnavailable: '#/components/schemas/ResourceUnavailableContext'
+          workOverlap: '#/components/schemas/WorkOverlapContext'
+    Order:
+      required:
+      - direction
+      - field
+      type: object
+      properties:
+        field:
+          type: string
+          description: 'The field to order by. The following fields are accepted: createdTime, description, endTime, id, isCustom, lastModifiedTime, regionId, ruleId, sourceId, sourceType, startTime, status, targetId, targetType'
+          example: ruleId
+        direction:
+          type: string
+          description: The direction in which to order the 'field' by
+          example: ASC
+          enum:
+          - ASC
+          - DESC
+      description: The order in which to sort results
+    RuleViolationListResult:
+      required:
+      - limitReached
+      - violations
+      type: object
+      properties:
+        violations:
+          type: array
+          description: List of violations.
+          items:
+            $ref: '#/components/schemas/RuleViolationResult'
+        limitReached:
+          type: boolean
+          description: True if the maximum number of violations retrievable in a single query has been reached (currently 2000 violations).
+      description: Results of a find Rule Violations by list of target object UIDs query.
+    RuleViolationAssignUserInput:
+      required:
+      - violationId
+      type: object
+      properties:
+        violationId:
+          type: integer
+          description: The ID of the Rule Violation to assign to the user
+          example: 2756
+        user:
+          type: string
+          description: The user to assign to the Rule Violation
+          example: a521ed9f-a353-4952-b6cd-e7b5e02c3591
+      description: Details of the Rule Violation user assignment.
+    RuleViolationTargetIdsInput:
+      required:
+      - targetIds
+      type: object
+      properties:
+        targetIds:
+          maxItems: 1000
+          minItems: 0
+          type: array
+          description: List of the UIDs of the objects that the rule violation affects. Target IDs should be unique across all object types.
+          items:
+            type: string
+            example: b055d7c1-ef2f-40e9-bcd2-634e9835e69b
+      description: A list of target object UIDs.
+    ApiResultResetViolationOffsetsResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/ResetViolationOffsetsResult'
+    RuleViolationSearchInput:
+      required:
+      - filter
+      type: object
+      properties:
+        filter:
+          $ref: '#/components/schemas/RuleViolationSearchFilterInput'
+        limit:
+          maximum: 2000
+          minimum: 1
+          type: integer
+          description: Pagination limit (number of violations per page). If not specified, a default limit of 200 is used.
+          format: int32
+          example: 200
+        offset:
+          maximum: 9223372036854776000
+          minimum: 0
+          type: integer
+          description: Pagination offset (zero-based). Defaults to 0.
+          format: int64
+          example: 100
+        sortBy:
+          type: array
+          description: 'List of Rule Violation fields the results should be ordered by. Any results that are equal after ordering will be ordered by ''id ASC''.
+
+
+            If not provided, the default ordering is ''startTime ASC'' followed by ''id ASC''.'
+          items:
+            $ref: '#/components/schemas/Order'
+      description: Parameters of a search Rule Violations query.
+    ApiResultRuleViolationResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/RuleViolationResult'
+    IncludeType:
+      type: string
+      enum:
+      - all
+      - only
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

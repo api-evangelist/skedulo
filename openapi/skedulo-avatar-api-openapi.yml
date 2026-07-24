@@ -1,0 +1,90 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Avatar API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Avatar
+paths:
+  /avatar:
+    get:
+      summary: Return a map of (userId -> url) for the given userIds
+      description: ''
+      operationId: getAvatarFor
+      parameters:
+      - name: user_ids
+        in: query
+        description: Comma-separated identifiers of the users to get the avatar urls for
+        required: true
+        schema:
+          type: string
+      - name: size_hint
+        in: query
+        description: Requested image size. Return thumbnail image for 'small' or 'thumbnail' input, full image otherwise
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvatarFullResult'
+        '404':
+          description: User with the given identifier not found
+      tags:
+      - Avatar
+components:
+  schemas:
+    AvatarResults:
+      type: object
+      additionalProperties:
+        type: string
+    AvatarErrors:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/AvatarError'
+    AvatarAuths:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/AvatarAuth'
+    AvatarFullResult:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/AvatarResults'
+        errors:
+          $ref: '#/components/schemas/AvatarErrors'
+        extra:
+          $ref: '#/components/schemas/AvatarAuths'
+    AvatarError:
+      type: object
+      required:
+      - errorType
+      - errorMsg
+      properties:
+        errorType:
+          type: string
+        errorMsg:
+          type: string
+    AvatarAuth:
+      type: object
+      required:
+      - signature
+      - expiry
+      properties:
+        signature:
+          type: string
+        expiry:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,248 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Admin
+paths:
+  /admin/api_user/{tenantId}:
+    get:
+      summary: Get API user for tenant (Internal)
+      description: Get the API user for a given tenant ID. The caller must be an internal administrator.
+      operationId: adminGetApiUser
+      parameters:
+      - in: path
+        name: tenantId
+        description: The tenant ID to get the API user for
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/AdminApiUser'
+      tags:
+      - Admin
+  /admin/api_user/bulk:
+    post:
+      summary: Get API user for multiple tenants (Internal)
+      description: Get the API user for the given list of tenant IDs. The caller must be an internal administrator.
+      operationId: adminGetApiUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - tenantIds
+              properties:
+                tenantIds:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - sk_e0bb1f8aa1924a00b77a9c1f43b09e41
+      responses:
+        '200':
+          description: Successful result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/AdminApiUser'
+      tags:
+      - Admin
+  /admin/tokens/{tenantId}:
+    get:
+      summary: List all API tokens for tenant (Internal)
+      description: List metadata for all API tokens, including revoked tokens for a tenant. The actual token values are not returned.
+      operationId: adminFetchAllApiTokens
+      parameters:
+      - in: path
+        name: tenantId
+        description: The tenant ID
+        required: true
+      responses:
+        '200':
+          description: Metadata for all tokens.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ApiTokenInfo'
+      tags:
+      - Admin
+  /admin/token/{tenantId}/{jti}:
+    get:
+      summary: Get an API token for a tenant (Internal)
+      description: Get metadata for an API token for a tenant by specifying its JTI.
+      operationId: adminFetchApiToken
+      parameters:
+      - in: path
+        name: tenantId
+        description: The tenant ID
+        required: true
+      - in: path
+        name: jti
+        description: The JWT Identifier for the API token
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Metadata for the requested API token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/ApiTokenInfo'
+      tags:
+      - Admin
+  /admin/token/revoke/{tenantId}:
+    post:
+      summary: Revoke an API token for a tenant (Internal)
+      description: Revoke an API token so it can no longer be used to authenticate API requests.
+      operationId: adminRevokeToken
+      parameters:
+      - in: path
+        name: tenantId
+        description: The tenant ID
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                jti:
+                  description: JWT Identifier of the token to revoke. This can be found by decoding the token or by getting the list of tokens via the API.
+                  type: string
+      responses:
+        '200':
+          description: The token was revoked
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - result
+                properties:
+                  result:
+                    type: object
+      tags:
+      - Admin
+  /admin/token/unrevoke/{tenantId}:
+    post:
+      summary: Unrevoke an API token for a tenant (Internal)
+      description: Unrevoke an API token that has previously been revoked so it can be used again.
+      operationId: adminUnrevokeToken
+      parameters:
+      - in: path
+        name: tenantId
+        description: The tenant ID
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                jti:
+                  description: JWT Identifier of the token to unrevoke. This can be found by decoding the token or by getting the list of tokens via the API.
+                  type: string
+      responses:
+        '200':
+          description: The token was unrevoked
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - result
+                properties:
+                  result:
+                    description: An empty object
+                    type: object
+      tags:
+      - Admin
+components:
+  schemas:
+    ApiTokenInfo:
+      type: object
+      required:
+      - tenantId
+      - jti
+      - claims
+      - createdDate
+      - createdBy
+      properties:
+        tenantId:
+          type: string
+          example: sk_e0bb1f8aa1924a00b77a9c1f43b09e41
+        jti:
+          type: string
+          example: BM10SHoI4Z4nmhtElInXuJWLkeeqqyzy
+        claims:
+          $ref: '#/components/schemas/JwtClaims'
+        createdDate:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        revokedDate:
+          type: string
+          format: date-time
+        revokedBy:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+    AdminApiUser:
+      type: object
+      required:
+      - tenantId
+      - type
+      properties:
+        tenantId:
+          type: string
+          example: sk_e0bb1f8aa1924a00b77a9c1f43b09e41
+        type:
+          type: string
+          enum:
+          - api_user
+          - standalone_system_user
+          - legacy_user
+          - none
+          example: api_user
+        userId:
+          type: string
+          example: ipovey@skedulo.com
+    JwtClaims:
+      description: Selection of the user claims from the JWT
+      type: object
+      additionalProperties: true
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

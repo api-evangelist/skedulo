@@ -1,0 +1,119 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Metadata API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Metadata
+paths:
+  /metadata/user:
+    get:
+      security:
+      - Authorization: []
+      summary: Get metadata for the authenticated user
+      description: Retrieves metadata including user details, team information, and associated resource data for the currently authenticated user.
+      operationId: metadataUser
+      responses:
+        '200':
+          description: The current user's metadata
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  created:
+                    $ref: '#/components/schemas/UserMetadata'
+        '412':
+          description: The user belongs to a tenant that is not associated with a team
+      tags:
+      - Metadata
+components:
+  schemas:
+    TeamMetadata:
+      type: object
+      required:
+      - id
+      - name
+      - description
+      - vendor
+      - orgId
+      properties:
+        id:
+          type: string
+        name:
+          description: A valid DNS sub domain
+          type: string
+        description:
+          description: A human friendly name
+          type: string
+        vendor:
+          description: The vendor associated with this organization
+          type: string
+          enum:
+          - salesforce
+          - servicenow
+          - skedulo
+        orgId:
+          description: The vendor specific organization ID
+          type: string
+        customer:
+          description: The customer name.
+          type: string
+    UserMetadata:
+      type: object
+      required:
+      - id
+      - email
+      - username
+      - fullName
+      - lastName
+      - team
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        username:
+          type: string
+        fullName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        team:
+          $ref: '#/components/schemas/TeamMetadata'
+        resource:
+          $ref: '#/components/schemas/ResourceMetadata'
+    ResourceMetadata:
+      type: object
+      required:
+      - id
+      - timezone
+      properties:
+        id:
+          type: string
+        category:
+          type: string
+        employmentType:
+          type: string
+        address:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        mobilePhone:
+          type: string
+        timezone:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,101 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Vocabularies API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Vocabularies
+paths:
+  /vocabularies:
+    get:
+      security:
+      - Authorization: []
+      summary: Get all vocabularies (picklist items)
+      description: Returns all vocabularies (standard and custom) keyed on object name with values keyed on field name. If no object names are provided, vocabularies for all objects are returned.
+      operationId: fetchVocabularies
+      parameters:
+      - name: names
+        in: query
+        description: Names of objects to fetch vocabularies for in comma separated format. If not provided all vocabularies are returned.
+        required: false
+        schema:
+          type: string
+      - name: force
+        in: query
+        description: If set to true the cache is replaced with a new value. Has no effect if 'names' are provided as individual objects are not cached.
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - result
+                properties:
+                  result:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      additionalProperties:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/PicklistValue'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Vocabularies
+components:
+  schemas:
+    PicklistValue:
+      type: object
+      required:
+      - value
+      - label
+      - active
+      - defaultValue
+      - validFor
+      properties:
+        value:
+          type: string
+        label:
+          type: string
+        active:
+          type: boolean
+        defaultValue:
+          type: boolean
+        controller:
+          type: string
+        controllingField:
+          type: string
+        validFor:
+          type: array
+          items:
+            type: string
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,202 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Job Notifications and Responses API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Job Notifications and Responses
+paths:
+  /dispatch:
+    post:
+      security:
+      - Authorization: []
+      summary: Dispatch resources
+      tags:
+      - Job Notifications and Responses
+      description: This endpoint will dispatch the resources and notify them.
+      responses:
+        '200':
+          description: Result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DispatchResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        $ref: '#/components/requestBodies/NotifyRequest'
+  /notify:
+    post:
+      security:
+      - Authorization: []
+      summary: Notify resources about an allocated job
+      tags:
+      - Job Notifications and Responses
+      description: Notify resources that they are allocated to a job. This can be used to send a reminder message after the initial job dispatch. Individual resources can be notified, or all resources allocated to the job.
+      responses:
+        '200':
+          description: Result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DispatchResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        $ref: '#/components/requestBodies/NotifyRequest'
+  /notify_cancel:
+    post:
+      security:
+      - Authorization: []
+      summary: Notify resources of job cancellation
+      tags:
+      - Job Notifications and Responses
+      description: Send a message to all resources allocated to the job advising that it has been cancelled.
+      responses:
+        '200':
+          description: Result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DispatchResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelRequest'
+        required: true
+  /oneoff:
+    post:
+      security:
+      - Authorization: []
+      summary: Send a message to a resource
+      description: Send a message to a resource via push notification or SMS.
+      tags:
+      - Job Notifications and Responses
+      responses:
+        '200':
+          description: Message sent
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - protocol
+                properties:
+                  protocol:
+                    description: The protocol the message was sent with.
+                    type: string
+                    enum:
+                    - push
+                    - sms
+        '400':
+          description: Message too long or invalid request body.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - resourceId
+              - message
+              properties:
+                resourceId:
+                  type: string
+                message:
+                  type: string
+                  description: Message to send to the resource. Message length is limited to 800 characters and must not be blank.
+                protocol:
+                  type: string
+                  description: The notification method to use to send the message. If not provided, the resource's default notification method is used.
+                  enum:
+                  - push
+                  - sms
+        required: true
+components:
+  schemas:
+    NotifyRequest:
+      type: object
+      required:
+      - jobId
+      properties:
+        jobId:
+          type: string
+        resourceId:
+          type: string
+        resourceIds:
+          type: array
+          items:
+            type: string
+    CancelRequest:
+      type: object
+      required:
+      - jobId
+      properties:
+        jobId:
+          type: string
+    DispatchResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          required:
+          - jobId
+          - results
+          properties:
+            jobId:
+              type: string
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResourceResult'
+    ResourceResult:
+      type: object
+      properties:
+        resourceId:
+          type: string
+        protocol:
+          type: string
+        error:
+          description: null if the notification was sent successfully
+          $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+  requestBodies:
+    NotifyRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotifyRequest'
+      required: true
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

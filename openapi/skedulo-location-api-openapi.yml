@@ -1,0 +1,372 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Location API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Location
+paths:
+  /location/latest:
+    get:
+      security:
+      - Authorization: []
+      operationId: locationLatest
+      summary: Latest locations
+      description: 'The latest locations endpoint returns information about the **resource''s** latest location. It is a map from resourceId to latest location.
+
+        '
+      parameters:
+      - name: resource_ids
+        in: query
+        description: Comma separated resourceIds
+        required: true
+        schema:
+          type: string
+          format: string
+      responses:
+        '200':
+          description: A map from resourceId to Latest Location
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - result
+                properties:
+                  result:
+                    $ref: '#/components/schemas/LatestLocationResult'
+            result:
+              examples:
+                response:
+                  value:
+                    a0L6F000018s95jUAA:
+                      time: '2017-02-08T05:20:45.550Z'
+                      lat: 51.503364
+                      lng: -0.127625
+                      accuracy: 2.5
+        '400':
+          description: Bad request. eg. resourceId cannot be empty
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Location
+  /location/history:
+    get:
+      security:
+      - Authorization: []
+      operationId: locationHistory
+      summary: Location history
+      description: 'The Location history end point allows you to retrieve the location history for a resource.
+
+        The default limit is 100 results.
+
+        '
+      parameters:
+      - name: resource_id
+        in: query
+        description: Identifier of a resource
+        required: true
+        schema:
+          type: string
+      - name: start
+        in: query
+        description: Start time
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: end
+        in: query
+        description: End Time
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: accuracy
+        in: query
+        description: All points returned will have an accuracy of at least the number given. If this parameter is not provided the default value is 100. To return all points use an empty string.
+        required: false
+        schema:
+          type: number
+          format: double
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Paged array of locations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResultLocationHistory'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Location
+  /location/update:
+    post:
+      security:
+      - Authorization: []
+      operationId: locationUpdate
+      summary: Location Update
+      description: 'The location update endpoint allows one or more position updates to be provided indicating a resource''s location.
+
+
+        The resource is determined by the Java Web Token provided. It is not possible for users other than the logged in user to update a resources position.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Location'
+        required: true
+      responses:
+        '200':
+          description: Location update added
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Location
+  /location/resources_within_distance:
+    get:
+      security:
+      - Authorization: []
+      summary: Locate resources with a set distance
+      description: Locate all resources within a set distance of a specified location.
+      operationId: locationResourcesWithinDistance
+      parameters:
+      - name: lat
+        in: query
+        required: true
+        description: 'The latitude (degrees).  This should be in decimal format, ie. "DDD.DDDD" not degrees and minutes.
+
+          '
+        schema:
+          type: number
+          format: double
+      - name: lng
+        in: query
+        required: true
+        description: 'The longitude of the position (degrees).  This should be in decimal format, ie. "DDD.DDDD" not degrees and minutes.
+
+          '
+        schema:
+          type: number
+          format: double
+      - name: distance
+        in: query
+        required: true
+        description: The distance (metres) to query for resources.  Note that the accuracy of the resources location is not considered when making this query.
+        schema:
+          type: number
+          format: double
+      - name: start
+        in: query
+        description: Only consider points after this time.
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: end
+        in: query
+        description: Only consider points before this time.
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: accuracy
+        in: query
+        description: Ignores any points that have an accuracy greater than the number given. If this parameter is not provided the default value is 100. To return all points use an empty string.
+        required: false
+        schema:
+          type: number
+          format: double
+      responses:
+        '200':
+          description: Resources and their latest position that was within distance of the location.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - result
+                properties:
+                  result:
+                    $ref: '#/components/schemas/ResourceDistanceFromLocationResult'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Location
+components:
+  schemas:
+    DistanceFromLocation:
+      type: object
+      description: Position and Distance from a location
+      required:
+      - time
+      - lat
+      - lng
+      - distance
+      properties:
+        time:
+          type: string
+          format: date-time
+          description: Time the last position was received
+        lat:
+          type: number
+          format: double
+          description: Latitude of the position
+        lng:
+          type: number
+          format: double
+          description: Longitude of the position
+        distance:
+          type: number
+          format: double
+          description: Distance from the requested location (in meters)
+        accuracy:
+          type: number
+          format: double
+          description: Accuracy of the position
+    Location:
+      type: object
+      required:
+      - time
+      - lat
+      - lng
+      properties:
+        time:
+          type: string
+          format: date-time
+          description: Time the location was recorded. This must be in ISO date format.
+        lat:
+          type: number
+          format: double
+          description: 'The latitude (degrees).  This should be in decimal format, ie. "DDD.DDDD" not degrees and minutes.
+
+            '
+        lng:
+          type: number
+          format: double
+          description: 'The longitude (degrees). This should be in decimal format, ie. "DDD.DDDD" not degrees and minutes.
+
+            '
+        altitude:
+          type: number
+          format: float
+          description: The altitude (m)
+        heading:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 360
+          description: 'The current heading/bearing of the path track (degrees).  Where both bearing and orientation are available, the bearing should be used.  This distinguishes the current orientation of the device which  may be determined by compass for example from the heading of the track taken as the user moves.
+
+            '
+        speed:
+          type: number
+          format: float
+          minimum: 0
+          description: The current speed (m/s).
+        accuracy:
+          type: number
+          format: float
+          minimum: 0
+          description: 'Horizontal position accuracy (m).
+
+            '
+        altAccuracy:
+          type: number
+          format: float
+          minimum: 0
+          description: 'Vertical position accuracy (m).
+
+            '
+    Paging:
+      type: object
+      required:
+      - total
+      - offset
+      - limit
+      properties:
+        total:
+          type: number
+          format: int64
+        offset:
+          type: number
+          format: int64
+        limit:
+          type: number
+          format: int64
+    PagedResultLocationHistory:
+      type: object
+      required:
+      - paging
+      - result
+      properties:
+        paging:
+          $ref: '#/components/schemas/Paging'
+        result:
+          $ref: '#/components/schemas/LocationHistory'
+    LocationHistory:
+      type: array
+      items:
+        $ref: '#/components/schemas/Location'
+    ResourceDistanceFromLocationResult:
+      type: object
+      description: Map resource ids to their distance from a location
+      additionalProperties:
+        $ref: '#/components/schemas/DistanceFromLocation'
+    LatestLocationResult:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Location'
+    Error:
+      type: object
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

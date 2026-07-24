@@ -1,0 +1,168 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Directions API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Directions
+paths:
+  /directions:
+    post:
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DirectionsRequest'
+        required: true
+      summary: Find directions between two locations
+      description: The Directions endpoint calculates directions between source and destination addresses, possibly including multiple waypoints enroute. It returns the recommended travel route (if one can be found), along with estimated travel time and distance.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DirectionsResponse'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Directions
+components:
+  schemas:
+    Avoid:
+      type: string
+      enum:
+      - ferry
+      - highway
+      - toll
+    DirectionsResponse:
+      type: object
+      required:
+      - routes
+      properties:
+        routes:
+          type: array
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/TravelRoute'
+    TravelRoute:
+      type: object
+      required:
+      - leg
+      - travelInfo
+      properties:
+        leg:
+          $ref: '#/components/schemas/Leg'
+        travelInfo:
+          $ref: '#/components/schemas/TravelLegResult'
+    Leg:
+      type: object
+      required:
+      - origin
+      - destination
+      - avoid
+      properties:
+        origin:
+          $ref: '#/components/schemas/LatLng'
+        destination:
+          $ref: '#/components/schemas/LatLng'
+        avoid:
+          type: array
+          items:
+            $ref: '#/components/schemas/Avoid'
+    Distance:
+      type: object
+      required:
+      - distanceInMeters
+      properties:
+        distanceInMeters:
+          type: number
+    Duration:
+      type: object
+      required:
+      - durationInSeconds
+      properties:
+        durationInSeconds:
+          type: number
+    Route:
+      type: object
+      required:
+      - origin
+      - destination
+      properties:
+        origin:
+          $ref: '#/components/schemas/LatLng'
+        destination:
+          $ref: '#/components/schemas/LatLng'
+        waypoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/LatLng'
+    DirectionsRequest:
+      type: object
+      required:
+      - requests
+      properties:
+        requests:
+          type: array
+          items:
+            $ref: '#/components/schemas/Route'
+        avoid:
+          type: array
+          items:
+            $ref: '#/components/schemas/Avoid'
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+    LatLng:
+      type: object
+      required:
+      - lat
+      - lng
+      properties:
+        lat:
+          description: -90 <= y <= 90
+          type: number
+        lng:
+          description: -180 <= x <= 180
+          type: number
+    TravelLegResult:
+      type: object
+      required:
+      - status
+      discriminator:
+        propertyName: status
+      properties:
+        status:
+          type: string
+          enum:
+          - OK
+          - NO_ROUTE
+        duration:
+          $ref: '#/components/schemas/Duration'
+        distance:
+          $ref: '#/components/schemas/Distance'
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,814 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Recipe API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Recipe
+paths:
+  /recipe:
+    get:
+      summary: Get a list of recipes
+      description: Returns a paginated list of optimization recipes visible to the authenticated tenant. Recipes encapsulate optimizer configuration and can be filtered by name, description, status, system flag, and the user who created or last modified them.
+      operationId: Get Recipes
+      parameters:
+      - name: name
+        in: query
+        description: Match part of the recipe name
+        required: false
+        schema:
+          type: string
+      - name: description
+        in: query
+        description: Match part of the recipe description
+        required: false
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: 'Recipe status: active, archived'
+        required: false
+        schema:
+          type: string
+      - name: system
+        in: query
+        description: 'System flag: true/false'
+        required: false
+        schema:
+          type: string
+      - name: createdByVendorUserId
+        in: query
+        description: Filter on the Vendor UserId of the Vendor User that created this Recipe. Accepts `null` to explicitly filter by empty value
+        required: false
+        schema:
+          type: string
+      - name: modifiedByVendorUserId
+        in: query
+        description: Filter on the Vendor UserId Of the Vendor User that last modified this Recipe. Accepts `null` to explicitly filter by empty value
+        required: false
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: 'Sort in format column,direction. Valid columns: name, system, modifiedByVendorUserId, createdByVendorUserId. Valid directions: asc, desc. e.g. sort=name,desc'
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - result
+                - paging
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RecipeRecordShape'
+                  paging:
+                    $ref: '#/components/schemas/Paging'
+              example:
+                paging:
+                  limit: 10
+                  total: 3
+                result:
+                - default: true
+                  setAsDefaultBy:
+                    userId: skedulo
+                  setAsDefaultAt: '2022-12-27T14:34:00Z'
+                  system: true
+                  id: a52a74c0-8d9e-4e4a-bce9-2d49d66517d7
+                  name: Least travel
+                  description: Minimize travel time
+                  status: active
+                  objectiveWeights:
+                    preferredResources: 10
+                    minimizeDisruption: 10
+                    travelTime: 75
+                    softSkills: 5
+                    jobsPriority: 10
+                  options:
+                    ignoreTravelTime: false
+                    ignoreTravelTimeFirstJob: false
+                    ignoreTravelTimeLastJob: false
+                    respectAllocationTimes: false
+                    respectAllocationTimesOverTimeConstraints: false
+                    respectSchedule: false
+                    transformers: []
+                    ignoreResourceOverrideLocations: false
+                    allowPartiallyAllocatedJobs: true
+                    allowPartiallyAllocatedJobDependencies: true
+                  createdAt: '2024-01-26T23:00:00Z'
+                  modifiedAt: '2024-01-26T23:00:00Z'
+                  createdBy:
+                    userId: skedulo
+                  modifiedBy:
+                    userId: skedulo
+                - default: false
+                  system: true
+                  id: 711db875-5cab-40be-a88b-58ee07a98def
+                  name: Least resources
+                  description: Minimize resources
+                  status: active
+                  objectiveWeights:
+                    preferredResources: 10
+                    minimizeDisruption: 10
+                    travelTime: 35
+                    minimizeResources: 50
+                    softSkills: 5
+                  options:
+                    ignoreTravelTime: false
+                    ignoreTravelTimeFirstJob: false
+                    ignoreTravelTimeLastJob: false
+                    respectAllocationTimes: false
+                    respectAllocationTimesOverTimeConstraints: false
+                    respectSchedule: false
+                    transformers: []
+                    ignoreResourceOverrideLocations: false
+                    allowPartiallyAllocatedJobs: true
+                    allowPartiallyAllocatedJobDependencies: true
+                  createdAt: '2024-01-26T23:00:00Z'
+                  modifiedAt: '2024-01-26T23:00:00Z'
+                  createdBy:
+                    userId: skedulo
+                  modifiedBy:
+                    userId: skedulo
+                - default: false
+                  system: false
+                  tenantId: tenant-1
+                  id: db739dbf-9813-4031-9bf2-47ced61d77f3
+                  name: Tenant 1 Custom Recipe 1
+                  description: Tenant 1 Custom Recipe 1 Description
+                  status: active
+                  objectiveWeights:
+                    travelTime: 50
+                    minimizeResources: 50
+                  options:
+                    ignoreTravelTime: false
+                    ignoreTravelTimeFirstJob: false
+                    ignoreTravelTimeLastJob: false
+                    respectAllocationTimes: false
+                    respectAllocationTimesOverTimeConstraints: false
+                    respectSchedule: false
+                    transformers: []
+                    ignoreResourceOverrideLocations: false
+                    allowPartiallyAllocatedJobs: true
+                    allowPartiallyAllocatedJobDependencies: true
+                  createdAt: '2024-01-26T23:00:00Z'
+                  modifiedAt: '2024-01-26T23:00:00Z'
+                  createdBy:
+                    userId: auth0|user-1
+                    vendorUserId: user-1
+                  modifiedBy:
+                    userId: auth0|user-1
+                    vendorUserId: user-1
+        '400':
+          description: 'Invalid value for: query parameter name, Invalid value for: query parameter description, Invalid value for: query parameter status, Invalid value for: query parameter system, Invalid value for: query parameter createdByVendorUserId, Invalid value for: query parameter modifiedByVendorUserId, Invalid value for: query parameter sort'
+          content:
+            text/plain:
+              schema:
+                type: string
+      security:
+      - httpAuth: []
+      tags:
+      - Recipe
+    post:
+      summary: Create a new recipe
+      description: Creates a new optimization recipe for the authenticated tenant. The recipe encapsulates optimizer settings such as objective weights and feature options that can be referenced when starting optimization runs.
+      operationId: Create Recipe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VendorUserRecipeRequestShape'
+            example:
+              name: Least travel
+              description: Minimize travel time
+              objectiveWeights:
+                travelTime: 100
+              options:
+                ignoreTravelTime: false
+                ignoreTravelTimeFirstJob: false
+                ignoreTravelTimeLastJob: false
+                respectAllocationTimes: false
+                respectAllocationTimesOverTimeConstraints: false
+                respectSchedule: false
+                transformers: []
+                ignoreResourceOverrideLocations: false
+                allowPartiallyAllocatedJobs: true
+                allowPartiallyAllocatedJobDependencies: true
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - result
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/RecipeRecordShape'
+              examples:
+                Example0:
+                  value:
+                    result:
+                      default: true
+                      setAsDefaultBy:
+                        userId: skedulo
+                      setAsDefaultAt: '2022-12-27T14:34:00Z'
+                      system: true
+                      id: a52a74c0-8d9e-4e4a-bce9-2d49d66517d7
+                      name: Least travel
+                      description: Minimize travel time
+                      status: active
+                      objectiveWeights:
+                        preferredResources: 10
+                        minimizeDisruption: 10
+                        travelTime: 75
+                        softSkills: 5
+                        jobsPriority: 10
+                      options:
+                        ignoreTravelTime: false
+                        ignoreTravelTimeFirstJob: false
+                        ignoreTravelTimeLastJob: false
+                        respectAllocationTimes: false
+                        respectAllocationTimesOverTimeConstraints: false
+                        respectSchedule: false
+                        transformers: []
+                        ignoreResourceOverrideLocations: false
+                        allowPartiallyAllocatedJobs: true
+                        allowPartiallyAllocatedJobDependencies: true
+                      createdAt: '2024-01-26T23:00:00Z'
+                      modifiedAt: '2024-01-26T23:00:00Z'
+                      createdBy:
+                        userId: skedulo
+                      modifiedBy:
+                        userId: skedulo
+                Example1:
+                  value:
+                    result:
+                      default: false
+                      system: true
+                      id: 711db875-5cab-40be-a88b-58ee07a98def
+                      name: Least resources
+                      description: Minimize resources
+                      status: active
+                      objectiveWeights:
+                        preferredResources: 10
+                        minimizeDisruption: 10
+                        travelTime: 35
+                        minimizeResources: 50
+                        softSkills: 5
+                      options:
+                        ignoreTravelTime: false
+                        ignoreTravelTimeFirstJob: false
+                        ignoreTravelTimeLastJob: false
+                        respectAllocationTimes: false
+                        respectAllocationTimesOverTimeConstraints: false
+                        respectSchedule: false
+                        transformers: []
+                        ignoreResourceOverrideLocations: false
+                        allowPartiallyAllocatedJobs: true
+                        allowPartiallyAllocatedJobDependencies: true
+                      createdAt: '2024-01-26T23:00:00Z'
+                      modifiedAt: '2024-01-26T23:00:00Z'
+                      createdBy:
+                        userId: skedulo
+                      modifiedBy:
+                        userId: skedulo
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+      security:
+      - httpAuth: []
+      tags:
+      - Recipe
+  /recipe/{recipeId}:
+    get:
+      summary: Get a recipe by id
+      description: Returns the full configuration of a single recipe identified by its ID, including its name, description, status, and optimizer settings.
+      operationId: Get Recipe By Id
+      parameters:
+      - name: recipeId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - result
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/RecipeRecordShape'
+              examples:
+                Example0:
+                  value:
+                    result:
+                      default: true
+                      setAsDefaultBy:
+                        userId: skedulo
+                      setAsDefaultAt: '2022-12-27T14:34:00Z'
+                      system: true
+                      id: a52a74c0-8d9e-4e4a-bce9-2d49d66517d7
+                      name: Least travel
+                      description: Minimize travel time
+                      status: active
+                      objectiveWeights:
+                        preferredResources: 10
+                        minimizeDisruption: 10
+                        travelTime: 75
+                        softSkills: 5
+                        jobsPriority: 10
+                      options:
+                        ignoreTravelTime: false
+                        ignoreTravelTimeFirstJob: false
+                        ignoreTravelTimeLastJob: false
+                        respectAllocationTimes: false
+                        respectAllocationTimesOverTimeConstraints: false
+                        respectSchedule: false
+                        transformers: []
+                        ignoreResourceOverrideLocations: false
+                        allowPartiallyAllocatedJobs: true
+                        allowPartiallyAllocatedJobDependencies: true
+                      createdAt: '2024-01-26T23:00:00Z'
+                      modifiedAt: '2024-01-26T23:00:00Z'
+                      createdBy:
+                        userId: skedulo
+                      modifiedBy:
+                        userId: skedulo
+                Example1:
+                  value:
+                    result:
+                      default: false
+                      system: true
+                      id: 711db875-5cab-40be-a88b-58ee07a98def
+                      name: Least resources
+                      description: Minimize resources
+                      status: active
+                      objectiveWeights:
+                        preferredResources: 10
+                        minimizeDisruption: 10
+                        travelTime: 35
+                        minimizeResources: 50
+                        softSkills: 5
+                      options:
+                        ignoreTravelTime: false
+                        ignoreTravelTimeFirstJob: false
+                        ignoreTravelTimeLastJob: false
+                        respectAllocationTimes: false
+                        respectAllocationTimesOverTimeConstraints: false
+                        respectSchedule: false
+                        transformers: []
+                        ignoreResourceOverrideLocations: false
+                        allowPartiallyAllocatedJobs: true
+                        allowPartiallyAllocatedJobDependencies: true
+                      createdAt: '2024-01-26T23:00:00Z'
+                      modifiedAt: '2024-01-26T23:00:00Z'
+                      createdBy:
+                        userId: skedulo
+                      modifiedBy:
+                        userId: skedulo
+      security:
+      - httpAuth: []
+      tags:
+      - Recipe
+    put:
+      summary: Update a recipe
+      description: Replaces the configuration of an existing recipe identified by its ID. This will affect any future optimization runs that reference this recipe.
+      operationId: Update Recipe
+      parameters:
+      - name: recipeId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VendorUserRecipeRequestShape'
+            example:
+              name: Least travel
+              description: Minimize travel time
+              objectiveWeights:
+                travelTime: 100
+              options:
+                ignoreTravelTime: false
+                ignoreTravelTimeFirstJob: false
+                ignoreTravelTimeLastJob: false
+                respectAllocationTimes: false
+                respectAllocationTimesOverTimeConstraints: false
+                respectSchedule: false
+                transformers: []
+                ignoreResourceOverrideLocations: false
+                allowPartiallyAllocatedJobs: true
+                allowPartiallyAllocatedJobDependencies: true
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - result
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/RecipeRecordShape'
+              examples:
+                Example0:
+                  value:
+                    result:
+                      default: true
+                      setAsDefaultBy:
+                        userId: skedulo
+                      setAsDefaultAt: '2022-12-27T14:34:00Z'
+                      system: true
+                      id: a52a74c0-8d9e-4e4a-bce9-2d49d66517d7
+                      name: Least travel
+                      description: Minimize travel time
+                      status: active
+                      objectiveWeights:
+                        preferredResources: 10
+                        minimizeDisruption: 10
+                        travelTime: 75
+                        softSkills: 5
+                        jobsPriority: 10
+                      options:
+                        ignoreTravelTime: false
+                        ignoreTravelTimeFirstJob: false
+                        ignoreTravelTimeLastJob: false
+                        respectAllocationTimes: false
+                        respectAllocationTimesOverTimeConstraints: false
+                        respectSchedule: false
+                        transformers: []
+                        ignoreResourceOverrideLocations: false
+                        allowPartiallyAllocatedJobs: true
+                        allowPartiallyAllocatedJobDependencies: true
+                      createdAt: '2024-01-26T23:00:00Z'
+                      modifiedAt: '2024-01-26T23:00:00Z'
+                      createdBy:
+                        userId: skedulo
+                      modifiedBy:
+                        userId: skedulo
+                Example1:
+                  value:
+                    result:
+                      default: false
+                      system: true
+                      id: 711db875-5cab-40be-a88b-58ee07a98def
+                      name: Least resources
+                      description: Minimize resources
+                      status: active
+                      objectiveWeights:
+                        preferredResources: 10
+                        minimizeDisruption: 10
+                        travelTime: 35
+                        minimizeResources: 50
+                        softSkills: 5
+                      options:
+                        ignoreTravelTime: false
+                        ignoreTravelTimeFirstJob: false
+                        ignoreTravelTimeLastJob: false
+                        respectAllocationTimes: false
+                        respectAllocationTimesOverTimeConstraints: false
+                        respectSchedule: false
+                        transformers: []
+                        ignoreResourceOverrideLocations: false
+                        allowPartiallyAllocatedJobs: true
+                        allowPartiallyAllocatedJobDependencies: true
+                      createdAt: '2024-01-26T23:00:00Z'
+                      modifiedAt: '2024-01-26T23:00:00Z'
+                      createdBy:
+                        userId: skedulo
+                      modifiedBy:
+                        userId: skedulo
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+      security:
+      - httpAuth: []
+      tags:
+      - Recipe
+  /recipe/{recipeId}/default:
+    put:
+      summary: Set the default recipe for a tenant
+      description: Designates the specified recipe as the default for the authenticated tenant. When no explicit recipe is provided at the time of scheduling, this recipe's settings will be used.
+      operationId: Set default recipe
+      parameters:
+      - name: recipeId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - result
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/RecipeRecordShape'
+              example:
+                result:
+                  default: true
+                  setAsDefaultBy:
+                    userId: user-1
+                    vendorUserId: vendor-user-1
+                  setAsDefaultAt: '2022-12-31T17:29:00Z'
+                  system: true
+                  id: a52a74c0-8d9e-4e4a-bce9-2d49d66517d7
+                  name: Least travel
+                  description: Minimize travel time
+                  status: active
+                  objectiveWeights:
+                    preferredResources: 10
+                    minimizeDisruption: 10
+                    travelTime: 75
+                    softSkills: 5
+                    jobsPriority: 10
+                  options:
+                    ignoreTravelTime: false
+                    ignoreTravelTimeFirstJob: false
+                    ignoreTravelTimeLastJob: false
+                    respectAllocationTimes: false
+                    respectAllocationTimesOverTimeConstraints: false
+                    respectSchedule: false
+                    transformers: []
+                    ignoreResourceOverrideLocations: false
+                    allowPartiallyAllocatedJobs: true
+                    allowPartiallyAllocatedJobDependencies: true
+                  createdAt: '2024-01-26T23:00:00Z'
+                  modifiedAt: '2024-01-26T23:00:00Z'
+                  createdBy:
+                    userId: skedulo
+                  modifiedBy:
+                    userId: skedulo
+      security:
+      - httpAuth: []
+      tags:
+      - Recipe
+  /recipe/default:
+    get:
+      summary: Get the default recipe of the tenant
+      description: Returns the recipe currently set as the default for the authenticated tenant. Returns 204 No Content if no default recipe has been configured.
+      operationId: Get Default Recipe
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - result
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/RecipeRecordShape'
+              example:
+                result:
+                  default: true
+                  setAsDefaultBy:
+                    userId: user-1
+                    vendorUserId: vendor-user-1
+                  setAsDefaultAt: '2022-12-31T17:29:00Z'
+                  system: true
+                  id: a52a74c0-8d9e-4e4a-bce9-2d49d66517d7
+                  name: Least travel
+                  description: Minimize travel time
+                  status: active
+                  objectiveWeights:
+                    preferredResources: 10
+                    minimizeDisruption: 10
+                    travelTime: 75
+                    softSkills: 5
+                    jobsPriority: 10
+                  options:
+                    ignoreTravelTime: false
+                    ignoreTravelTimeFirstJob: false
+                    ignoreTravelTimeLastJob: false
+                    respectAllocationTimes: false
+                    respectAllocationTimesOverTimeConstraints: false
+                    respectSchedule: false
+                    transformers: []
+                    ignoreResourceOverrideLocations: false
+                    allowPartiallyAllocatedJobs: true
+                    allowPartiallyAllocatedJobDependencies: true
+                  createdAt: '2024-01-26T23:00:00Z'
+                  modifiedAt: '2024-01-26T23:00:00Z'
+                  createdBy:
+                    userId: skedulo
+                  modifiedBy:
+                    userId: skedulo
+        '204':
+          description: No default recipe fot tenant
+      security:
+      - httpAuth: []
+      tags:
+      - Recipe
+components:
+  schemas:
+    UserIdsShape:
+      oneOf:
+      - $ref: '#/components/schemas/InternalAdminUserId'
+      - $ref: '#/components/schemas/VendorUserIds'
+    Paging:
+      required:
+      - limit
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int32
+        nextCursor:
+          type: string
+        total:
+          type: integer
+          format: int32
+    VendorUserRecipeRequestShape:
+      required:
+      - name
+      - description
+      - objectiveWeights
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        objectiveWeights:
+          $ref: '#/components/schemas/ObjectiveWeightsShape'
+        options:
+          $ref: '#/components/schemas/RecipeOptionsShape'
+    RecipeOptionsShape:
+      required:
+      - ignoreTravelTime
+      - ignoreTravelTimeFirstJob
+      - ignoreTravelTimeLastJob
+      - respectAllocationTimes
+      - respectAllocationTimesOverTimeConstraints
+      - respectSchedule
+      - allowPartiallyAllocatedJobs
+      - allowPartiallyAllocatedJobDependencies
+      type: object
+      properties:
+        ignoreTravelTime:
+          type: boolean
+        ignoreTravelTimeFirstJob:
+          type: boolean
+        ignoreTravelTimeLastJob:
+          type: boolean
+        maxDailyTravelTimeInMinutes:
+          type: integer
+          format: int64
+        maxTravelTimeBetweenLocations:
+          type: integer
+          format: int64
+        respectAllocationTimes:
+          type: boolean
+        respectAllocationTimesOverTimeConstraints:
+          type: boolean
+        respectSchedule:
+          type: boolean
+        snapUnit:
+          type: integer
+          format: int32
+        padding:
+          type: integer
+          format: int32
+        allowPartiallyAllocatedJobs:
+          type: boolean
+        allowPartiallyAllocatedJobDependencies:
+          type: boolean
+        onJobRemoval:
+          type: array
+          items:
+            type: string
+            enum:
+            - clearJobTimes
+            - deallocateResources
+          minItems: 1
+        rollingScheduleWindowInterval:
+          description: The interval used to split the schedule window into rolling sub-windows. Accepts "monthly", "quarterly", or a positive integer representing a fixed number of days.
+    ObjectiveWeightsShape:
+      type: object
+      properties:
+        minimizeDisruption:
+          type: integer
+        balanceAbsoluteWorkload:
+          type: integer
+        travelTime:
+          type: integer
+        minimizeResources:
+          type: integer
+        softSkills:
+          type: integer
+        jobsPriority:
+          type: integer
+        resourceRating:
+          type: integer
+        scheduleImmediacy:
+          type: integer
+        urgency:
+          type: integer
+        overtime:
+          type: integer
+    VendorUserIds:
+      required:
+      - userId
+      - vendorUserId
+      type: object
+      properties:
+        userId:
+          type: string
+        vendorUserId:
+          type: string
+    InternalAdminUserId:
+      required:
+      - userId
+      type: object
+      properties:
+        userId:
+          type: string
+    RecipeRecordShape:
+      required:
+      - id
+      - name
+      - description
+      - status
+      - system
+      - objectiveWeights
+      - options
+      - createdAt
+      - default
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum:
+          - active
+          - archived
+        system:
+          type: boolean
+        tenantId:
+          type: string
+        objectiveWeights:
+          $ref: '#/components/schemas/ObjectiveWeightsShape'
+        options:
+          $ref: '#/components/schemas/RecipeOptionsShape'
+        createdAt:
+          type: string
+          format: date-time
+        createdBy:
+          $ref: '#/components/schemas/UserIdsShape'
+        modifiedAt:
+          type: string
+          format: date-time
+        modifiedBy:
+          $ref: '#/components/schemas/UserIdsShape'
+        default:
+          type: boolean
+        setAsDefaultBy:
+          $ref: '#/components/schemas/UserIdsShape'
+        setAsDefaultAt:
+          type: string
+          format: date-time
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

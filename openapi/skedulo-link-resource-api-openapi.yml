@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Link Resource API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Link Resource
+paths:
+  /link_resource:
+    post:
+      security:
+      - Authorization: []
+      summary: Create link between resource and user
+      description: Links (assigns) a resource to a user by their respective Ids.
+      operationId: linkResource
+      responses:
+        '200':
+          description: User and resource were successfully linked.
+        '403':
+          description: The user does not have permission to perform this action.
+        '404':
+          description: No user found for the given id.
+          content:
+            '*/*':
+              schema:
+                type: object
+                example:
+                  errorType: not_found
+                  message: Could not find user with vendor user id 1234
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - userId
+              - resourceId
+              properties:
+                userId:
+                  type: string
+                  description: The user id of the user to be linked to given resource
+                resourceId:
+                  type: string
+                  description: The resource id of the resource to be linked to given user
+        required: true
+      tags:
+      - Link Resource
+    delete:
+      security:
+      - Authorization: []
+      summary: Remove link between resource and user
+      description: Unlinked a resource to a user by their respective Ids.
+      operationId: unlinkResource
+      responses:
+        '200':
+          description: successful result
+        '403':
+          description: The user does not have permission to perform this action.
+        '404':
+          description: No user found for the given id.
+          content:
+            '*/*':
+              schema:
+                type: object
+                example:
+                  errorType: not_found
+                  message: Could not find user with vendor user id 1234
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - user_id
+              - resource_id
+              properties:
+                user_id:
+                  type: string
+                  description: The user id of the user to be linked to given resource
+                resource_id:
+                  type: string
+                  description: The resource id of the resource to be linked to given user
+        required: true
+      tags:
+      - Link Resource
+components:
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

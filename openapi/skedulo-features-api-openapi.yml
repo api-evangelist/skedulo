@@ -1,0 +1,247 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Features API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Features
+paths:
+  /features/descriptions:
+    get:
+      security:
+      - Authorization: []
+      summary: Feature flag status, description, and type
+      description: Retrieves the status of feature flags along with their descriptions and type.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/FeatureFlagsWithDescriptions'
+      tags:
+      - Features
+  /features/{tenant_id}:
+    get:
+      security:
+      - Authorization: []
+      summary: Tenant Feature flag statuses
+      description: Retrieves the status of feature flags for the provided tenant
+      parameters:
+      - name: tenant_id
+        in: path
+        description: ID of the tenant
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeatureFlagsResult'
+      tags:
+      - Features
+  /features/descriptions/{tenant_id}:
+    get:
+      security:
+      - Authorization: []
+      summary: Feature flag status
+      description: Retrieves the status of feature flags along with their descriptions and type of the provided tenant.
+      parameters:
+      - name: tenant_id
+        in: path
+        description: ID of the tenant
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/FeatureFlagsWithDescriptions'
+      tags:
+      - Features
+  /features/tenants/search:
+    post:
+      security:
+      - Authorization: []
+      summary: Feature flag status for multiple tenants
+      description: Retrieves the status of feature flags for all the provided Tenant ID's.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantIds'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantFeatureFlagsResultContainer'
+      tags:
+      - Features
+  /features/descriptions/tenants/search:
+    post:
+      security:
+      - Authorization: []
+      summary: Feature flag status and descriptions for multiple tenants
+      description: Retrieves the status of feature flags along with their descriptions and type for all the provided Tenant ID's.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantIds'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantFeatureFlagsAndDescriptionsResultContainer'
+      tags:
+      - Features
+components:
+  schemas:
+    TenantIds:
+      description: Tenant Ids
+      type: array
+      items:
+        type: string
+    FeatureFlagsWithDescriptions:
+      description: A list of all Feature Flags with description, value and other metadata.
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: The feature flag key.
+          description:
+            type: string
+            description: Describes the behaviour when the flag is enabled.
+          type:
+            type: string
+            enum:
+            - Feature
+            - Package
+            - Retired
+            description: The type of flag. A Feature flag describes functionality of the platform or application. A Package flag describes the data model. A Retired flag has a fixed value and cannot be modified - it is included for backward compatibility but may be removed in the future.
+          status:
+            type: string
+            enum:
+            - GeneralAvailability
+            - Beta
+            - Alpha
+            - Development
+            - Internal
+            - Deprecated
+            description: The status of the feature.
+          platform:
+            type: string
+            enum:
+            - Skedulo
+            - Salesforce
+            - All
+            description: The underlying data management platform where the feature is applicable.
+          defaultValue:
+            type: boolean
+            description: The default value of the flag for new tenants.
+          value:
+            type: boolean
+            description: The current value of the flag.
+    TenantsFeatureFlagsSuccesses:
+      description: A map of the tenantId to the Features flags for all tenants that feature flags were able to be obtained
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/FeatureFlags'
+    TenantsFeatureFlagsAndDescriptionsSuccesses:
+      description: A map of the tenantId to the Features flags for all tenants that feature flags were able to be obtained
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          $ref: '#/components/schemas/FeatureFlagsWithDescriptions'
+    TenantFeatureFlagsResult:
+      description: Result wrapper for Tenant FeatureFlags successes and failures.
+      type: object
+      required:
+      - successes
+      - failures
+      properties:
+        successes:
+          $ref: '#/components/schemas/TenantsFeatureFlagsSuccesses'
+        failures:
+          $ref: '#/components/schemas/TenantsFeatureFlagsFailures'
+    FeatureFlagsResult:
+      description: Result wrapper for FeatureFlags.
+      type: object
+      required:
+      - result
+      properties:
+        result:
+          $ref: '#/components/schemas/FeatureFlags'
+    TenantFeatureFlagsResultContainer:
+      description: Result wrapper for Tenant FeatureFlags.
+      type: object
+      required:
+      - result
+      properties:
+        result:
+          $ref: '#/components/schemas/TenantFeatureFlagsResult'
+    TenantFeatureFlagsAndDescriptionsResultContainer:
+      description: Result wrapper for Tenant FeatureFlags with descriptions.
+      type: object
+      required:
+      - result
+      properties:
+        result:
+          $ref: '#/components/schemas/TenantFeatureFlagsAndDescriptionResult'
+    TenantsFeatureFlagsFailures:
+      description: A map of the tenantId to an error message for all tenants that feature flags were not able to be obtained.
+      type: object
+      additionalProperties:
+        type: string
+      example:
+        sk_123oiusdf: Tenant sk_123oiusdf has not been initialized with this service. Please run the onboarding process for this tenant!
+        sk_3432423524: Tenant sk_3432423524 has not been initialized with this service. Please run the onboarding process for this tenant!
+    FeatureFlags:
+      description: Describes whether or not optional features are enabled. Also marks the presence of data model extensions in Salesforce tenants. Use the `/config/features/descriptions` endpoint to get a list of all feature flags with descriptions and other metadata. No assumptions should be made about specific keys appearing in the response. If a key is not returned its value should be assumed to be false.
+      type: object
+      additionalProperties:
+        type: string
+      example:
+        useJobOffers: true
+    TenantFeatureFlagsAndDescriptionResult:
+      description: Result wrapper for Tenant FeatureFlags successes and failures.
+      type: object
+      required:
+      - successes
+      - failures
+      properties:
+        successes:
+          $ref: '#/components/schemas/TenantsFeatureFlagsAndDescriptionsSuccesses'
+        failures:
+          $ref: '#/components/schemas/TenantsFeatureFlagsFailures'
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,160 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin DistanceMatrix API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: DistanceMatrix
+paths:
+  /distanceMatrix:
+    post:
+      security:
+      - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DistanceMatrixRequest'
+        required: true
+      summary: Compute the Distance Matrix for origin and destination addresses
+      description: 'The Distance Matrix endpoint computes travel distance and time for all combinations of origin and destination locations, based on the recommended route between start and end points.
+
+        It should be noted that there are limits on the total number elements that can be requested and that large requests (where origins * destinations > 1000) may take several seconds to satisfy. These limits may vary depending on your underlying configuration.
+
+
+        Depending on your configuration, requesting travel times and distances for different times in the day (accounting for traffic conditions) is possible with the ''departureTime'' field.  The ''departureTime'' field is not timezone-aware and so the timezone offset needs to be applied in order to match the requested local time.'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistanceMatrixResponse'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - DistanceMatrix
+components:
+  schemas:
+    Avoid:
+      type: string
+      enum:
+      - ferry
+      - highway
+      - toll
+    MapVendor:
+      type: string
+      enum:
+      - GOOGLE
+      - GRAPHHOPPER
+      - LINEOFSIGHT
+    Distance:
+      type: object
+      required:
+      - distanceInMeters
+      properties:
+        distanceInMeters:
+          type: number
+    DistanceMatrixResponse:
+      type: object
+      required:
+      - matrix
+      - vendor
+      properties:
+        matrix:
+          type: array
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/TravelLegResult'
+        vendor:
+          $ref: '#/components/schemas/MapVendor'
+    Duration:
+      type: object
+      required:
+      - durationInSeconds
+      properties:
+        durationInSeconds:
+          type: number
+    DistanceMatrixRequest:
+      type: object
+      required:
+      - origins
+      - destinations
+      properties:
+        origins:
+          type: array
+          description: must be non-empty
+          items:
+            $ref: '#/components/schemas/LatLng'
+        destinations:
+          type: array
+          description: must be non-empty
+          items:
+            $ref: '#/components/schemas/LatLng'
+        avoid:
+          type: array
+          items:
+            $ref: '#/components/schemas/Avoid'
+        departureTime:
+          type: string
+          format: date-time
+      example:
+        origins:
+        - lat: -26.635265
+          lng: 153.067972
+        destinations:
+        - lat: -27.457768
+          lng: 153.03583
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+    LatLng:
+      type: object
+      required:
+      - lat
+      - lng
+      properties:
+        lat:
+          description: -90 <= y <= 90
+          type: number
+        lng:
+          description: -180 <= x <= 180
+          type: number
+    TravelLegResult:
+      type: object
+      required:
+      - status
+      discriminator:
+        propertyName: status
+      properties:
+        status:
+          type: string
+          enum:
+          - OK
+          - NO_ROUTE
+        duration:
+          $ref: '#/components/schemas/Duration'
+        distance:
+          $ref: '#/components/schemas/Distance'
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

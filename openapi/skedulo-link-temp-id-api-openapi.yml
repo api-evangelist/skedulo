@@ -1,0 +1,58 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Link Temp Id API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Link Temp Id
+paths:
+  /link_temp_id:
+    post:
+      summary: Link temporary ids with corresponding real ids. The temporary ids must start with 'temp-'.
+      description: This establishes a link between a temporary id and a real id. If there are temporary files previously uploaded with the given temporary id as parent id, they will be swapped into the real id and re-uploaded.
+      operationId: linkIds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkTempIdMap'
+            example:
+              temp-mdP29kdAbu: a0L5i000002zL8zEAE
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultLinkTempIds'
+              example:
+                result:
+                  temp-mdP29kdAbu: a0L5i000002zL8zEAE
+        '400':
+          description: Invalid data supplied
+      tags:
+      - Link Temp Id
+components:
+  schemas:
+    ApiResultLinkTempIds:
+      type: object
+      properties:
+        result:
+          type: object
+          additionalProperties:
+            type: string
+    LinkTempIdMap:
+      type: object
+      additionalProperties:
+        type: string
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

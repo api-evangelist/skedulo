@@ -1,0 +1,471 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Standalone API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Standalone
+paths:
+  /standalone/schemas:
+    post:
+      security:
+      - Authorization: []
+      summary: Create a custom object for a Skedulo Pulse Platform tenant (team)
+      description: ''
+      operationId: standaloneCreateObject
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - result
+                properties:
+                  result:
+                    type: object
+                    required:
+                    - schema
+                    - fields
+                    properties:
+                      schema:
+                        $ref: '#/components/schemas/CustomSchema'
+                      fields:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/CustomField'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewStandaloneCustomSchema'
+        description: Standalone custom object
+        required: true
+      tags:
+      - Standalone
+  /standalone/schema/{objectId}:
+    delete:
+      security:
+      - Authorization: []
+      summary: Remove a custom object
+      description: This will remove the object along with all data contained within it
+      operationId: standaloneDeleteObject
+      parameters:
+      - name: objectId
+        in: path
+        description: Identifier of the object to delete
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Successful operation
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Standalone
+  /standalone/schema/{objectId}/track:
+    post:
+      security:
+      - Authorization: []
+      summary: Track a custom object
+      description: Enable the tracking of row inserts, updates, and deletes. Changes are available via GraphQL subscriptions and webhooks.
+      operationId: standaloneTrackObject
+      parameters:
+      - name: objectId
+        in: path
+        description: Identifier of the object to track
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Successful operation
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Standalone
+    delete:
+      security:
+      - Authorization: []
+      summary: Disable tracking of a custom object
+      description: Disable the tracking of row inserts, updates, and deletes for a custom object.
+      operationId: standaloneUntrackObject
+      parameters:
+      - name: objectId
+        in: path
+        description: Identifier of the object to untrack
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Successful operation
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Standalone
+  /standalone/fields:
+    post:
+      security:
+      - Authorization: []
+      summary: Create a standalone custom field
+      description: ''
+      operationId: standaloneCreateField
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - result
+                properties:
+                  result:
+                    $ref: '#/components/schemas/CustomField'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewStandaloneCustomField'
+        description: Standalone custom field
+        required: true
+      tags:
+      - Standalone
+  /standalone/field/{fieldId}:
+    delete:
+      security:
+      - Authorization: []
+      summary: Remove a custom field
+      description: This will remove the field along with any data it contains
+      operationId: standaloneDeleteField
+      parameters:
+      - name: fieldId
+        in: path
+        description: Identifier of the field to delete
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Successful operation
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Standalone
+components:
+  schemas:
+    CustomField:
+      type: object
+      required:
+      - id
+      - name
+      - schemaName
+      - fieldType
+      - mapping
+      - required
+      - upsertKey
+      - accessMode
+      - readOnly
+      - isAlert
+      - showDesktop
+      - showMobile
+      - editableOnMobile
+      - requiredOnMobile
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          description: Internal name
+        schemaName:
+          type: string
+          description: The name of the object this field belongs to
+        label:
+          type: string
+          description: Display name
+        description:
+          type: string
+          description: Description display only when modifying this field's definition
+        fieldType:
+          type: string
+          enum:
+          - string
+          - id
+          - calculated
+          - email
+          - encryptedstring
+          - reference
+          - textarea
+          - htmltextarea
+          - combobox
+          - multipicklist
+          - picklist
+          - phone
+          - url
+          - int
+          - double
+          - decimal
+          - currency
+          - percent
+          - duration
+          - time
+          - date
+          - datetime
+          - boolean
+        mapping:
+          type: string
+          description: The name of the field in the remote system (eg. sked__FieldName__c for Salesforce)
+        referenceSchemaName:
+          type: string
+          description: The name of the object. Required if fieldType is reference
+        referenceSchemaFieldName:
+          type: string
+          description: The name of the field in the referenced object
+        required:
+          type: boolean
+        upsertKey:
+          type: boolean
+        accessMode:
+          type: string
+          enum:
+          - read_only
+          - read_write
+          - insert_only
+        readOnly:
+          description: Deprecated in favor of 'accessMode'
+          type: boolean
+        maxLength:
+          description: The maximum number of characters that are allowed
+          type: integer
+        precision:
+          description: The total number of digits that are allowed. For example, the number 123.45 has a precision of 5.
+          type: integer
+        scale:
+          description: The number of digits to the right of the decimal point that are allowed. For example, the number 123.45 has a scale of 2.
+          type: integer
+        isAlert:
+          description: Should this field be promoted and shown at the top? Only one field per object can have this set.
+          type: boolean
+        showIf:
+          type: string
+        showDesktop:
+          type: boolean
+        showMobile:
+          type: boolean
+        editableOnMobile:
+          type: boolean
+        requiredOnMobile:
+          type: boolean
+        displayOrder:
+          type: integer
+    NewStandaloneCustomField:
+      type: object
+      required:
+      - name
+      - schemaName
+      - column
+      properties:
+        name:
+          type: string
+          description: Internal name
+        schemaName:
+          type: string
+          description: The name of the object this field belongs to
+        label:
+          type: string
+          description: Display name
+        description:
+          type: string
+          description: Description display only when modifying this field's definition
+        accessMode:
+          type: string
+          enum:
+          - read_only
+          - read_write
+          - insert_only
+          default: read_write
+        column:
+          $ref: '#/components/schemas/NewStandaloneCustomFieldColumn'
+        showIf:
+          type: string
+        isAlert:
+          description: Should this field be promoted and shown at the top? Only one field per object can have this set.
+          type: boolean
+          default: false
+        showDesktop:
+          type: boolean
+          default: true
+        showMobile:
+          type: boolean
+          default: false
+        editableOnMobile:
+          type: boolean
+          default: false
+        requiredOnMobile:
+          type: boolean
+          default: false
+        displayOrder:
+          type: integer
+    NewStandaloneCustomFieldColumn:
+      type: object
+      required:
+      - type
+      discriminator:
+        propertyName: type
+      properties:
+        type:
+          type: string
+          enum:
+          - string
+          - textarea
+          - url
+          - picklist
+          - multipicklist
+          - int
+          - decimal
+          - boolean
+          - date
+          - datetime
+          - time
+          - reference
+    NewStandaloneCustomSchema:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Internal name
+        label:
+          type: string
+          description: Display name
+        description:
+          type: string
+          description: Description display only when modifying this field's definition
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewStandaloneCustomSchemaField'
+          description: Fields to create at the same time as the object. These fields are allowed to be required and have no default as there is no data in the object yet.
+    NewStandaloneCustomSchemaField:
+      type: object
+      required:
+      - name
+      - column
+      properties:
+        name:
+          type: string
+          description: Internal name
+        label:
+          type: string
+          description: Display name
+        description:
+          type: string
+          description: Description display only when modifying this fields definition
+        accessMode:
+          type: string
+          enum:
+          - read_only
+          - read_write
+          - insert_only
+          default: read_write
+        column:
+          $ref: '#/components/schemas/NewStandaloneCustomFieldColumn'
+        showIf:
+          type: string
+        isAlert:
+          description: Should this field be promoted and shown at the top? Only one field per object can have this set.
+          type: boolean
+          default: false
+        showDesktop:
+          type: boolean
+          default: true
+        showMobile:
+          type: boolean
+          default: false
+        editableOnMobile:
+          type: boolean
+          default: false
+        requiredOnMobile:
+          type: boolean
+          default: false
+        displayOrder:
+          type: integer
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+    CustomSchema:
+      type: object
+      required:
+      - id
+      - name
+      - mapping
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          description: Internal name
+        label:
+          type: string
+          description: Display name
+        description:
+          type: string
+          description: Description display only when modifying this field's definition
+        mapping:
+          type: string
+          description: The name of the object in the remote system (e.g. 'order' for Skedulo platform or 'Order__c' for Salesforce)
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

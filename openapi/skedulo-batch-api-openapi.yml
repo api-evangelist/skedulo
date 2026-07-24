@@ -1,0 +1,734 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Batch API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Batch
+paths:
+  /batch/schedule:
+    get:
+      summary: Get batch schedules by ids
+      description: Returns a paginated list of batch schedules matching the provided comma-separated list of schedule IDs.
+      operationId: Get Batch Schedules By Ids
+      parameters:
+      - name: ids
+        in: query
+        description: Coma separated schedule ids
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - result
+                - paging
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ScheduleRecordShape'
+                  paging:
+                    $ref: '#/components/schemas/Paging'
+              example:
+                paging:
+                  limit: 10
+                  total: 2
+                result:
+                - dayRange: 2
+                  dayOffset: 3
+                  jobQuery: 1=1
+                  resourceQuery: 1=1
+                  region: EU
+                  regions:
+                  - EU
+                  optimizationType: pvrp
+                  schedulingOptions:
+                    full: false
+                    ignoreTravelTime: false
+                    ignoreTravelTimeFirstJob: false
+                    ignoreTravelTimeLastJob: false
+                    minimizeResources: false
+                    maxDailyTravelTimeInMinutes: 180
+                    maxTravelTimeBetweenLocations: 60
+                    respectAllocationTimes: false
+                    respectAllocationTimesOverTimeConstraints: false
+                    balanceAbsoluteWorkload: false
+                    enablePartiallyAllocatedGroups: true
+                    enablePartiallyAllocatedAllocationDependencies: true
+                    removeLockedJobsFromShifts: true
+                    respectSchedule: false
+                    transformers: []
+                    ignoreResourceOverrideLocations: false
+                  includeTemporaryRegions: false
+                  includeSecondaryRegions: false
+                  name: schedule-1
+                  runDate: '2020-01-02'
+                  timezone: Z
+                  earliestStartTime: 01:04:05
+                  latestEndTime: 01:07:05
+                  recurring:
+                    step: 1
+                    repeatMode: daily
+                    endAfterNumberOccurrences: 1
+                  persistenceStrategy: save
+                  lastModifiedByUserId: user-1
+                  lastModifiedByDate: '2020-01-02T05:04:05Z'
+                  createdByUserId: user-1
+                  createdByDate: '2020-01-02T03:04:05Z'
+                - dayRange: 2
+                  dayOffset: 3
+                  jobQuery: 1=1
+                  resourceQuery: 1=1
+                  region: EU
+                  regions:
+                  - EU
+                  optimizationType: pvrp
+                  schedulingOptions:
+                    full: false
+                    ignoreTravelTime: false
+                    ignoreTravelTimeFirstJob: false
+                    ignoreTravelTimeLastJob: false
+                    minimizeResources: false
+                    maxDailyTravelTimeInMinutes: 180
+                    maxTravelTimeBetweenLocations: 60
+                    respectAllocationTimes: false
+                    respectAllocationTimesOverTimeConstraints: false
+                    balanceAbsoluteWorkload: false
+                    enablePartiallyAllocatedGroups: true
+                    enablePartiallyAllocatedAllocationDependencies: true
+                    removeLockedJobsFromShifts: true
+                    respectSchedule: false
+                    transformers: []
+                    ignoreResourceOverrideLocations: false
+                  includeTemporaryRegions: false
+                  includeSecondaryRegions: false
+                  name: Schedule 2
+                  runDate: '2020-01-02'
+                  timezone: Z
+                  earliestStartTime: 01:04:05
+                  latestEndTime: 01:07:05
+                  recurring:
+                    step: 1
+                    repeatMode: daily
+                    endAfterNumberOccurrences: 1
+                  persistenceStrategy: save
+                  lastModifiedByUserId: user-1
+                  lastModifiedByDate: '2020-01-02T05:04:05Z'
+                  createdByUserId: user-1
+                  createdByDate: '2020-01-02T03:04:05Z'
+        '400':
+          description: 'Invalid value for: query parameter ids'
+          content:
+            text/plain:
+              schema:
+                type: string
+      security:
+      - httpAuth: []
+      tags:
+      - Batch
+    post:
+      summary: Create a batch schedule
+      description: Create a new batch of scheduled runs to be optimized. These can be either one-off or recurring schedules.
+      operationId: Batch Schedule
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleShape'
+            example:
+              dayRange: 1
+              dayOffset: 2
+              jobQuery: a2
+              resourceQuery: a3
+              region: r1
+              regions:
+              - r1
+              optimizationType: pvrp
+              schedulingOptions:
+                full: false
+                ignoreTravelTime: false
+                ignoreTravelTimeFirstJob: false
+                ignoreTravelTimeLastJob: false
+                minimizeResources: false
+                respectAllocationTimes: false
+                respectAllocationTimesOverTimeConstraints: false
+                balanceAbsoluteWorkload: false
+                enablePartiallyAllocatedGroups: true
+                enablePartiallyAllocatedAllocationDependencies: true
+                removeLockedJobsFromShifts: true
+                respectSchedule: false
+                recipeId: d8e4621b-eb15-4907-93c5-fb9503be476e
+                transformers: []
+                ignoreResourceOverrideLocations: false
+              includeTemporaryRegions: true
+              includeSecondaryRegions: false
+              name: a1
+              runDate: '2022-03-03'
+              timezone: Australia/Brisbane
+              earliestStartTime: 01:02:00
+              recurring:
+                step: 1
+                repeatMode: weekly
+                repeatOnWeekDays:
+                - sun
+                - mon
+                - tue
+                - wed
+                - thu
+                - fri
+                - sat
+                endAfterNumberOccurrences: 1
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - result
+                type: object
+                properties:
+                  result:
+                    type: string
+              example:
+                result:
+                  id: 6c0ec278-bea9-45f7-924f-490ba7bff61e
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+      security:
+      - httpAuth: []
+      tags:
+      - Batch
+  /batch/schedule/{scheduleId}:
+    get:
+      summary: Get a batch schedule
+      description: Returns the configuration and current status of a single batch schedule identified by its ID.
+      operationId: Get Batch Schedule
+      parameters:
+      - name: scheduleId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                required:
+                - result
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/ScheduleRecordShape'
+              example:
+                result:
+                  dayRange: 2
+                  dayOffset: 3
+                  jobQuery: 1=1
+                  resourceQuery: 1=1
+                  region: EU
+                  regions:
+                  - EU
+                  optimizationType: pvrp
+                  schedulingOptions:
+                    full: false
+                    ignoreTravelTime: false
+                    ignoreTravelTimeFirstJob: false
+                    ignoreTravelTimeLastJob: false
+                    minimizeResources: false
+                    maxDailyTravelTimeInMinutes: 180
+                    maxTravelTimeBetweenLocations: 60
+                    respectAllocationTimes: false
+                    respectAllocationTimesOverTimeConstraints: false
+                    balanceAbsoluteWorkload: false
+                    enablePartiallyAllocatedGroups: true
+                    enablePartiallyAllocatedAllocationDependencies: true
+                    removeLockedJobsFromShifts: true
+                    respectSchedule: false
+                    transformers: []
+                    ignoreResourceOverrideLocations: false
+                  includeTemporaryRegions: false
+                  includeSecondaryRegions: false
+                  name: schedule-1
+                  runDate: '2020-01-02'
+                  timezone: Z
+                  earliestStartTime: 01:04:05
+                  latestEndTime: 01:07:05
+                  recurring:
+                    step: 1
+                    repeatMode: daily
+                    endAfterNumberOccurrences: 1
+                  persistenceStrategy: save
+                  lastModifiedByUserId: user-1
+                  lastModifiedByDate: '2020-01-02T05:04:05Z'
+                  createdByUserId: user-1
+                  createdByDate: '2020-01-02T03:04:05Z'
+      security:
+      - httpAuth: []
+      tags:
+      - Batch
+    put:
+      summary: Update a batch schedule
+      description: Replace the configuration of an existing batch schedule with the provided definition. This will affect all future runs triggered by this schedule.
+      operationId: Update Batch Schedule
+      parameters:
+      - name: scheduleId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleShape'
+            example:
+              dayRange: 1
+              dayOffset: 2
+              jobQuery: a2
+              resourceQuery: a3
+              region: r1
+              regions:
+              - r1
+              optimizationType: pvrp
+              schedulingOptions:
+                full: false
+                ignoreTravelTime: false
+                ignoreTravelTimeFirstJob: false
+                ignoreTravelTimeLastJob: false
+                minimizeResources: false
+                respectAllocationTimes: false
+                respectAllocationTimesOverTimeConstraints: false
+                balanceAbsoluteWorkload: false
+                enablePartiallyAllocatedGroups: true
+                enablePartiallyAllocatedAllocationDependencies: true
+                removeLockedJobsFromShifts: true
+                respectSchedule: false
+                recipeId: d8e4621b-eb15-4907-93c5-fb9503be476e
+                transformers: []
+                ignoreResourceOverrideLocations: false
+              includeTemporaryRegions: true
+              includeSecondaryRegions: false
+              name: a1
+              runDate: '2022-03-03'
+              timezone: Australia/Brisbane
+              earliestStartTime: 01:02:00
+              recurring:
+                step: 1
+                repeatMode: weekly
+                repeatOnWeekDays:
+                - sun
+                - mon
+                - tue
+                - wed
+                - thu
+                - fri
+                - sat
+                endAfterNumberOccurrences: 1
+        required: true
+      responses:
+        '204':
+          description: ''
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+      security:
+      - httpAuth: []
+      tags:
+      - Batch
+    delete:
+      summary: Delete a batch schedule
+      description: Permanently deletes a batch schedule by its ID. No further optimization runs will be triggered for this schedule after deletion.
+      operationId: Delete Batch Schedule
+      parameters:
+      - name: scheduleId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      security:
+      - httpAuth: []
+      tags:
+      - Batch
+components:
+  schemas:
+    ScheduleRecordShape:
+      required:
+      - name
+      - optimizationType
+      - runDate
+      - timezone
+      - earliestStartTime
+      - dayRange
+      - dayOffset
+      - region
+      - schedulingOptions
+      - includeTemporaryRegions
+      - includeSecondaryRegions
+      - createdByUserId
+      - createdByDate
+      - lastModifiedByUserId
+      - lastModifiedByDate
+      type: object
+      properties:
+        name:
+          type: string
+        optimizationType:
+          type: string
+          enum:
+          - pvrp
+        status:
+          type: string
+          enum:
+          - deleted
+        runDate:
+          type: string
+          format: date
+        timezone:
+          type: string
+        earliestStartTime:
+          type: string
+        latestEndTime:
+          type: string
+        recurring:
+          $ref: '#/components/schemas/Recurring'
+        dayRange:
+          type: integer
+          format: int32
+        dayOffset:
+          type: integer
+          format: int32
+        jobQuery:
+          type: string
+        resourceQuery:
+          type: string
+        region:
+          type: string
+        schedulingOptions:
+          $ref: '#/components/schemas/PVRPProductOptionsShape'
+        persistenceStrategy:
+          type: string
+          enum:
+          - save
+          - optimize
+        includeTemporaryRegions:
+          type: boolean
+        includeSecondaryRegions:
+          type: boolean
+        createdByUserId:
+          type: string
+        createdByDate:
+          type: string
+          format: date-time
+        lastModifiedByUserId:
+          type: string
+        lastModifiedByDate:
+          type: string
+          format: date-time
+    ObjectiveWeightModifiersShape:
+      type: object
+      properties:
+        minimizeDisruption:
+          type: number
+        balanceAbsoluteWorkload:
+          type: number
+        travelTime:
+          type: number
+        minimizeResources:
+          type: number
+        softSkills:
+          type: number
+        jobsPriority:
+          type: number
+        resourceRating:
+          type: number
+        scheduleImmediacy:
+          type: number
+        urgency:
+          type: number
+        overtime:
+          type: number
+    Monthly:
+      required:
+      - step
+      - repeatMode
+      - dayOfMonthToRepeatOn
+      type: object
+      properties:
+        step:
+          type: integer
+          format: int32
+        repeatMode:
+          type: string
+          description: '`monthly_nth_day`'
+        dayOfMonthToRepeatOn:
+          type: integer
+          format: int32
+        endAfterNumberOccurrences:
+          type: integer
+          format: int32
+        endOn:
+          type: string
+          format: date
+      description: recurringFieldsDescription
+    Recurring:
+      description: Configuration for recurring schedules, if blank the schedule will only run once
+      oneOf:
+      - $ref: '#/components/schemas/Daily'
+      - $ref: '#/components/schemas/Monthly'
+      - $ref: '#/components/schemas/Weekly'
+      - $ref: '#/components/schemas/Yearly'
+    ObjectiveWeightsShape:
+      type: object
+      properties:
+        minimizeDisruption:
+          type: integer
+        balanceAbsoluteWorkload:
+          type: integer
+        travelTime:
+          type: integer
+        minimizeResources:
+          type: integer
+        softSkills:
+          type: integer
+        jobsPriority:
+          type: integer
+        resourceRating:
+          type: integer
+        scheduleImmediacy:
+          type: integer
+        urgency:
+          type: integer
+        overtime:
+          type: integer
+    ScheduleShape:
+      required:
+      - name
+      - runDate
+      - timezone
+      - earliestStartTime
+      - optimizationType
+      - region
+      - dayRange
+      - dayOffset
+      - schedulingOptions
+      type: object
+      properties:
+        name:
+          type: string
+        runDate:
+          type: string
+          description: Date the schedule will first run
+          format: date
+        timezone:
+          type: string
+        earliestStartTime:
+          type: string
+          description: Earliest time the schedule can start
+        latestEndTime:
+          type: string
+        recurring:
+          $ref: '#/components/schemas/Recurring'
+        persistenceStrategy:
+          type: string
+          description: Whether the optimization results will be autosaved
+          enum:
+          - save
+          - optimize
+        optimizationType:
+          type: string
+          enum:
+          - pvrp
+        region:
+          type: string
+        jobQuery:
+          type: string
+          description: EQL filter for jobs to include in the optimization
+        resourceQuery:
+          type: string
+          description: EQL filter for resources to include in the optimization
+        dayRange:
+          type: integer
+          description: Number of days to include in the scheduling window
+          format: int32
+        dayOffset:
+          type: integer
+          description: Number of days after the run date to start the scheduling window
+          format: int32
+        schedulingOptions:
+          $ref: '#/components/schemas/PVRPProductOptionsShape'
+        includeTemporaryRegions:
+          type: boolean
+        includeSecondaryRegions:
+          type: boolean
+    Weekly:
+      required:
+      - step
+      - repeatMode
+      - repeatOnWeekDays
+      type: object
+      properties:
+        step:
+          type: integer
+          format: int32
+        repeatMode:
+          type: string
+          description: '`weekly`'
+        repeatOnWeekDays:
+          type: array
+          items:
+            type: string
+            enum:
+            - sun
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
+            - sat
+        endAfterNumberOccurrences:
+          type: integer
+          format: int32
+        endOn:
+          type: string
+          format: date
+      description: recurringFieldsDescription
+    Daily:
+      required:
+      - step
+      - repeatMode
+      type: object
+      properties:
+        step:
+          type: integer
+          format: int32
+        repeatMode:
+          type: string
+          description: '`daily`'
+        endAfterNumberOccurrences:
+          type: integer
+          format: int32
+        endOn:
+          type: string
+          format: date
+      description: recurringFieldsDescription
+    Yearly:
+      required:
+      - step
+      - repeatMode
+      type: object
+      properties:
+        step:
+          type: integer
+          format: int32
+        repeatMode:
+          type: string
+          description: '`yearly`'
+        endAfterNumberOccurrences:
+          type: integer
+          format: int32
+        endOn:
+          type: string
+          format: date
+      description: recurringFieldsDescription
+    Paging:
+      required:
+      - limit
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int32
+        nextCursor:
+          type: string
+        total:
+          type: integer
+          format: int32
+    PVRPProductOptionsShape:
+      type: object
+      properties:
+        full:
+          type: boolean
+        ignoreTravelTime:
+          type: boolean
+        ignoreTravelTimeFirstJob:
+          type: boolean
+        ignoreTravelTimeLastJob:
+          type: boolean
+        minimizeResources:
+          type: boolean
+        maxDailyTravelTimeInMinutes:
+          type: integer
+          format: int64
+        maxTravelTimeBetweenLocations:
+          type: integer
+          format: int64
+        respectAllocationTimes:
+          type: boolean
+        respectAllocationTimesOverTimeConstraints:
+          type: boolean
+        balanceAbsoluteWorkload:
+          type: boolean
+        snapUnit:
+          type: integer
+          format: int32
+        padding:
+          type: integer
+          format: int32
+        objectiveWeights:
+          $ref: '#/components/schemas/ObjectiveWeightsShape'
+        objectiveWeightModifiers:
+          $ref: '#/components/schemas/ObjectiveWeightModifiersShape'
+        temporalAffinityStrength:
+          type: integer
+          format: int32
+        respectSchedule:
+          type: boolean
+        recipeId:
+          type: string
+          description: The recipe id to use for the optimization run, this will override any scheduling options in the request and is the preferred way of controlling the optimization run
+        enablePartiallyAllocatedGroups:
+          type: boolean
+        enablePartiallyAllocatedAllocationDependencies:
+          type: boolean
+        enforceCompatibility:
+          type: boolean
+        onJobRemoval:
+          type: array
+          items:
+            type: string
+            enum:
+            - clearJobTimes
+            - deallocateResources
+          minItems: 1
+        rollingScheduleWindowInterval:
+          description: The interval used to split the schedule window into rolling sub-windows. Accepts "monthly", "quarterly", or a positive integer representing a fixed number of days.
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

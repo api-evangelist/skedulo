@@ -1,0 +1,228 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Static API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Static
+paths:
+  /static:
+    post:
+      security:
+      - Authorization: []
+      summary: Upload a static file
+      description: Upload a static file (a standalone file without a parent). Content-Length and Content-Type are required.
+      operationId: uploadFile
+      parameters:
+      - name: file_type
+        in: query
+        description: The type of the file being uploaded
+        required: true
+        schema:
+          type: string
+          enum:
+          - mex
+          - misc
+      - name: X-Skedulo-Name
+        in: header
+        description: The name of the file
+        required: true
+        schema:
+          type: string
+      - name: X-Skedulo-Description
+        in: header
+        description: An optional description of the file
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultStaticFileMeta'
+        '400':
+          description: Invalid data supplied
+      tags:
+      - Static
+    get:
+      security:
+      - Authorization: []
+      summary: Find static files
+      description: Find static files with the specified type and having their name or description matching a search term
+      operationId: searchFiles
+      parameters:
+      - name: file_type
+        in: query
+        description: The type of files being searched for
+        required: true
+        schema:
+          type: string
+          enum:
+          - mex
+          - misc
+      - name: term
+        in: query
+        description: The search term. Files will be returned based on partial, case-insensitive match in the name or description.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultStaticFileMeta'
+        '400':
+          description: Invalid data supplied
+      tags:
+      - Static
+  /static/{fileId}:
+    get:
+      security:
+      - Authorization: []
+      summary: Retrieve a static file with the given identifier
+      description: Returns a pre-signed S3 URL with a redirect status code (HTTP 302) to allow the client to download the file directly from S3.
+      operationId: downloadStaticFile
+      parameters:
+      - name: fileId
+        in: path
+        description: Identifier of the file to be retrieved
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Invalid data supplied
+        '404':
+          description: File with the given identifier is not found
+      tags:
+      - Static
+    put:
+      security:
+      - Authorization: []
+      summary: Update static file
+      description: Update the name and description of a static file
+      operationId: updateFile
+      parameters:
+      - name: fileId
+        in: path
+        description: Identifier of the file to update
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - result
+                properties:
+                  result:
+                    type: string
+                    description: The identifier of the file being updated
+        '400':
+          description: Invalid data supplied
+        '404':
+          description: File with the given identifier is not found
+      tags:
+      - Static
+    delete:
+      security:
+      - Authorization: []
+      summary: Delete static file
+      description: Delete the static file with the given identifier
+      operationId: deleteStaticFile
+      parameters:
+      - name: fileId
+        in: path
+        description: Identifier of the file to delete
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: successful operation
+        '400':
+          description: Invalid data supplied
+        '404':
+          description: File with the given identifier is not found
+      tags:
+      - Static
+components:
+  schemas:
+    StaticFileMeta:
+      type: object
+      required:
+      - id
+      - name
+      - type
+      - createdById
+      - createdDate
+      - lastModifiedById
+      - lastModifiedDate
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - mex
+          - misc
+        name:
+          type: string
+        description:
+          type: string
+        contentType:
+          type: string
+        contentLength:
+          type: string
+        createdById:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        lastModifiedById:
+          type: string
+        lastModifiedDate:
+          type: string
+          format: date-time
+        downloadUrl:
+          type: string
+    ApiResultStaticFileMeta:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/StaticFileMeta'
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

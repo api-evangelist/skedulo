@@ -1,0 +1,63 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin ICal API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: ICal
+paths:
+  /{token}:
+    get:
+      summary: Fetch an iCal for the given token
+      description: ''
+      operationId: getICal
+      parameters:
+      - name: token
+        in: path
+        description: The token
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the iCal
+          content:
+            text/icalendar:
+              schema:
+                type: string
+        '400':
+          description: If the token is invalid
+          content:
+            text/icalendar:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Error
+          content:
+            text/icalendar:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - ICal
+components:
+  schemas:
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

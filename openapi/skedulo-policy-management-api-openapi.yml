@@ -1,0 +1,399 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Policy Management API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Policy Management
+paths:
+  /policies/{id}:
+    get:
+      tags:
+      - Policy Management
+      summary: Get a policy by ID.
+      operationId: getPolicyById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultPolicyResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+    put:
+      tags:
+      - Policy Management
+      summary: Update an existing policy.
+      operationId: updatePolicy
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultPolicyResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Policy Management
+      summary: Delete a policy.
+      operationId: deletePolicy
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultUnit'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+  /policies:
+    get:
+      tags:
+      - Policy Management
+      summary: Get multiple policies.
+      operationId: getPolicies
+      parameters:
+      - name: enabledOnly
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultListPolicyResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+    post:
+      tags:
+      - Policy Management
+      summary: Create a new policy.
+      operationId: createPolicy
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultPolicyResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    ApiResultListPolicyResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyResult'
+    ErrorDetails:
+      type: object
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+        extraFields:
+          type: object
+          additionalProperties:
+            type: object
+    Unit:
+      type: object
+    PolicyInput:
+      required:
+      - description
+      - enabled
+      - name
+      type: object
+      properties:
+        name:
+          maxLength: 250
+          minLength: 0
+          type: string
+          description: Short name for the policy.
+        description:
+          maxLength: 1000
+          minLength: 0
+          type: string
+          description: Detailed description of the policy.
+        enabled:
+          type: boolean
+          description: Whether the policy is enabled.
+        rules:
+          maxItems: 20
+          minItems: 0
+          type: array
+          description: The rules that define the policy. Rules can also be added to the policy later. A maximum of 20 rules is allowed
+          items:
+            $ref: '#/components/schemas/NewRuleInput'
+        sourceTemplateId:
+          type: string
+          description: The ID of the template the policy was created from. null if the policy was not created from a template.
+          format: uuid
+      description: A group of record access rules that combine to achieve a desired outcome and can be enabled as a group.
+    ApiResultUnit:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Unit'
+    PolicyResult:
+      required:
+      - description
+      - enabled
+      - id
+      - name
+      - rules
+      type: object
+      properties:
+        id:
+          type: string
+          description: Uniquely identifies the policy. This ID can be used for updating or deleting the policy.
+          format: uuid
+        name:
+          maxLength: 250
+          minLength: 0
+          type: string
+          description: Short name for the policy.
+        description:
+          maxLength: 1000
+          minLength: 0
+          type: string
+          description: Detailed description of the policy.
+        enabled:
+          type: boolean
+          description: Whether the policy is enabled.
+        rules:
+          maxItems: 20
+          minItems: 0
+          type: array
+          description: The rules that define the policy. Rules can also be added to the policy later. A maximum of 20 rules is allowed
+          items:
+            $ref: '#/components/schemas/RuleResult'
+        sourceTemplateId:
+          type: string
+          description: The ID of the template the policy was created from. null if the policy was not created from a template.
+          format: uuid
+      description: A group of record access rules that combine to achieve a desired outcome.
+    ApiResultPolicyResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PolicyResult'
+    RuleResult:
+      required:
+      - accessType
+      - description
+      - filter
+      - id
+      - objectType
+      - permissionsExcluded
+      - policyId
+      - rolesExcluded
+      type: object
+      properties:
+        id:
+          type: string
+          description: Uniquely identifies the rule. This ID can be used for updating or deleting the rule.
+          format: uuid
+        policyId:
+          type: string
+          description: ID of the parent policy.
+          format: uuid
+        description:
+          maxLength: 250
+          minLength: 0
+          type: string
+          description: Describes the purpose of the rule.
+        objectType:
+          type: string
+          description: The object type (schema) that the rule applies to. This may be a custom object.
+        filter:
+          type: string
+          description: A filter expressed in the Skedulo Elastic Query Language (EQL), possibly with placeholders. This filter must be valid with respect to the object type and the custom data model.
+        accessType:
+          type: string
+          description: Specifies whether the filter allows or denies access. All Deny rules will be applied with the AND operator and then all Allow filters will be applied with the OR operator.
+          enum:
+          - deny
+          - allow
+        permissionsExcluded:
+          type: array
+          description: An optional set of permission keys for which this rule should be ignored. If the user has any of these permissions, the rule will not be applied.
+          items:
+            type: string
+            description: An optional set of permission keys for which this rule should be ignored. If the user has any of these permissions, the rule will not be applied.
+        rolesExcluded:
+          type: array
+          description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
+          items:
+            type: string
+            description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
+            format: uuid
+      description: A record access rule that controls access to data.
+    NewRuleInput:
+      required:
+      - accessType
+      - description
+      - filter
+      - objectType
+      - permissionsExcluded
+      - rolesExcluded
+      type: object
+      properties:
+        description:
+          maxLength: 250
+          minLength: 0
+          type: string
+          description: Describes the purpose of the rule.
+        objectType:
+          type: string
+          description: The object type (schema) that the rule applies to. This may be a custom object.
+        filter:
+          type: string
+          description: A filter expressed in the Skedulo Elastic Query Language (EQL), possibly with placeholders. This filter must be valid with respect to the object type and the custom data model.
+        accessType:
+          type: string
+          description: Specifies whether the filter allows or denies access. All Deny rules will be applied with the AND operator and then all Allow filters will be applied with the OR operator.
+          enum:
+          - deny
+          - allow
+        permissionsExcluded:
+          type: array
+          description: An optional set of permission keys for which this rule should be ignored. If the user has any of these permissions, the rule will not be applied.
+          items:
+            type: string
+            description: An optional set of permission keys for which this rule should be ignored. If the user has any of these permissions, the rule will not be applied.
+        rolesExcluded:
+          type: array
+          description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
+          items:
+            type: string
+            description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
+            format: uuid
+      description: The rules that define the policy. Rules can also be added to the policy later. A maximum of 20 rules is allowed
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

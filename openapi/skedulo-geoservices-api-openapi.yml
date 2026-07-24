@@ -1,0 +1,169 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Geoservices API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Geoservices
+paths:
+  /geoservices/travel-time:
+    post:
+      operationId: /geoservices/travel-time
+      summary: Determine travel time for many resources, across work or activities they have been assigned
+      description: The Travel Time endpoint will approximate how long it takes for a resource to travel between destinations. It will filter down to relevant availability windows (ignoring destinations outside the resource's availability), order the work to be completed, and finally calculate the travel time between each destination. The result will contain only the node identifier and the relevant travel time.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TravelTimeBody'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TravelTimeResponse'
+      tags:
+      - Geoservices
+components:
+  schemas:
+    TravelTimeResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          description: The response will contain successful travel times grouped by the Nodes id
+      example: "{\n  \"result\": {\n    \"0008dea1-7b0b-496c-8043-fb86ff6a73aa\": 204,\n    \"0008cb3c-e5d8-45e6-ba80-cc674aedbbbe\": 0,\n    \"001413ed-c6a5-495d-9fb9-a92503a250c1\": 340,\n    \"001442ff-27e7-40f3-80c8-016305b92230\": 344,\n    \"001484ec-5a47-48ae-bce8-0bf443fbf50c\": 163,\n    \"000555ac-24f1-43fe-b6c0-117c34bbc994\": 257\n  }\n}\n"
+    TravelTimeNode:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The requesting system's identifier that needs travel time
+        resourceId:
+          type: string
+          description: The identifier of the resource to determine routes and waypoints
+        start:
+          $ref: '#/components/schemas/TimeStamp'
+        end:
+          $ref: '#/components/schemas/TimeStamp'
+        lat:
+          type: number
+          description: Latitude
+        lng:
+          type: number
+          description: Longitude
+      required:
+      - id
+      - resourceId
+      - start
+      - end
+    SchedulingOptions:
+      type: object
+      properties:
+        jobTimeAsTimeConstraint:
+          type: boolean
+          default: true
+          description: When a job has a time set, consider it to be a time constraint and never re-schedule to another time slot.
+        preferJobTimeOverTimeConstraint:
+          type: boolean
+          default: true
+          description: When a job with a JobTimeConstraint also has a time set, consider the job time as the authoritative constraint and ignore the JobTimeConstraint.
+        respectSchedule:
+          type: boolean
+          default: true
+          description: For a job that is allocated and in "Pending Dispatch" status, do not move the job to a different time.
+        ignoreTravelTimes:
+          type: boolean
+          default: false
+          description: Ignore all travel times between resources and jobs.
+        ignoreTravelTimeFirstJob:
+          type: boolean
+          default: false
+          description: Ignore travel time from a resource' home location to the first job.
+        ignoreTravelTimeLastJob:
+          type: boolean
+          default: false
+          description: Ignore travel time to the resource' home location from the last job.
+        assumeResourceCanTravelBeforeStart:
+          type: boolean
+          default: false
+          description: Ignore travel time to first job when deriving its arrival time however include the travel time when considering overall travel time reduction.
+        assumeResourceCanTravelAfterEnd:
+          type: boolean
+          default: false
+          description: Assume that the resource can travel after their end time to get to their end location however include the travel time when considering overall travel time reduction.
+        padding:
+          type: integer
+          default: 0
+          description: A fixed interval of time between consecutive jobs.
+        snapUnit:
+          type: integer
+          default: 0
+          minimum: 0
+          description: Divide the given time frame into parts described by this value and allocate all jobs to the nearest part.
+    TravelTimeResource:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The identifier of the resource
+        origin:
+          $ref: '#/components/schemas/Coordinates'
+        availabilities:
+          type: array
+          description: The time windows when a resource is available
+          items:
+            type: object
+            properties:
+              start:
+                $ref: '#/components/schemas/TimeStamp'
+              end:
+                $ref: '#/components/schemas/TimeStamp'
+            required:
+            - start
+            - end
+    Coordinates:
+      type: object
+      description: Geocoordinates of the activity/job/resource
+      properties:
+        lat:
+          type: number
+          description: Latitude
+        lng:
+          type: number
+          description: Longitude
+      required:
+      - lat
+      - lng
+    TravelTimeBody:
+      type: object
+      properties:
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/TravelTimeResource'
+        nodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TravelTimeNode'
+        schedulingOptions:
+          $ref: '#/components/schemas/SchedulingOptions'
+      required:
+      - resources
+      - nodes
+    TimeStamp:
+      type: string
+      format: date-time
+      description: Can be either ISO8601 date time string or Unix timestamp number ( in milliseconds ). Always returned in ISO8601 format.
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

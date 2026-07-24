@@ -1,0 +1,91 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Device Notification Information and Registration API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Device Notification Information and Registration
+paths:
+  /device_id:
+    post:
+      security:
+      - Authorization: []
+      summary: Register a device ID
+      tags:
+      - Device Notification Information and Registration
+      description: Register a device ID.
+      responses:
+        '200':
+          description: Result
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceIDRequest'
+        required: true
+    delete:
+      security:
+      - Authorization: []
+      summary: Delete device ID
+      tags:
+      - Device Notification Information and Registration
+      description: Delete device ID.
+      responses:
+        '200':
+          description: Result
+        '404':
+          description: Device information for this user cannot be found.
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    DeviceIDRequest:
+      type: object
+      required:
+      - deviceId
+      - platform
+      properties:
+        deviceId:
+          type: string
+        platform:
+          type: string
+          enum:
+          - Skedulo-X-iOS
+          - Skedulo-X-Android
+        features:
+          type: object
+          description: This field is optional for backwards compatibility reasons (all features defaults to false if not provided).
+          properties:
+            chat:
+              type: boolean
+              description: Whether this device can has team chat functionality (e.g. can understand push notifications for chat).
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

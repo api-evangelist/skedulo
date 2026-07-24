@@ -1,0 +1,56 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Schema API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Schema
+paths:
+  /schema:
+    get:
+      security:
+      - Authorization: []
+      summary: Skedulo GraphQL schema
+      description: 'Retrieve the Skedulo GraphQL schema. '
+      operationId: graphqlSchema
+      responses:
+        '200':
+          description: Schema was returned
+        '401':
+          description: Authentication/Authorization failed
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Error
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Schema
+components:
+  schemas:
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+        errorId:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

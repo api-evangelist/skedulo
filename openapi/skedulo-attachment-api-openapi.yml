@@ -1,0 +1,238 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Attachment API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Attachment
+paths:
+  /attachment/{fileId}:
+    get:
+      security:
+      - Authorization: []
+      summary: Retrieve an attachment with the given identifier
+      description: Returns a pre-signed S3 URL with a redirect status code (HTTP 302) to allow the client to download the file directly from S3.
+      operationId: downloadFile
+      parameters:
+      - name: fileId
+        in: path
+        description: Identifier of the file to retrieve
+        required: true
+        schema:
+          type: string
+      - name: attach
+        in: query
+        description: True to force the browser to download the file, false to inline the content
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Invalid data supplied
+        '404':
+          description: Attachment with the given identifier is not found
+      tags:
+      - Attachment
+    put:
+      security:
+      - Authorization: []
+      summary: Rename a file (implemented for Salesforce only)
+      description: ''
+      operationId: renameFile
+      parameters:
+      - name: fileId
+        in: path
+        description: Identifier of the file to rename
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: query
+        description: The new name of the file
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileSaveResult'
+        '400':
+          description: Invalid data supplied
+        '404':
+          description: Attachment with the given identifier is not found
+      tags:
+      - Attachment
+    delete:
+      security:
+      - Authorization: []
+      summary: Delete the attachment with the given identifier
+      description: ''
+      operationId: deleteFile
+      parameters:
+      - name: fileId
+        in: path
+        description: Identifier of the attachment to delete
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletedApiResult'
+        '400':
+          description: Invalid data supplied
+        '404':
+          description: Attachment with the given identifier is not found
+      tags:
+      - Attachment
+  /attachment/{fileId}/metadata:
+    get:
+      security:
+      - Authorization: []
+      summary: Retrieve metadata for an attachment
+      description: Returns metadata for the attachment. Currently includes EXIF data for image and video formats that carry EXIF (JPEG, TIFF, WebP, HEIC/HEIF, PNG, QuickTime, MP4, AVI, M4V). The exif section is empty for supported formats that contain no EXIF data.
+      operationId: getAttachmentMetadata
+      parameters:
+      - name: fileId
+        in: path
+        description: Identifier of the file to retrieve metadata for
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Metadata retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultAttachmentMetadata'
+        '400':
+          description: File exceeds the maximum size limit for EXIF extraction
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden — requires ATTACHMENTS_VIEW or MOBILE_V2_ACCESS permission
+        '404':
+          description: Attachment with the given identifier is not found
+      tags:
+      - Attachment
+components:
+  schemas:
+    FileSaveResult:
+      type: object
+      required:
+      - id
+      - success
+      properties:
+        id:
+          type: string
+        success:
+          type: boolean
+    AttachmentMetadata:
+      type: object
+      description: General metadata for an attachment.
+      required:
+      - exifSupported
+      properties:
+        exifSupported:
+          type: boolean
+          description: Whether the file format supports EXIF metadata. When false, the exif object will be empty.
+        exif:
+          $ref: '#/components/schemas/ExifData'
+    ExifData:
+      type: object
+      description: EXIF metadata extracted from an image or video file. All fields are optional — present only when the file contains the corresponding tag.
+      properties:
+        Make:
+          type: string
+          description: Camera manufacturer (e.g. Apple, Canon, Sony)
+        Model:
+          type: string
+          description: Camera model (e.g. iPhone 14 Pro)
+        DateTimeOriginal:
+          type: string
+          description: Date and time when the original image was captured, as a raw EXIF string (e.g. "2024:03:15 14:22:01")
+        OffsetTimeOriginal:
+          type: string
+          description: UTC offset for DateTimeOriginal as a raw EXIF string (e.g. "+10:00", "-05:30")
+        ExposureTime:
+          type: number
+          format: double
+          description: Exposure time in seconds (e.g. 0.00833 = 1/120 sec)
+        FNumber:
+          type: number
+          format: double
+          description: F-number (aperture) (e.g. 1.5)
+        ISO:
+          type: integer
+          description: ISO speed rating
+        FocalLength:
+          type: number
+          format: double
+          description: Focal length in millimetres
+        latitude:
+          type: number
+          format: double
+          description: GPS latitude in decimal degrees (positive = North)
+        longitude:
+          type: number
+          format: double
+          description: GPS longitude in decimal degrees (positive = East)
+        ImageWidth:
+          type: integer
+          description: Image width in pixels
+        ImageHeight:
+          type: integer
+          description: Image height in pixels
+        ExifImageWidth:
+          type: integer
+          description: Image width recorded in the Exif SubIFD
+        ExifImageHeight:
+          type: integer
+          description: Image height recorded in the Exif SubIFD
+        LensModel:
+          type: string
+          description: Lens model identifier
+        XResolution:
+          type: number
+          format: double
+          description: Horizontal resolution in pixels per resolution unit
+        ResolutionUnit:
+          type: string
+          description: Unit for XResolution (e.g. Inch)
+    DeletedApiResult:
+      type: object
+      required:
+      - deleted
+      properties:
+        deleted:
+          type: string
+    ApiResultAttachmentMetadata:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/AttachmentMetadata'
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

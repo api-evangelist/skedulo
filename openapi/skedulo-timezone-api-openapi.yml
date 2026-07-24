@@ -1,0 +1,85 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Timezone API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Timezone
+paths:
+  /timezone:
+    get:
+      security:
+      - Authorization: []
+      parameters:
+      - in: query
+        name: location
+        description: Latitude and Longitude of the location to find the timezone for
+        required: true
+        explode: false
+        schema:
+          type: array
+          items:
+            type: number
+          minItems: 2
+          maxItems: 2
+      - in: query
+        name: timestamp
+        description: Seconds since 1970 for the timezone to return (used to compute DST offset)
+        required: true
+        schema:
+          type: integer
+      summary: Return timezone information for a location
+      description: Given a location and timestamp return the timezone name, the offset and Daylight Savings offset.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimezoneResponse'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Timezone
+components:
+  schemas:
+    TimezoneResponse:
+      type: object
+      properties:
+        dstOffset:
+          description: The Daylight Savings time offset in seconds or 0 if no Daylight Savings time is in effect.
+          type: number
+        rawOffset:
+          description: The offset in seconds from UTC for the given location.
+          type: number
+        timeZoneId:
+          description: The id of the time zone, (e.g "Australia/Brisbane" as defined by the Unicode Common Locale Data Repository (CLDR) project.
+          type: string
+      example:
+        dstOffset: 0
+        rawOffset: 36000
+        timeZoneId: Australia/Brisbane
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

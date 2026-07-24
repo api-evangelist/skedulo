@@ -1,0 +1,52 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Internal API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Internal
+paths:
+  /internal/initialize_tenant:
+    post:
+      description: Internal endpoint used to initialize a skedulo or salesforce tenant schema.
+      operationId: internalInitializeTenant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitializeInput'
+      responses:
+        '200':
+          description: Tenant initialized succesfully.
+        '400':
+          description: Tenant initialization failed.
+      tags:
+      - Internal
+components:
+  schemas:
+    InitializeInput:
+      type: object
+      required:
+      - tenantId
+      - vendor
+      properties:
+        tenantId:
+          description: The tenant ID to create the schema for existing tenantId's will return success but will not be updated.
+          type: string
+          example: sk_ba70ac7072fd4df3a179cce2e2c4e483
+        vendor:
+          description: The vendor that will serve the tenant's data either skedulo or salesforce
+          type: string
+          enum:
+          - skedulo
+          - salesforce
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

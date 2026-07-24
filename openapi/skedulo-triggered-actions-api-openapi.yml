@@ -1,0 +1,702 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Triggered Actions API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Triggered Actions
+paths:
+  /triggered_actions:
+    get:
+      security:
+      - Authorization: []
+      summary: Get all triggered actions
+      description: Gets all configured triggered actions, including disabled ones.
+      operationId: triggeredActionsFetch
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - result
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TriggeredAction'
+        '403':
+          description: If the user does not have the required permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Triggered Actions
+    post:
+      security:
+      - Authorization: []
+      summary: Create a new triggered action
+      operationId: triggeredActionCreate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTriggeredAction'
+        required: true
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - result
+                properties:
+                  result:
+                    $ref: '#/components/schemas/TriggeredAction'
+        '400':
+          description: If the changes do not pass validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: If the user does not have the required permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Triggered Actions
+  /triggered_actions/{id}:
+    patch:
+      security:
+      - Authorization: []
+      summary: Update an existing triggered action
+      description: Note that the type of the trigger and the action cannot be changed.
+      operationId: triggeredActionUpdate
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of the triggered action to update
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatedTriggeredAction'
+        required: true
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - result
+                properties:
+                  result:
+                    $ref: '#/components/schemas/TriggeredAction'
+        '400':
+          description: If the changes do not pass validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: If the user does not have the required permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: If there is no triggered action with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Triggered Actions
+    delete:
+      security:
+      - Authorization: []
+      summary: Delete a triggered action
+      operationId: triggeredActionDelete
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of the triggered action to delete
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: success
+        '403':
+          description: If the user does not have the required permissions
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Triggered Actions
+  /triggered_actions/logs:
+    summary: Triggered action and webhook logs
+    get:
+      summary: Get triggered action and webhook logs
+      description: 'Return the status and details of webhooks and/or triggered actions. By default, results are in ascending order by log ID.<br>Note if the user does not have the "View all data" permission, all potentially sensitive data will be redacted (replaced with the text "\<redacted\>"). Note also that a triggered action wil typically produce two entries in the log: one for querying associated data and one for executing the HTTP request.'
+      operationId: triggeredActionLogs
+      parameters:
+      - name: offset
+        in: query
+        description: Result offset used for pagination
+        required: false
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: 'Max number of results to return. Default: 200'
+        required: false
+        schema:
+          type: integer
+      - name: sourceId
+        in: query
+        description: A Webhook or Triggered Action ID to filter on
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: isWebhook
+        in: query
+        description: If true, includes only webhook logs. If false, includes only triggered action logs. If omitted, includes logs of both types.
+        required: false
+        schema:
+          type: boolean
+      - name: updatedFrom
+        in: query
+        description: Return logs updated after this datetime (inclusive)
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: updatedTo
+        in: query
+        description: Return logs updated before this datetime (inclusive)
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: order
+        in: query
+        description: Sort order for the results. Results are sorted by log ID, which corresponds to the order in which they were triggered.
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - paging
+                - result
+                properties:
+                  paging:
+                    $ref: '#/components/schemas/Paging'
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TriggeredActionLog'
+        '403':
+          description: User is not an administrator
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Triggered Actions
+components:
+  schemas:
+    TriggerEvent:
+      allOf:
+      - $ref: '#/components/schemas/Trigger'
+      type: object
+      properties:
+        typesFilter:
+          type: array
+          items:
+            type: string
+            description: Event type name.
+          description: Legacy event type filter that contains the list of accepted event types.
+          deprecated: true
+        filter:
+          type: string
+          description: 'An EQL-like filter that has access to the top-level fields of the event JSON.
+
+
+            Only equality checks and `AND` expressions are supported currently (and no parentheses). Left-hand values are names of top-level JSON fields, right-hand values must be valid JSON values, with the difference that strings are enclosed in single-quotes and escaping is not supported.
+
+
+            Example filter that checks if the top-level `type` and `taskType` fields in the event JSON match the specified values:
+
+
+            `type == ''async_task_completed'' AND taskType == ''apply_schedule_template''`'
+    SMSSourceReference:
+      type: object
+      required:
+      - numberField
+      properties:
+        numberField:
+          type: string
+          description: The field to use for the phone number, which may reference a lookup object. The phone number must be either a number in E.164 format or a local number that will be combined with the country code returned by the `countryCodeField`.
+          example: 'For a modified Job: "Contact.MobilePhone"'
+        countryCodeField:
+          type: string
+          nullable: true
+          description: An optional field to use for the country code that will be applied to the phone number.
+          example: 'For a modified JobAllocation: "Resource.CountryCode"'
+    TriggeredAction:
+      type: object
+      required:
+      - id
+      - name
+      - trigger
+      - action
+      - created
+      - updated
+      - enabled
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        trigger:
+          oneOf:
+          - $ref: '#/components/schemas/TriggerObjectModified'
+          - $ref: '#/components/schemas/TriggerEvent'
+          discriminator:
+            propertyName: type
+            mapping:
+              object_modified: '#/components/schemas/TriggerObjectModified'
+              event: '#/components/schemas/TriggerEvent'
+        action:
+          oneOf:
+          - $ref: '#/components/schemas/ActionCallUrl'
+          - $ref: '#/components/schemas/ActionSendSMS'
+          discriminator:
+            propertyName: type
+            mapping:
+              call_url: '#/components/schemas/ActionCallUrl'
+              send_sms: '#/components/schemas/ActionSendSMS'
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        customFields:
+          type: object
+          description: Custom fields as key-value pairs; only set for object_modified triggers.
+        enabled:
+          type: boolean
+    ErrorLog:
+      allOf:
+      - $ref: '#/components/schemas/CompleteTriggeredActionLog'
+      type: object
+      required:
+      - status
+      - started
+      - completed
+      - error
+      properties:
+        status:
+          type: string
+          enum:
+          - error
+        started:
+          type: string
+          format: date-time
+        completed:
+          type: string
+          format: date-time
+        error:
+          type: object
+    TriggerObjectModified:
+      allOf:
+      - $ref: '#/components/schemas/Trigger'
+      type: object
+      required:
+      - schemaName
+      - filter
+      properties:
+        schemaName:
+          type: string
+        filter:
+          type: string
+          description: An EQL filter that has access to the `Current` and `Previous` values along with the `Operation`
+        deferred:
+          description: An optional field to support scheduling the trigger at a later date based on the object itself
+          type: object
+          required:
+          - fieldName
+          - offset
+          properties:
+            fieldName:
+              description: A time field on the schema which determines when the deferred task will run
+              type: string
+            offset:
+              $ref: '#/components/schemas/TriggerObjectModifiedOffset'
+    SuccessLog:
+      allOf:
+      - $ref: '#/components/schemas/CompleteTriggeredActionLog'
+      type: object
+      required:
+      - status
+      - started
+      - completed
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+        started:
+          type: string
+          format: date-time
+        completed:
+          type: string
+          format: date-time
+    Attempt:
+      type: object
+      required:
+      - attempted
+      - error
+      properties:
+        attempted:
+          type: string
+          format: date-time
+        error:
+          type: object
+    PendingLog:
+      allOf:
+      - $ref: '#/components/schemas/BaseTriggeredActionLog'
+      type: object
+      required:
+      - status
+      - startAfter
+      properties:
+        status:
+          type: string
+          enum:
+          - pending
+        startAfter:
+          type: string
+          format: date-time
+    NewTriggeredAction:
+      type: object
+      required:
+      - name
+      - trigger
+      - action
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        trigger:
+          oneOf:
+          - $ref: '#/components/schemas/TriggerObjectModified'
+          - $ref: '#/components/schemas/TriggerEvent'
+          discriminator:
+            propertyName: type
+            mapping:
+              object_modified: '#/components/schemas/TriggerObjectModified'
+              event: '#/components/schemas/TriggerEvent'
+        action:
+          oneOf:
+          - $ref: '#/components/schemas/ActionCallUrl'
+          - $ref: '#/components/schemas/ActionSendSMS'
+          discriminator:
+            propertyName: type
+            mapping:
+              call_url: '#/components/schemas/ActionCallUrl'
+              send_sms: '#/components/schemas/ActionSendSMS'
+        enabled:
+          type: boolean
+    ActionCallUrl:
+      allOf:
+      - $ref: '#/components/schemas/Action'
+      type: object
+      required:
+      - url
+      - headers
+      - query
+      properties:
+        url:
+          type: string
+          format: uri
+          maxLength: 2048
+          description: Must be an HTTPS URL
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: A map of headers that are sent for each request
+          example: '{ "My-Auth-Header": "my_secret_token" }'
+        query:
+          type: string
+          description: A GraphQL query block for the modified object type, containing the structure of the data to be returned. Note that lookup and 'HasMany' array relationships may be included as per a normal GraphQL query.
+          example: '{ Name Contact { FullName } JobAllocations { Resource { Name } } }'
+        previousFields:
+          type: string
+          description: A GraphQL query block for the modified object type, containing the fields to be returned with the previous value from before the related data change. This field is valid for 'immediate' object_modified actions only - it is invalid for 'deferred' actions. Lookup and HasMany nested relationships cannot be included. Requires the 'useChangeEventsV2' feature flag to be enabled.
+          example: '{ JobStatus ContactId JobAllocationCount }'
+    BaseTriggeredActionLog:
+      type: object
+      required:
+      - id
+      - tenantId
+      - sourceId
+      - created
+      - data
+      - retry
+      - status
+      properties:
+        id:
+          type: integer
+        tenantId:
+          type: string
+        sourceId:
+          type: string
+          format: uuid
+        referenceId:
+          type: integer
+        data:
+          type: object
+        created:
+          type: string
+          format: date-time
+        retry:
+          type: integer
+        status:
+          type: string
+    Trigger:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - object_modified
+          - event
+    CompleteTriggeredActionLog:
+      allOf:
+      - $ref: '#/components/schemas/BaseTriggeredActionLog'
+      type: object
+      required:
+      - attempts
+      properties:
+        attempts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attempt'
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+        errorId:
+          type: string
+    ActionSendSMS:
+      allOf:
+      - $ref: '#/components/schemas/Action'
+      type: object
+      required:
+      - to
+      - template
+      properties:
+        to:
+          $ref: '#/components/schemas/SMSSource'
+        template:
+          type: string
+          description: 'A mustache template that can refer to fields of the modified object or fields of lookup objects. Note: Datetime fields are automatically formatted, or can be formatted using the `formatDateTime` function. See the [Send SMS](https://developer.skedulo.com//developer-guides/integration-and-automation/webhooks-and-triggered-actions/triggered-actions/introduction-to-triggered-actions/actions/#send-sms) documentation for more details.'
+          example: 'For a job: "Hi {{ Contact.FirstName }}. Your {{ Type }} is due to start at {{ Start }}. It should take around {{ Duration }}"'
+    TriggerObjectModifiedOffsetField:
+      required:
+      - fieldName
+      properties:
+        fieldName:
+          type: string
+          description: The name of a field that has a type of Int, Decimal or Duration
+        default:
+          type: integer
+          format: int64
+          description: A default value to use as the offset if the field has no value
+    TriggeredActionLog:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/PendingLog'
+      - $ref: '#/components/schemas/ProcessingLog'
+      - $ref: '#/components/schemas/SuccessLog'
+      - $ref: '#/components/schemas/ErrorLog'
+      discriminator:
+        propertyName: status
+        mapping:
+          pending: '#/components/schemas/PendingLog'
+          processing: '#/components/schemas/ProcessingLog'
+          success: '#/components/schemas/SuccessLog'
+          error: '#/components/schemas/ErrorLog'
+      properties:
+        status:
+          type: string
+          enum:
+          - pending
+          - processing
+          - success
+          - error
+    TriggerObjectModifiedOffset:
+      oneOf:
+      - type: integer
+        format: int64
+        description: An offset that is applied to the time field (in milliseconds)
+      - $ref: '#/components/schemas/TriggerObjectModifiedOffsetField'
+    ProcessingLog:
+      allOf:
+      - $ref: '#/components/schemas/BaseTriggeredActionLog'
+      type: object
+      required:
+      - status
+      - started
+      properties:
+        status:
+          type: string
+          enum:
+          - processing
+        started:
+          type: string
+          format: date-time
+    SMSSource:
+      oneOf:
+      - $ref: '#/components/schemas/SMSSourceReference'
+      - $ref: '#/components/schemas/SMSSourceNumbers'
+    Action:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - call_url
+          - send_sms
+    SMSSourceNumbers:
+      type: object
+      required:
+      - numbers
+      properties:
+        numbers:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          description: A non-empty array of phone numbers in E.164 format
+    UpdatedTriggeredAction:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          nullable: true
+        trigger:
+          oneOf:
+          - $ref: '#/components/schemas/TriggerObjectModified'
+          - $ref: '#/components/schemas/TriggerEvent'
+          discriminator:
+            propertyName: type
+            mapping:
+              object_modified: '#/components/schemas/TriggerObjectModified'
+              event: '#/components/schemas/TriggerEvent'
+        action:
+          oneOf:
+          - $ref: '#/components/schemas/ActionCallUrl'
+          - $ref: '#/components/schemas/ActionSendSMS'
+          discriminator:
+            propertyName: type
+            mapping:
+              call_url: '#/components/schemas/ActionCallUrl'
+              send_sms: '#/components/schemas/ActionSendSMS'
+        enabled:
+          type: boolean
+    Paging:
+      type: object
+      required:
+      - total
+      - limit
+      - offset
+      properties:
+        total:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

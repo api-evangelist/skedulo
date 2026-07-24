@@ -1,0 +1,129 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Graphql API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Graphql
+paths:
+  /graphql:
+    post:
+      security:
+      - Authorization: []
+      summary: GraphQL queries and mutations
+      description: 'Run queries and mutations against business data.
+
+
+        Queries and mutations are `POST` operations with a GraphQL payload that defines the shape of the query or mutation to be made against the data schema, including custom objects and fields. A mutation with multiple operations is executed as an atomic transaction: either all operations succeed or none succeed.
+
+
+        If you perform large-scale data mutations (e.g., importing or updating thousands of jobs over a short period of time), you **must** set the `X-Skedulo-Bulk-Operation` HTTP header value to `true` to protect the system.'
+      operationId: graphql
+      responses:
+        '200':
+          description: Query or Mutation result was returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphQLResult'
+        '400':
+          description: Query or Mutation failed, an error is returned.  The `data` property will be null in this case.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphQLResult'
+        '401':
+          description: Authentication/Authorization failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Graphql
+  /graphql/batch:
+    post:
+      security:
+      - Authorization: []
+      summary: Make batch queries and mutations using GraphQL.
+      description: "GraphQL batching involves sending multiple queries or mutations to the server in a single request. This reduces the number of server round trips to fetch data, which makes interaction more efficient. \n\nSee https://blog.apollographql.com/query-batching-in-apollo-63acfd859862 for more information"
+      operationId: graphqlBatch
+      responses:
+        '200':
+          description: An array of Query or Mutation results corresponding to the input
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GraphQLResult'
+        '401':
+          description: Authentication/Authorization failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Graphql
+components:
+  schemas:
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+        errorId:
+          type: string
+    GraphQLError:
+      type: object
+      description: errors
+      properties:
+        message:
+          type: string
+          description: Error message.
+        location:
+          type: object
+          properties:
+            line:
+              type: string
+              description: Line Number
+            column:
+              type: string
+              description: Column number
+    GraphQLResult:
+      type: object
+      properties:
+        data:
+          type: object
+          description: Query or mutation result.
+          additionalProperties: true
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLError'
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

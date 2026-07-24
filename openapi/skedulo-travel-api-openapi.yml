@@ -1,0 +1,189 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Travel API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Travel
+paths:
+  /travel/routes:
+    get:
+      security:
+      - Authorization: []
+      operationId: travelRoutes
+      summary: Retrieve historical routes for one or more resources.
+      description: 'Given a comma-separated list of resource Ids and a start and end date, return the route taken by that resource between the start and end time.
+
+
+        The maximum amount of time supported is 24 hours.
+
+
+        The supported formats are
+
+        * _polyline_ Uses the Google Maps Polyline encoding (default)
+
+        * _wkt_ - Well Known Text Strings.  Either a LINESTRING or a POINT is returned
+
+        * _geojson_ - GeoJSON format. Either a linestring or a point is returned
+
+        '
+      parameters:
+      - name: resource_ids
+        in: query
+        description: Comma separated resource Id values
+        required: true
+        schema:
+          type: string
+      - name: start
+        in: query
+        description: Start time
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: end
+        in: query
+        description: End Time
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: accuracy
+        in: query
+        description: All points returned will have an accuracy of at least the number given. If this parameter is not provided the default value is 100. To return all points use an empty string.
+        required: false
+        schema:
+          type: number
+          format: double
+      - name: format
+        in: query
+        description: Output Format.
+        schema:
+          type: string
+          enum:
+          - polyline
+          - wkt
+          - geojson
+      responses:
+        '200':
+          description: Map from resourceId to route in the requested format
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - result
+                properties:
+                  result:
+                    $ref: '#/components/schemas/RouteResult'
+            polyline:
+              examples:
+                response:
+                  value:
+                    result:
+                      a0L6F000018s95jUAA:
+                        start: '2017-02-13T01:41:01.629Z'
+                        end: '2017-02-14T09:46:35.296Z'
+                        polyline: _gjyHr|W[gBo|RgT
+            WKT:
+              examples:
+                response:
+                  value:
+                    result:
+                      a0L6F000018s95jUAA:
+                        start: '2017-02-13T01:41:01.629Z'
+                        end: '2017-02-14T09:46:35.296Z'
+                        wkt: LINESTRING(51.503364 -0.127625,51.5035 -0.1271,51.6055 -0.1237)
+            WKT (With a Point):
+              examples:
+                response:
+                  value:
+                    result:
+                      a0L6F000018s95jUAA:
+                        start: '2017-02-13T01:41:01.629Z'
+                        end: '2017-02-13T01:41:01.629Z'
+                        wkt: POINT(51.503364 -0.127625)
+            GeoJSON:
+              examples:
+                response:
+                  value:
+                    result:
+                      a0L6F000018s95jUAA:
+                        start: '2017-02-13T01:41:01.629Z'
+                        end: '2017-02-14T09:46:35.296Z'
+                        geoJson:
+                          type: LineString
+                          coordinates:
+                          - - 51.503364
+                            - -0.127625
+                          - - 51.5035
+                            - -0.1271
+                          - - 51.6055
+                            - -0.1237
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Travel
+components:
+  schemas:
+    RouteForResource:
+      type: object
+      description: Map resource ids to route information
+      additionalProperties:
+        $ref: '#/components/schemas/Route'
+    Error:
+      type: object
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+    Route:
+      type: object
+      description: Route Information for a given resource.  One of polyline, wkt, or geoJson should be present
+      required:
+      - start
+      - end
+      properties:
+        start:
+          type: string
+          format: date-time
+          description: Time of the first position in the result
+        end:
+          type: string
+          format: date-time
+          description: Time of the last position in the result
+        polyline:
+          type: string
+          format: Google Maps Polyline
+          description: The route encoded as a Google maps polylne
+        wkt:
+          type: string
+          format: Well Known Text
+          description: The route encoded in Well Known Text (wkt) format. Either POINT or LINESTRING will be returned
+        geoJson:
+          type: object
+          format: GeoJson
+          description: GeoJSON encoded point or linestring
+    RouteResult:
+      type: object
+      description: Map resource ids to routes with start and end times
+      required:
+      - result
+      properties:
+        result:
+          $ref: '#/components/schemas/RouteForResource'
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

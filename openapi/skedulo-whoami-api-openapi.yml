@@ -1,0 +1,116 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin Whoami API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: Whoami
+paths:
+  /whoami:
+    get:
+      security:
+      - Authorization: []
+      summary: Whoami
+      description: Return the current user's authentication information
+      operationId: whoami
+      parameters:
+      - name: access_token
+        in: query
+        description: 'Access token. This is an alternative to passing the Authorization: `Bearer` header'
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The current users authentication information was returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOKUserInfo'
+      tags:
+      - Whoami
+components:
+  schemas:
+    Permissions:
+      description: The permissions for the user. Only present if the useNewPermissions feature flag is enabled.
+      type: array
+      items:
+        description: Permission keys assigned to the user
+        type: string
+    VendorInfo:
+      oneOf:
+      - type: object
+        required:
+        - vendor
+        - env
+        properties:
+          vendor:
+            type: string
+            example: salesforce
+          env:
+            type: string
+            enum:
+            - salesforce
+            - salesforce-sandbox
+          communityId:
+            type: string
+            description: community ID for this user if this user belongs to one
+          vendorUserId:
+            type: string
+            description: Salesforce user ID of this user
+      - type: object
+        required:
+        - vendor
+        properties:
+          vendor:
+            type: string
+            example: skedulo
+          vendorUserId:
+            type: string
+            description: Skedulo user ID of this user
+    ResultOKUserInfo:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/UserInfo'
+    Roles:
+      type: array
+      items:
+        type: string
+        enum:
+        - administrator
+        - scheduler
+        - resource
+    UserInfo:
+      type: object
+      required:
+      - username
+      - userId
+      - tenantId
+      - roles
+      - vendorInfo
+      properties:
+        username:
+          type: string
+        userId:
+          type: string
+        tenantId:
+          type: string
+        roles:
+          $ref: '#/components/schemas/Roles'
+        resourceId:
+          type: string
+        vendorInfo:
+          $ref: '#/components/schemas/VendorInfo'
+        permissions:
+          $ref: '#/components/schemas/Permissions'
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

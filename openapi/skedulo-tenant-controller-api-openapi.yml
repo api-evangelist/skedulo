@@ -1,0 +1,121 @@
+openapi: 3.0.0
+info:
+  title: Authentication Admin tenant-controller API
+  description: Skedulo Authentication API
+  version: 1.0.0
+servers:
+- url: https://api.skedulo.com/auth
+- url: https://api.uk.skedulo.com/auth
+- url: https://api.ca.skedulo.com/auth
+- url: https://api.au.skedulo.com/auth
+tags:
+- name: tenant-controller
+paths:
+  /admin/tenants/{tenantId}:
+    get:
+      tags:
+      - tenant-controller
+      summary: Get tenant status
+      description: Returns the current status of a tenant in event-store. Requires an internal admin token.
+      operationId: getTenantStatus
+      parameters:
+      - name: tenantId
+        in: path
+        description: The tenant id to check status for.
+        required: true
+        schema:
+          type: string
+        example: sk_d9778d81d2e94e428984a85278b266fb
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantStatusResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - tenant-controller
+      summary: Delete all data for a tenant
+      description: Marks a tenant for deletion. Data is deleted asynchronously by a background task. Requires an internal admin token.
+      operationId: deleteTenantData
+      parameters:
+      - name: tenantId
+        in: path
+        description: The tenant id to delete data for.
+        required: true
+        schema:
+          type: string
+        example: sk_d9778d81d2e94e428984a85278b266fb
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantStatusResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    ErrorDetails:
+      type: object
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+    TenantStatusResponse:
+      required:
+      - status
+      - tenantId
+      type: object
+      properties:
+        tenantId:
+          type: string
+          description: The tenant identifier
+          example: sk_d9778d81d2e94e428984a85278b266fb
+        status:
+          type: string
+          description: The tenant status
+          example: active
+          enum:
+          - active
+          - deleting
+          - deleted
+      description: The current status of a tenant in event-store
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
