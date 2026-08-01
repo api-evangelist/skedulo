@@ -1,0 +1,791 @@
+openapi: 3.0.0
+info:
+  title: Files API
+  description: Skedulo Files API
+  version: 1.0.0
+paths:
+  /attachment/{fileId}:
+    get:
+      security:
+        - Authorization: []
+      summary: Retrieve an attachment with the given identifier
+      description: >-
+        Returns a pre-signed S3 URL with a redirect status code (HTTP 302) to
+        allow the client to download the file directly from S3.
+      operationId: downloadFile
+      parameters:
+        - name: fileId
+          in: path
+          description: Identifier of the file to retrieve
+          required: true
+          schema:
+            type: string
+        - name: attach
+          in: query
+          description: >-
+            True to force the browser to download the file, false to inline the
+            content
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Invalid data supplied
+        '404':
+          description: Attachment with the given identifier is not found
+    put:
+      security:
+        - Authorization: []
+      summary: Rename a file (implemented for Salesforce only)
+      description: ''
+      operationId: renameFile
+      parameters:
+        - name: fileId
+          in: path
+          description: Identifier of the file to rename
+          required: true
+          schema:
+            type: string
+        - name: name
+          in: query
+          description: The new name of the file
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileSaveResult'
+        '400':
+          description: Invalid data supplied
+        '404':
+          description: Attachment with the given identifier is not found
+    delete:
+      security:
+        - Authorization: []
+      summary: Delete the attachment with the given identifier
+      description: ''
+      operationId: deleteFile
+      parameters:
+        - name: fileId
+          in: path
+          description: Identifier of the attachment to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletedApiResult'
+        '400':
+          description: Invalid data supplied
+        '404':
+          description: Attachment with the given identifier is not found
+  /attachment/{fileId}/metadata:
+    get:
+      security:
+        - Authorization: []
+      summary: Retrieve metadata for an attachment
+      description: >-
+        Returns metadata for the attachment. Currently includes EXIF data for
+        image and video formats that carry EXIF (JPEG, TIFF, WebP, HEIC/HEIF,
+        PNG, QuickTime, MP4, AVI, M4V). The exif section is empty for supported
+        formats that contain no EXIF data.
+      operationId: getAttachmentMetadata
+      parameters:
+        - name: fileId
+          in: path
+          description: Identifier of the file to retrieve metadata for
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Metadata retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultAttachmentMetadata'
+        '400':
+          description: File exceeds the maximum size limit for EXIF extraction
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden — requires ATTACHMENTS_VIEW or MOBILE_V2_ACCESS permission
+        '404':
+          description: Attachment with the given identifier is not found
+  /attachments:
+    get:
+      summary: Find attachments that belong to the parent
+      description: ''
+      operationId: getFiles
+      parameters:
+        - name: parent_ids
+          in: query
+          description: >-
+            Comma-separated identifiers of the parents to retrieve attachments
+            for
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultsFileMetaMap'
+        '404':
+          description: Resource with parent identifier not found
+  /attachments/{parentId}:
+    get:
+      summary: Find attachments that belong to the parent
+      description: ''
+      operationId: getFilesSingle
+      parameters:
+        - name: parentId
+          in: path
+          description: Identifier of the parent to retrieve attachments for
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultsFileMeta'
+        '404':
+          description: Resource with parent identifier not found
+    put:
+      summary: >-
+        Upload an attachment to a parent record id or a temporary parent id.
+        Content-Length and Content-Type are required.
+      description: >-
+        This API is to upload attachment to an existing parent record or a
+        temporary parent id. If the temporary parent id is linked to a real
+        parent id, the real parent id will be swapped in automatically.
+        Otherwise, the file is uploaded to a temporary place awaiting the
+        temporary parent id to be linked.
+      operationId: uploadReturnOldMeta
+      parameters:
+        - name: parentId
+          in: path
+          description: >-
+            Identifier of the parent to add the attachment to or the temporary
+            parent id. A temporary parent id must start with 'temp-'.
+          required: true
+          schema:
+            type: string
+        - name: X-Skedulo-Name
+          in: header
+          description: The name of the attachment
+          required: true
+          schema:
+            type: string
+        - name: X-Skedulo-Description
+          in: header
+          description: An optional description of the attachment
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultFileMetaOld'
+        '400':
+          description: Invalid data supplied
+    post:
+      summary: >-
+        Upload an attachment to a parent record id or a temporary parent id.
+        Content-Length and Content-Type are required.
+      description: >-
+        This API is to upload attachment to an existing parent record or a
+        temporary parent id. If the temporary parent id is linked to a real
+        parent id, the real parent id will be swapped in automatically.
+        Otherwise, the file is uploaded to a temporary place awaiting the
+        temporary parent id to be linked.
+      operationId: uploadReturnNewMeta
+      parameters:
+        - name: parentId
+          in: path
+          description: >-
+            Identifier of the parent to add the attachment to or the temporary
+            parent id. A temporary parent id must start with 'temp-'.
+          required: true
+          schema:
+            type: string
+        - name: X-Skedulo-Name
+          in: header
+          description: The name of the attachment
+          required: true
+          schema:
+            type: string
+        - name: X-Skedulo-Description
+          in: header
+          description: An optional description of the attachment
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultFileMeta'
+        '400':
+          description: Invalid data supplied
+  /static:
+    post:
+      security:
+        - Authorization: []
+      summary: Upload a static file
+      description: >-
+        Upload a static file (a standalone file without a parent).
+        Content-Length and Content-Type are required.
+      operationId: uploadFile
+      parameters:
+        - name: file_type
+          in: query
+          description: The type of the file being uploaded
+          required: true
+          schema:
+            type: string
+            enum:
+              - mex
+              - misc
+        - name: X-Skedulo-Name
+          in: header
+          description: The name of the file
+          required: true
+          schema:
+            type: string
+        - name: X-Skedulo-Description
+          in: header
+          description: An optional description of the file
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultStaticFileMeta'
+        '400':
+          description: Invalid data supplied
+    get:
+      security:
+        - Authorization: []
+      summary: Find static files
+      description: >-
+        Find static files with the specified type and having their name or
+        description matching a search term
+      operationId: searchFiles
+      parameters:
+        - name: file_type
+          in: query
+          description: The type of files being searched for
+          required: true
+          schema:
+            type: string
+            enum:
+              - mex
+              - misc
+        - name: term
+          in: query
+          description: >-
+            The search term. Files will be returned based on partial,
+            case-insensitive match in the name or description.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultStaticFileMeta'
+        '400':
+          description: Invalid data supplied
+  /static/{fileId}:
+    get:
+      security:
+        - Authorization: []
+      summary: Retrieve a static file with the given identifier
+      description: >-
+        Returns a pre-signed S3 URL with a redirect status code (HTTP 302) to
+        allow the client to download the file directly from S3.
+      operationId: downloadStaticFile
+      parameters:
+        - name: fileId
+          in: path
+          description: Identifier of the file to be retrieved
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Invalid data supplied
+        '404':
+          description: File with the given identifier is not found
+    put:
+      security:
+        - Authorization: []
+      summary: Update static file
+      description: Update the name and description of a static file
+      operationId: updateFile
+      parameters:
+        - name: fileId
+          in: path
+          description: Identifier of the file to update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    type: string
+                    description: The identifier of the file being updated
+        '400':
+          description: Invalid data supplied
+        '404':
+          description: File with the given identifier is not found
+    delete:
+      security:
+        - Authorization: []
+      summary: Delete static file
+      description: Delete the static file with the given identifier
+      operationId: deleteStaticFile
+      parameters:
+        - name: fileId
+          in: path
+          description: Identifier of the file to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: successful operation
+        '400':
+          description: Invalid data supplied
+        '404':
+          description: File with the given identifier is not found
+  /link_temp_id:
+    post:
+      summary: >-
+        Link temporary ids with corresponding real ids. The temporary ids must
+        start with 'temp-'.
+      description: >-
+        This establishes a link between a temporary id and a real id. If there
+        are temporary files previously uploaded with the given temporary id as
+        parent id, they will be swapped into the real id and re-uploaded.
+      operationId: linkIds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkTempIdMap'
+            example:
+              temp-mdP29kdAbu: a0L5i000002zL8zEAE
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultLinkTempIds'
+              example:
+                result:
+                  temp-mdP29kdAbu: a0L5i000002zL8zEAE
+        '400':
+          description: Invalid data supplied
+  /avatar:
+    get:
+      summary: Return a map of (userId -> url) for the given userIds
+      description: ''
+      operationId: getAvatarFor
+      parameters:
+        - name: user_ids
+          in: query
+          description: Comma-separated identifiers of the users to get the avatar urls for
+          required: true
+          schema:
+            type: string
+        - name: size_hint
+          in: query
+          description: >-
+            Requested image size. Return thumbnail image for 'small' or
+            'thumbnail' input, full image otherwise
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvatarFullResult'
+        '404':
+          description: User with the given identifier not found
+servers:
+  - url: https://api.skedulo.com/files
+  - url: https://api.uk.skedulo.com/files
+  - url: https://api.ca.skedulo.com/files
+  - url: https://api.au.skedulo.com/files
+components:
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    ApiResults:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            type: object
+    ApiResultsFileMetaMap:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          $ref: '#/components/schemas/FileMetaOld'
+    ApiResultsFileMeta:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileMetaOld'
+    FileMetaOld:
+      type: object
+      required:
+        - fileName
+        - filePtr
+        - parentId
+        - uploadDate
+      properties:
+        filePtr:
+          type: string
+          description: >-
+            The id of the file or the string 'temporary_file' if the 'parentId'
+            is an unlinked temporary id
+        size:
+          type: string
+        contentType:
+          type: string
+        fileName:
+          type: string
+        uploadDate:
+          type: string
+          format: date-time
+        parentId:
+          type: string
+          description: >-
+            The parent id or the temporary parent id that the file is uploaded
+            with
+        createdBy:
+          type: string
+        createdById:
+          type: string
+        description:
+          type: string
+        downloadUrl:
+          type: string
+    FileMeta:
+      type: object
+      required:
+        - id
+        - parentId
+        - name
+        - createdById
+        - createdDate
+      properties:
+        id:
+          type: string
+          description: >-
+            The id of the file or the string 'temporary_file' if the 'parentId'
+            is an unlinked temporary id
+        parentId:
+          type: string
+          description: >-
+            The parent id or the temporary parent id that the file is uploaded
+            with
+        contentType:
+          type: string
+        name:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        contentLength:
+          type: string
+        createdById:
+          type: string
+        description:
+          type: string
+        downloadUrl:
+          type: string
+    StaticFileMeta:
+      type: object
+      required:
+        - id
+        - name
+        - type
+        - createdById
+        - createdDate
+        - lastModifiedById
+        - lastModifiedDate
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+            - mex
+            - misc
+        name:
+          type: string
+        description:
+          type: string
+        contentType:
+          type: string
+        contentLength:
+          type: string
+        createdById:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        lastModifiedById:
+          type: string
+        lastModifiedDate:
+          type: string
+          format: date-time
+        downloadUrl:
+          type: string
+    DeletedApiResult:
+      type: object
+      required:
+        - deleted
+      properties:
+        deleted:
+          type: string
+    FileSaveResult:
+      type: object
+      required:
+        - id
+        - success
+      properties:
+        id:
+          type: string
+        success:
+          type: boolean
+    ApiResult:
+      type: object
+      properties:
+        result:
+          type: object
+    ExifData:
+      type: object
+      description: >-
+        EXIF metadata extracted from an image or video file. All fields are
+        optional — present only when the file contains the corresponding tag.
+      properties:
+        Make:
+          type: string
+          description: Camera manufacturer (e.g. Apple, Canon, Sony)
+        Model:
+          type: string
+          description: Camera model (e.g. iPhone 14 Pro)
+        DateTimeOriginal:
+          type: string
+          description: >-
+            Date and time when the original image was captured, as a raw EXIF
+            string (e.g. "2024:03:15 14:22:01")
+        OffsetTimeOriginal:
+          type: string
+          description: >-
+            UTC offset for DateTimeOriginal as a raw EXIF string (e.g. "+10:00",
+            "-05:30")
+        ExposureTime:
+          type: number
+          format: double
+          description: Exposure time in seconds (e.g. 0.00833 = 1/120 sec)
+        FNumber:
+          type: number
+          format: double
+          description: F-number (aperture) (e.g. 1.5)
+        ISO:
+          type: integer
+          description: ISO speed rating
+        FocalLength:
+          type: number
+          format: double
+          description: Focal length in millimetres
+        latitude:
+          type: number
+          format: double
+          description: GPS latitude in decimal degrees (positive = North)
+        longitude:
+          type: number
+          format: double
+          description: GPS longitude in decimal degrees (positive = East)
+        ImageWidth:
+          type: integer
+          description: Image width in pixels
+        ImageHeight:
+          type: integer
+          description: Image height in pixels
+        ExifImageWidth:
+          type: integer
+          description: Image width recorded in the Exif SubIFD
+        ExifImageHeight:
+          type: integer
+          description: Image height recorded in the Exif SubIFD
+        LensModel:
+          type: string
+          description: Lens model identifier
+        XResolution:
+          type: number
+          format: double
+          description: Horizontal resolution in pixels per resolution unit
+        ResolutionUnit:
+          type: string
+          description: Unit for XResolution (e.g. Inch)
+    AttachmentMetadata:
+      type: object
+      description: General metadata for an attachment.
+      required:
+        - exifSupported
+      properties:
+        exifSupported:
+          type: boolean
+          description: >-
+            Whether the file format supports EXIF metadata. When false, the exif
+            object will be empty.
+        exif:
+          $ref: '#/components/schemas/ExifData'
+    ApiResultAttachmentMetadata:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/AttachmentMetadata'
+    ApiResultFileMetaOld:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/FileMetaOld'
+    ApiResultFileMeta:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/FileMeta'
+    ApiResultStaticFileMeta:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/StaticFileMeta'
+    LinkTempIdMap:
+      type: object
+      additionalProperties:
+        type: string
+    ApiResultLinkTempIds:
+      type: object
+      properties:
+        result:
+          type: object
+          additionalProperties:
+            type: string
+    AvatarResults:
+      type: object
+      additionalProperties:
+        type: string
+    AvatarError:
+      type: object
+      required:
+        - errorType
+        - errorMsg
+      properties:
+        errorType:
+          type: string
+        errorMsg:
+          type: string
+    AvatarErrors:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/AvatarError'
+    AvatarAuth:
+      type: object
+      required:
+        - signature
+        - expiry
+      properties:
+        signature:
+          type: string
+        expiry:
+          type: string
+    AvatarAuths:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/AvatarAuth'
+    AvatarFullResult:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/AvatarResults'
+        errors:
+          $ref: '#/components/schemas/AvatarErrors'
+        extra:
+          $ref: '#/components/schemas/AvatarAuths'

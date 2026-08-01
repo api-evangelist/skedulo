@@ -1,0 +1,76 @@
+generated: '2026-07-21'
+method: derived
+source: Skedulo object reference + openapi/ schemas
+docs: https://developer.skedulo.com/object-reference/overview-of-skedulo-objects-and-fields/overview/
+id_field: UID (globally unique record identifier)
+entities:
+- name: Job
+  summary: A unit of work to be scheduled and performed.
+  relationships:
+  - type: belongs_to
+    target: Account
+    via: AccountId
+  - type: belongs_to
+    target: Contact
+    via: ContactId
+  - type: has_many
+    target: JobAllocation
+    via: JobId
+- name: JobAllocation
+  summary: Assignment of a Resource to a Job.
+  relationships:
+  - type: belongs_to
+    target: Job
+    via: JobId
+  - type: belongs_to
+    target: Resource
+    via: ResourceId
+- name: Resource
+  summary: A mobile worker/field resource who performs jobs.
+  relationships:
+  - type: has_many
+    target: Availability
+    via: ResourceId
+  - type: has_many
+    target: JobAllocation
+    via: ResourceId
+  - type: has_many
+    target: Shift
+    via: ResourceId
+- name: Availability
+  summary: A resource's availability/unavailability window.
+  relationships:
+  - type: belongs_to
+    target: Resource
+    via: ResourceId
+- name: Shift
+  summary: A scheduled block of working time for a resource.
+  relationships:
+  - type: belongs_to
+    target: Resource
+    via: ResourceId
+- name: Account
+  summary: A customer organization/company.
+  relationships:
+  - type: has_many
+    target: Contact
+    via: AccountId
+  - type: has_many
+    target: Job
+    via: AccountId
+- name: Contact
+  summary: An individual customer contact.
+  relationships:
+  - type: belongs_to
+    target: Account
+    via: AccountId
+- name: Tag
+  summary: A label applied to Resources and Jobs for matching.
+- name: RecurringSchedule
+  summary: A recurrence template that generates jobs.
+  relationships:
+  - type: has_many
+    target: Job
+    via: RecurringScheduleId
+- name: CustomObject
+  summary: Tenant-defined object; see Custom Objects and Fields service.

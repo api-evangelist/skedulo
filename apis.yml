@@ -1,24 +1,788 @@
 aid: skedulo
 name: Skedulo
-description: 'Skedulo is a company surfaced as a portfolio company of softbank-vision-fund and added to
-  the API Evangelist network as a stub for enrichment. Sector: enterprise. This profile is a lead awaiting
-  the enrichment pipeline.'
+description: Skedulo is the Deskless Productivity Cloud, a field service and mobile workforce management
+  platform used by enterprises to schedule, dispatch, optimize, and track deskless workers. Its developer
+  platform exposes 21 REST services (scheduling, availability, optimization, rules, notifications, resource
+  tracking, geoservices, files, configuration, onboarding and more) plus a full GraphQL API, webhooks
+  and triggered actions for real-time events, a `sked` CLI, first-party SDKs and UI components, and an
+  MCP server. Authentication is via Bearer JWT API tokens, with regional API hosts for the US, AU, UK
+  and CA. Backed by SoftBank Vision Fund.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://developer.skedulo.com/favicons/favicon.png
 url: https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - softbank-vision-fund
-x-tier: stub
-x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
 - Enterprise
-apis: []
+- Scheduling
+- Field Service Management
+- Workforce Management
+- Deskless
+- Dispatch
+- Optimization
+- GraphQL
+- Webhooks
+apis:
+- aid: skedulo:skedulo-admin-api
+  name: Skedulo Admin API
+  description: The Admin API from Skedulo — 6 operation(s) for admin.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Admin
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-admin-api-openapi.yml
+- aid: skedulo:skedulo-api-controller-api
+  name: Skedulo api-controller API
+  description: The api-controller API from Skedulo — 5 operation(s) for api-controller.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - api-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-api-controller-api-openapi.yml
+- aid: skedulo:skedulo-api-user-api
+  name: Skedulo Api User API
+  description: The Api User API from Skedulo — 4 operation(s) for api user.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Api User
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-api-user-api-openapi.yml
+- aid: skedulo:skedulo-async-job-management-api
+  name: Skedulo Async Job Management API
+  description: The Async Job Management API from Skedulo — 2 operation(s) for async job management.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Async Job Management
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-async-job-management-api-openapi.yml
+- aid: skedulo:skedulo-attachment-api
+  name: Skedulo Attachment API
+  description: The Attachment API from Skedulo — 2 operation(s) for attachment.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Attachment
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-attachment-api-openapi.yml
+- aid: skedulo:skedulo-attachments-api
+  name: Skedulo Attachments API
+  description: The Attachments API from Skedulo — 2 operation(s) for attachments.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Attachments
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-attachments-api-openapi.yml
+- aid: skedulo:skedulo-autocomplete-api
+  name: Skedulo Autocomplete API
+  description: The Autocomplete API from Skedulo — 1 operation(s) for autocomplete.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Autocomplete
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-autocomplete-api-openapi.yml
+- aid: skedulo:skedulo-availability-api
+  name: Skedulo Availability API
+  description: The Availability API from Skedulo — 6 operation(s) for availability.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Availability
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-availability-api-openapi.yml
+- aid: skedulo:skedulo-avatar-api
+  name: Skedulo Avatar API
+  description: The Avatar API from Skedulo — 1 operation(s) for avatar.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Avatar
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-avatar-api-openapi.yml
+- aid: skedulo:skedulo-batch-api
+  name: Skedulo Batch API
+  description: The Batch API from Skedulo — 2 operation(s) for batch.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Batch
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-batch-api-openapi.yml
+- aid: skedulo:skedulo-config-api
+  name: Skedulo Config API
+  description: The Config API from Skedulo — 5 operation(s) for config.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Config
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-config-api-openapi.yml
+- aid: skedulo:skedulo-device-notification-information-and-registration-api
+  name: Skedulo Device Notification Information and Registration API
+  description: >-
+    The Device Notification Information and Registration API from Skedulo — 1 operation(s) for device
+    notification information and registration.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Device Notification Information and Registration
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-device-notification-information-and-registration-api-openapi.yml
+- aid: skedulo:skedulo-directions-api
+  name: Skedulo Directions API
+  description: The Directions API from Skedulo — 1 operation(s) for directions.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Directions
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-directions-api-openapi.yml
+- aid: skedulo:skedulo-distancematrix-api
+  name: Skedulo DistanceMatrix API
+  description: The DistanceMatrix API from Skedulo — 1 operation(s) for distancematrix.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - DistanceMatrix
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-distancematrix-api-openapi.yml
+- aid: skedulo:skedulo-features-api
+  name: Skedulo Features API
+  description: The Features API from Skedulo — 5 operation(s) for features.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Features
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-features-api-openapi.yml
+- aid: skedulo:skedulo-geocode-api
+  name: Skedulo Geocode API
+  description: The Geocode API from Skedulo — 1 operation(s) for geocode.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Geocode
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-geocode-api-openapi.yml
+- aid: skedulo:skedulo-geoservices-api
+  name: Skedulo Geoservices API
+  description: The Geoservices API from Skedulo — 1 operation(s) for geoservices.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Geoservices
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-geoservices-api-openapi.yml
+- aid: skedulo:skedulo-graphql-api
+  name: Skedulo Graphql API
+  description: The Graphql API from Skedulo — 2 operation(s) for graphql.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Graphql
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-graphql-api-openapi.yml
+- aid: skedulo:skedulo-grid-api
+  name: Skedulo Grid API
+  description: The Grid API from Skedulo — 1 operation(s) for grid.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Grid
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-grid-api-openapi.yml
+- aid: skedulo:skedulo-ical-api
+  name: Skedulo ICal API
+  description: The ICal API from Skedulo — 1 operation(s) for ical.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - ICal
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-ical-api-openapi.yml
+- aid: skedulo:skedulo-internal-api
+  name: Skedulo Internal API
+  description: The Internal API from Skedulo — 1 operation(s) for internal.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Internal
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-internal-api-openapi.yml
+- aid: skedulo:skedulo-job-notifications-and-responses-api
+  name: Skedulo Job Notifications and Responses API
+  description: >-
+    The Job Notifications and Responses API from Skedulo — 4 operation(s) for job notifications and responses.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Job Notifications and Responses
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-job-notifications-and-responses-api-openapi.yml
+- aid: skedulo:skedulo-job-scheduling-api
+  name: Skedulo Job scheduling API
+  description: The Job scheduling API from Skedulo — 3 operation(s) for job scheduling.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Job scheduling
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-job-scheduling-api-openapi.yml
+- aid: skedulo:skedulo-limits-api
+  name: Skedulo Limits API
+  description: The Limits API from Skedulo — 1 operation(s) for limits.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Limits
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-limits-api-openapi.yml
+- aid: skedulo:skedulo-link-resource-api
+  name: Skedulo Link Resource API
+  description: The Link Resource API from Skedulo — 1 operation(s) for link resource.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Link Resource
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-link-resource-api-openapi.yml
+- aid: skedulo:skedulo-link-temp-id-api
+  name: Skedulo Link Temp Id API
+  description: The Link Temp Id API from Skedulo — 1 operation(s) for link temp id.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Link Temp Id
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-link-temp-id-api-openapi.yml
+- aid: skedulo:skedulo-location-api
+  name: Skedulo Location API
+  description: The Location API from Skedulo — 4 operation(s) for location.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Location
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-location-api-openapi.yml
+- aid: skedulo:skedulo-meetings-api
+  name: Skedulo Meetings API
+  description: The Meetings API from Skedulo — 2 operation(s) for meetings.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Meetings
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-meetings-api-openapi.yml
+- aid: skedulo:skedulo-metadata-api
+  name: Skedulo Metadata API
+  description: The Metadata API from Skedulo — 1 operation(s) for metadata.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-metadata-api-openapi.yml
+- aid: skedulo:skedulo-notification-templates-api
+  name: Skedulo Notification Templates API
+  description: The Notification Templates API from Skedulo — 3 operation(s) for notification templates.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Notification Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-notification-templates-api-openapi.yml
+- aid: skedulo:skedulo-offers-api
+  name: Skedulo Offers API
+  description: The Offers API from Skedulo — 7 operation(s) for offers.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Offers
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-offers-api-openapi.yml
+- aid: skedulo:skedulo-optimize-api
+  name: Skedulo Optimize API
+  description: The Optimize API from Skedulo — 2 operation(s) for optimize.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Optimize
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-optimize-api-openapi.yml
+- aid: skedulo:skedulo-org-preference-api
+  name: Skedulo Org Preference API
+  description: The Org Preference API from Skedulo — 1 operation(s) for org preference.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Org Preference
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-org-preference-api-openapi.yml
+- aid: skedulo:skedulo-place-api
+  name: Skedulo Place API
+  description: The Place API from Skedulo — 1 operation(s) for place.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Place
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-place-api-openapi.yml
+- aid: skedulo:skedulo-policy-management-api
+  name: Skedulo Policy Management API
+  description: The Policy Management API from Skedulo — 2 operation(s) for policy management.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Policy Management
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-policy-management-api-openapi.yml
+- aid: skedulo:skedulo-policy-template-management-api
+  name: Skedulo Policy Template Management API
+  description: >-
+    The Policy Template Management API from Skedulo — 2 operation(s) for policy template management.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Policy Template Management
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-policy-template-management-api-openapi.yml
+- aid: skedulo:skedulo-provision-api
+  name: Skedulo Provision API
+  description: The Provision API from Skedulo — 6 operation(s) for provision.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Provision
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-provision-api-openapi.yml
+- aid: skedulo:skedulo-recipe-api
+  name: Skedulo Recipe API
+  description: The Recipe API from Skedulo — 4 operation(s) for recipe.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Recipe
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-recipe-api-openapi.yml
+- aid: skedulo:skedulo-resource-allocations-api
+  name: Skedulo Resource allocations API
+  description: The Resource allocations API from Skedulo — 2 operation(s) for resource allocations.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Resource allocations
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-resource-allocations-api-openapi.yml
+- aid: skedulo:skedulo-rule-management-api
+  name: Skedulo Rule Management API
+  description: The Rule Management API from Skedulo — 3 operation(s) for rule management.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Rule Management
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-rule-management-api-openapi.yml
+- aid: skedulo:skedulo-rule-violation-management-api
+  name: Skedulo Rule Violation Management API
+  description: >-
+    The Rule Violation Management API from Skedulo — 12 operation(s) for rule violation management.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Rule Violation Management
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-rule-violation-management-api-openapi.yml
+- aid: skedulo:skedulo-rules-api
+  name: Skedulo Rules API
+  description: The Rules API from Skedulo — 2 operation(s) for rules.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Rules
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-rules-api-openapi.yml
+- aid: skedulo:skedulo-run-api
+  name: Skedulo Run API
+  description: The Run API from Skedulo — 7 operation(s) for run.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Run
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-run-api-openapi.yml
+- aid: skedulo:skedulo-salesforce-api
+  name: Skedulo Salesforce API
+  description: The Salesforce API from Skedulo — 1 operation(s) for salesforce.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Salesforce
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-salesforce-api-openapi.yml
+- aid: skedulo:skedulo-schedule-api
+  name: Skedulo Schedule API
+  description: The Schedule API from Skedulo — 14 operation(s) for schedule.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Schedule
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-schedule-api-openapi.yml
+- aid: skedulo:skedulo-schedule-summaries-api
+  name: Skedulo Schedule summaries API
+  description: The Schedule summaries API from Skedulo — 2 operation(s) for schedule summaries.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Schedule summaries
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-schedule-summaries-api-openapi.yml
+- aid: skedulo:skedulo-scheduling-api
+  name: Skedulo scheduling API
+  description: The scheduling API from Skedulo — 7 operation(s) for scheduling.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - scheduling
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-scheduling-api-openapi.yml
+- aid: skedulo:skedulo-schema-api
+  name: Skedulo Schema API
+  description: The Schema API from Skedulo — 1 operation(s) for schema.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Schema
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-schema-api-openapi.yml
+- aid: skedulo:skedulo-sms-messaging-api
+  name: Skedulo SMS Messaging API
+  description: The SMS Messaging API from Skedulo — 2 operation(s) for sms messaging.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - SMS Messaging
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-sms-messaging-api-openapi.yml
+- aid: skedulo:skedulo-solve-api
+  name: Skedulo Solve API
+  description: The Solve API from Skedulo — 3 operation(s) for solve.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Solve
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-solve-api-openapi.yml
+- aid: skedulo:skedulo-standalone-api
+  name: Skedulo Standalone API
+  description: The Standalone API from Skedulo — 5 operation(s) for standalone.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Standalone
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-standalone-api-openapi.yml
+- aid: skedulo:skedulo-standard-fields-api
+  name: Skedulo Standard Fields API
+  description: The Standard Fields API from Skedulo — 1 operation(s) for standard fields.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Standard Fields
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-standard-fields-api-openapi.yml
+- aid: skedulo:skedulo-static-api
+  name: Skedulo Static API
+  description: The Static API from Skedulo — 2 operation(s) for static.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Static
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-static-api-openapi.yml
+- aid: skedulo:skedulo-subscriptions-api
+  name: Skedulo Subscriptions API
+  description: The Subscriptions API from Skedulo — 1 operation(s) for subscriptions.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-subscriptions-api-openapi.yml
+- aid: skedulo:skedulo-suggest-api
+  name: Skedulo Suggest API
+  description: The Suggest API from Skedulo — 3 operation(s) for suggest.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Suggest
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-suggest-api-openapi.yml
+- aid: skedulo:skedulo-template-api
+  name: Skedulo Template API
+  description: The Template API from Skedulo — 3 operation(s) for template.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Template
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-template-api-openapi.yml
+- aid: skedulo:skedulo-templates-api
+  name: Skedulo Templates API
+  description: The Templates API from Skedulo — 1 operation(s) for templates.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-templates-api-openapi.yml
+- aid: skedulo:skedulo-tenant-controller-api
+  name: Skedulo tenant-controller API
+  description: The tenant-controller API from Skedulo — 1 operation(s) for tenant-controller.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - tenant-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-tenant-controller-api-openapi.yml
+- aid: skedulo:skedulo-timezone-api
+  name: Skedulo Timezone API
+  description: The Timezone API from Skedulo — 1 operation(s) for timezone.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Timezone
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-timezone-api-openapi.yml
+- aid: skedulo:skedulo-token-api
+  name: Skedulo Token API
+  description: The Token API from Skedulo — 4 operation(s) for token.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Token
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-token-api-openapi.yml
+- aid: skedulo:skedulo-tokens-api
+  name: Skedulo Tokens API
+  description: The Tokens API from Skedulo — 1 operation(s) for tokens.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-tokens-api-openapi.yml
+- aid: skedulo:skedulo-travel-api
+  name: Skedulo Travel API
+  description: The Travel API from Skedulo — 1 operation(s) for travel.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Travel
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-travel-api-openapi.yml
+- aid: skedulo:skedulo-triggered-actions-api
+  name: Skedulo Triggered Actions API
+  description: The Triggered Actions API from Skedulo — 3 operation(s) for triggered actions.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Triggered Actions
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-triggered-actions-api-openapi.yml
+- aid: skedulo:skedulo-vocabularies-api
+  name: Skedulo Vocabularies API
+  description: The Vocabularies API from Skedulo — 1 operation(s) for vocabularies.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Vocabularies
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-vocabularies-api-openapi.yml
+- aid: skedulo:skedulo-vocabulary-api
+  name: Skedulo Vocabulary API
+  description: The Vocabulary API from Skedulo — 6 operation(s) for vocabulary.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Vocabulary
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-vocabulary-api-openapi.yml
+- aid: skedulo:skedulo-webhooks-api
+  name: Skedulo Webhooks API
+  description: The Webhooks API from Skedulo — 6 operation(s) for webhooks.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-webhooks-api-openapi.yml
+- aid: skedulo:skedulo-whoami-api
+  name: Skedulo Whoami API
+  description: The Whoami API from Skedulo — 1 operation(s) for whoami.
+  humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
+  baseURL: https://api.skedulo.com
+  tags:
+  - Whoami
+  properties:
+  - type: OpenAPI
+    url: openapi/skedulo-whoami-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+common:
+- type: Website
+  url: https://www.skedulo.com
+- type: DeveloperPortal
+  url: https://developer.skedulo.com/
+- type: Documentation
+  url: https://developer.skedulo.com/developer-guides/
+- type: APIReference
+  url: https://developer.skedulo.com/skedulo-api/
+- type: GettingStarted
+  url: https://developer.skedulo.com/developer-guides/
+- type: Support
+  url: https://support.skedulo.com
+- type: Blog
+  url: https://developerblog.skedulo.com/
+- type: GitHubOrganization
+  url: https://github.com/Skedulo
+- type: Pricing
+  url: https://www.skedulo.com/pricing/
+- type: Login
+  url: https://app.skedulo.com
+- type: PrivacyPolicy
+  url: https://www.skedulo.com/privacy-policy/
+- type: StatusPage
+  url: https://status.skedulo.com
+- type: Authentication
+  url: authentication/skedulo-authentication.yml
+- type: DomainSecurity
+  url: security/skedulo-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/skedulo-agentic-access.yml
+- type: Packages
+  url: packages/skedulo-packages.yml
+- type: SDKs
+  url: packages/skedulo-packages.yml
+- type: CLI
+  url: cli/skedulo-cli.yml
+- type: MCPServer
+  url: mcp/skedulo-mcp.yml
+- type: LLMsTxt
+  url: llms/skedulo-llms.txt
+- type: WellKnown
+  url: well-known/skedulo-well-known.yml
+- type: Conformance
+  url: conformance/skedulo-conformance.yml
+- type: ErrorCatalog
+  url: errors/skedulo-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/skedulo-lifecycle.yml
+- type: Conventions
+  url: conventions/skedulo-conventions.yml
+- type: ChangeLog
+  url: changelog/skedulo-changelog.yml
+- type: Components
+  url: components/skedulo-components.yml
+- type: DataModel
+  url: data-model/skedulo-data-model.yml
+- type: Webhooks
+  url: asyncapi/skedulo-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 64
+  pass: local-v1

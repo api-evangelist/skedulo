@@ -1,0 +1,24 @@
+generated: '2026-07-21'
+method: searched
+source: https://developer.skedulo.com/developer-guides/customize-and-extend/
+families:
+- family: UI component library
+  name: '@skedulo/sked-ui'
+  loader: npm @skedulo/sked-ui
+  demo: https://ui.skedulo.com
+  description: React UI component library used to build Skedulo web extensions and
+    pages.
+- family: Web Extensions
+  description: Client-side web extensions embedded in the Skedulo web app, scaffolded
+    and served via the sked CLI (web-extension dev).
+- family: Mobile Extensions (MEX)
+  description: Skedulo Plus mobile extensions that add custom pages, components and
+    forms to the mobile app.
+  docs: https://developer.skedulo.com/developer-guides/customize-and-extend-mobile/skedulo-plus-extensions/mex-intro/
+- family: Horizon pages & templates
+  description: Configurable Horizon page/template artifacts rendered in the Skedulo
+    platform UI.
+- family: Public pages
+  description: Externally-facing hosted pages (e.g. customer self-service) deployed
+    as artifacts.
+note: Distinct from server-side SDKs in packages/.

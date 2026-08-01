@@ -1,0 +1,647 @@
+openapi: 3.0.0
+info:
+  title: Geoservices
+  version: 1.0.0
+servers:
+  - url: https://api.skedulo.com/geoservices
+  - url: https://api.uk.skedulo.com/geoservices
+  - url: https://api.ca.skedulo.com/geoservices
+  - url: https://api.au.skedulo.com/geoservices
+paths:
+  /distanceMatrix:
+    post:
+      security:
+        - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DistanceMatrixRequest'
+        required: true
+      summary: Compute the Distance Matrix for origin and destination addresses
+      description: >-
+        The Distance Matrix endpoint computes travel distance and time for all
+        combinations of origin and destination locations, based on the
+        recommended route between start and end points.
+
+        It should be noted that there are limits on the total number elements
+        that can be requested and that large requests (where origins *
+        destinations > 1000) may take several seconds to satisfy. These limits
+        may vary depending on your underlying configuration.
+
+
+        Depending on your configuration, requesting travel times and distances
+        for different times in the day (accounting for traffic conditions) is
+        possible with the 'departureTime' field.  The 'departureTime' field is
+        not timezone-aware and so the timezone offset needs to be applied in
+        order to match the requested local time.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistanceMatrixResponse'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /directions:
+    post:
+      security:
+        - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DirectionsRequest'
+        required: true
+      summary: Find directions between two locations
+      description: >-
+        The Directions endpoint calculates directions between source and
+        destination addresses, possibly including multiple waypoints enroute. It
+        returns the recommended travel route (if one can be found), along with
+        estimated travel time and distance.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DirectionsResponse'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /geocode:
+    post:
+      security:
+        - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GeocodeRequest'
+        required: true
+      summary: Geocode an address
+      description: >-
+        For a given list of addreseses, returns a list of geocoded `LatLng`, or
+        errors.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeocodeResponse'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /autocomplete:
+    post:
+      security:
+        - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutoCompleteRequest'
+        required: true
+      summary: Address Autocomplete
+      description: >-
+        For a given input string, return a list of address suggestions, or
+        error.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutoCompleteResponse'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /place:
+    post:
+      security:
+        - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlaceDetailRequest'
+        required: true
+      summary: Fetch Place Detail
+      description: For a given place Id, return the detailed information for that place.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlaceDetailResponse'
+        '400':
+          description: invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /timezone:
+    get:
+      security:
+        - Authorization: []
+      parameters:
+        - in: query
+          name: location
+          description: Latitude and Longitude of the location to find the timezone for
+          required: true
+          explode: false
+          schema:
+            type: array
+            items:
+              type: number
+            minItems: 2
+            maxItems: 2
+        - in: query
+          name: timestamp
+          description: >-
+            Seconds since 1970 for the timezone to return (used to compute DST
+            offset)
+          required: true
+          schema:
+            type: integer
+      summary: Return timezone information for a location
+      description: >-
+        Given a location and timestamp return the timezone name, the offset and
+        Daylight Savings offset.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimezoneResponse'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      in: header
+      name: Authorization
+  schemas:
+    ResultOkDistanceMatrixResponse:
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          $ref: '#/components/schemas/ResultOkDistanceMatrixResponse'
+    ResultOkDirectionsResponse:
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          $ref: '#/components/schemas/ResultOkDirectionsResponse'
+    DistanceMatrixRequest:
+      type: object
+      required:
+        - origins
+        - destinations
+      properties:
+        origins:
+          type: array
+          description: must be non-empty
+          items:
+            $ref: '#/components/schemas/LatLng'
+        destinations:
+          type: array
+          description: must be non-empty
+          items:
+            $ref: '#/components/schemas/LatLng'
+        avoid:
+          type: array
+          items:
+            $ref: '#/components/schemas/Avoid'
+        departureTime:
+          type: string
+          format: date-time
+      example:
+        origins:
+          - lat: -26.635265
+            lng: 153.067972
+        destinations:
+          - lat: -27.457768
+            lng: 153.03583
+    DistanceMatrixResponse:
+      type: object
+      required:
+        - matrix
+        - vendor
+      properties:
+        matrix:
+          type: array
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/TravelLegResult'
+        vendor:
+          $ref: '#/components/schemas/MapVendor'
+    MapVendor:
+      type: string
+      enum:
+        - GOOGLE
+        - GRAPHHOPPER
+        - LINEOFSIGHT
+    LatLng:
+      type: object
+      required:
+        - lat
+        - lng
+      properties:
+        lat:
+          description: '-90 <= y <= 90'
+          type: number
+        lng:
+          description: '-180 <= x <= 180'
+          type: number
+    Avoid:
+      type: string
+      enum:
+        - ferry
+        - highway
+        - toll
+    DirectionsRequest:
+      type: object
+      required:
+        - requests
+      properties:
+        requests:
+          type: array
+          items:
+            $ref: '#/components/schemas/Route'
+        avoid:
+          type: array
+          items:
+            $ref: '#/components/schemas/Avoid'
+    DirectionsResponse:
+      type: object
+      required:
+        - routes
+      properties:
+        routes:
+          type: array
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/TravelRoute'
+    Route:
+      type: object
+      required:
+        - origin
+        - destination
+      properties:
+        origin:
+          $ref: '#/components/schemas/LatLng'
+        destination:
+          $ref: '#/components/schemas/LatLng'
+        waypoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/LatLng'
+    TravelRoute:
+      type: object
+      required:
+        - leg
+        - travelInfo
+      properties:
+        leg:
+          $ref: '#/components/schemas/Leg'
+        travelInfo:
+          $ref: '#/components/schemas/TravelLegResult'
+    Leg:
+      type: object
+      required:
+        - origin
+        - destination
+        - avoid
+      properties:
+        origin:
+          $ref: '#/components/schemas/LatLng'
+        destination:
+          $ref: '#/components/schemas/LatLng'
+        avoid:
+          type: array
+          items:
+            $ref: '#/components/schemas/Avoid'
+    Duration:
+      type: object
+      required:
+        - durationInSeconds
+      properties:
+        durationInSeconds:
+          type: number
+    Distance:
+      type: object
+      required:
+        - distanceInMeters
+      properties:
+        distanceInMeters:
+          type: number
+    TravelLegResult:
+      type: object
+      required:
+        - status
+      discriminator:
+        propertyName: status
+      properties:
+        status:
+          type: string
+          enum:
+            - OK
+            - NO_ROUTE
+        duration:
+          $ref: '#/components/schemas/Duration'
+        distance:
+          $ref: '#/components/schemas/Distance'
+    Error:
+      type: object
+      required:
+        - errorType
+        - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+    GeocodeRequest:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/GeocodeRequestAddressesOnly'
+        - $ref: '#/components/schemas/GeocodeRequestIndividualRequests'
+    GeocodeRequestAddressesOnly:
+      type: object
+      required:
+        - addresses
+      properties:
+        addresses:
+          type: array
+          items:
+            type: string
+        language:
+          type: string
+          description: Return addresses in the given language. Must be a language code.
+        responseType:
+          $ref: '#/components/schemas/GeocodeRequestResponseType'
+    GeocodeRequestIndividualRequests:
+      type: object
+      required:
+        - requests
+      properties:
+        requests:
+          type: array
+          items:
+            $ref: '#/components/schemas/GeocodeRequestIndividualRequest'
+        language:
+          type: string
+          description: Return addresses in the given language. Must be a language code.
+        responseType:
+          $ref: '#/components/schemas/GeocodeRequestResponseType'
+    GeocodeRequestResponseType:
+      type: string
+      description: >-
+        Determines whether GeocodeSuccess or GeocodeMultipleMatchSuccess is
+        returned in the response.
+      enum:
+        - allMatches
+        - firstMatch
+    GeocodeRequestIndividualRequest:
+      type: object
+      required:
+        - address
+      properties:
+        address:
+          type: string
+        bounds:
+          $ref: '#/components/schemas/GeocodeRequestBounds'
+    GeocodeRequestBounds:
+      type: object
+      required:
+        - northwest
+        - southeast
+      properties:
+        northwest:
+          $ref: '#/components/schemas/LatLng'
+        southeast:
+          $ref: '#/components/schemas/LatLng'
+    GeocodeResponse:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/GeocodeResult'
+    GeocodeResult:
+      type: object
+      description: >-
+        Only one of the keys 'GeocodeSuccess', 'GeocodeMultipleMatchSuccess' or
+        'GeocodeFailure' will be present in the response.
+      properties:
+        GeocodeSuccess:
+          $ref: '#/components/schemas/GeocodeSuccess'
+        GeocodeFailure:
+          $ref: '#/components/schemas/GeocodeFailure'
+        GeocodeMultipleMatchSuccess:
+          $ref: '#/components/schemas/GeocodeMultipleMatchSuccess'
+    GeocodeSuccess:
+      required:
+        - address
+        - latlng
+        - granularity
+      properties:
+        address:
+          type: string
+        latlng:
+          $ref: '#/components/schemas/LatLng'
+        granularity:
+          type: string
+          enum:
+            - streetAddress
+            - other
+          description: >-
+            Specifies the most granular address element that matches the
+            geocoding query.
+    GeocodeFailure:
+      required:
+        - address
+        - reason
+      properties:
+        address:
+          type: string
+        reason:
+          $ref: '#/components/schemas/GeocodeError'
+    GeocodeError:
+      type: object
+      required:
+        - msg
+      properties:
+        msg:
+          type: string
+    GeocodeMultipleMatchSuccess:
+      type: array
+      items:
+        $ref: '#/components/schemas/GeocodeSuccess'
+    AutoCompleteRequest:
+      type: object
+      required:
+        - input
+        - sessionId
+      properties:
+        input:
+          type: string
+        sessionId:
+          type: string
+          format: uuid
+          description: >-
+            A caller-generated uuid to signify a session, which consists of
+            multiple autocomplete requests and ends with a place fetch request.
+            A different session should use a different sessionId
+        location:
+          $ref: '#/components/schemas/LatLng'
+        radius:
+          type: number
+          description: >-
+            Defines the distance (in meters) within which to return place
+            results. You may bias results to a specified circle by passing a
+            location and a radius parameter.
+        country:
+          type: string
+          description: A two character, ISO 3166-1 Alpha-2 compatible country code
+    AutoCompleteResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/AutoCompleteResult'
+    AutoCompleteResult:
+      type: object
+      required:
+        - predictions
+        - status
+      properties:
+        predictions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutoCompletePrediction'
+        status:
+          type: string
+          enum:
+            - OK
+            - ZERO_RESULTS
+        errorMessage:
+          type: string
+    AutoCompletePrediction:
+      type: object
+      required:
+        - description
+        - placeId
+      properties:
+        description:
+          type: string
+        placeId:
+          type: string
+          description: >-
+            Unique id for the suggested place, to be used with fetch place
+            endpoint.
+    PlaceDetailRequest:
+      type: object
+      required:
+        - placeId
+        - sessionId
+      properties:
+        placeId:
+          type: string
+          description: >-
+            Unique id for a place in Google system, obtained from autocomplete
+            endpoint.
+        sessionId:
+          type: string
+          format: uuid
+          description: >-
+            A caller-generated uuid that may have been used in an autocomplete
+            session.
+    PlaceDetailResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PlaceDetail'
+    PlaceDetail:
+      type: object
+      required:
+        - addressComponents
+        - formattedAddress
+        - geometry
+      properties:
+        addressComponents:
+          $ref: '#/components/schemas/AddressComponents'
+        formattedAddress:
+          type: string
+        geometry:
+          $ref: '#/components/schemas/LatLng'
+    AddressComponents:
+      type: object
+      properties:
+        streetNumber:
+          type: string
+        route:
+          type: string
+        locality:
+          type: string
+        area2:
+          type: string
+        area1:
+          type: string
+        country:
+          type: string
+        postalCode:
+          type: string
+    TimezoneResponse:
+      type: object
+      properties:
+        dstOffset:
+          description: >-
+            The Daylight Savings time offset in seconds or 0 if no Daylight
+            Savings time is in effect.
+          type: number
+        rawOffset:
+          description: The offset in seconds from UTC for the given location.
+          type: number
+        timeZoneId:
+          description: >-
+            The id of the time zone, (e.g "Australia/Brisbane" as defined by the
+            Unicode Common Locale Data Repository (CLDR) project.
+          type: string
+      example:
+        dstOffset: 0
+        rawOffset: 36000
+        timeZoneId: Australia/Brisbane

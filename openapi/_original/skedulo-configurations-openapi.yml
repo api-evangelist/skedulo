@@ -1,0 +1,2157 @@
+openapi: 3.0.0
+info:
+  title: Configurations API
+  version: 1.0.0
+  description: Skedulo Configurations API
+servers:
+  - url: https://api.skedulo.com/config
+  - url: https://api.uk.skedulo.com/config
+  - url: https://api.ca.skedulo.com/config
+  - url: https://api.au.skedulo.com/config
+paths:
+  /features/descriptions:
+    get:
+      security:
+        - Authorization: []
+      summary: Feature flag status, description, and type
+      description: >-
+        Retrieves the status of feature flags along with their descriptions and
+        type.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/FeatureFlagsWithDescriptions'
+  /features/{tenant_id}:
+    get:
+      security:
+        - Authorization: []
+      summary: Tenant Feature flag statuses
+      description: Retrieves the status of feature flags for the provided tenant
+      parameters:
+        - name: tenant_id
+          in: path
+          description: ID of the tenant
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeatureFlagsResult'
+  /features/descriptions/{tenant_id}:
+    get:
+      security:
+        - Authorization: []
+      summary: Feature flag status
+      description: >-
+        Retrieves the status of feature flags along with their descriptions and
+        type of the provided tenant.
+      parameters:
+        - name: tenant_id
+          in: path
+          description: ID of the tenant
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/FeatureFlagsWithDescriptions'
+  /features/tenants/search:
+    post:
+      security:
+        - Authorization: []
+      summary: Feature flag status for multiple tenants
+      description: Retrieves the status of feature flags for all the provided Tenant ID's.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantIds'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantFeatureFlagsResultContainer'
+  /features/descriptions/tenants/search:
+    post:
+      security:
+        - Authorization: []
+      summary: Feature flag status and descriptions for multiple tenants
+      description: >-
+        Retrieves the status of feature flags along with their descriptions and
+        type for all the provided Tenant ID's.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantIds'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: >-
+                  #/components/schemas/TenantFeatureFlagsAndDescriptionsResultContainer
+  /org_preference/salesforce-mfa:
+    post:
+      summary: Update Salesforce MFA delegation
+      description: >-
+        Sets the tenant's Salesforce MFA enforcement flag and/or the stored
+        Salesforce SAML SSO Login URL. Both fields are optional; an omitted
+        field is left unchanged. This is the only endpoint that may set these
+        high-impact SAML-delegation values — they are stripped from the generic
+        `POST /org_preference`.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOkSalesforceMfaDelegation'
+        '400':
+          description: >-
+            salesforceLoginUrl is not an https URL with a *.salesforce.com host
+            (errorType `invalid_salesforce_login_url`).
+        '401':
+          description: Not authorized
+        '412':
+          description: Tenant not initialized on this service.
+      security:
+        - Authorization: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SalesforceMfaDelegation'
+        description: >-
+          The Salesforce MFA delegation settings to update. An omitted field is
+          left unchanged.
+        required: true
+  /templates/{schemaName}:
+    get:
+      security:
+        - Authorization: []
+      summary: Fetch schema templates
+      description: Fetch all templates for a given schema.
+      operationId: getTemplates
+      parameters:
+        - name: schemaName
+          in: path
+          description: Schema to retrieve templates for.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOKTemplates'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /template:
+    post:
+      security:
+        - Authorization: []
+      summary: Create template
+      description: Create a new template.
+      operationId: createTemplate
+      responses:
+        '200':
+          description: The template was created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOKCreateTemplate'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTemplate'
+        description: New template details.
+        required: true
+  /template/{template_id}:
+    put:
+      security:
+        - Authorization: []
+      summary: Update template
+      description: Update an existing template.
+      operationId: updateTemplate
+      parameters:
+        - name: template_id
+          in: path
+          description: Identifier of the template to update.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The template was updated.
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTemplate'
+        description: Updated template details.
+        required: true
+    delete:
+      security:
+        - Authorization: []
+      summary: Delete template
+      description: Delete a template.
+      operationId: deleteTemplate
+      parameters:
+        - name: template_id
+          in: path
+          description: Identifier of the template to delete.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The template was deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOKDeleteTemplate'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /template/{template_id}/values:
+    get:
+      security:
+        - Authorization: []
+      summary: Template values
+      description: Return template values for a template.
+      operationId: getValuePairs
+      parameters:
+        - name: template_id
+          in: path
+          description: Identifier of the template to retrieve values for.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOKTemplateValues'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      security:
+        - Authorization: []
+      summary: Update template values
+      description: >-
+        All existing values will removed and the values provided will be
+        inserted.
+      operationId: overrideTemplateValues
+      parameters:
+        - name: template_id
+          in: path
+          description: Identifier of the template to add values for.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The values were updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOKTemplateValues'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/NewTemplateValue'
+        description: Values to use for the template.
+        required: true
+  /config/layout/{object}:
+    get:
+      security:
+        - Authorization: []
+      summary: Default layout for an object
+      description: Returns the default layout for the given object.
+      operationId: layoutObjectDefault
+      parameters:
+        - name: object
+          in: path
+          description: the name of the object
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    type: object
+                    required:
+                      - object
+                      - layout
+                    properties:
+                      object:
+                        type: string
+                      layout:
+                        $ref: '#/components/schemas/Layout'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    ResultDeletedInteger:
+      type: object
+      required:
+        - deleted
+      properties:
+        deleted:
+          type: integer
+          format: int32
+    CalendarResponse:
+      type: object
+      required:
+        - duration
+        - jobType
+      properties:
+        jobType:
+          type: string
+        duration:
+          type: integer
+          format: int32
+    ResultOkListCalendarResponse:
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/CalendarResponse'
+    ResultCreatedListCalendarResponse:
+      type: object
+      required:
+        - created
+      properties:
+        created:
+          type: array
+          items:
+            $ref: '#/components/schemas/CalendarResponse'
+    CompleteTimeSlot:
+      type: object
+      required:
+        - dayOfWeek
+        - endTime
+        - id
+        - jobtype
+        - startTime
+      properties:
+        id:
+          type: string
+        jobtype:
+          type: string
+        dayOfWeek:
+          type: string
+          enum:
+            - MON
+            - TUE
+            - WED
+            - THU
+            - FRI
+            - SAT
+            - SUN
+        startTime:
+          type: string
+        endTime:
+          type: string
+    ResultOkListCompleteTimeSlot:
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompleteTimeSlot'
+    Timeslot:
+      type: object
+      required:
+        - dayOfWeek
+        - jobType
+      properties:
+        jobType:
+          type: string
+        dayOfWeek:
+          type: string
+          enum:
+            - MON
+            - TUE
+            - WED
+            - THU
+            - FRI
+            - SAT
+            - SUN
+    JSON:
+      type: object
+    ResultOkMapStringJSON:
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/JSON'
+    ResultCreatedMapStringJSON:
+      type: object
+      required:
+        - created
+      properties:
+        created:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/JSON'
+    FeatureFlagsResult:
+      description: Result wrapper for FeatureFlags.
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          $ref: '#/components/schemas/FeatureFlags'
+    TenantFeatureFlagsResultContainer:
+      description: Result wrapper for Tenant FeatureFlags.
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          $ref: '#/components/schemas/TenantFeatureFlagsResult'
+    TenantFeatureFlagsResult:
+      description: Result wrapper for Tenant FeatureFlags successes and failures.
+      type: object
+      required:
+        - successes
+        - failures
+      properties:
+        successes:
+          $ref: '#/components/schemas/TenantsFeatureFlagsSuccesses'
+        failures:
+          $ref: '#/components/schemas/TenantsFeatureFlagsFailures'
+    TenantFeatureFlagsAndDescriptionsResultContainer:
+      description: Result wrapper for Tenant FeatureFlags with descriptions.
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          $ref: '#/components/schemas/TenantFeatureFlagsAndDescriptionResult'
+    TenantFeatureFlagsAndDescriptionResult:
+      description: Result wrapper for Tenant FeatureFlags successes and failures.
+      type: object
+      required:
+        - successes
+        - failures
+      properties:
+        successes:
+          $ref: '#/components/schemas/TenantsFeatureFlagsAndDescriptionsSuccesses'
+        failures:
+          $ref: '#/components/schemas/TenantsFeatureFlagsFailures'
+    TenantsFeatureFlagsSuccesses:
+      description: >-
+        A map of the tenantId to the Features flags for all tenants that feature
+        flags were able to be obtained
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/FeatureFlags'
+    TenantsFeatureFlagsAndDescriptionsSuccesses:
+      description: >-
+        A map of the tenantId to the Features flags for all tenants that feature
+        flags were able to be obtained
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          $ref: '#/components/schemas/FeatureFlagsWithDescriptions'
+    TenantsFeatureFlagsFailures:
+      description: >-
+        A map of the tenantId to an error message for all tenants that feature
+        flags were not able to be obtained.
+      type: object
+      additionalProperties:
+        type: string
+      example:
+        sk_123oiusdf: >-
+          Tenant sk_123oiusdf has not been initialized with this service. Please
+          run the onboarding process for this tenant!
+        sk_3432423524: >-
+          Tenant sk_3432423524 has not been initialized with this service.
+          Please run the onboarding process for this tenant!
+    FeatureFlags:
+      description: >-
+        Describes whether or not optional features are enabled. Also marks the
+        presence of data model extensions in Salesforce tenants. Use the
+        `/config/features/descriptions` endpoint to get a list of all feature
+        flags with descriptions and other metadata. No assumptions should be
+        made about specific keys appearing in the response. If a key is not
+        returned its value should be assumed to be false.
+      type: object
+      additionalProperties:
+        type: string
+      example:
+        useJobOffers: true
+    FeatureFlagsWithDescriptions:
+      description: A list of all Feature Flags with description, value and other metadata.
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: The feature flag key.
+          description:
+            type: string
+            description: Describes the behaviour when the flag is enabled.
+          type:
+            type: string
+            enum:
+              - Feature
+              - Package
+              - Retired
+            description: >-
+              The type of flag. A Feature flag describes functionality of the
+              platform or application. A Package flag describes the data model.
+              A Retired flag has a fixed value and cannot be modified - it is
+              included for backward compatibility but may be removed in the
+              future.
+          status:
+            type: string
+            enum:
+              - GeneralAvailability
+              - Beta
+              - Alpha
+              - Development
+              - Internal
+              - Deprecated
+            description: The status of the feature.
+          platform:
+            type: string
+            enum:
+              - Skedulo
+              - Salesforce
+              - All
+            description: >-
+              The underlying data management platform where the feature is
+              applicable.
+          defaultValue:
+            type: boolean
+            description: The default value of the flag for new tenants.
+          value:
+            type: boolean
+            description: The current value of the flag.
+    ResultOkOrgPreferences:
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          $ref: '#/components/schemas/OrgPreferences'
+    SalesforceMfaDelegation:
+      type: object
+      properties:
+        enabled:
+          description: >-
+            Whether the tenant's Salesforce org enforces MFA org-wide. Omit to
+            leave unchanged.
+          type: boolean
+        salesforceLoginUrl:
+          description: >-
+            The org's Skedulo SAML SSO "Salesforce Login URL", used verbatim as
+            the SAML assertion ACS. Must be an https URL with a *.salesforce.com
+            host. Omit to leave unchanged.
+          type: string
+    ResultOkSalesforceMfaDelegation:
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          type: object
+          required:
+            - enabled
+          properties:
+            enabled:
+              description: The persisted Salesforce MFA enforcement flag.
+              type: boolean
+            salesforceLoginUrl:
+              description: The stored Salesforce Login URL, or null if not configured.
+              type: string
+    OrgPreference:
+      type: object
+      required:
+        - key
+        - value
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    TenantIds:
+      description: Tenant Ids
+      type: array
+      items:
+        type: string
+    OrgPreferences:
+      type: object
+      required:
+        - allowAbortJob
+        - attachmentsDownload
+        - enableHIPAACompliance
+        - futureJobBuffer
+        - jobTasksAreOptional
+        - popupCompletionNotes
+        - turnOnChatter
+        - saveAttachmentAsFile
+        - enableSMSResponse
+        - allowJobsToBeDeclined
+        - dispatchJobsToConfirmedStatus
+        - disableInProgress
+        - disableComplete
+        - disableEnRoute
+        - disableOnSite
+        - restrictResourcesFromWebApp
+        - excludePendingDispatchAllocationsInICal
+        - preventSchedulersFromCreatingJobs
+        - enableShifts
+        - autoApproveAvailabilities
+        - autoDeleteJobAllocations
+        - autoAllocateJobOffers
+        - autoAllocateShiftOffers
+        - notifyExpiredOffers
+        - enableJobSwap
+        - teamLeader
+        - enableFilterJobsByTimeConstraints
+        - showVirtualMeetingsInJobDetails
+        - addressOptionalInJobCreatePage
+        - labels
+        - mobile
+        - mobileV3
+        - web
+        - services
+        - exceptionReporting
+        - visualforce
+      properties:
+        allowAbortJob:
+          type: boolean
+          default: false
+        attachmentsDownload:
+          type: boolean
+          default: false
+        enableHIPAACompliance:
+          type: boolean
+          default: false
+        futureJobBuffer:
+          type: integer
+          format: int32
+          default: 0
+        jobTasksAreOptional:
+          type: boolean
+          default: false
+        enableCompletionNotes:
+          type: boolean
+          default: true
+        popupCompletionNotes:
+          type: boolean
+          default: false
+        turnOnChatter:
+          type: boolean
+          default: false
+        saveAttachmentAsFile:
+          type: boolean
+          default: false
+        enableSMSResponse:
+          type: boolean
+          default: true
+        allowJobsToBeDeclined:
+          type: boolean
+          default: true
+        dispatchJobsToConfirmedStatus:
+          type: boolean
+          description: >-
+            If true jobs are allocated to a resource in confirmed status,
+            otherwise in dispatched status.
+          default: false
+        disableInProgress:
+          type: boolean
+          default: false
+        disableComplete:
+          type: boolean
+          default: false
+        disableEnRoute:
+          type: boolean
+          default: false
+        disableOnSite:
+          type: boolean
+          default: false
+        restrictResourcesFromWebApp:
+          type: boolean
+          default: true
+        excludePendingDispatchAllocationsInICal:
+          type: boolean
+          default: false
+        preventSchedulersFromCreatingJobs:
+          type: boolean
+          default: false
+        enableShifts:
+          type: boolean
+          default: false
+        autoApproveAvailabilities:
+          type: boolean
+          default: false
+        autoDeleteJobAllocations:
+          type: boolean
+          default: false
+        autoAllocateJobOffers:
+          type: boolean
+          default: false
+        autoAllocateShiftOffers:
+          type: boolean
+          default: false
+        notifyExpiredOffers:
+          type: boolean
+          default: false
+        enableJobSwap:
+          type: boolean
+          default: false
+        teamLeader:
+          type: boolean
+          default: false
+        enableFilterJobsByTimeConstraints:
+          type: boolean
+          default: false
+        showVirtualMeetingsInJobDetails:
+          type: boolean
+          default: false
+        addressOptionalInJobCreatePage:
+          type: boolean
+          default: false
+        labels:
+          $ref: '#/components/schemas/OrgPreferenceLabels'
+        mobile:
+          $ref: '#/components/schemas/MobileOrgPreferences'
+        mobileV3:
+          $ref: '#/components/schemas/MobileV3OrgPreferences'
+        web:
+          $ref: '#/components/schemas/WebOrgPreferences'
+        services:
+          $ref: '#/components/schemas/ServiceOrgPreferences'
+        notifications:
+          $ref: '#/components/schemas/NotificationOrgPreferences'
+        messaging:
+          $ref: '#/components/schemas/MessagingOrgPreferences'
+        exceptionReporting:
+          $ref: '#/components/schemas/ExceptionReportingOrgPreferences'
+        visualforce:
+          $ref: '#/components/schemas/VisualforceOrgPreferences'
+    OrgPreferenceLabels:
+      type: object
+      required:
+        - jobs
+        - menu
+      properties:
+        jobs:
+          $ref: '#/components/schemas/JobActionLabels'
+        menu:
+          $ref: '#/components/schemas/MenuLabels'
+    JobActionLabels:
+      type: object
+      properties:
+        confirm:
+          type: string
+        decline:
+          type: string
+        startTravel:
+          type: string
+        checkIn:
+          type: string
+        inProgress:
+          type: string
+        complete:
+          type: string
+        abortJob:
+          type: string
+        createFollowUp:
+          type: string
+        manageTimes:
+          type: string
+        completionNotes:
+          type: string
+    MenuLabels:
+      type: object
+      properties:
+        customForms:
+          type: string
+    MobileOrgPreferences:
+      type: object
+      description: Preference settings for Mobile. Also returns any custom values.
+      required:
+        - allowManagementOfAvailabilities
+        - allowManagementOfUnavailabilities
+        - allowManagementOfRecurringAvailabilities
+        - allowAutomaticRefreshOfJobs
+        - allowManagementOfActivities
+        - enableCreateActivity
+        - enableDeleteActivity
+        - completedJobsAreReadonlyOnMobile
+        - enableCreateJob
+        - enableManageTimes
+        - enableProximityNotifications
+        - supportEmail
+        - enableFollowups
+        - enableFollowupAssignToSelf
+        - preloadAvailabilityRangeMinDays
+        - preloadAvailabilityRangeMaxDays
+        - preloadJobRangeMinDays
+        - preloadJobRangeMaxDays
+        - showMapInWeekAgenda
+        - android
+        - ios
+        - jobOfferCardContent
+        - jobCardContent
+        - accountDetailsVisibilityPreferences
+      properties:
+        allowManagementOfAvailabilities:
+          type: boolean
+          default: false
+        allowManagementOfUnavailabilities:
+          type: boolean
+          default: true
+        allowManagementOfRecurringAvailabilities:
+          type: boolean
+          default: false
+        allowAutomaticRefreshOfJobs:
+          type: boolean
+          default: false
+        allowManagementOfActivities:
+          description: >-
+            Deprecated, use enableCreateActivity and enableDeleteActivity
+            instead.
+          type: boolean
+          default: false
+        enableCreateActivity:
+          type: boolean
+          default: true
+        enableDeleteActivity:
+          type: boolean
+          default: true
+        completedJobsAreReadonlyOnMobile:
+          type: boolean
+          default: false
+        enableCreateJob:
+          type: boolean
+          default: false
+        enableManageTimes:
+          description: Prevent resources from changing job status timestamps.
+          type: boolean
+          default: true
+        enableProximityNotifications:
+          type: boolean
+          default: false
+        supportEmail:
+          type: string
+          default: support@skedulo.com
+        enableFollowups:
+          type: boolean
+          default: true
+        enableFollowupAssignToSelf:
+          type: boolean
+          default: true
+        preloadAvailabilityRangeMinDays:
+          description: >-
+            Number of days in the past for which availability should be loaded
+            in the agenda view.
+          type: integer
+          default: 90
+        preloadAvailabilityRangeMaxDays:
+          description: >-
+            Number of days in the future for which availability should be loaded
+            in the agenda view.
+          type: integer
+          default: 180
+        preloadJobRangeMinDays:
+          description: >-
+            Number of days in the past for which jobs should be loaded in the
+            agenda view.
+          type: integer
+          default: 90
+        preloadJobRangeMaxDays:
+          description: >-
+            Number of days in the future for which jobs should be loaded in the
+            agenda view.
+          type: integer
+          default: 90
+        showMapInWeekAgenda:
+          description: Show the map on the Week Agenda on mobile
+          type: boolean
+          default: false
+        android:
+          $ref: '#/components/schemas/MobileAndroidOrgPreferences'
+        ios:
+          $ref: '#/components/schemas/MobileIOSOrgPreferences'
+        jobOfferCardContent:
+          $ref: '#/components/schemas/JobOfferCardContentPreferences'
+        jobCardContent:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/JobCardContentPreferences'
+        accountDetailsVisibility:
+          $ref: '#/components/schemas/AccountDetailsVisibilityPreferences'
+      additionalProperties:
+        $ref: '#/components/schemas/JSON'
+    MobileAndroidOrgPreferences:
+      type: object
+      description: Also returns any custom values.
+      properties:
+        version:
+          type: string
+      additionalProperties:
+        $ref: '#/components/schemas/JSON'
+    MobileIOSOrgPreferences:
+      type: object
+      description: Also returns any custom values.
+      properties:
+        version:
+          type: string
+      additionalProperties:
+        $ref: '#/components/schemas/JSON'
+    JobOfferCardContentPreferences:
+      type: object
+      description: >-
+        Provides overrides for fields for which values can be determined for a
+        job offer
+      properties:
+        addressFieldOverride:
+          type: string
+          example: AccountId
+        descriptionFieldOverride:
+          type: string
+          example: DescCustomField
+        accountFieldOverride:
+          type: string
+          example: AccountustomField
+    JobCardContentPreferences:
+      type: object
+      description: >-
+        Provides overrides for fields for which values can be determined for a
+        job card content
+      properties:
+        header:
+          type: string
+          example: Job.Description
+        subHeader:
+          type: string
+          example: StartEndTime
+        body1:
+          type: string
+          example: Job.Type
+        body2:
+          type: string
+          example: Account/Contact
+        body3:
+          type: string
+          example: Job.Address
+        body4:
+          type: string
+          example: Job.CustomField
+      required:
+        - header
+        - subHeader
+    AccountDetailsVisibilityPreferences:
+      type: object
+      description: Set account related fields that can be displayed in mobile apps
+      properties:
+        name:
+          type: boolean
+        billingAddress:
+          type: boolean
+        shippingAddress:
+          type: boolean
+        phone:
+          type: boolean
+        fax:
+          type: boolean
+    MobileV3OrgPreferences:
+      type: object
+      description: Preference settings for Mobile v3. Also returns any custom values.
+      properties:
+        appBundleId:
+          type: string
+          example: com.skedulo.app.v3
+        schemeName:
+          type: string
+          example: skedulo
+          description: >-
+            Used for primary actions when messages are sent to the Push
+            Notification Service.
+      additionalProperties:
+        $ref: '#/components/schemas/JSON'
+    WebOrgPreferences:
+      type: object
+      description: Also returns any custom values.
+      additionalProperties:
+        $ref: '#/components/schemas/JSON'
+    ServiceOrgPreferences:
+      type: object
+      description: Also returns any custom values.
+      properties:
+        vendorApiKey:
+          type: string
+        mapVendor:
+          type: string
+          enum:
+            - GOOGLE
+            - GRAPHHOPPER
+            - AWSLOCATION
+      additionalProperties:
+        $ref: '#/components/schemas/JSON'
+    NotificationOrgPreferences:
+      type: object
+      required:
+        - enabled
+        - automatic
+      properties:
+        enabled:
+          $ref: '#/components/schemas/EnabledNotifications'
+        automatic:
+          $ref: '#/components/schemas/AutomaticNotifications'
+    MessagingOrgPreferences:
+      type: object
+      properties:
+        enableAllUsers:
+          type: boolean
+        enableDirectMessages:
+          type: boolean
+        enableEditMessages:
+          type: boolean
+        enableDeleteMessages:
+          type: boolean
+        enableResourcesAddMembersToChannel:
+          type: boolean
+        enableResourcesCreatePublicChannels:
+          type: boolean
+        enableResourcesCreatePrivateChannels:
+          type: boolean
+        enableResourcesCreateDirectChannels:
+          type: boolean
+    EnabledNotifications:
+      type: object
+      description: >-
+        Controls whether notifications are sent when a user calls an endpoint or
+        via events if event notifications have also been enabled.
+      required:
+        - job
+        - availability
+      properties:
+        job:
+          $ref: '#/components/schemas/EnabledJobNotifications'
+        availability:
+          $ref: '#/components/schemas/EnabledAvailabilityNotifications'
+    EnabledJobNotifications:
+      type: object
+      required:
+        - dispatch
+        - reminder
+        - cancelled
+        - offer
+        - timeChanged
+      properties:
+        dispatch:
+          type: boolean
+          description: >-
+            If true then a notification is sent to the resource when they are
+            dispatched via the dispatch endpoint.
+          default: true
+        reminder:
+          type: boolean
+          description: >-
+            If true then a notification is sent to the resource if they are
+            re-dispatched via the dispatch/notify endpoint.
+          default: true
+        cancelled:
+          type: boolean
+          description: >-
+            If true then a notification is sent to the resource if the
+            notify_cancel endpoint is called or if automatic resource job events
+            are enabled and a job they are allocated to is cancelled.
+          default: true
+        offer:
+          type: boolean
+          description: If true then a notifications for job offers are sent to resources.
+          default: true
+        timeChanged:
+          type: boolean
+          description: >-
+            If true then a notification is sent to the resource if the time of a
+            job they are allocated to is changed.
+          default: false
+    EnabledAvailabilityNotifications:
+      type: object
+      required:
+        - requestApproved
+      properties:
+        requestApproved:
+          type: boolean
+          description: >-
+            If true then a notification is sent to the resource if their
+            (un)availability request is approved or declined.
+          default: false
+    AutomaticNotifications:
+      type: object
+      description: Controls whether notifications are sent in response to object changes.
+      required:
+        - resource
+      properties:
+        resource:
+          $ref: '#/components/schemas/ResourceAutomaticNotifications'
+    ResourceAutomaticNotifications:
+      type: object
+      required:
+        - job
+        - shift
+        - availability
+      properties:
+        job:
+          description: >-
+            If true then automatic notifications based on job changes can be
+            sent to resources.
+          type: boolean
+          default: true
+        shift:
+          description: >-
+            If true then automatic notifications based on shift changes can be
+            sent to resources.
+          type: boolean
+          default: false
+        availability:
+          description: >-
+            If true then automatic notifications based on availability changes
+            can be sent to resources.
+          type: boolean
+          default: false
+    ExceptionReportingOrgPreferences:
+      type: object
+      required:
+        - enabled
+        - consoleEnabled
+        - applySystemResolvedStatusOnDelete
+        - insufficientTravelTime
+        - jobDependencies
+        - jobOverallocated
+        - pollingEnabled
+        - jobTimeConstraints
+        - missingJobTags
+        - missingOptionalJobTags
+        - resourceAccountExcluded
+        - resourceAccountNotIncluded
+        - resourceInactive
+        - resourceLocationExcluded
+        - resourceLocationNotIncluded
+        - resourceUnavailable
+        - workOverlap
+      properties:
+        enabled:
+          description: >-
+            Enables exception evaluation and reporting in the back end. Defaults
+            to true for Pulse customers.
+          type: boolean
+        consoleEnabled:
+          description: >-
+            Determines whether the new exceptions console page appears in the
+            menu. Defaults to true for Pulse customers.
+          type: boolean
+        pollingEnabled:
+          description: >-
+            Determines whether exception polling is enabled or not. Defaults to
+            true for Pulse customers.
+          type: boolean
+        applySystemResolvedStatusOnDelete:
+          description: >-
+            Determines whether to update exceptions to a resolved status prior
+            to deletion
+          type: boolean
+          default: false
+        insufficientTravelTime:
+          $ref: '#/components/schemas/InsufficientTravelTimeOrgPreferences'
+        jobDependencies:
+          $ref: '#/components/schemas/JobDependenciesOrgPreferences'
+        jobOverallocated:
+          $ref: '#/components/schemas/JobOverallocatedOrgPreferences'
+        jobTimeConstraints:
+          $ref: '#/components/schemas/JobTimeConstraintsOrgPreferences'
+        missingJobTags:
+          $ref: '#/components/schemas/MissingJobTagsOrgPreferences'
+        missingOptionalJobTags:
+          $ref: '#/components/schemas/MissingOptionalJobTagsOrgPreferences'
+        resourceAccountExcluded:
+          $ref: '#/components/schemas/ResourceAccountExcludedOrgPreferences'
+        resourceAccountNotIncluded:
+          $ref: '#/components/schemas/ResourceAccountNotIncludedOrgPreferences'
+        resourceInactive:
+          $ref: '#/components/schemas/ResourceInactiveOrgPreferences'
+        resourceLocationExcluded:
+          $ref: '#/components/schemas/ResourceLocationExcludedOrgPreferences'
+        resourceLocationNotIncluded:
+          $ref: '#/components/schemas/ResourceLocationNotIncludedOrgPreferences'
+        resourceUnavailable:
+          $ref: '#/components/schemas/ResourceUnavailableOrgPreferences'
+        workOverlap:
+          $ref: '#/components/schemas/WorkOverlapOrgPreferences'
+    InsufficientTravelTimeOrgPreferences:
+      type: object
+      required:
+        - enabled
+        - maxTravelTimeInMinutes
+      properties:
+        enabled:
+          description: Determines whether to generate Insufficient Travel Time exceptions
+          type: boolean
+          default: true
+        maxTravelTimeInMinutes:
+          description: >-
+            Raise an exception if the travel time in minutes between two work
+            items is greater than this value
+          type: integer
+          format: int32
+        activityFilter:
+          description: >-
+            Custom filter extensions to use for fetching activities when
+            evaluating the Insufficient Travel Time rule
+          type: string
+        jobAllocationFilter:
+          description: >-
+            Custom filter extensions to use for fetching job allocations when
+            evaluating the Insufficient Travel Time rule
+          type: string
+    JobDependenciesOrgPreferences:
+      type: object
+      required:
+        - enabled
+      properties:
+        enabled:
+          description: Determines whether to generate Job Dependencies exceptions
+          type: boolean
+          default: true
+        jobDependencyFilter:
+          description: >-
+            Custom filter extensions to use for fetching job dependencies when
+            evaluating the Job Dependencies rule
+          type: string
+    JobOverallocatedOrgPreferences:
+      type: object
+      required:
+        - enabled
+      properties:
+        enabled:
+          description: Determines whether to generate Job Overallocated exceptions
+          type: boolean
+          default: true
+        jobAllocationFilter:
+          description: >-
+            Custom filter extensions to use for fetching job allocations when
+            evaluating the Job Overallocated rule
+          type: string
+    JobTimeConstraintsOrgPreferences:
+      type: object
+      required:
+        - enabled
+      properties:
+        enabled:
+          description: Determines whether to generate Job Time Constraint exceptions
+          type: boolean
+          default: true
+        jobFilter:
+          description: >-
+            Custom filter extensions to use for fetching jobs when evaluating
+            the Job Time Constraints rule
+          type: string
+    MissingJobTagsOrgPreferences:
+      type: object
+      required:
+        - enabled
+      properties:
+        enabled:
+          description: Determines whether to generate Missing Job Tags exceptions
+          type: boolean
+          default: true
+        jobAllocationFilter:
+          description: >-
+            Custom filter extensions to use for fetching job allocations when
+            evaluating the Missing Job Tags rule
+          type: string
+    MissingOptionalJobTagsOrgPreferences:
+      type: object
+      required:
+        - enabled
+      properties:
+        enabled:
+          description: Determines whether to generate missing Optional Job Tags exceptions
+          type: boolean
+          default: true
+        jobAllocationFilter:
+          description: >-
+            Custom filter extensions to use for fetching job allocations when
+            evaluating the Missing Optional Job Tags rule
+          type: string
+    ResourceAccountExcludedOrgPreferences:
+      type: object
+      required:
+        - enabled
+      properties:
+        enabled:
+          description: Determines whether to generate Resource Account Excluded exceptions
+          type: boolean
+          default: true
+        jobAllocationFilter:
+          description: >-
+            Custom filter extensions to use for fetching job allocations when
+            evaluating the Resource Account Excluded rule
+          type: string
+    ResourceAccountNotIncludedOrgPreferences:
+      type: object
+      required:
+        - enabled
+      properties:
+        enabled:
+          description: >-
+            Determines whether to generate Resource Account Not Included
+            exceptions
+          type: boolean
+          default: true
+        jobAllocationFilter:
+          description: >-
+            Custom filter extensions to use for fetching job allocations when
+            evaluating the Resource Account Not Included rule
+          type: string
+    ResourceInactiveOrgPreferences:
+      type: object
+      required:
+        - enabled
+      properties:
+        enabled:
+          description: Determines whether to generate Resource Inactive exceptions
+          type: boolean
+          default: true
+        jobAllocationFilter:
+          description: >-
+            Custom filter extensions to use for fetching job allocations when
+            evaluating the Resource Inactive rule
+          type: string
+    ResourceLocationExcludedOrgPreferences:
+      type: object
+      required:
+        - enabled
+      properties:
+        enabled:
+          description: Determines whether to generate Resource Location Excluded exceptions
+          type: boolean
+          default: true
+        jobAllocationFilter:
+          description: >-
+            Custom filter extensions to use for fetching job allocations when
+            evaluating the Resource Location Excluded rule
+          type: string
+    ResourceLocationNotIncludedOrgPreferences:
+      type: object
+      required:
+        - enabled
+      properties:
+        enabled:
+          description: >-
+            Determines whether to generate Resource Location Not Included
+            exceptions
+          type: boolean
+          default: true
+        jobAllocationFilter:
+          description: >-
+            Custom filter extensions to use for fetching job allocations when
+            evaluating the Resource Location Not Included rule
+          type: string
+    ResourceUnavailableOrgPreferences:
+      type: object
+      required:
+        - enabled
+      properties:
+        enabled:
+          description: Determines whether to generate Resource Unavailable exceptions
+          type: boolean
+          default: true
+        jobAllocationFilter:
+          description: >-
+            Custom filter extensions to use for fetching job allocations when
+            evaluating the Resource Unavailable rule
+          type: string
+    WorkOverlapOrgPreferences:
+      type: object
+      required:
+        - enabled
+      properties:
+        enabled:
+          description: Determines whether to generate Work Overlap exceptions
+          type: boolean
+          default: true
+        jobAllocationFilter:
+          description: >-
+            Custom filter extensions to use for fetching job allocations when
+            evaluating the Work Overlap rule
+          type: string
+    VisualforceOrgPreferences:
+      type: object
+      required:
+        - jobItems
+        - menuItems
+        - salesforceMfaEnforced
+      properties:
+        jobItems:
+          description: Visualforce items that are shown on the job details screen.
+          type: array
+          items:
+            $ref: '#/components/schemas/VisualforceLink'
+        menuItems:
+          description: Visualforce items that are shown on the hamburger menu.
+          type: array
+          items:
+            $ref: '#/components/schemas/VisualforceLink'
+        salesforceMfaEnforced:
+          description: >-
+            Whether the tenant's Salesforce org enforces MFA org-wide. Set only
+            via `POST /org_preference/salesforce-mfa`.
+          type: boolean
+        salesforceSamlLoginUrl:
+          description: >-
+            The org's Skedulo SAML SSO "Salesforce Login URL", used verbatim as
+            the SAML assertion ACS. Set only via `POST
+            /org_preference/salesforce-mfa`.
+          type: string
+        nameFromJob:
+          description: >-
+            The name of a Visualforce page in Salesforce that is shown on the
+            job details screen. This field is deprecated, use `jobItems`
+            instead.
+          type: string
+        labelFromJob:
+          description: >-
+            The label used for the job details Visualforce page. This field is
+            deprecated, use `jobItems` instead.
+          type: string
+        nameFromMenu:
+          description: >-
+            The name of a Visualforce page in Salesforce that is shown on the
+            hamburger menu. This field is deprecated, use `menuItems` instead.
+          type: string
+        labelFromMenu:
+          description: >-
+            The label used for the hamburger menu Visualforce page. This field
+            is deprecated, use `menuItems` instead.
+          type: string
+    VisualforceLink:
+      type: object
+      properties:
+        name:
+          description: The name of a Visualforce page in Salesforce.
+          type: string
+        label:
+          description: The label used when displaying a link to the Visualforce page.
+          type: string
+    OptOrgPreferences:
+      type: object
+      properties:
+        allowAbortJob:
+          type: boolean
+        attachmentsDownload:
+          type: boolean
+        enableHIPAACompliance:
+          type: boolean
+        futureJobBuffer:
+          type: integer
+          format: int32
+        jobTasksAreOptional:
+          type: boolean
+        enableCompletionNotes:
+          type: boolean
+        popupCompletionNotes:
+          type: boolean
+        turnOnChatter:
+          type: boolean
+        saveAttachmentAsFile:
+          type: boolean
+        enableSMSResponse:
+          type: boolean
+        allowJobsToBeDeclined:
+          type: boolean
+        dispatchJobsToConfirmedStatus:
+          type: boolean
+        disableEnRoute:
+          type: boolean
+        disableOnSite:
+          type: boolean
+        restrictResourcesFromWebApp:
+          type: boolean
+        excludePendingDispatchAllocationsInICal:
+          type: boolean
+        preventSchedulersFromCreatingJobs:
+          type: boolean
+          default: false
+        enableShifts:
+          type: boolean
+        autoApproveAvailabilities:
+          type: boolean
+        autoDeleteJobAllocations:
+          type: boolean
+        autoAllocateJobOffers:
+          type: boolean
+        autoAllocateShiftOffers:
+          type: boolean
+        notifyExpiredOffers:
+          type: boolean
+        enableJobSwap:
+          type: boolean
+        teamLeader:
+          type: boolean
+        enableFilterJobsByTimeConstraints:
+          type: boolean
+        showVirtualMeetingsInJobDetails:
+          type: boolean
+        addressOptionalInJobCreatePage:
+          type: boolean
+        labels:
+          $ref: '#/components/schemas/OptOrgPreferenceLabels'
+        mobile:
+          $ref: '#/components/schemas/OptMobileOrgPreferences'
+        mobileV3:
+          $ref: '#/components/schemas/OptMobileV3OrgPreferences'
+        web:
+          $ref: '#/components/schemas/OptWebOrgPreferences'
+        services:
+          $ref: '#/components/schemas/OptServiceOrgPreferences'
+        notifications:
+          $ref: '#/components/schemas/OptNotificationOrgPreferences'
+        exceptionReporting:
+          $ref: '#/components/schemas/OptExceptionReportingOrgPreferences'
+        visualforce:
+          $ref: '#/components/schemas/OptVisualforceOrgPreferences'
+    OptOrgPreferenceLabels:
+      type: object
+      properties:
+        jobs:
+          $ref: '#/components/schemas/OptJobActionLabels'
+        menu:
+          $ref: '#/components/schemas/OptMenuLabels'
+    OptJobActionLabels:
+      type: object
+      properties:
+        confirm:
+          type: string
+        decline:
+          type: string
+        startTravel:
+          type: string
+        checkIn:
+          type: string
+        inProgress:
+          type: string
+        complete:
+          type: string
+        abortJob:
+          type: string
+        createFollowUp:
+          type: string
+        manageTimes:
+          type: string
+        completionNotes:
+          type: string
+    OptMenuLabels:
+      type: object
+      properties:
+        customForms:
+          type: string
+    OptMobileOrgPreferences:
+      type: object
+      description: Also allows custom fields
+      properties:
+        allowManagementOfAvailabilities:
+          type: boolean
+        allowManagementOfUnavailabilities:
+          type: boolean
+        allowManagementOfRecurringAvailabilities:
+          type: boolean
+        allowAutomaticRefreshOfJobs:
+          type: boolean
+        allowManagementOfActivities:
+          description: >-
+            Deprecated, use enableCreateActivity and enableDeleteActivity
+            instead.
+          type: boolean
+        enableCreateActivity:
+          type: boolean
+        enableDeleteActivity:
+          type: boolean
+        completedJobsAreReadonlyOnMobile:
+          type: boolean
+        enableCreateJob:
+          type: boolean
+        enableManageTimes:
+          description: Prevent resources from changing job status timestamps.
+          type: boolean
+        enableProximityNotifications:
+          type: boolean
+        supportEmail:
+          type: string
+        enableFollowups:
+          type: boolean
+        enableFollowupAssignToSelf:
+          type: boolean
+        preloadAvailabilityRangeMinDays:
+          description: >-
+            Number of days in the past for which availability should be loaded
+            in the agenda view.
+          type: integer
+        preloadAvailabilityRangeMaxDays:
+          description: >-
+            Number of days in the future for which availability should be loaded
+            in the agenda view.
+          type: integer
+        preloadJobRangeMinDays:
+          description: >-
+            Number of days in the past for which jobs should be loaded in the
+            agenda view.
+          type: integer
+        preloadJobRangeMaxDays:
+          description: >-
+            Number of days in the future for which jobs should be loaded in the
+            agenda view.
+          type: integer
+        android:
+          $ref: '#/components/schemas/OptMobileAndroidOrgPreferences'
+        mobile:
+          $ref: '#/components/schemas/OptMobileIOSOrgPreferences'
+        jobOfferCardContent:
+          $ref: '#/components/schemas/OptJobOfferCardContentPreferences'
+      additionalProperties:
+        $ref: '#/components/schemas/JSON'
+    OptMobileAndroidOrgPreferences:
+      type: object
+      description: Also returns any custom values.
+      properties:
+        version:
+          type: string
+      additionalProperties:
+        $ref: '#/components/schemas/JSON'
+    OptMobileIOSOrgPreferences:
+      type: object
+      description: Also returns any custom values.
+      properties:
+        version:
+          type: string
+      additionalProperties:
+        $ref: '#/components/schemas/JSON'
+    OptMobileV3OrgPreferences:
+      type: object
+      description: Fields related to the Mobile V3 App
+      properties:
+        appBundleId:
+          type: string
+          example: com.skedulo.app.v3
+        schemeName:
+          type: string
+          example: skedulo
+          description: >-
+            Used for primary actions when messages are sent to the Push
+            Notification Service.
+      additionalProperties:
+        $ref: '#/components/schemas/JSON'
+    OptJobOfferCardContentPreferences:
+      type: object
+      description: >-
+        Provides overrides for fields for which values can be determined for a
+        job offer
+      properties:
+        addressFieldOverride:
+          type: string
+        descriptionFieldOverride:
+          type: string
+        accountFieldOverride:
+          type: string
+    OptWebOrgPreferences:
+      type: object
+      description: Also allows custom fields.
+      additionalProperties:
+        $ref: '#/components/schemas/JSON'
+    OptServiceOrgPreferences:
+      type: object
+      description: Also returns any custom values.
+      properties:
+        vendorApiKey:
+          type: string
+        mapVendor:
+          type: string
+          enum:
+            - GOOGLE
+            - GRAPHHOPPER
+            - AWSLOCATION
+      additionalProperties:
+        $ref: '#/components/schemas/JSON'
+    OptNotificationOrgPreferences:
+      type: object
+      properties:
+        enabled:
+          $ref: '#/components/schemas/OptEnabledNotifications'
+        automatic:
+          $ref: '#/components/schemas/OptAutomaticNotifications'
+    OptEnabledNotifications:
+      type: object
+      properties:
+        job:
+          $ref: '#/components/schemas/OptJobEnabledNotifications'
+        availability:
+          $ref: '#/components/schemas/OptAvailabilityEnabledNotifications'
+    OptJobEnabledNotifications:
+      type: object
+      properties:
+        dispatch:
+          type: boolean
+          description: >-
+            If true then a notification is sent to the resource when they are
+            dispatched.
+        reminder:
+          type: boolean
+          description: >-
+            If true then a notification is sent to the resource if they are
+            re-dispatched.
+        cancelled:
+          type: boolean
+          description: >-
+            If true then a notification is sent to the resource if a job they
+            are allocated to is cancelled.
+        timeChanged:
+          type: boolean
+          description: >-
+            If true then a notification is sent to the resource if the time of a
+            job they are allocated to is changed.
+    OptAvailabilityEnabledNotifications:
+      type: object
+      properties:
+        availabilityChanged:
+          type: boolean
+          description: >-
+            If true then a notification is sent to the resource if their
+            (un)availability request is approved or declined.
+    OptAutomaticNotifications:
+      type: object
+      properties:
+        resource:
+          $ref: '#/components/schemas/OptResourceAutomaticNotifications'
+    OptResourceAutomaticNotifications:
+      type: object
+      properties:
+        job:
+          description: >-
+            If true then automatic notifications based on job changes can be
+            sent to resources.
+          type: boolean
+        shift:
+          description: >-
+            If true then automatic notifications based on shift changes can be
+            sent to resources.
+          type: boolean
+        availability:
+          description: >-
+            If true then automatic notifications based on availability changes
+            can be sent to resources.
+          type: boolean
+    OptExceptionReportingOrgPreferences:
+      type: object
+      properties:
+        enabled:
+          description: Enables exception evaluation and reporting in the back end.
+          type: boolean
+        consoleEnabled:
+          description: >-
+            Determines whether the new exceptions console page appears in the
+            menu.
+          type: boolean
+        pollingEnabled:
+          description: Determines whether exception polling is enabled or not.
+          type: boolean
+        applySystemResolvedStatusOnDelete:
+          description: >-
+            Determines whether to update exceptions to a resolved status prior
+            to deletion
+          type: boolean
+        insufficientTravelTime:
+          $ref: '#/components/schemas/OptInsufficientTravelTimeOrgPreferences'
+        jobDependencies:
+          $ref: '#/components/schemas/OptJobDependenciesOrgPreferences'
+        jobOverallocated:
+          $ref: '#/components/schemas/OptJobOverallocatedOrgPreferences'
+        jobTimeConstraints:
+          $ref: '#/components/schemas/OptJobTimeConstraintsOrgPreferences'
+        missingJobTags:
+          $ref: '#/components/schemas/OptMissingJobTagsOrgPreferences'
+        missingOptionalJobTags:
+          $ref: '#/components/schemas/OptMissingOptionalJobTagsOrgPreferences'
+        resourceAccountExcluded:
+          $ref: '#/components/schemas/OptResourceAccountExcludedOrgPreferences'
+        resourceAccountNotIncluded:
+          $ref: '#/components/schemas/OptResourceAccountNotIncludedOrgPreferences'
+        resourceInactive:
+          $ref: '#/components/schemas/OptResourceInactiveOrgPreferences'
+        resourceLocationExcluded:
+          $ref: '#/components/schemas/OptResourceLocationExcludedOrgPreferences'
+        resourceLocationNotIncluded:
+          $ref: '#/components/schemas/OptResourceLocationNotIncludedOrgPreferences'
+        resourceUnavailable:
+          $ref: '#/components/schemas/OptResourceUnavailableOrgPreferences'
+        workOverlap:
+          $ref: '#/components/schemas/OptWorkOverlapOrgPreferences'
+    OptInsufficientTravelTimeOrgPreferences:
+      type: object
+      properties:
+        enabled:
+          description: Determines whether to generate Insufficient Travel Time exceptions
+          type: boolean
+        maxTravelTimeInMinutes:
+          description: >-
+            Raise an exception if the travel time in minutes between two work
+            items is greater than this value
+          type: integer
+          format: int32
+    OptJobDependenciesOrgPreferences:
+      type: object
+      properties:
+        enabled:
+          description: Determines whether to generate Job Dependencies exceptions
+          type: boolean
+    OptJobOverallocatedOrgPreferences:
+      type: object
+      properties:
+        enabled:
+          description: Determines whether to generate Job Overallocated exceptions
+          type: boolean
+    OptJobTimeConstraintsOrgPreferences:
+      type: object
+      properties:
+        enabled:
+          description: Determines whether to generate Job Time Constraint exceptions
+          type: boolean
+    OptMissingJobTagsOrgPreferences:
+      type: object
+      properties:
+        enabled:
+          description: Determines whether to generate Missing Job Tags exceptions
+          type: boolean
+    OptMissingOptionalJobTagsOrgPreferences:
+      type: object
+      properties:
+        enabled:
+          description: Determines whether to generate Missing Optional Job Tags exceptions
+          type: boolean
+    OptResourceAccountExcludedOrgPreferences:
+      type: object
+      properties:
+        enabled:
+          description: Determines whether to generate Resource Account Excluded exceptions
+          type: boolean
+    OptResourceAccountNotIncludedOrgPreferences:
+      type: object
+      properties:
+        enabled:
+          description: >-
+            Determines whether to generate Resource Account Not Included
+            exceptions
+          type: boolean
+    OptResourceInactiveOrgPreferences:
+      type: object
+      properties:
+        enabled:
+          description: Determines whether to generate Resource Inactive exceptions
+          type: boolean
+    OptResourceLocationExcludedOrgPreferences:
+      type: object
+      properties:
+        enabled:
+          description: Determines whether to generate Resource Location excluded exceptions
+          type: boolean
+    OptResourceLocationNotIncludedOrgPreferences:
+      type: object
+      properties:
+        enabled:
+          description: >-
+            Determines whether to generate Resource Location Not Included
+            exceptions
+          type: boolean
+    OptResourceUnavailableOrgPreferences:
+      type: object
+      properties:
+        enabled:
+          description: Determines whether to generate Resource Unavailable exceptions
+          type: boolean
+    OptWorkOverlapOrgPreferences:
+      type: object
+      properties:
+        enabled:
+          description: Determines whether to generate Work Overlap exceptions
+          type: boolean
+    OptVisualforceOrgPreferences:
+      type: object
+      properties:
+        jobItems:
+          description: Visualforce items that are shown on the job details screen.
+          type: array
+          items:
+            $ref: '#/components/schemas/VisualforceLink'
+        menuItems:
+          description: Visualforce items that are shown on the hamburger menu.
+          type: array
+          items:
+            $ref: '#/components/schemas/VisualforceLink'
+        nameFromJob:
+          description: >-
+            The name of a Visualforce page in Salesforce that is shown on the
+            job details screen. This field is deprecated, use `jobItems`
+            instead.
+          type: string
+        labelFromJob:
+          description: >-
+            The label used for the job details Visualforce page. This field is
+            deprecated, use `jobItems` instead.
+          type: string
+        nameFromMenu:
+          description: >-
+            The name of a Visualforce page in Salesforce that is shown on the
+            hamburger menu. This field is deprecated, use `menuItems` instead.
+          type: string
+        labelFromMenu:
+          description: >-
+            The label used for the hamburger menu Visualforce page. This field
+            is deprecated, use `menuItems` instead.
+          type: string
+    ResultOKTemplates:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Template'
+    ResultOKCreateTemplate:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Template'
+    ResultOKDeleteTemplate:
+      type: object
+      properties:
+        deleted:
+          $ref: '#/components/schemas/TemplateId'
+    Template:
+      type: object
+      required:
+        - id
+        - name
+        - schemaName
+      properties:
+        id:
+          $ref: '#/components/schemas/TemplateId'
+        name:
+          type: string
+        schemaName:
+          type: string
+    NewTemplate:
+      type: object
+      required:
+        - name
+        - schemaName
+      properties:
+        name:
+          type: string
+        schemaName:
+          type: string
+    UpdateTemplate:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+    ResultOKTemplateValues:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateValue'
+    TemplateValue:
+      type: object
+      required:
+        - id
+        - templateId
+        - rel
+        - field
+        - value
+      properties:
+        id:
+          $ref: '#/components/schemas/TemplateValueId'
+        templateId:
+          $ref: '#/components/schemas/TemplateId'
+        rel:
+          type: string
+        field:
+          type: string
+        value:
+          type: string
+    NewTemplateValue:
+      type: object
+      required:
+        - rel
+        - field
+        - value
+      properties:
+        rel:
+          type: string
+        field:
+          type: string
+        value:
+          type: string
+    TemplateId:
+      type: string
+      format: uuid
+    TemplateValueId:
+      type: string
+      format: uuid
+    Layout:
+      type: object
+      required:
+        - relatedData
+      properties:
+        relatedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/LayoutRelatedData'
+    LayoutRelatedData:
+      oneOf:
+        - $ref: '#/components/schemas/LayoutRelatedDataRelatedObject'
+      discriminator:
+        propertyName: type
+        mapping:
+          relatedObjects: '#/components/schemas/LayoutRelatedDataRelatedObject'
+    LayoutRelatedDataRelatedObject:
+      required:
+        - type
+        - object
+      properties:
+        type:
+          type: string
+          enum:
+            - relatedObjects
+        reference:
+          type: string
+        object:
+          type: string
+        label:
+          type: string
+        listFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/LayoutRelatedDataRelatedObjectField'
+    LayoutRelatedDataRelatedObjectField:
+      required:
+        - fieldName
+      properties:
+        fieldName:
+          type: string
+    Error:
+      type: object
+      required:
+        - errorType
+        - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+        errorId:
+          type: string

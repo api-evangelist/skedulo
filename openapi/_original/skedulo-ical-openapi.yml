@@ -1,0 +1,94 @@
+openapi: 3.0.0
+info:
+  title: ICal
+  version: 1.0.0
+paths:
+  /token:
+    get:
+      security:
+        - Authorization: []
+      summary: Create or fetch an iCal token for the current user
+      description: ''
+      operationId: getToken
+      responses:
+        '200':
+          description: Returns the token
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    type: object
+                    required:
+                      - value
+                    properties:
+                      value:
+                        type: string
+        '400':
+          description: If the user does not have a resource id attached
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /{token}:
+    get:
+      summary: Fetch an iCal for the given token
+      description: ''
+      operationId: getICal
+      parameters:
+        - name: token
+          in: path
+          description: The token
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns the iCal
+          content:
+            text/icalendar:
+              schema:
+                type: string
+        '400':
+          description: If the token is invalid
+          content:
+            text/icalendar:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Error
+          content:
+            text/icalendar:
+              schema:
+                $ref: '#/components/schemas/Error'
+servers:
+  - url: https://api.skedulo.com/ical
+  - url: https://api.uk.skedulo.com/ical
+  - url: https://api.ca.skedulo.com/ical
+  - url: https://api.au.skedulo.com/ical
+components:
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      required:
+        - errorType
+        - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string

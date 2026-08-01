@@ -1,0 +1,53 @@
+generated: '2026-07-21'
+method: searched
+source: https://developer.skedulo.com/developer-guides/cli/skedulo-cli-introduction/
+name: sked
+binary: sked
+ships_in: '@skedulo/sdk'
+install:
+- method: npm
+  command: yarn global add @skedulo/sdk
+auth: sked tenant login (per-tenant authentication; stores credentials for the default
+  tenant)
+command_groups:
+- group: tenant
+  summary: Authenticate and manage Skedulo tenants
+  commands:
+  - login
+  - logout
+  - list
+  - display
+  - set-default
+- group: artifacts
+  summary: Create and manage deployable artifacts
+  commands:
+  - custom-field
+  - custom-object
+  - function
+  - horizon-page
+  - horizon-template
+  - mobile-extension
+  - public-page
+  - triggered-action
+  - url-override
+  - user-role
+  - web-extension
+  - webhook
+  - update-descriptors
+- group: function
+  summary: Develop and generate Skedulo Functions
+  commands:
+  - dev
+  - generate
+- group: web-extension
+  summary: Develop web extensions
+  commands:
+  - dev
+  - generate-ssl-cert
+- group: package
+  summary: Build, register and deploy packages
+  commands:
+  - deploy
+  - list
+  - register
+docs: https://developer.skedulo.com/developer-guides/cli/cli-quick-reference/

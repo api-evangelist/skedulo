@@ -1,0 +1,11 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Skedulo Optimization Manager API
+  version: 1.0.0
+extends: openapi/skedulo-optimization-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: skedulo
+    x-apievangelist-service: optimization
+    x-api-evangelist: https://apis.io/provider/skedulo

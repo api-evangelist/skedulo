@@ -1,0 +1,65 @@
+generated: '2026-07-21'
+method: searched
+status: published
+source: https://www.npmjs.com/package/@skedulo/mcp-client
+server:
+  name: skedulo
+  note: Skedulo publishes an official MCP server; @skedulo/mcp-client is the first-party
+    client. The server endpoint is provisioned per Skedulo tenant/environment.
+  transport: http
+evidence:
+- package: '@skedulo/mcp-client'
+  registry: npm
+  version: 0.0.7
+  description: A client for interacting with Skedulo MCP server
+candidate_tools_note: Illustrative candidates derived from OpenAPI; the published
+  server's tool list is authoritative.
+tools:
+- name: getAvailability
+  description: Fetch resource availability
+  source_operation: openapi/skedulo-availability-openapi.yml#getAvailability
+- name: postAvailableResources
+  description: Fetch available resources
+  source_operation: openapi/skedulo-availability-openapi.yml#postAvailableResources
+- name: dispatchSchedule
+  description: Dispatch allocated work
+  source_operation: openapi/skedulo-schedule-openapi.yml#dispatchSchedule
+- name: applyScheduleTemplate
+  description: Apply a template at a point in time.
+  source_operation: openapi/skedulo-schedule-openapi.yml#applyScheduleTemplate
+- name: listRecurringSchedules
+  description: Recurring schedules summaries
+  source_operation: openapi/skedulo-recurring-openapi.yml#listRecurringSchedules
+- name: createRecurringSchedule
+  description: Create a recurring schedule
+  source_operation: openapi/skedulo-recurring-openapi.yml#createRecurringSchedule
+- name: webhooksFetch
+  description: Get webhooks
+  source_operation: openapi/skedulo-webhooks-openapi.yml#webhooksFetch
+- name: webhooksCreate
+  description: Create a new webhook
+  source_operation: openapi/skedulo-webhooks-openapi.yml#webhooksCreate
+- name: webhooksDelete
+  description: Delete a webhook
+  source_operation: openapi/skedulo-webhooks-openapi.yml#webhooksDelete
+- name: triggeredActionsFetch
+  description: Get all triggered actions
+  source_operation: openapi/skedulo-triggered-actions-openapi.yml#triggeredActionsFetch
+- name: triggeredActionCreate
+  description: Create a new triggered action
+  source_operation: openapi/skedulo-triggered-actions-openapi.yml#triggeredActionCreate
+- name: whoami
+  description: Whoami
+  source_operation: openapi/skedulo-authentication-openapi.yml#whoami
+- name: createApiToken
+  description: Create API token
+  source_operation: openapi/skedulo-authentication-openapi.yml#createApiToken
+- name: locationLatest
+  description: Latest locations
+  source_operation: openapi/skedulo-resource-tracking-openapi.yml#locationLatest
+- name: locationHistory
+  description: Location history
+  source_operation: openapi/skedulo-resource-tracking-openapi.yml#locationHistory
+- name: Suggest
+  description: Get scheduling suggestions for a job
+  source_operation: openapi/skedulo-optimization-openapi.yml#Suggest

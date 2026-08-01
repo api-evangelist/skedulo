@@ -1,0 +1,479 @@
+openapi: 3.0.0
+info:
+  title: Webhooks
+  description: >-
+    Webhooks API for making HTTP requests in response to data and messaging
+    events.
+  version: 1.0.0
+paths:
+  /webhooks:
+    get:
+      security:
+        - Authorization: []
+      summary: Get webhooks
+      description: Get all existing webhooks
+      operationId: webhooksFetch
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Webhook'
+        '403':
+          description: If the user does not have the required permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      security:
+        - Authorization: []
+      summary: Create a new webhook
+      description: Establish a new webhook.
+      operationId: webhooksCreate
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Webhook'
+        '403':
+          description: If the user does not have the required permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewWebhook'
+        required: true
+  /webhooks/{id}:
+    delete:
+      security:
+        - Authorization: []
+      summary: Delete a webhook
+      description: Delete a webhook using the webhook ID.
+      operationId: webhooksDelete
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the webhook to delete.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: success
+        '403':
+          description: If the user does not have the required permissions.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+  /webhooks/schema:
+    get:
+      security:
+        - Authorization: []
+      summary: Webhook GraphQL schema
+      description: >-
+        Retrieve the GraphQL schema that is used for webhooks with type
+        `graphql`.
+      operationId: webhookGraphQLSchema
+      responses:
+        '200':
+          description: Schema was returned.
+        default:
+          description: Error
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /webhooks/graphql:
+    post:
+      security:
+        - Authorization: []
+      summary: Webhook GraphQL introspection
+      description: >-
+        Perform an introspection query against the GraphQL query that is used
+        for webhooks with type `graphql`.
+      operationId: webhookGraphQLQuery
+      responses:
+        '200':
+          description: Introspection query was returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphQLResult'
+        '400':
+          description: Invalid query
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphQLResult'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /webhooks/deferred/schema:
+    get:
+      security:
+        - Authorization: []
+      summary: Webhook Deferred GraphQL schema
+      description: >-
+        Retrieve the GraphQL schema that is used for webhooks with type
+        `graphql_deferred`.
+      operationId: webhookDeferredGraphQLSchema
+      responses:
+        '200':
+          description: Schema was returned.
+        default:
+          description: Error
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /webhooks/deferred/graphql:
+    post:
+      security:
+        - Authorization: []
+      summary: Webhook Deferred GraphQL introspection
+      description: >-
+        Perform an introspection query against the GraphQL query that is used
+        for webhooks with type `graphql_deferred`.
+      operationId: webhookDeferredGraphQLQuery
+      responses:
+        '200':
+          description: Introspection query was returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphQLResult'
+        '400':
+          description: Invalid query
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphQLResult'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+servers:
+  - url: https://api.skedulo.com
+  - url: https://api.uk.skedulo.com
+  - url: https://api.ca.skedulo.com
+  - url: https://api.au.skedulo.com
+components:
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    GraphQLResult:
+      type: object
+      properties:
+        data:
+          type: object
+          description: Query result
+          additionalProperties: true
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLError'
+    GraphQLError:
+      type: object
+      description: errors
+      properties:
+        message:
+          type: string
+          description: Error message.
+        location:
+          type: object
+          properties:
+            line:
+              type: string
+              description: Line Number
+            column:
+              type: string
+              description: Column number
+    Webhook:
+      oneOf:
+        - $ref: '#/components/schemas/WebhookGraphQL'
+        - $ref: '#/components/schemas/WebhookGraphQLDeferred'
+        - $ref: '#/components/schemas/WebhookScheduled'
+        - $ref: '#/components/schemas/WebhookInboundSMS'
+      discriminator:
+        propertyName: type
+        mapping:
+          graphql: '#/components/schemas/WebhookGraphQL'
+          graphql_deferred: '#/components/schemas/WebhookGraphQLDeferred'
+          scheduled: '#/components/schemas/WebhookScheduled'
+          inbound_sms: '#/components/schemas/WebhookInboundSMS'
+    WebhookBase:
+      type: object
+      required:
+        - id
+        - type
+        - name
+        - url
+        - headers
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+          maxLength: 2048
+        headers:
+          type: object
+          additionalProperties: true
+    WebhookGraphQL:
+      allOf:
+        - $ref: '#/components/schemas/WebhookBase'
+      required:
+        - type
+        - query
+      properties:
+        type:
+          type: string
+          enum:
+            - graphql
+        query:
+          type: string
+    WebhookGraphQLDeferred:
+      allOf:
+        - $ref: '#/components/schemas/WebhookBase'
+      required:
+        - type
+        - name
+        - offset
+        - query
+      properties:
+        type:
+          type: string
+          enum:
+            - graphql_deferred
+        filter:
+          type: string
+        name:
+          type: string
+        offset:
+          $ref: '#/components/schemas/WebhookGraphQLDeferredOffset'
+        query:
+          type: string
+    WebhookGraphQLDeferredOffset:
+      oneOf:
+        - type: integer
+          format: int64
+        - $ref: '#/components/schemas/WebhookGraphQLDeferredOffsetField'
+    WebhookGraphQLDeferredOffsetField:
+      required:
+        - fieldName
+      properties:
+        fieldName:
+          type: string
+        default:
+          type: integer
+          format: int64
+    WebhookScheduled:
+      allOf:
+        - $ref: '#/components/schemas/WebhookBase'
+      required:
+        - type
+        - cron
+      properties:
+        type:
+          type: string
+          enum:
+            - scheduled
+        cron:
+          type: string
+    WebhookInboundSMS:
+      allOf:
+        - $ref: '#/components/schemas/WebhookBase'
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - inbound_sms
+    NewWebhook:
+      oneOf:
+        - $ref: '#/components/schemas/WebhookGraphQL'
+        - $ref: '#/components/schemas/WebhookGraphQLDeferred'
+        - $ref: '#/components/schemas/WebhookScheduled'
+        - $ref: '#/components/schemas/WebhookInboundSMS'
+      discriminator:
+        propertyName: type
+        mapping:
+          graphql: '#/components/schemas/WebhookGraphQL'
+          graphql_deferred: '#/components/schemas/WebhookGraphQLDeferred'
+          scheduled: '#/components/schemas/WebhookScheduled'
+          inbound_sms: '#/components/schemas/WebhookInboundSMS'
+    NewWebhookBase:
+      type: object
+      required:
+        - name
+        - url
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        url:
+          type: string
+          format: uri
+          maxLength: 2048
+        headers:
+          type: object
+          additionalProperties: true
+          description: A map of headers that are sent for each request
+          example:
+            My-Auth-Header: my_secret_token
+    NewWebhookGraphQL:
+      allOf:
+        - $ref: '#/components/schemas/NewWebhookBase'
+      required:
+        - type
+        - query
+      properties:
+        type:
+          type: string
+          enum:
+            - graphql
+        query:
+          type: string
+    NewWebhookGraphQLDeferred:
+      allOf:
+        - $ref: '#/components/schemas/NewWebhookBase'
+      required:
+        - type
+        - field
+        - offset
+        - query
+      properties:
+        type:
+          type: string
+          enum:
+            - graphql_deferred
+        filter:
+          description: A filter that must pass in order to execute the webhook.
+          type: string
+        field:
+          description: >-
+            The name of a time field on the object. The webhook will be executed
+            at this time with the specified delay offset. To execute the webhook
+            with a delay relative to the time the change occurred, use
+            'LastModifiedDate'. In this case, the delay offset should be at
+            least 5 seconds.
+          type: string
+        offset:
+          $ref: '#/components/schemas/NewWebhookGraphQLDeferredOffset'
+        query:
+          type: string
+    NewWebhookGraphQLDeferredOffset:
+      oneOf:
+        - type: integer
+          format: int64
+          description: >-
+            An offset that is applied to the time field, can be negative (in
+            milliseconds)
+        - $ref: '#/components/schemas/NewWebhookGraphQLDeferredOffsetField'
+    NewWebhookGraphQLDeferredOffsetField:
+      description: The field that provides the offset (delay) time for the webhook.
+      required:
+        - field
+      properties:
+        field:
+          type: string
+          description: >-
+            The name of a field of type Int, Decimal or Duration that contains
+            the offset value. Int or Decimal fields are interpreted as
+            milliseconds.
+        default:
+          type: integer
+          format: int64
+          description: >-
+            A default value to use as the offset (in milliseconds) if the field
+            is not set.
+    NewWebhookScheduled:
+      allOf:
+        - $ref: '#/components/schemas/NewWebhookBase'
+      required:
+        - type
+        - cron
+      properties:
+        type:
+          type: string
+          enum:
+            - scheduled
+        cron:
+          description: A unix cron expression
+          type: string
+    NewWebhookInboundSMS:
+      allOf:
+        - $ref: '#/components/schemas/NewWebhookBase'
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - inbound_sms
+    Error:
+      type: object
+      required:
+        - errorType
+        - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+        errorId:
+          type: string

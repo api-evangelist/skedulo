@@ -1,0 +1,17 @@
+generated: '2026-07-21'
+method: searched
+source: https://www.skedulo.com/release-notes/
+scheme: seasonal releases + rolling developer-docs round-ups
+release_notes: https://www.skedulo.com/release-notes/
+developer_blog: https://developerblog.skedulo.com/
+recent_highlights:
+- title: Skedulo Fall '24 Developer Roundup
+  source: https://developerblog.skedulo.com/
+- title: Unleash the power of record access policies
+  source: https://developerblog.skedulo.com/
+- title: 'Developer Docs: May round-up'
+  source: https://developerblog.skedulo.com/
+- title: 'Automation 101: Create your first Webhook'
+  source: https://developerblog.skedulo.com/
+note: Per-service API versions are declared in each OpenAPI info.version (mostly 1.0.0);
+  product release notes are published seasonally.

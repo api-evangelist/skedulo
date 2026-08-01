@@ -1,0 +1,779 @@
+openapi: 3.0.0
+servers:
+  - url: https://api.skedulo.com/recurring
+  - url: https://api.uk.skedulo.com/recurring
+  - url: https://api.ca.skedulo.com/recurring
+  - url: https://api.au.skedulo.com/recurring
+info:
+  title: Recurring Schedules API
+  version: 1.0.0
+security:
+  - Authorization: []
+paths:
+  /schedules:
+    get:
+      summary: Recurring schedules summaries
+      description: Get a list of recurring schedules summaries
+      tags:
+        - Schedule summaries
+      operationId: listRecurringSchedules
+      parameters:
+        - name: page
+          in: query
+          description: Page number to fetch. Defaults to 1 if not provided.
+          schema:
+            type: number
+        - name: per_page
+          in: query
+          description: >-
+            Number of items to fetch per page. Defaults to 20 if not provided.
+            Maximum allowed is 50.
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    description: List of recurring schedule summaries
+                    type: object
+                    required:
+                      - currentPage
+                      - numPages
+                      - totalCount
+                      - scheduleSummaries
+                    properties:
+                      currentPage:
+                        type: number
+                        description: Current page. Starts from 1
+                      numPages:
+                        type: number
+                        description: Total number of pages
+                      totalCount:
+                        type: number
+                        description: Total number of recurring schedules
+                      scheduleSummaries:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/RecurringScheduleSummary'
+  /schedules/jobs/existing:
+    post:
+      summary: Create recurring schedule from an existing job
+      description: >-
+        Fields and Child relationships can be specified (e.g., giving created
+        jobs the same job tags or allocations). By default, required Job fields
+        like Region ID and duration will be propagated even if not specified.
+      tags:
+        - Job scheduling
+      operationId: createRecurringScheduleFromExistingJob
+      responses:
+        '200':
+          description: Recurring jobs created
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    type: string
+                    description: ID of the created Recurring Schedule
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - jobId
+                - pattern
+                - fieldsToPropagate
+              properties:
+                jobId:
+                  type: string
+                pattern:
+                  $ref: '#/components/schemas/RecurrencePattern'
+                fieldsToPropagate:
+                  $ref: '#/components/schemas/FieldSpec'
+                recurFrom:
+                  type: string
+                  format: date-time
+                  example: '2017-05-17T03:30:00Z'
+                  description: >-
+                    Overrides the start time used to generate the jobs. This
+                    value is required if the base job does not have a start/end
+                    time, and the base job will be updated to have start/end of
+                    the first generated interval. If the base job already has a
+                    start/end time, its start/end will not be modified.
+        required: true
+  /schedules/{id}:
+    get:
+      summary: Summary of a recurring schedule
+      description: Get summary of a recurring schedule
+      tags:
+        - Schedule summaries
+      operationId: getSingleRecurringSchedules
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    $ref: '#/components/schemas/DetailedRecurringSchedulesSummary'
+        '404':
+          description: Recurring schedule with given ID cannot be found
+  /schedules/jobs/preview:
+    post:
+      summary: Preview job recurring schedule
+      description: >-
+        Preview the intervals that will be generated for a given recurrence
+        pattern and job details.
+      tags:
+        - Job scheduling
+      operationId: preview
+      responses:
+        '200':
+          description: Successful result
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    description: >-
+                      An array of intervals (start/end) in ISO-8061 format
+                      (without millisecond part).
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - start
+                        - end
+                      properties:
+                        start:
+                          type: string
+                          format: date-time
+                          example: '2017-05-17T03:30:00Z'
+                        end:
+                          type: string
+                          format: date-time
+                          example: '2017-05-17T04:30:00Z'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - pattern
+                - baseJob
+              properties:
+                pattern:
+                  $ref: '#/components/schemas/RecurrencePattern'
+                baseJob:
+                  $ref: '#/components/schemas/BaseJob'
+        required: true
+  /schedules/jobs:
+    post:
+      summary: Create a recurring schedule
+      description: Create a recurring schedule from a base job and pattern
+      tags:
+        - Job scheduling
+      operationId: createRecurringSchedule
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    description: ID of the created recurring schedule
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - baseJob
+                - pattern
+              properties:
+                baseJob:
+                  $ref: '#/components/schemas/BaseJob'
+                pattern:
+                  $ref: '#/components/schemas/RecurrencePattern'
+        required: true
+    put:
+      summary: Update jobs in a recurring schedule
+      description: >-
+        Updates the fields and attached objects of jobs in a recurring schedule,
+        where the jobs start at or after the provided timestamp. Arrays of
+        attached 'HasMany' objects can be provided along with the fields to be
+        updated. In this case, all existing attached objects of the same type on
+        future jobs will be deleted and replaced with the provided objects. Job
+        IDs may be explicitly excluded - this allows the caller to prevent
+        modifying the job that they are currently displaying. Jobs that are
+        Locked, In Progress, Completed or Cancelled will not be updated.
+      tags:
+        - Job scheduling
+      operationId: updateJobs
+      responses:
+        '200':
+          description: jobs successfully updated
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    description: >-
+                      A list of the jobs that were updated with their fields and
+                      'HasMany' object lists. May be an empty array if no jobs
+                      were updated due to filtering.
+                    type: array
+                    items:
+                      type: object
+                      example:
+                        - UID: a0L28000000Ton5EAC
+                          Start: '2019-05-27T05:00:00.000Z'
+                          Duration: 15
+                          Description: new description
+                          JobTasks:
+                            - Seq: 1
+                              Name: Task 1
+                              Completed: false
+                            - Seq: 2
+                              Name: Task 2
+                              Completed: false
+      requestBody:
+        description: Information about how the jobs will be updated.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - recurringScheduleId
+                - from
+                - jobFields
+              properties:
+                recurringScheduleId:
+                  type: string
+                from:
+                  type: string
+                  format: date-time
+                  description: >-
+                    Only apply changes to jobs that start at or after this
+                    instant in time.
+                  example: '2017-05-17T03:30:00Z'
+                start:
+                  type: string
+                  description: >-
+                    Start time for the jobs. For each job the clock time will be
+                    adjusted to match this time. The job date will remain the
+                    same as before. If this parameter is not provided, job
+                    schedules will not be updated.
+                  format: time
+                  example: '15:00'
+                excludeJobIds:
+                  type: array
+                  description: A list of job IDs that should not be updated.
+                  items:
+                    type: string
+                duration:
+                  type: number
+                  description: >-
+                    The new duration for each job in minutes. Must be provided
+                    along with 'start' if updating job schedule.
+                  example: 15
+                jobFields:
+                  type: object
+                  additionalProperties: true
+                  description: >-
+                    The fields and values that should be updated on the jobs.
+                    Lists of attached 'HasMany' objects can be provided as
+                    arrays (e.g., 'JobTasks'). All existing attached objects on
+                    future jobs will be deleted and replaced with the provided
+                    objects. Any unsupported fields provided (e.g., notifyBy)
+                    will not be modified. All custom fields given in this object
+                    will be updated.
+                  example:
+                    Description: new description
+                    JobTasks:
+                      - Seq: 1
+                        Name: Task 1
+                        Completed: false
+                      - Seq: 2
+                        Name: Task 2
+                        Completed: false
+  /schedules/job_allocations:
+    post:
+      summary: Create/update job allocations for resources
+      description: Create or update job allocations for certain resources
+      tags:
+        - Resource allocations
+      operationId: upsertJobAllocations
+      responses:
+        '200':
+          description: Jobs allocations has been successfully created or updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    description: A list of job allocation IDs that were created or updated.
+                    type: object
+                    required:
+                      - inserted
+                      - updated
+                    properties:
+                      inserted:
+                        type: array
+                        items:
+                          type: string
+                      updated:
+                        type: array
+                        items:
+                          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - from
+                - recurringScheduleId
+                - resourceIds
+                - jobAllocBase
+              properties:
+                from:
+                  type: string
+                  format: date-time
+                  description: >-
+                    Only create/update job allocations for jobs that start after
+                    this instant in time.
+                  example: '2017-05-17T03:30:00Z'
+                recurringScheduleId:
+                  type: string
+                excludeJobIds:
+                  type: array
+                  description: >-
+                    Skip updating any job allocations that are attached to these
+                    job identifiers.
+                  items:
+                    type: string
+                resourceIds:
+                  type: array
+                  description: >-
+                    IDs of the resources job allocations will be created or
+                    updated for. Any existing job allocations not belonging to
+                    these resources will not be modified.
+                  items:
+                    type: string
+                  example:
+                    - res_1
+                    - res_2
+                jobAllocBase:
+                  type: object
+                  additionalProperties: true
+                  description: >-
+                    A JSON object containing fields for the job allocation to
+                    create. Existing job allocations will be updated too.
+                  example:
+                    Hours: 5
+                    NotificationType: push
+  /schedules/job_allocations/delete:
+    post:
+      summary: Delete job allocation
+      description: Delete job allocations for certain resources
+      tags:
+        - Resource allocations
+      operationId: deleteJobAllocations
+      responses:
+        '200':
+          description: Job allocations deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    description: >-
+                      A list of jobs and their job allocations that were
+                      deleted.
+                    type: object
+                    example:
+                      job_1:
+                        - job_alloc_1
+                        - job_alloc_2
+                      job_2:
+                        - job_alloc_3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - from
+                - recurringScheduleId
+                - resourceIds
+              properties:
+                from:
+                  type: string
+                  format: date-time
+                  description: >-
+                    Only delete job allocations for jobs that start after this
+                    instant.
+                  example: '2017-05-17T03:30:00Z'
+                recurringScheduleId:
+                  type: string
+                resourceIds:
+                  type: array
+                  description: >-
+                    ID of the resources of which job allocations will be
+                    deleted.
+                  items:
+                    type: string
+                  example:
+                    - res_1
+                    - res_2
+components:
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    RecurringScheduleSummary:
+      type: object
+      required:
+        - id
+        - name
+        - completedJobCount
+        - allJobCount
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        completedJobCount:
+          type: number
+          description: Number of jobs in this recurring schedule that have been completed.
+        allJobCount:
+          type: number
+          description: >-
+            Total number of jobs in this recurring schedule (excluding cancelled
+            jobs).
+        summary:
+          type: string
+        accountId:
+          type: string
+          description: >-
+            Account ID assigned to jobs of this recurring schedule. Note that
+            this is obtained from the first job that has an Account ID.
+        contactId:
+          type: string
+          description: >-
+            Contact ID assigned to jobs of this recurring schedule. Note that
+            this is obtained from the first job that has a Contact ID.
+        start:
+          type: string
+          format: date-time
+          description: First occurence of this recurring schedule (first job)
+        end:
+          type: string
+          format: date-time
+          description: Last occurence of this recurring schedule (last job)
+    DetailedRecurringSchedulesSummary:
+      description: >-
+        Detailed summary of a recurring schedule, containing information about
+        the jobs in this schedule. Cancelled job are excluded.
+      allOf:
+        - $ref: '#/components/schemas/RecurringScheduleSummary'
+        - properties:
+            jobs:
+              type: array
+              items:
+                $ref: '#/components/schemas/DetailedJob'
+            nextJob:
+              type: string
+              description: ID of the next job
+          required:
+            - jobs
+    DetailedJob:
+      type: object
+      properties:
+        UID:
+          type: string
+        status:
+          type: string
+          enum:
+            - Queued
+            - Pending Allocation
+            - Pending Dispatch
+            - Dispatched
+            - Ready
+            - En Route
+            - On Site
+            - In Progress
+            - Complete
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        account:
+          type: object
+          properties:
+            UID:
+              type: string
+            name:
+              type: string
+          required:
+            - UID
+            - name
+        contact:
+          type: object
+          properties:
+            UID:
+              type: string
+            fullName:
+              type: string
+            phone:
+              type: string
+            email:
+              type: string
+          required:
+            - UID
+            - fullName
+        region:
+          type: object
+          properties:
+            UID:
+              type: string
+            name:
+              type: string
+          required:
+            - UID
+            - name
+      required:
+        - UID
+        - status
+        - region
+    RecurrencePattern:
+      type: object
+      required:
+        - type
+        - step
+        - ackAllJobs
+      properties:
+        type:
+          type: string
+          enum:
+            - dates_only
+            - rule
+          description: >-
+            If the type is 'dates_only', Only 'includeDates' will be used to
+            generate job times.
+        endOn:
+          description: >-
+            Date the pattern should end on. If using this, do not provide
+            endAfterNumberOccurrences.
+          type: string
+          format: date
+          example: '2020-05-13'
+        endAfterNumberOccurrences:
+          description: >-
+            Number of occurrence to generate. If using this, do not provide
+            endOn.
+
+            Note: when repeatMode is 'weekly', this value means the number of
+            week periods to generate the intervals from,
+
+            so when endAfterNumberOccurrences = 4, only the next 4 weeks will be
+            checked (some weeks may not generated an interval due
+
+            to other rules, leading to less than 4 intervals being generated in
+            total).
+          type: number
+          example: 5
+        repeatMode:
+          description: How occurrences are repeated
+          type: string
+          enum:
+            - daily
+            - weekly
+            - monthly_nth_day
+            - yearly
+        step:
+          description: >-
+            How many days/months/years between each generated interval. For
+            example, with repeatMode = 'daily' and step = 1, an interval will be
+            generated every day.
+          type: number
+        skipOnWeekDays:
+          description: >-
+            Days of the week to skip. If an interval falls on this day of the
+            week, it will be skipped.
+          type: array
+          items:
+            type: string
+            enum:
+              - mon
+              - tue
+              - wed
+              - thu
+              - fri
+              - sat
+              - sun
+          example:
+            - mon
+            - tue
+        repeatOnWeekDays:
+          description: >-
+            The days of week intervals can occur on. Only applies when
+            repeatMode = 'weekly'.
+          type: array
+          items:
+            type: string
+            enum:
+              - mon
+              - tue
+              - wed
+              - thu
+              - fri
+              - sat
+              - sun
+        skipHolidays:
+          type: boolean
+          description: >-
+            Whether to skip holidays when generating future jobs (Considers both
+            regional and global holidays).
+          default: false
+        ackAllJobs:
+          description: >-
+            If true, job allocations for each job will need to be acknowledged
+            by the resource.
+          type: boolean
+        excludeDates:
+          description: A list of dates a recurring job cannot occur on.
+          type: array
+          items:
+            type: string
+            format: date
+        includeDates:
+          description: >-
+            A list of dates the job will occur on. This is in addition to all
+            dates generated by the rule and ignores any dates listed in
+            excludeDates.
+          type: array
+          items:
+            type: string
+            format: date
+    FieldSpec:
+      type: object
+      required:
+        - fields
+      properties:
+        fields:
+          type: array
+          items:
+            type: string
+            description: Field names
+          example:
+            - Description
+            - RegionId
+            - Duration
+            - Address
+            - AccountId
+            - ContactId
+            - CanBeDeclined
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldSpec'
+    BaseJob:
+      type: object
+      description: >
+        The base job field that will be used to create the recurring schedule.
+        Child objects (e.g., has-many relationship such as JobTags) can also be
+        included -- they will be create and linked with their parent job.
+
+        Only certain default job fields (see example) are be replicated across
+        the created jobs.
+
+        To replicate a custom field, lookup or child objects, they need to
+        specified in the baseJob object too (see example).
+      required:
+        - Start
+        - Duration
+        - RegionId
+      properties:
+        Start:
+          type: string
+          format: date-time
+          description: >-
+            Start time of the job which is also the base time / date where the
+            pattern starts generating new jobs from. All generated jobs will
+            have the same clock time as the base job (For example if the first
+            job is at 3pm, all future jobs will occur at 3pm as well).
+        Duration:
+          type: number
+        RegionId:
+          type: string
+          description: >-
+            RegionId is used to obtain holidays associated with the region,
+            which are used to avoid creating jobs on regional or global
+            holidays.
+      example:
+        Start: '2017-12-23T00:00:00Z'
+        RegionId: a0J28000000TXd3EAG
+        Duration: 30
+        AccountId: 0051I000000hycRQAQ
+        Address: 170 Smith Road
+        CanBeDeclined: true
+        ContactId: 0051I000000hhcRQAQ
+        Description: description of the job
+        GeoLatitude: 100
+        GeoLongitude: 100
+        LocationId: 0051I000000hycRQAQ
+        Locked: false
+        NotesComments: a comment on the job
+        Type: Installation
+        Urgency: Urgent
+        Quantity: 2
+        MyCustomText: hello world
+        JobTags:
+          - TagId: a0B0K00000XR5bPUAT
+            Required: true

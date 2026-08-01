@@ -1,0 +1,11 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Skedulo Custom Objects and Fields
+  version: 1.0.0
+extends: openapi/skedulo-customfields-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: skedulo
+    x-apievangelist-service: customfields
+    x-api-evangelist: https://apis.io/provider/skedulo

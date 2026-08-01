@@ -1,0 +1,35 @@
+generated: '2026-07-21'
+method: searched
+spec_type: Webhooks
+source: https://developer.skedulo.com/developer-guides/integration-and-automation/webhooks-and-triggered-actions/overview-webhooks-and-triggered-actions/
+mechanisms:
+- name: Triggered Actions
+  endpoint: POST https://api.skedulo.com/events/triggered_actions
+  openapi: openapi/skedulo-triggered-actions-openapi.yml
+  description: Back-end configurations that perform an action when a data change or
+    event occurs. Each config = filter + URL + GraphQL query or SMS template.
+  triggers:
+  - record inserted
+  - record updated
+  - record deleted
+  - timer elapsed (deferred/scheduled)
+  - inbound SMS received
+  actions:
+  - HTTP POST to a URL
+  - send SMS
+- name: Webhooks
+  endpoint: POST https://api.skedulo.com/events/webhooks
+  openapi: openapi/skedulo-webhooks-openapi.yml
+  description: Outbound HTTP callbacks on data changes; supports a GraphQL query to
+    shape the payload and a deferred (time-offset) variant.
+  triggers:
+  - record inserted
+  - record updated
+  - record deleted
+  - timer elapsed (deferred)
+  actions:
+  - HTTP POST to a URL
+  payload: GraphQL-shaped; can include previous values for modified objects
+graphql_subscriptions: https://api.skedulo.com/graphql/subscriptions (real-time object
+  subscriptions)
+note: No AsyncAPI document is published; this is the documented webhook/event surface.

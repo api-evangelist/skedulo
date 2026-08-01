@@ -1,0 +1,11 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Skedulo GraphQL
+  version: 1.0.0
+extends: openapi/skedulo-graphql-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: skedulo
+    x-apievangelist-service: graphql
+    x-api-evangelist: https://apis.io/provider/skedulo

@@ -1,0 +1,24 @@
+generated: '2026-07-21'
+method: searched
+hosts:
+- host: https://api.skedulo.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://www.skedulo.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+- host: https://developer.skedulo.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+note: No /.well-known discovery documents published as of probe date.

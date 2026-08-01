@@ -1,0 +1,32 @@
+generated: '2026-07-21'
+method: searched
+source: https://developer.skedulo.com/developer-guides/integration-and-automation/api-overview/
+authentication:
+  style: Bearer JWT API token
+  header: 'Authorization: Bearer <token>'
+  token_endpoint: POST https://api.skedulo.com/auth/token
+  whoami: GET https://api.skedulo.com/auth/whoami
+  ref: authentication/skedulo-authentication.yml
+transport:
+  protocol: HTTPS required
+  request_format: JSON for REST; GraphQL POST for the GraphQL API
+pagination:
+  rest: Paged result envelopes (Paging/PagedResult* schemas) on list endpoints
+  graphql: offset/limit pagination with dynamic query limits
+  ref: https://developer.skedulo.com/developer-guides/deskless-productivity-cloud/use-graphql/graphql-pagination/
+query_language:
+  graphql: Full GraphQL API (queries, mutations, upserts, subscriptions, aliases,
+    batch)
+  eql: Entity Query Language (EQL) parser published as @skedulo/eql
+idempotency:
+  documented_key_header: false
+  note: Skedulo does not document a general Idempotency-Key request header; GraphQL
+    upsert operations provide idempotent record creation by external id.
+errors:
+  envelope: JSON body; ApiResult/ErrorDetails wrappers on several services
+  ref: errors/skedulo-problem-types.yml
+events:
+  webhooks: /webhooks and /triggered_actions services
+  ref: asyncapi/skedulo-webhooks.yml
+date_time:
+  ref: https://developer.skedulo.com/developer-guides/integration-and-automation/api-overview/valid-date-time-formats/

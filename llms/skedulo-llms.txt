@@ -1,0 +1,60 @@
+# Skedulo
+
+> Skedulo is the Deskless Productivity Cloud: a field service and mobile workforce management platform for scheduling, dispatching, optimizing, and tracking deskless workers. Its API surface spans 21 REST services plus a full GraphQL API, webhooks/triggered actions, a CLI, SDKs, and an MCP server.
+
+## APIs
+- [Skedulo base API](https://developer.skedulo.com/skedulo-api/scheduling/availability/): base https://api.skedulo.com
+- [Schedule Management API](https://developer.skedulo.com/skedulo-api/scheduling/schedule-management/): base https://api.skedulo.com/schedule
+- [Recurring Schedules API](https://developer.skedulo.com/skedulo-api/scheduling/recurring-schedules/): base https://api.skedulo.com/recurring
+- [Optimization Manager API](https://developer.skedulo.com/skedulo-api/optimization/optimization/): base https://api.skedulo.com/optimization
+- [Planr](https://developer.skedulo.com/skedulo-api/optimization/planr/): base https://api.skedulo.com/planr
+- [Rules Service](https://developer.skedulo.com/skedulo-api/scheduling/rule-violations/): base https://api.skedulo.com/rules
+- [Notification API](https://developer.skedulo.com/skedulo-api/communications/notifications/): base https://api.skedulo.com/notifications
+- [Authentication API](https://developer.skedulo.com/skedulo-api/authentication/authentication/): base https://api.skedulo.com/auth
+- [Auth Service API](https://developer.skedulo.com/skedulo-api/authorization/record-access-policies/): base https://api.skedulo.com/authorization
+- [GraphQL](https://developer.skedulo.com/skedulo-api/data-access/graphql/): base https://api.skedulo.com/graphql
+- [Custom Objects and Fields](https://developer.skedulo.com/skedulo-api/configuration/custom-fields/): base https://api.skedulo.com/custom
+- [Configurations API](https://developer.skedulo.com/skedulo-api/configuration/configurations/): base https://api.skedulo.com/config
+- [Onboarding API](https://developer.skedulo.com/skedulo-api/configuration/onboarding/): base https://api.skedulo.com/onboarding
+- [Files API](https://developer.skedulo.com/skedulo-api/utilities/files/): base https://api.skedulo.com/files
+- [Geoservices](https://developer.skedulo.com/skedulo-api/utilities/geoservices/): base https://api.skedulo.com/geoservices
+- [Resource Tracking API](https://developer.skedulo.com/skedulo-api/scheduling/resource-tracking/): base https://api.skedulo.com/resource_tracking
+- [Event Store API](https://developer.skedulo.com/skedulo-api/utilities/change-history/): base https://api.skedulo.com/events
+- [Triggered Actions](https://developer.skedulo.com/skedulo-api/utilities/triggered-actions/): base https://api.skedulo.com
+- [Webhooks](https://developer.skedulo.com/skedulo-api/utilities/webhooks/): base https://api.skedulo.com
+- [Virtual Meeting](https://developer.skedulo.com/skedulo-api/communications/virtual-meetings/): base https://api.skedulo.com/virtualmeeting
+- [ICal](https://developer.skedulo.com/skedulo-api/utilities/ical/): base https://api.skedulo.com/ical
+
+## Specs
+- [Skedulo base API OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-availability-openapi.yml)
+- [Schedule Management API OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-schedule-openapi.yml)
+- [Recurring Schedules API OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-recurring-openapi.yml)
+- [Optimization Manager API OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-optimization-openapi.yml)
+- [Planr OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-planr-openapi.yml)
+- [Rules Service OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-rules-openapi.yml)
+- [Notification API OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-notifications-openapi.yml)
+- [Authentication API OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-authentication-openapi.yml)
+- [Auth Service API OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-authorization-openapi.yml)
+- [GraphQL OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-graphql-openapi.yml)
+- [Custom Objects and Fields OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-customfields-openapi.yml)
+- [Configurations API OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-configurations-openapi.yml)
+- [Onboarding API OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-onboarding-openapi.yml)
+- [Files API OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-files-openapi.yml)
+- [Geoservices OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-geoservices-openapi.yml)
+- [Resource Tracking API OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-resource-tracking-openapi.yml)
+- [Event Store API OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-changehistory-openapi.yml)
+- [Triggered Actions OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-triggered-actions-openapi.yml)
+- [Webhooks OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-webhooks-openapi.yml)
+- [Virtual Meeting OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-virtualmeetings-openapi.yml)
+- [ICal OpenAPI](https://raw.githubusercontent.com/api-evangelist/skedulo/refs/heads/main/openapi/skedulo-ical-openapi.yml)
+
+## Docs
+- [Developer documentation](https://developer.skedulo.com/)
+- [API Reference](https://developer.skedulo.com/skedulo-api/)
+- [Authentication & API tokens](https://developer.skedulo.com/developer-guides/deskless-productivity-cloud/authentication-and-authorization/authentication-for-skedulo/authentication-requirements-api-tokens/)
+- [Use GraphQL](https://developer.skedulo.com/developer-guides/deskless-productivity-cloud/use-graphql/get-started-with-graphql/)
+- [Webhooks & Triggered Actions](https://developer.skedulo.com/developer-guides/integration-and-automation/webhooks-and-triggered-actions/overview-webhooks-and-triggered-actions/)
+- [Skedulo CLI](https://developer.skedulo.com/developer-guides/cli/skedulo-cli-introduction/)
+- [Object Reference](https://developer.skedulo.com/object-reference/overview-of-skedulo-objects-and-fields/overview/)
+- [Developer Blog](https://developerblog.skedulo.com/)
+- [Release Notes](https://www.skedulo.com/release-notes/)

@@ -1,0 +1,916 @@
+openapi: 3.0.1
+info:
+  title: Event Store API
+  version: '0.1'
+servers:
+  - url: https://api.skedulo.com/events
+  - url: https://api.uk.skedulo.com/events
+  - url: https://api.ca.skedulo.com/events
+  - url: https://api.au.skedulo.com/events
+paths:
+  /transactions/simple:
+    get:
+      tags:
+        - api-controller
+      summary: Get record change transactions (simple)
+      description: >-
+        Return data changes for the current tenant and search parameters,
+        grouped by transaction, in a simple format.
+      operationId: transactionsSimple
+      parameters:
+        - name: cursor
+          in: query
+          description: >-
+            An opaque cursor representing a position in the stream of
+            transactions. Provide this to return all transactions after this
+            position. Returned in the nextCursor property of a transactions
+            result.
+          required: false
+          schema:
+            type: string
+        - name: start
+          in: query
+          description: Filter transactions after this timestamp (UTC) inclusive
+          required: false
+          schema:
+            type: string
+            format: date-time
+          example: '2021-12-24T00:00:00Z'
+        - name: end
+          in: query
+          description: Filter transactions before this timestamp (UTC)
+          required: false
+          schema:
+            type: string
+            format: date-time
+          example: '2021-12-24T00:00:00Z'
+        - name: userIds
+          in: query
+          description: Filter transactions by user ids
+          required: false
+          schema:
+            maxItems: 50
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: aea7174c-b0d2-4aa0-bc4b-e59e7e441eab
+        - name: entityTypes
+          in: query
+          description: Filter transactions by entity types
+          required: false
+          schema:
+            maxItems: 50
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: Job
+        - name: entityIds
+          in: query
+          description: Filter transactions by entity ids
+          required: false
+          schema:
+            maxItems: 50
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: b4eeb467-3db6-44cf-a691-01205341b0dd
+        - name: operations
+          in: query
+          description: Filter transactions by operations
+          required: false
+          schema:
+            maxItems: 3
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: INSERT
+              enum:
+                - INSERT
+                - UPDATE
+                - DELETE
+        - name: limit
+          in: query
+          description: Number of results to return
+          required: false
+          schema:
+            maximum: 50
+            minimum: 1
+            type: string
+        - name: sortOrder
+          in: query
+          description: Order in which to sort results (by event timestamp)
+          required: false
+          schema:
+            pattern: (?i)asc|desc
+            type: string
+            enum:
+              - asc
+              - desc
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionsFetchResultSimple'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /transactions:
+    get:
+      tags:
+        - api-controller
+      summary: Get record change transactions
+      description: >-
+        Return data changes for the current tenant and search parameters,
+        grouped by transaction.
+      operationId: transactions
+      parameters:
+        - name: cursor
+          in: query
+          description: >-
+            An opaque cursor representing a position in the stream of
+            transactions. Provide this to return all transactions after this
+            position. Returned in the nextCursor property of a transactions
+            result.
+          required: false
+          schema:
+            type: string
+        - name: start
+          in: query
+          description: Filter transactions after this timestamp (UTC) inclusive
+          required: false
+          schema:
+            type: string
+            format: date-time
+          example: '2021-12-24T00:00:00Z'
+        - name: end
+          in: query
+          description: Filter transactions before this timestamp (UTC)
+          required: false
+          schema:
+            type: string
+            format: date-time
+          example: '2021-12-24T00:00:00Z'
+        - name: userIds
+          in: query
+          description: Filter transactions by user ids
+          required: false
+          schema:
+            maxItems: 50
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: aea7174c-b0d2-4aa0-bc4b-e59e7e441eab
+        - name: entityTypes
+          in: query
+          description: Filter transactions by entity types
+          required: false
+          schema:
+            maxItems: 50
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: Job
+        - name: entityIds
+          in: query
+          description: Filter transactions by entity ids
+          required: false
+          schema:
+            maxItems: 50
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: b4eeb467-3db6-44cf-a691-01205341b0dd
+        - name: operations
+          in: query
+          description: Filter transactions by operations
+          required: false
+          schema:
+            maxItems: 3
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: INSERT
+              enum:
+                - INSERT
+                - UPDATE
+                - DELETE
+        - name: limit
+          in: query
+          description: Number of results to return
+          required: false
+          schema:
+            maximum: 50
+            minimum: 1
+            type: string
+        - name: sortOrder
+          in: query
+          description: Order in which to sort results (by event timestamp)
+          required: false
+          schema:
+            pattern: (?i)asc|desc
+            type: string
+            enum:
+              - asc
+              - desc
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionsFetchResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /changes/{tenantId}/simple:
+    get:
+      tags:
+        - api-controller
+      summary: Get record changes for a tenant (simple)
+      description: >-
+        Return data changes (simple format) for the given tenant and search
+        parameters. Requires an internal admin token.
+      operationId: recordChangesForTenantSimple
+      parameters:
+        - name: tenantId
+          in: path
+          description: >-
+            The tenant id to retrieve changes for. Only supported for internal
+            admin tokens. 
+          required: true
+          schema:
+            type: string
+          example: sk_d9778d81d2e94e428984a85278b266fb
+        - name: cursor
+          in: query
+          description: >-
+            An opaque cursor representing a position in the stream of changes.
+            Provide this to return all changes after this position. Returned in
+            the nextCursor property of a changes result.
+          required: false
+          schema:
+            type: string
+        - name: start
+          in: query
+          description: Filter changes after this timestamp (UTC) inclusive
+          required: false
+          schema:
+            type: string
+            format: date-time
+          example: '2021-12-24T00:00:00Z'
+        - name: end
+          in: query
+          description: Filter changes before this timestamp (UTC)
+          required: false
+          schema:
+            type: string
+            format: date-time
+          example: '2021-12-24T00:00:00Z'
+        - name: userIds
+          in: query
+          description: Filter changes by user ids
+          required: false
+          schema:
+            maxItems: 50
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: aea7174c-b0d2-4aa0-bc4b-e59e7e441eab
+        - name: entityTypes
+          in: query
+          description: Filter changes by entity types
+          required: false
+          schema:
+            maxItems: 50
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: Job
+        - name: entityIds
+          in: query
+          description: Filter changes by entity ids
+          required: false
+          schema:
+            maxItems: 50
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: b4eeb467-3db6-44cf-a691-01205341b0dd
+        - name: operations
+          in: query
+          description: Filter changes by operations
+          required: false
+          schema:
+            maxItems: 3
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: INSERT
+              enum:
+                - INSERT
+                - UPDATE
+                - DELETE
+        - name: limit
+          in: query
+          description: Number of results to return
+          required: false
+          schema:
+            maximum: 500
+            minimum: 1
+            type: string
+        - name: sortOrder
+          in: query
+          description: Order in which to sort results (by event timestamp)
+          required: false
+          schema:
+            pattern: (?i)asc|desc
+            type: string
+            enum:
+              - asc
+              - desc
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordChangeFetchResultSimple'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /changes/simple:
+    get:
+      tags:
+        - api-controller
+      summary: Get record changes (simple)
+      description: >-
+        Return data changes (simple format) for the current tenant and search
+        parameters.
+      operationId: recordChangesSimple
+      parameters:
+        - name: cursor
+          in: query
+          description: >-
+            An opaque cursor representing a position in the stream of changes.
+            Provide this to return all changes after this position. Returned in
+            the nextCursor property of a changes result.
+          required: false
+          schema:
+            type: string
+        - name: start
+          in: query
+          description: Filter changes after this timestamp (UTC) inclusive
+          required: false
+          schema:
+            type: string
+            format: date-time
+          example: '2021-12-24T00:00:00Z'
+        - name: end
+          in: query
+          description: Filter changes before this timestamp (UTC)
+          required: false
+          schema:
+            type: string
+            format: date-time
+          example: '2021-12-24T00:00:00Z'
+        - name: userIds
+          in: query
+          description: Filter changes by user ids
+          required: false
+          schema:
+            maxItems: 50
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: aea7174c-b0d2-4aa0-bc4b-e59e7e441eab
+        - name: entityTypes
+          in: query
+          description: Filter changes by entity types
+          required: false
+          schema:
+            maxItems: 50
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: Job
+        - name: entityIds
+          in: query
+          description: Filter changes by entity ids
+          required: false
+          schema:
+            maxItems: 50
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: b4eeb467-3db6-44cf-a691-01205341b0dd
+        - name: operations
+          in: query
+          description: Filter changes by operations
+          required: false
+          schema:
+            maxItems: 3
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: INSERT
+              enum:
+                - INSERT
+                - UPDATE
+                - DELETE
+        - name: limit
+          in: query
+          description: Number of results to return
+          required: false
+          schema:
+            maximum: 500
+            minimum: 1
+            type: string
+        - name: sortOrder
+          in: query
+          description: Order in which to sort results (by event timestamp)
+          required: false
+          schema:
+            pattern: (?i)asc|desc
+            type: string
+            enum:
+              - asc
+              - desc
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordChangeFetchResultSimple'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /changes:
+    get:
+      tags:
+        - api-controller
+      summary: Get record changes
+      description: Return data changes for the current tenant and search parameters.
+      operationId: recordChanges
+      parameters:
+        - name: cursor
+          in: query
+          description: >-
+            An opaque cursor representing a position in the stream of changes.
+            Provide this to return all changes after this position. Returned in
+            the nextCursor property of a changes result.
+          required: false
+          schema:
+            type: string
+        - name: start
+          in: query
+          description: Filter changes after this timestamp (UTC) inclusive
+          required: false
+          schema:
+            type: string
+            format: date-time
+          example: '2021-12-24T00:00:00Z'
+        - name: end
+          in: query
+          description: Filter changes before this timestamp (UTC)
+          required: false
+          schema:
+            type: string
+            format: date-time
+          example: '2021-12-24T00:00:00Z'
+        - name: userIds
+          in: query
+          description: Filter changes by user ids
+          required: false
+          schema:
+            maxItems: 50
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: aea7174c-b0d2-4aa0-bc4b-e59e7e441eab
+        - name: entityTypes
+          in: query
+          description: Filter changes by entity types
+          required: false
+          schema:
+            maxItems: 50
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: Job
+        - name: entityIds
+          in: query
+          description: Filter changes by entity ids
+          required: false
+          schema:
+            maxItems: 50
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: b4eeb467-3db6-44cf-a691-01205341b0dd
+        - name: operations
+          in: query
+          description: Filter changes by operations
+          required: false
+          schema:
+            maxItems: 3
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              example: INSERT
+              enum:
+                - INSERT
+                - UPDATE
+                - DELETE
+        - name: limit
+          in: query
+          description: Number of results to return
+          required: false
+          schema:
+            maximum: 500
+            minimum: 1
+            type: string
+        - name: sortOrder
+          in: query
+          description: Order in which to sort results (by event timestamp)
+          required: false
+          schema:
+            pattern: (?i)asc|desc
+            type: string
+            enum:
+              - asc
+              - desc
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordChangeFetchResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /admin/tenants/{tenantId}:
+    get:
+      tags:
+        - tenant-controller
+      summary: Get tenant status
+      description: >-
+        Returns the current status of a tenant in event-store. Requires an
+        internal admin token.
+      operationId: getTenantStatus
+      parameters:
+        - name: tenantId
+          in: path
+          description: The tenant id to check status for.
+          required: true
+          schema:
+            type: string
+          example: sk_d9778d81d2e94e428984a85278b266fb
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantStatusResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+    delete:
+      tags:
+        - tenant-controller
+      summary: Delete all data for a tenant
+      description: >-
+        Marks a tenant for deletion. Data is deleted asynchronously by a
+        background task. Requires an internal admin token.
+      operationId: deleteTenantData
+      parameters:
+        - name: tenantId
+          in: path
+          description: The tenant id to delete data for.
+          required: true
+          schema:
+            type: string
+          example: sk_d9778d81d2e94e428984a85278b266fb
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantStatusResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+components:
+  schemas:
+    ErrorDetails:
+      type: object
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+    RecordChangeFetchResult:
+      required:
+        - result
+      type: object
+      properties:
+        nextCursor:
+          type: string
+          description: >-
+            An opaque cursor representing the current position in the stream of
+            changes.  This can be supplied to the next fetch invocation to
+            obtain the next page of results.
+        result:
+          type: array
+          description: The list of changes.
+          items:
+            $ref: '#/components/schemas/TenantRecordChangeLog'
+      description: A series of record changes for a tenant
+    RecordChangeFetchResultSimple:
+      required:
+        - result
+      type: object
+      properties:
+        nextCursor:
+          type: string
+          description: >-
+            An opaque cursor representing the current position in the stream of
+            changes.  This can be supplied to the next fetch invocation to
+            obtain the next page of results.
+        result:
+          type: array
+          description: The list of changes.
+          items:
+            $ref: '#/components/schemas/TenantRecordChangeLogSimple'
+      description: A series of record changes for a tenant in a simple format
+    TenantRecordChangeLog:
+      required:
+        - data
+        - entityId
+        - entityType
+        - occurredAt
+        - operation
+        - userId
+      type: object
+      properties:
+        occurredAt:
+          type: string
+          format: date-time
+        userId:
+          type: string
+        entityType:
+          type: string
+        entityId:
+          type: string
+        operation:
+          type: string
+        data:
+          type: object
+        previous:
+          type: object
+        metadata:
+          type: object
+      description: Describes a single change to a piece of tenant data.
+    TenantRecordChangeLogSimple:
+      required:
+        - entityId
+        - entityType
+        - occurredAt
+        - operation
+        - userId
+      type: object
+      properties:
+        occurredAt:
+          type: string
+          format: date-time
+        userId:
+          type: string
+        entityType:
+          type: string
+        entityId:
+          type: string
+        operation:
+          type: string
+      description: A slim version of TenantRecordChangeLog omitting heavy data fields.
+    TenantStatusResponse:
+      required:
+        - status
+        - tenantId
+      type: object
+      properties:
+        tenantId:
+          type: string
+          description: The tenant identifier
+          example: sk_d9778d81d2e94e428984a85278b266fb
+        status:
+          type: string
+          description: The tenant status
+          example: active
+          enum:
+            - active
+            - deleting
+            - deleted
+      description: The current status of a tenant in event-store
+    Transaction:
+      required:
+        - changes
+        - transactionId
+      type: object
+      properties:
+        transactionId:
+          type: string
+        changes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TenantRecordChangeLog'
+      description: A single transaction containing multiple tenant data changes
+    TransactionSimple:
+      required:
+        - changes
+        - transactionId
+      type: object
+      properties:
+        transactionId:
+          type: string
+        changes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TenantRecordChangeLogSimple'
+      description: >-
+        A single transaction containing multiple tenant data changes in a simple
+        format
+    TransactionsFetchResult:
+      required:
+        - result
+      type: object
+      properties:
+        nextCursor:
+          type: string
+          description: >-
+            An opaque cursor representing the current position in the stream of
+            changes.  This can be supplied to the next fetch invocation to
+            obtain the next page of results.
+        result:
+          type: array
+          description: The list of changes grouped by transaction.
+          items:
+            $ref: '#/components/schemas/Transaction'
+    TransactionsFetchResultSimple:
+      required:
+        - result
+      type: object
+      properties:
+        nextCursor:
+          type: string
+          description: >-
+            An opaque cursor representing the current position in the stream of
+            changes.  This can be supplied to the next fetch invocation to
+            obtain the next page of results.
+        result:
+          type: array
+          description: The list of changes grouped by transaction in a simple format.
+          items:
+            $ref: '#/components/schemas/TransactionSimple'
+      description: A series of transactions for a tenant in a simple format
+  securitySchemes:
+    ApiKeyAuth:
+      type: http
+      name: bearerAuth
+      scheme: bearer
+      bearerFormat: JWT

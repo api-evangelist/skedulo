@@ -1,0 +1,794 @@
+openapi: 3.0.0
+info:
+  title: Onboarding API
+  version: 1.0.0
+  description: Skedulo Onboarding API
+paths:
+  /provision/standalone/users:
+    post:
+      security:
+        - Authorization: []
+      summary: Create users in a Skedulo Platform tenant
+      description: >-
+        Create Skedulo Platform users and their associated resources and user
+        regions.
+
+
+        Each new user created can be automatically sent an invitation email,
+        which contains a link allowing them to set a password.
+      operationId: standaloneUsers
+      responses:
+        '200':
+          description: Some or all users were created. Check the result for any failures.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/StandaloneUserResult'
+        '403':
+          description: If the user does not have the "modify other users" permission.
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/NewStandaloneUser'
+        description: A non-empty array of new users to add.
+        required: true
+    patch:
+      security:
+        - Authorization: []
+      summary: Update Skedulo Pulse users and resources
+      description: Update details for users and resources on a Skedulo Pulse tenant.
+      operationId: updateStandaloneUser
+      responses:
+        '200':
+          description: Users and their resources are updated.
+        '403':
+          description: If the user does not have the required permissions.
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  firstName:
+                    type: string
+                    description: >-
+                      Updating this field will also update the name field of the
+                      associated resource
+                  lastName:
+                    type: string
+                    description: >-
+                      Updating this field will also update the name field of the
+                      associated resource
+                  roles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RolesField'
+                    description: The user's roles
+                  isActive:
+                    type: boolean
+                    description: True if the user is active
+                  email:
+                    type: string
+                    description: >-
+                      The email address that is used to identify the user. This
+                      can only be provided if the user account is not managed by
+                      Skedulo (i.e. an SSO user). Note for Microsoft accounts,
+                      the email address should be the user's UPN.
+                  isManaged:
+                    type: boolean
+                    description: >-
+                      True if the user account is managed by Skedulo. False if
+                      the user account is managed by an external identity
+                      provider (SSO)
+                  resource:
+                    type: object
+                    description: >-
+                      Field updates for the resource associated with this user.
+                      The name of the resource is dependent on the associated
+                      user's first and last name.
+                    properties:
+                      isActive:
+                        type: boolean
+                      primaryRegionId:
+                        type: string
+                        description: >-
+                          This field is required if you are creating a resource
+                          for a user.
+                      resourceType:
+                        type: string
+                      employmentType:
+                        type: string
+                      category:
+                        type: string
+                      homeAddress:
+                        type: string
+                      mobilePhone:
+                        type: string
+                      email:
+                        type: string
+                        format: email
+                      countryCode:
+                        $ref: '#/components/schemas/CountryCode'
+                      notificationType:
+                        $ref: '#/components/schemas/NotificationType'
+                      workingHourType:
+                        $ref: '#/components/schemas/WorkingHourType'
+                      geoLongitude:
+                        type: number
+                      geoLatitude:
+                        type: number
+              example:
+                00D6A000003A7dzUAC:
+                  isActive: false
+                  roles: []
+                  resource:
+                    isActive: false
+                    category: null
+                00590000002h1h9AAA:
+                  isActive: true
+                  resource:
+                    isActive: true
+        description: >-
+          A map where the key is the user ID and values are the updates to apply
+          to each user. 
+
+          Update fields are optional and will not be modified if not provided. 
+
+
+          Note: Resource fields are not automatically updated when a related
+          user field is changed. For example, to mark both the user and their
+          resource as inactive, you must update both the user and resource
+          fields.
+
+          If a user does not have an associated resource but resource fields are
+          provided, a resource will be created and linked with the user.
+        required: true
+  /provision/standalone/users/bulk:
+    post:
+      security:
+        - Authorization: []
+      summary: Create a large number of users (and their associated resource)
+      deprecated: true
+      description: >-
+        This endpoint is deprecated, use the Data Loader in the Skedulo web app
+        instead.
+
+
+        This is run as a background task. 
+
+
+        Each new user created can be sent an invitation email right after they
+        are created, which contains a link allowing them to set a password.
+      operationId: standaloneUsersBulk
+      responses:
+        '200':
+          description: The background task has been registered.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/AsyncTaskResult'
+        '403':
+          description: If the user does not have the required permissions.
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/NewStandaloneUser'
+        description: A non-empty array of new users to add.
+        required: true
+  /provision/standalone/users/file:
+    post:
+      security:
+        - Authorization: []
+      summary: Import users from a CSV or JSON file
+      deprecated: true
+      description: >-
+        This endpoint is deprecated, use the Data Loader in the Skedulo web app
+        instead.
+
+
+        Import CSV or JSON data that is embedded in a multipart/form-data
+        document. Accepts one file at a time.
+      operationId: standaloneUsersBulkFromFile
+      responses:
+        '200':
+          description: The background task has been registered.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/AsyncTaskResult'
+        '400':
+          description: Data format error or there was not exactly one file attached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication/Authorization failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: If the user does not have the required permissions.
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /provision/standalone/users/local:
+    post:
+      security:
+        - Authorization: []
+      summary: Add users for access via SSO only.
+      description: >-
+        Creates users (and their associated resources) in the tenant database
+        but does not create corresponding Auth0 user accounts.
+
+
+        This allows the users to log in using linked SSO accounts with the
+        corresponding email addresses. The email addresses can be used in
+        multiple tenants when logging in with SSO.
+      operationId: standaloneUsersLocal
+      responses:
+        '200':
+          description: >-
+            Users were added to the database. Check the result for any failures.
+            Failures are returned keyed by email address.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/StandaloneUserResult'
+        '403':
+          description: If the user does not have the required permissions.
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/NewStandaloneUser'
+        description: A non-empty array of new users to add.
+        required: true
+  /provision/standalone/users/local/file:
+    post:
+      security:
+        - Authorization: []
+      summary: Add users from a file for access via SSO only.
+      description: >-
+        See /provision/standalone/users/local. Imports CSV or JSON data that is
+        embedded in a multipart/form-data document. Accepts one file at a time.
+        Import is run as a background task.
+      operationId: standaloneUsersBulkFromFileLocal
+      responses:
+        '200':
+          description: The background task has been registered.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/AsyncTaskResult'
+        '400':
+          description: Data format error or there was not exactly one file attached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication/Authorization failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: If the user does not have the required permissions.
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /provision/standalone/users/bulk/{taskId}:
+    get:
+      security:
+        - Authorization: []
+      summary: Query status of onboarding task
+      deprecated: true
+      description: >-
+        This endpoint is deprecated, use the Data Loader in the Skedulo web app
+        instead.
+
+
+        Allows a Skedulo Platform Administrator to query the status of a
+        background task that has been submitted earlier.
+      operationId: getProcessedUsers
+      parameters:
+        - name: taskId
+          in: path
+          description: ID of the background task to be queried.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The background task has been registered.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/BulkUserResult'
+        '403':
+          description: If the user does not have the required permissions.
+        '404':
+          description: Task with taskId not found.
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /internal/initialize_tenant:
+    post:
+      description: >-
+        Internal endpoint used to initialize a skedulo or salesforce tenant
+        schema.
+      operationId: internalInitializeTenant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitializeInput'
+      responses:
+        '200':
+          description: Tenant initialized succesfully.
+        '400':
+          description: Tenant initialization failed.
+  /salesforce/initialize_tenant:
+    post:
+      description: >-
+        Installs package and sets up salesforce connection for a tenant when the
+        user first logs in.
+      operationId: initializeTenantSalesforce
+      responses:
+        '200':
+          description: Tenant initialized succesfully.
+servers:
+  - url: https://api.skedulo.com/onboarding
+  - url: https://api.uk.skedulo.com/onboarding
+  - url: https://api.ca.skedulo.com/onboarding
+  - url: https://api.au.skedulo.com/onboarding
+components:
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      required:
+        - errorType
+        - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+        errorId:
+          type: string
+    InitializeInput:
+      type: object
+      required:
+        - tenantId
+        - vendor
+      properties:
+        tenantId:
+          description: >-
+            The tenant ID to create the schema for existing tenantId's will
+            return success but will not be updated.
+          type: string
+          example: sk_ba70ac7072fd4df3a179cce2e2c4e483
+        vendor:
+          description: >-
+            The vendor that will serve the tenant's data either skedulo or
+            salesforce
+          type: string
+          enum:
+            - skedulo
+            - salesforce
+    ProvisionStandaloneTeam:
+      type: object
+      required:
+        - teamName
+        - teamDescription
+      properties:
+        teamName:
+          description: >-
+            This needs to be a valid subdomain as it is used to create custom
+            domain for your team.
+          type: string
+        teamDescription:
+          description: The display name of the team
+          type: string
+    ProvisionStandaloneResult:
+      type: object
+      required:
+        - team
+        - tenantConfig
+      properties:
+        team:
+          description: The name of the team that was provisioned.
+          type: string
+        tenantConfig:
+          description: Auth configuration specific to the tenant.
+          type: object
+          properties:
+            auth0LockConfig:
+              $ref: '#/components/schemas/Auth0LockConfig'
+    NewStandaloneUser:
+      type: object
+      required:
+        - email
+        - lastName
+      description: >-
+        Provides details of the new user and optionally an associated Resource
+        object. Note that the Resource object definition can include custom
+        fields but the parent user definition cannot.
+      properties:
+        email:
+          description: >-
+            This is the unique identifier of the user within this tenant. For
+            standard Skedulo users, the email must be unique across all Skedulo
+            platform tenants. For SSO only users, this email can be used in
+            multiple tenants.
+          type: string
+          format: email
+        firstName:
+          type: string
+        lastName:
+          type: string
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RolesField'
+          description: >-
+            The user's roles. 
+
+
+            For standard roles (`Administrator`, `Scheduler`, or `Resource`) the
+            role name should be supplied. For custom roles, either role ID
+            (UUID) or name should be supplied.
+
+
+            These roles will be assigned to the user via the `UserTypes`
+            picklist field where standard roles are represented by the role
+            name, e.g. `Administrator`, and custom roles are represented by the
+            role ID, e.g. `405a8f2a-9eee-4545-a85e-1c322a5af952`.
+        regions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionsField'
+        sendInvitation:
+          type: boolean
+          description: >-
+            If true, sends the email invitation immediately. Ignored when adding
+            SSO users to the local database.
+          default: true
+        resource:
+          type: object
+          description: >-
+            Definition of the Resource record to be associated with this user.
+            This object can contain custom fields - note that the case of the
+            field name must match the field definition. If this Resource object
+            is provided, the user's roles must include "Resource". Note that a
+            Resource can also be created at a later date and linked to the user
+            via `/auth/link_resource`.
+          required:
+            - primaryRegionId
+            - isActive
+          properties:
+            primaryRegionId:
+              type: string
+            resourceType:
+              type: string
+            employmentType:
+              type: string
+            isActive:
+              type: boolean
+            category:
+              type: string
+            homeAddress:
+              type: string
+            mobilePhone:
+              type: string
+            countryCode:
+              $ref: '#/components/schemas/CountryCode'
+            notificationType:
+              $ref: '#/components/schemas/NotificationType'
+            workingHourType:
+              $ref: '#/components/schemas/WorkingHourType'
+            geoLongitude:
+              type: number
+            geoLatitude:
+              type: number
+    StandaloneUserResult:
+      type: object
+      required:
+        - inserted
+        - updated
+        - total
+        - failures
+      properties:
+        inserted:
+          type: integer
+        updated:
+          type: integer
+        total:
+          type: integer
+        failures:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/StandaloneUserResultError'
+    StandaloneUserResultError:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    AsyncTaskResult:
+      type: object
+      required:
+        - taskId
+        - type
+        - createdAt
+        - success
+      properties:
+        taskId:
+          type: integer
+        type:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        lastCheckedInAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+        success:
+          type: boolean
+        errorMsg:
+          type: string
+    StandaloneUserLog:
+      type: object
+      required:
+        - email
+        - taskId
+        - lastName
+        - success
+      properties:
+        email:
+          type: string
+          format: email
+        taskId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        success:
+          type: boolean
+        errorMsg:
+          type: string
+    BulkUserResult:
+      type: object
+      required:
+        - task
+        - users
+      properties:
+        task:
+          $ref: '#/components/schemas/AsyncTaskResult'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/StandaloneUserLog'
+    Auth0LockConfig:
+      type: object
+      properties:
+        allowedConnections:
+          type: array
+          items:
+            type: string
+    DeploymentResult:
+      type: object
+      required:
+        - status
+      properties:
+        deploymentId:
+          description: ID of the deployment in progress. Null if it is already completed.
+          type: string
+        status:
+          description: Status of the deployment.
+          type: string
+          enum:
+            - Pending
+            - InProgress
+            - Succeeded
+            - SucceededPartial
+            - Failed
+            - Canceling
+            - Canceled
+        detail:
+          description: Extra detail
+          type: string
+    OnboardingData:
+      type: object
+      required:
+        - users
+        - regions
+        - resources
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/OnboardingUser'
+        regions:
+          type: array
+          items:
+            $ref: '#/components/schemas/OnboardingRegion'
+        jobTypes:
+          description: >-
+            Job Type names to setup for the organization. Note that any existing
+            job types not listed will be deleted.
+          type: array
+          items:
+            type: string
+        resources:
+          description: >-
+            The list of resources. Note: this field is deprecated. It is
+            ignored, just pass an empty array.
+          type: array
+          items:
+            $ref: '#/components/schemas/OnboardingResource'
+    OnboardingUser:
+      type: object
+      required:
+        - id
+        - roles
+      properties:
+        id:
+          type: string
+          description: The user's ID
+        roles:
+          allOf:
+            - $ref: '#/components/schemas/RolesField'
+            - description: >-
+                The role this user will have. For Salesforce users, this will
+                affect the PermissionSet assigned to the user.
+    OnboardingRegion:
+      type: object
+      required:
+        - regionName
+        - timezone
+      properties:
+        regionName:
+          type: string
+          description: The name of the region. Must be unique.
+        timezone:
+          type: string
+          description: The timezone ID of the region. This must be a valid timezone.
+          example: America/New_York
+    OnboardingResource:
+      type: object
+      required:
+        - name
+        - regionName
+      properties:
+        id:
+          type: string
+          description: >-
+            The ID of an existing resource. If this field is not provided, then
+            a new resource will be created.
+        userId:
+          type: string
+          description: >-
+            The ID of an existing user this resource should be associated with.
+            If not provided then this resource will not be assigned to any user.
+        name:
+          type: string
+          description: Name of the resource.
+        regionName:
+          type: string
+          description: >-
+            The name of the region this resource will be assigned to. This value
+            must match the name of an existing region, or the name of a region
+            that is being created.
+        address:
+          type: string
+          description: Home address of the resource.
+        mobile:
+          type: string
+          description: >-
+            Mobile number of the resource. This can either be prefixed with the
+            country code, or a local number.
+    RolesField:
+      description: A role to assign to the user.
+      type: string
+      enum:
+        - Administrator
+        - Scheduler
+        - Resource
+        - <custom role name or ID>
+    RegionsField:
+      description: A set of region UIDs that should be associated with the user.
+      type: string
+    CountryCode:
+      description: >-
+        The correct country code must be set for each resource so that they can
+        receive SMS.
+      type: string
+    NotificationType:
+      type: string
+      description: Default notification method of this resource.
+      enum:
+        - sms
+        - push
+    WorkingHourType:
+      type: string
+      description: Working hour type of this resource.
+      enum:
+        - Availability
+        - Shift

@@ -1,0 +1,1295 @@
+openapi: 3.0.0
+info:
+  title: Authentication API
+  description: Skedulo Authentication API
+  version: 1.0.0
+paths:
+  /config/team/mobile/v3:
+    get:
+      summary: Return mobile v3 authentication configuration for a team.
+      operationId: configTeamMobileV3
+      parameters:
+        - name: name
+          in: query
+          description: Lookup a specific mobile v3 config for a team given its name
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOKTeamConfig'
+        '400':
+          description: If no team with the given name exists
+  /config/team/web/user:
+    get:
+      summary: >-
+        Return web authentication configuration for the team the current user
+        belongs to.
+      operationId: configTeamWebUser
+      responses:
+        '200':
+          description: Successful result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOKTeamConfig'
+        '401':
+          description: If the current user's token is not valid
+        '412':
+          description: If the current user does not belong to a team
+  /config/team/mobile/user:
+    get:
+      summary: >-
+        Return mobile authentication configuration for the team the current user
+        belongs to.
+      operationId: configTeamMobileUser
+      responses:
+        '200':
+          description: Successful result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOKTeamConfig'
+        '401':
+          description: If the current user's token is not valid
+        '412':
+          description: If the current user does not belong to a team
+  /config/team/mobile/v3/user:
+    get:
+      summary: >-
+        Return mobile v3 authentication configuration for the team the current
+        user belongs to.
+      operationId: configTeamMobileV3User
+      responses:
+        '200':
+          description: Successful result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOKTeamConfig'
+        '401':
+          description: If the current user's token is not valid
+        '412':
+          description: If the current user does not belong to a team
+  /whoami:
+    get:
+      security:
+        - Authorization: []
+      summary: Whoami
+      description: Return the current user's authentication information
+      operationId: whoami
+      parameters:
+        - name: access_token
+          in: query
+          description: >-
+            Access token. This is an alternative to passing the Authorization:
+            `Bearer` header
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The current users authentication information was returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOKUserInfo'
+  /rules/resolve:
+    post:
+      security:
+        - Authorization: []
+      summary: Resolve record access rules
+      description: >-
+        Resolves the supplied rule definitions into valid EQL filters, combining
+        rules by object type and returning errors for any invalid filter
+        definitions. Requires the Record Access Policies feature to be enabled.
+      operationId: rules_resolve
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - accessRules
+              properties:
+                accessRules:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/RecordAccessRule'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOKResolvedAccessRules'
+  /rules/user:
+    get:
+      security:
+        - Authorization: []
+      summary: Record access rules for the current user
+      description: Returns the current user's record access rules.
+      operationId: rules_user
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOKAccessRules'
+  /api_user:
+    post:
+      security:
+        - Authorization: []
+      summary: Set API User
+      description: >-
+        Sets a user as the API User for this tenant. The user assigning the API
+        user must be an Administrator.
+      operationId: setApiUser
+      responses:
+        '200':
+          description: The user was successfully setup as the API User.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ClientCredentialsInstructions'
+        '403':
+          description: If the user does not have the required permissions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userId
+              properties:
+                userId:
+                  type: string
+                  description: Skedulo User ID of the user to be setup as the API User
+        required: true
+    delete:
+      security:
+        - Authorization: []
+      summary: Remove the API User for this tenant
+      description: >-
+        Removes the API User for this tenant if they have one. If the tenant is
+        on Standalone this will reset their API user to the system user. The
+        caller must be an administrator.
+      operationId: removeApiUser
+      responses:
+        '200':
+          description: successful result
+        '403':
+          description: If the user does not have the required permissions
+  /api_user/client_credentials:
+    get:
+      security:
+        - Authorization: []
+      summary: Get client credentials information for the API user
+      description: >-
+        The user requesting this information must be an Administrator for their
+        organization.
+      operationId: getApiUserClientCredentials
+      responses:
+        '200':
+          description: Client credentials information of the API user
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ClientCredentialsInstructions'
+        '403':
+          description: User is not an administrator
+        '404':
+          description: API user is not setup
+  /api_user/candidates:
+    get:
+      security:
+        - Authorization: []
+      summary: List API user candidates
+      description: >-
+        List candidates that can be set as the API user and the current API
+        user. Only users with role `administrator` are returned.
+      operationId: listApiUserCandidates
+      responses:
+        '200':
+          description: List of candidates that can be assigned as the API User
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    type: object
+                    required:
+                      - candidates
+                    properties:
+                      currentApiUserId:
+                        type: string
+                        description: User ID of the current API User
+                      moreCandidatesExist:
+                        type: boolean
+                        description: >-
+                          True if only a subset of all available candidates is
+                          being returned
+                      candidates:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - userId
+                            - vendorUserId
+                            - lastName
+                            - username
+                            - roles
+                            - email
+                            - emailVerified
+                          properties:
+                            userId:
+                              type: string
+                            vendorUserId:
+                              type: string
+                            firstName:
+                              type: string
+                            lastName:
+                              type: string
+                            username:
+                              type: string
+                            resourceId:
+                              type: string
+                            roles:
+                              $ref: '#/components/schemas/Roles'
+                            email:
+                              type: string
+                              format: email
+                            emailVerified:
+                              type: boolean
+  /api_user/verify:
+    get:
+      security:
+        - Authorization: []
+      summary: Check if the API user is verified
+      description: ''
+      operationId: verifyApiUser
+      responses:
+        '200':
+          description: >-
+            If the result contains success equal to true the API user is
+            verified, otherwise it is not.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    type: object
+                    required:
+                      - success
+                    properties:
+                      success:
+                        type: boolean
+                      code:
+                        type: string
+                      message:
+                        type: boolean
+                      extraFields:
+                        type: object
+                        description: Additional information about the error
+                        additionalProperties: true
+  /metadata/user:
+    get:
+      security:
+        - Authorization: []
+      summary: Get metadata for the authenticated user
+      description: >-
+        Retrieves metadata including user details, team information, and
+        associated resource data for the currently authenticated user.
+      operationId: metadataUser
+      responses:
+        '200':
+          description: The current user's metadata
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  created:
+                    $ref: '#/components/schemas/UserMetadata'
+        '412':
+          description: The user belongs to a tenant that is not associated with a team
+  /link_resource:
+    post:
+      security:
+        - Authorization: []
+      summary: Create link between resource and user
+      description: Links (assigns) a resource to a user by their respective Ids.
+      operationId: linkResource
+      responses:
+        '200':
+          description: User and resource were successfully linked.
+        '403':
+          description: The user does not have permission to perform this action.
+        '404':
+          description: No user found for the given id.
+          content:
+            '*/*':
+              schema:
+                type: object
+                example:
+                  errorType: not_found
+                  message: Could not find user with vendor user id 1234
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userId
+                - resourceId
+              properties:
+                userId:
+                  type: string
+                  description: The user id of the user to be linked to given resource
+                resourceId:
+                  type: string
+                  description: The resource id of the resource to be linked to given user
+        required: true
+    delete:
+      security:
+        - Authorization: []
+      summary: Remove link between resource and user
+      description: Unlinked a resource to a user by their respective Ids.
+      operationId: unlinkResource
+      responses:
+        '200':
+          description: successful result
+        '403':
+          description: The user does not have permission to perform this action.
+        '404':
+          description: No user found for the given id.
+          content:
+            '*/*':
+              schema:
+                type: object
+                example:
+                  errorType: not_found
+                  message: Could not find user with vendor user id 1234
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_id
+                - resource_id
+              properties:
+                user_id:
+                  type: string
+                  description: The user id of the user to be linked to given resource
+                resource_id:
+                  type: string
+                  description: The resource id of the resource to be linked to given user
+        required: true
+  /token:
+    post:
+      summary: Create API token
+      description: >-
+        Create an API token with an optional expiry. This token can be used to
+        authenticate as the same user that created it (with the same claims) for
+        as long as the token is valid. Tokens may be revoked.
+      operationId: createApiToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                expiry:
+                  description: Optional expiry. If omitted the token is valid forever.
+                  type: string
+                  format: date-time
+      responses:
+        '200':
+          description: Return the API token
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    type: object
+                    required:
+                      - token
+                      - jti
+                    properties:
+                      token:
+                        type: string
+                        format: base64
+                        example: >-
+                          5l8l/TyAG+282cBi0JoAp8Gj2WtnXjhxkHKu5J+ytWJcp5kHG9I7k...A==
+                      jti:
+                        type: string
+                        example: x62ThdBIqHVmILpLKdHbZctTaEzySGGc
+  /tokens:
+    get:
+      summary: List all API tokens
+      description: >-
+        List metadata for all API tokens, including revoked tokens. The actual
+        token values are not returned.
+      operationId: fetchAll
+      responses:
+        '200':
+          description: Metadata for all tokens.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ApiTokenInfo'
+  /token/{jti}:
+    get:
+      summary: Get an API token
+      description: Get metadata for an API token by specifying its JTI.
+      operationId: fetchAllApiTokens
+      parameters:
+        - in: path
+          name: jti
+          description: The JWT Identifier for the API token
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Metadata for the requested API token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/ApiTokenInfo'
+  /token/revoke:
+    post:
+      summary: Revoke an API token
+      description: >-
+        Revoke an API token so it can no longer be used to authenticate API
+        requests.
+      operationId: revokeToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                jti:
+                  description: >-
+                    JWT Identfier of the token to revoke. This can be found by
+                    decoding the token or by getting the list of tokens via the
+                    API.
+                  type: string
+      responses:
+        '200':
+          description: The token was revoked
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    type: object
+  /token/unrevoke:
+    post:
+      summary: Unrevoke an API token
+      description: >-
+        Unrevoke an API token that has previously been revoked so it can be used
+        again.
+      operationId: unrevokeToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                jti:
+                  description: >-
+                    JWT Identfier of the token to unrevoke. This can be found by
+                    decoding the token or by getting the list of tokens via the
+                    API.
+                  type: string
+      responses:
+        '200':
+          description: The token was unrevoked
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    description: An empty object
+                    type: object
+  /admin/api_user/{tenantId}:
+    get:
+      summary: Get API user for tenant (Internal)
+      description: >-
+        Get the API user for a given tenant ID. The caller must be an internal
+        administrator.
+      operationId: adminGetApiUser
+      parameters:
+        - in: path
+          name: tenantId
+          description: The tenant ID to get the API user for
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/AdminApiUser'
+  /admin/api_user/bulk:
+    post:
+      summary: Get API user for multiple tenants (Internal)
+      description: >-
+        Get the API user for the given list of tenant IDs. The caller must be an
+        internal administrator.
+      operationId: adminGetApiUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - tenantIds
+              properties:
+                tenantIds:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                    - sk_e0bb1f8aa1924a00b77a9c1f43b09e41
+      responses:
+        '200':
+          description: Successful result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/AdminApiUser'
+  /admin/tokens/{tenantId}:
+    get:
+      summary: List all API tokens for tenant (Internal)
+      description: >-
+        List metadata for all API tokens, including revoked tokens for a tenant.
+        The actual token values are not returned.
+      operationId: adminFetchAllApiTokens
+      parameters:
+        - in: path
+          name: tenantId
+          description: The tenant ID
+          required: true
+      responses:
+        '200':
+          description: Metadata for all tokens.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ApiTokenInfo'
+  /admin/token/{tenantId}/{jti}:
+    get:
+      summary: Get an API token for a tenant (Internal)
+      description: Get metadata for an API token for a tenant by specifying its JTI.
+      operationId: adminFetchApiToken
+      parameters:
+        - in: path
+          name: tenantId
+          description: The tenant ID
+          required: true
+        - in: path
+          name: jti
+          description: The JWT Identifier for the API token
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Metadata for the requested API token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/ApiTokenInfo'
+  /admin/token/revoke/{tenantId}:
+    post:
+      summary: Revoke an API token for a tenant (Internal)
+      description: >-
+        Revoke an API token so it can no longer be used to authenticate API
+        requests.
+      operationId: adminRevokeToken
+      parameters:
+        - in: path
+          name: tenantId
+          description: The tenant ID
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                jti:
+                  description: >-
+                    JWT Identifier of the token to revoke. This can be found by
+                    decoding the token or by getting the list of tokens via the
+                    API.
+                  type: string
+      responses:
+        '200':
+          description: The token was revoked
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    type: object
+  /admin/token/unrevoke/{tenantId}:
+    post:
+      summary: Unrevoke an API token for a tenant (Internal)
+      description: >-
+        Unrevoke an API token that has previously been revoked so it can be used
+        again.
+      operationId: adminUnrevokeToken
+      parameters:
+        - in: path
+          name: tenantId
+          description: The tenant ID
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                jti:
+                  description: >-
+                    JWT Identifier of the token to unrevoke. This can be found
+                    by decoding the token or by getting the list of tokens via
+                    the API.
+                  type: string
+      responses:
+        '200':
+          description: The token was unrevoked
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    description: An empty object
+                    type: object
+servers:
+  - url: https://api.skedulo.com/auth
+  - url: https://api.uk.skedulo.com/auth
+  - url: https://api.ca.skedulo.com/auth
+  - url: https://api.au.skedulo.com/auth
+components:
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    AuthConfigResponse:
+      type: object
+      required:
+        - authConfig
+      properties:
+        authConfig:
+          description: Configurations specific to this Skedulo API Server
+          type: object
+          required:
+            - clientId
+            - audience
+            - authDomain
+          properties:
+            clientId:
+              type: string
+              description: >-
+                The client ID of the client application the authentication will
+                be performed on
+            audience:
+              type: string
+              description: The audience field of the Skedulo API server
+            authDomain:
+              type: string
+              description: The domain the client should initiate authentication with
+        tenantConfig:
+          description: >-
+            Configuration specific to the tenant (the tenant is determined
+            through the provided domain). This field is null if no tenant is
+            found for the given domain, otherwise it's an object containing all
+            the tenant configurations that's set. (which can be empty object, if
+            nothing is set)
+          type: object
+          properties:
+            auth0LockConfig:
+              $ref: '#/components/schemas/Auth0LockConfig'
+    DelegationParams:
+      type: object
+      required:
+        - clientId
+        - target
+        - idToken
+      properties:
+        clientId:
+          type: string
+          description: >-
+            The client ID requesting this delegation. This should match the
+            'azp' (Authorized Party) field in the JWT
+        target:
+          type: string
+          description: The target to acquire delegation for
+          enum:
+            - salesforce
+            - salesforce-sandbox
+        idToken:
+          type: string
+          description: The ID Token representing the identity of the user
+    AccessToken:
+      type: object
+      required:
+        - value
+      properties:
+        value:
+          type: string
+    UserInfo:
+      type: object
+      required:
+        - username
+        - userId
+        - tenantId
+        - roles
+        - vendorInfo
+      properties:
+        username:
+          type: string
+        userId:
+          type: string
+        tenantId:
+          type: string
+        roles:
+          $ref: '#/components/schemas/Roles'
+        resourceId:
+          type: string
+        vendorInfo:
+          $ref: '#/components/schemas/VendorInfo'
+        permissions:
+          $ref: '#/components/schemas/Permissions'
+    Roles:
+      type: array
+      items:
+        type: string
+        enum:
+          - administrator
+          - scheduler
+          - resource
+    VendorInfo:
+      oneOf:
+        - type: object
+          required:
+            - vendor
+            - env
+          properties:
+            vendor:
+              type: string
+              example: salesforce
+            env:
+              type: string
+              enum:
+                - salesforce
+                - salesforce-sandbox
+            communityId:
+              type: string
+              description: community ID for this user if this user belongs to one
+            vendorUserId:
+              type: string
+              description: Salesforce user ID of this user
+        - type: object
+          required:
+            - vendor
+          properties:
+            vendor:
+              type: string
+              example: skedulo
+            vendorUserId:
+              type: string
+              description: Skedulo user ID of this user
+    Permissions:
+      description: >-
+        The permissions for the user. Only present if the useNewPermissions
+        feature flag is enabled.
+      type: array
+      items:
+        description: Permission keys assigned to the user
+        type: string
+    RecordAccessRule:
+      type: object
+      required:
+        - objectType
+        - filter
+        - accessType
+      properties:
+        objectType:
+          description: The type of object that the rule applies to
+          type: string
+        filter:
+          description: EQL filter that is applied when accessing records of the object type
+          type: string
+        accessType:
+          description: Whether the rule allows or denies access
+          type: string
+          enum:
+            - allow
+            - deny
+    ResolvedAccessRule:
+      type: object
+      required:
+        - objectType
+        - filter
+      properties:
+        objectType:
+          description: The type of object that the rule applies to
+          type: string
+        filter:
+          description: EQL filter that is applied when accessing records of the object type
+          type: string
+    ResolvedAccessRuleError:
+      description: Error details when resolving access rules for an object type
+      type: object
+      required:
+        - objectType
+        - message
+      properties:
+        objectType:
+          description: The object type of the rule in error
+          type: string
+        message:
+          description: The error message
+          type: string
+    ResultOKTeamConfig:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/TeamConfig'
+    RegionConfig:
+      type: object
+      required:
+        - region
+        - name
+        - auth0
+        - server
+      properties:
+        region:
+          type: string
+          enum:
+            - au
+            - eu
+            - us
+        name:
+          type: string
+        auth0:
+          $ref: '#/components/schemas/RegionConfigAuth0'
+        server:
+          type: object
+          required:
+            - api
+          properties:
+            api:
+              type: string
+    RegionConfigAuth0:
+      type: object
+      required:
+        - clientId
+        - audience
+        - domain
+      properties:
+        clientId:
+          type: string
+        audience:
+          type: string
+        domain:
+          type: string
+    TeamConfig:
+      type: object
+      required:
+        - region
+        - team
+        - auth0
+        - server
+        - newCustomerModel
+      properties:
+        region:
+          type: string
+        team:
+          type: object
+          required:
+            - name
+          properties:
+            name:
+              type: string
+            tenantId:
+              type: string
+              description: >-
+                The tenant id that belongs to the team. Only returned for a
+                Skedulo cloned team.
+        auth0:
+          $ref: '#/components/schemas/TeamConfigAuth0'
+        server:
+          type: object
+          required:
+            - api
+            - uiPlatform
+          properties:
+            api:
+              type: string
+            uiPlatform:
+              type: string
+        newCustomerModel:
+          type: boolean
+    TeamConfigAuth0:
+      type: object
+      required:
+        - clientId
+        - audience
+        - domain
+        - lock
+      properties:
+        clientId:
+          type: string
+        audience:
+          type: string
+        domain:
+          type: string
+        lock:
+          $ref: '#/components/schemas/TeamConfigAuth0Lock'
+    TeamConfigAuth0Lock:
+      type: object
+      required:
+        - allowedConnections
+        - theme
+      properties:
+        allowedConnections:
+          type: array
+          items:
+            type: string
+        theme:
+          type: object
+          required:
+            - authButtons
+          properties:
+            authButtons:
+              type: object
+              additionalProperties:
+                type: object
+                required:
+                  - authButtons
+                properties:
+                  displayName:
+                    type: string
+    ResultOKConfig:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Config'
+    Config:
+      type: object
+      required:
+        - auth0LockConfig
+        - env
+      properties:
+        auth0LockConfig:
+          $ref: '#/components/schemas/Auth0LockConfig'
+        env:
+          $ref: '#/components/schemas/EnvConfig'
+    Auth0LockConfig:
+      type: object
+      properties:
+        allowedConnections:
+          type: array
+          items:
+            type: string
+    EnvConfig:
+      type: object
+      required:
+        - apiServer
+        - auth0ClientId
+        - auth0ClientDomain
+        - auth0Audience
+      properties:
+        apiServer:
+          type: string
+        auth0ClientId:
+          $ref: '#/components/schemas/Auth0ClientIdEnv'
+        auth0ClientDomain:
+          type: string
+        auth0Audience:
+          type: string
+    Auth0ClientIdEnv:
+      type: object
+      required:
+        - web
+        - mobile
+      properties:
+        web:
+          type: string
+        mobile:
+          type: string
+    ResultOKUserInfo:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/UserInfo'
+    ResultOKAccessRules:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResolvedAccessRule'
+    ResultOKResolvedAccessRules:
+      type: object
+      properties:
+        valid:
+          description: >-
+            Whether all of the supplied rules resolved successfully (i.e. are
+            valid)
+          type: boolean
+        accessRules:
+          description: The resolved access rules (one for each object type)
+          type: array
+          items:
+            $ref: '#/components/schemas/ResolvedAccessRule'
+        errors:
+          description: Any errors for rules that couldn't be resolved
+          type: array
+          items:
+            $ref: '#/components/schemas/ResolvedAccessRuleError'
+    ResultOKSFDCOAuthSession:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/SFDCOAuthSession'
+    SFDCOAuthSession:
+      type: object
+      required:
+        - access_token
+        - instance_url
+      properties:
+        access_token:
+          type: string
+        instance_url:
+          type: string
+    UserMetadata:
+      type: object
+      required:
+        - id
+        - email
+        - username
+        - fullName
+        - lastName
+        - team
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        username:
+          type: string
+        fullName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        team:
+          $ref: '#/components/schemas/TeamMetadata'
+        resource:
+          $ref: '#/components/schemas/ResourceMetadata'
+    TeamMetadata:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - vendor
+        - orgId
+      properties:
+        id:
+          type: string
+        name:
+          description: A valid DNS sub domain
+          type: string
+        description:
+          description: A human friendly name
+          type: string
+        vendor:
+          description: The vendor associated with this organization
+          type: string
+          enum:
+            - salesforce
+            - servicenow
+            - skedulo
+        orgId:
+          description: The vendor specific organization ID
+          type: string
+        customer:
+          description: The customer name.
+          type: string
+    ResourceMetadata:
+      type: object
+      required:
+        - id
+        - timezone
+      properties:
+        id:
+          type: string
+        category:
+          type: string
+        employmentType:
+          type: string
+        address:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        mobilePhone:
+          type: string
+        timezone:
+          type: string
+    ClientCredentialsInstructions:
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          type: object
+          required:
+            - authEndpoint
+            - authBody
+          properties:
+            authEndpoint:
+              type: string
+              description: >-
+                The endpoint to obtain the Skedulo API access token using the
+                body given in authBody. The authorization flow is called client
+                credentials flow.
+            authBody:
+              type: object
+              description: >-
+                The content of this object should be sent verbatim to the
+                authEndpoint (POST) to obtain a Skedulo API access token.
+              required:
+                - grant_type
+                - client_id
+                - client_secret
+                - audience
+              properties:
+                grant_type:
+                  type: string
+                  example: client_credentials
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+                audience:
+                  type: string
+    JwtClaims:
+      description: Selection of the user claims from the JWT
+      type: object
+      additionalProperties: true
+    ApiTokenInfo:
+      type: object
+      required:
+        - tenantId
+        - jti
+        - claims
+        - createdDate
+        - createdBy
+      properties:
+        tenantId:
+          type: string
+          example: sk_e0bb1f8aa1924a00b77a9c1f43b09e41
+        jti:
+          type: string
+          example: BM10SHoI4Z4nmhtElInXuJWLkeeqqyzy
+        claims:
+          $ref: '#/components/schemas/JwtClaims'
+        createdDate:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        revokedDate:
+          type: string
+          format: date-time
+        revokedBy:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+    AdminApiUser:
+      type: object
+      required:
+        - tenantId
+        - type
+      properties:
+        tenantId:
+          type: string
+          example: sk_e0bb1f8aa1924a00b77a9c1f43b09e41
+        type:
+          type: string
+          enum:
+            - api_user
+            - standalone_system_user
+            - legacy_user
+            - none
+          example: api_user
+        userId:
+          type: string
+          example: ipovey@skedulo.com

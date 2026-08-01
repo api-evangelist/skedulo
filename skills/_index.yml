@@ -1,0 +1,23 @@
+generated: '2026-07-21'
+method: generated
+skills:
+- file: skedulo-check-resource-availability.md
+  name: Check resource availability
+  api: openapi/skedulo-availability-openapi.yml
+  operations: [getAvailability, postAvailability, postAvailableResources]
+- file: skedulo-manage-webhooks.md
+  name: Manage webhooks
+  api: openapi/skedulo-webhooks-openapi.yml
+  operations: [webhooksFetch, webhooksCreate, webhooksDelete]
+- file: skedulo-optimize-schedule.md
+  name: Run a schedule optimization
+  api: openapi/skedulo-optimization-openapi.yml
+  operations: ['Schedule Run', 'Get Schedule Run By Id', 'Get Schedule Run Results', 'Schedule Run Save']
+- file: skedulo-create-recurring-schedule.md
+  name: Create a recurring schedule
+  api: openapi/skedulo-recurring-openapi.yml
+  operations: [listRecurringSchedules, preview, createRecurringSchedule, upsertJobAllocations]
+- file: skedulo-manage-api-tokens.md
+  name: Manage API tokens
+  api: openapi/skedulo-authentication-openapi.yml
+  operations: [whoami, createApiToken, fetchAll, revokeToken]

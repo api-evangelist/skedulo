@@ -1,0 +1,1561 @@
+openapi: 3.0.1
+info:
+  title: Auth Service API
+  description: Auth Service API provides management of user roles and permissions.
+  version: '1.0'
+servers:
+  - url: https://api.skedulo.com/authorization
+  - url: https://api.uk.skedulo.com/authorization
+  - url: https://api.ca.skedulo.com/authorization
+  - url: https://api.au.skedulo.com/authorization
+paths:
+  /policies/{id}:
+    get:
+      tags:
+        - Policy Management
+      summary: Get a policy by ID.
+      operationId: getPolicyById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultPolicyResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+    put:
+      tags:
+        - Policy Management
+      summary: Update an existing policy.
+      operationId: updatePolicy
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultPolicyResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+    delete:
+      tags:
+        - Policy Management
+      summary: Delete a policy.
+      operationId: deletePolicy
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultUnit'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /policies/rules/{id}:
+    get:
+      tags:
+        - Rule Management
+      summary: Get a rule by ID.
+      operationId: getRuleById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultRuleResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+    put:
+      tags:
+        - Rule Management
+      summary: Update an existing rule.
+      operationId: updateRule
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultRuleResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+    delete:
+      tags:
+        - Rule Management
+      summary: Delete a rule.
+      operationId: deleteRule
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultUnit'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /policies/templates/{id}/apply:
+    post:
+      tags:
+        - Policy Template Management
+      summary: Apply a policy template.
+      operationId: applyTemplate
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultPolicyResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /policies/rules:
+    get:
+      tags:
+        - Rule Management
+      summary: Get multiple rules.
+      operationId: getRules
+      parameters:
+        - name: enabled
+          in: query
+          description: >-
+            Set to true to return only rules for enabled policies or false to
+            return only rules for disabled policies.
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultListRuleResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+    post:
+      tags:
+        - Rule Management
+      summary: Create a new rule.
+      operationId: createRule
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultRuleResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /policies:
+    get:
+      tags:
+        - Policy Management
+      summary: Get multiple policies.
+      operationId: getPolicies
+      parameters:
+        - name: enabledOnly
+          in: query
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultListPolicyResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+    post:
+      tags:
+        - Policy Management
+      summary: Create a new policy.
+      operationId: createPolicy
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultPolicyResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /policies/templates:
+    get:
+      tags:
+        - Policy Template Management
+      summary: >-
+        Get all policy templates. Convert a template to a real policy by calling
+        the apply endpoint.
+      operationId: getTemplates
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultListTemplateResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /policies/rules/resolved:
+    get:
+      tags:
+        - Rule Management
+      summary: Get the resolved rules for the current user.
+      operationId: getRulesForCurrentUser
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultUserRulesResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+components:
+  schemas:
+    ApiResultAuthorizedUserMetadata:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/AuthorizedUserMetadata'
+    ApiResultListPermissionResult:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissionResult'
+    ApiResultListPolicyResult:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyResult'
+    ApiResultListRoleResult:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleResult'
+    ApiResultListRuleResult:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleResult'
+    ApiResultListTemplateResult:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateResult'
+    ApiResultListUserResult:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserResult'
+    ApiResultListUserSummary:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserSummary'
+    ApiResultPolicyResult:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PolicyResult'
+    ApiResultRoleResult:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/RoleResult'
+    ApiResultRuleResult:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/RuleResult'
+    ApiResultTenantUser:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/TenantUser'
+    ApiResultUnit:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Unit'
+    ApiResultUserPermissionsResult:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/UserPermissionsResult'
+    ApiResultUserRulesResult:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/UserRulesResult'
+    ApiResultUserTypeMigrationResult:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/UserTypeMigrationResult'
+    ApiResultUserTypeMigrationStatusResult:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/UserTypeMigrationStatusResult'
+    AuthorizedUserMetadata:
+      required:
+        - lastName
+        - roles
+        - tenantId
+        - vendorUserId
+      type: object
+      properties:
+        tenantId:
+          type: string
+        roles:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthorizedUserMetadataRole'
+        vendorUserId:
+          type: string
+        resourceId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+    AuthorizedUserMetadataRole:
+      required:
+        - claimValue
+        - id
+        - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        claimValue:
+          type: string
+    CustomRole:
+      required:
+        - id
+        - migratedUserType
+        - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        currentUserType:
+          type: string
+        migratedUserType:
+          type: string
+    ErrorDetails:
+      type: object
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+        extraFields:
+          type: object
+          additionalProperties:
+            type: object
+    FindUsersInput:
+      required:
+        - resultOptions
+      type: object
+      properties:
+        userFilter:
+          $ref: '#/components/schemas/UserSearchFilter'
+        permissionFilter:
+          $ref: '#/components/schemas/PermissionSearchFilter'
+        resultOptions:
+          $ref: '#/components/schemas/FindUsersResultOptions'
+      description: Parameters to find users.
+    FindUsersResultOptions:
+      required:
+        - includePermissions
+        - includeRoles
+      type: object
+      properties:
+        includePermissions:
+          type: boolean
+          description: Include the user's permissions in the response
+        includeRoles:
+          type: boolean
+          description: Include the user's roles in the response
+      description: Result options
+    InternalUserSearchInput:
+      type: object
+      properties:
+        active:
+          type: boolean
+          description: 'User is active. True: Is active; False: Is either active or inactive'
+        licenseActive:
+          type: boolean
+          description: >-
+            User has an active license. True: Has non-null licensedAs value;
+            False: Has any licensedAs value
+        hasAnyRoles:
+          type: boolean
+          description: 'User has roles. True: Has any roles; False: Has no roles'
+      description: Parameters to find users.
+    NewRuleInput:
+      required:
+        - accessType
+        - description
+        - filter
+        - objectType
+        - permissionsExcluded
+        - rolesExcluded
+      type: object
+      properties:
+        description:
+          maxLength: 250
+          minLength: 0
+          type: string
+          description: Describes the purpose of the rule.
+        objectType:
+          type: string
+          description: >-
+            The object type (schema) that the rule applies to. This may be a
+            custom object.
+        filter:
+          type: string
+          description: >-
+            A filter expressed in the Skedulo Elastic Query Language (EQL),
+            possibly with placeholders. This filter must be valid with respect
+            to the object type and the custom data model.
+        accessType:
+          type: string
+          description: >-
+            Specifies whether the filter allows or denies access. All Deny rules
+            will be applied with the AND operator and then all Allow filters
+            will be applied with the OR operator.
+          enum:
+            - deny
+            - allow
+        permissionsExcluded:
+          type: array
+          description: >-
+            An optional set of permission keys for which this rule should be
+            ignored. If the user has any of these permissions, the rule will not
+            be applied.
+          items:
+            type: string
+            description: >-
+              An optional set of permission keys for which this rule should be
+              ignored. If the user has any of these permissions, the rule will
+              not be applied.
+        rolesExcluded:
+          type: array
+          description: >-
+            An optional set of role ids for which this rule should be ignored.
+            If the user has any of these roles, the rule will not be applied.
+          items:
+            type: string
+            description: >-
+              An optional set of role ids for which this rule should be ignored.
+              If the user has any of these roles, the rule will not be applied.
+            format: uuid
+      description: >-
+        The rules that define the policy. Rules can also be added to the policy
+        later. A maximum of 20 rules is allowed
+    PermissionResult:
+      required:
+        - custom
+        - description
+        - group
+        - groupKey
+        - key
+        - name
+      type: object
+      properties:
+        key:
+          type: string
+          description: The key of the permission.
+        name:
+          type: string
+          description: The name of the permission for display purposes.
+        description:
+          type: string
+          description: Describes the purpose of the permission.
+        group:
+          type: string
+          description: The logical group that the permission belongs in.
+        groupKey:
+          type: string
+          description: >-
+            The permission key prefix of the group that the permission belongs
+            in.
+        custom:
+          type: boolean
+          description: Is this a custom permission for this tenant?
+      description: A permission with extra metadata.
+    PermissionSearchFilter:
+      required:
+        - keys
+        - operation
+      type: object
+      properties:
+        keys:
+          maxItems: 1000
+          minItems: 1
+          type: array
+          description: Permission keys to filter by
+          items:
+            type: string
+            description: Permission keys to filter by
+        operation:
+          type: string
+          description: Operation type for filtering by permission keys
+          enum:
+            - any
+            - all
+      description: Permission search filter
+    PolicyInput:
+      required:
+        - description
+        - enabled
+        - name
+      type: object
+      properties:
+        name:
+          maxLength: 250
+          minLength: 0
+          type: string
+          description: Short name for the policy.
+        description:
+          maxLength: 1000
+          minLength: 0
+          type: string
+          description: Detailed description of the policy.
+        enabled:
+          type: boolean
+          description: Whether the policy is enabled.
+        rules:
+          maxItems: 20
+          minItems: 0
+          type: array
+          description: >-
+            The rules that define the policy. Rules can also be added to the
+            policy later. A maximum of 20 rules is allowed
+          items:
+            $ref: '#/components/schemas/NewRuleInput'
+        sourceTemplateId:
+          type: string
+          description: >-
+            The ID of the template the policy was created from. null if the
+            policy was not created from a template.
+          format: uuid
+      description: >-
+        A group of record access rules that combine to achieve a desired outcome
+        and can be enabled as a group.
+    PolicyResult:
+      required:
+        - description
+        - enabled
+        - id
+        - name
+        - rules
+      type: object
+      properties:
+        id:
+          type: string
+          description: >-
+            Uniquely identifies the policy. This ID can be used for updating or
+            deleting the policy.
+          format: uuid
+        name:
+          maxLength: 250
+          minLength: 0
+          type: string
+          description: Short name for the policy.
+        description:
+          maxLength: 1000
+          minLength: 0
+          type: string
+          description: Detailed description of the policy.
+        enabled:
+          type: boolean
+          description: Whether the policy is enabled.
+        rules:
+          maxItems: 20
+          minItems: 0
+          type: array
+          description: >-
+            The rules that define the policy. Rules can also be added to the
+            policy later. A maximum of 20 rules is allowed
+          items:
+            $ref: '#/components/schemas/RuleResult'
+        sourceTemplateId:
+          type: string
+          description: >-
+            The ID of the template the policy was created from. null if the
+            policy was not created from a template.
+          format: uuid
+      description: >-
+        A group of record access rules that combine to achieve a desired
+        outcome.
+    ResolvedRuleResult:
+      required:
+        - accessType
+        - filter
+        - objectType
+      type: object
+      properties:
+        objectType:
+          type: string
+          description: >-
+            The Skedulo data model object type (schema) that the rule applies
+            to.
+        filter:
+          type: string
+          description: >-
+            A valid, fully resolved EQL filter that can be applied to the object
+            Type.
+        accessType:
+          type: string
+          description: Specifies whether the filter allows or denies access.
+          enum:
+            - deny
+            - allow
+      description: >-
+        A record access rule that is enabled for the current user and has had
+        placeholders resolved.
+    Role:
+      type: object
+    RoleAllowedActionsResult:
+      required:
+        - delete
+        - rename
+        - reset
+        - update
+      type: object
+      properties:
+        delete:
+          type: boolean
+          description: Can this role be deleted.
+        update:
+          type: boolean
+          description: Can this role be updated.
+        rename:
+          type: boolean
+          description: Can this role be renamed.
+        reset:
+          type: boolean
+          description: >-
+            Can this role be reset. This is an indicator for the front-end that
+            the role is a customised default role. The delete action can be used
+            to remove any customisation.
+      description: Actions allowed on a role.
+    RoleInput:
+      required:
+        - description
+        - name
+        - permissionPatterns
+      type: object
+      properties:
+        name:
+          maxLength: 60
+          minLength: 1
+          pattern: ^(?!\s)[A-Za-z0-9 '\-]+(?<!\s)$
+          type: string
+          description: The name of the role. This must be unique.
+        description:
+          maxLength: 250
+          minLength: 0
+          type: string
+          description: Describes the purpose of the role.
+        permissionPatterns:
+          type: array
+          description: >-
+            The permissions that are enabled for users with this role (each
+            pattern may contain a trailing `.*` wildcard)
+          items:
+            type: string
+            description: >-
+              The permissions that are enabled for users with this role (each
+              pattern may contain a trailing `.*` wildcard)
+      description: Defines a role with permissions and extra metadata.
+    RoleResult:
+      required:
+        - allowedActions
+        - custom
+        - description
+        - id
+        - name
+        - permissionPatterns
+        - permissions
+        - userType
+      type: object
+      properties:
+        id:
+          type: string
+          description: Role ID
+          format: uuid
+        name:
+          type: string
+          description: The name of the role.
+        description:
+          type: string
+          description: Describes the purpose of the role.
+        custom:
+          type: boolean
+          description: True if this is a custom role.
+        userType:
+          type: string
+          description: >-
+            Value for the UserType vocabulary. Use this when allocating this
+            role to a user, and for searching GraphQL for users with this role.
+        permissions:
+          type: array
+          description: >-
+            The fully resolved permissions that are enabled for users with this
+            role.
+          items:
+            type: string
+            description: >-
+              The fully resolved permissions that are enabled for users with
+              this role.
+        permissionPatterns:
+          type: array
+          description: >-
+            The patterns of permissions for users with this role. May contain
+            wildcards.
+          items:
+            type: string
+            description: >-
+              The patterns of permissions for users with this role. May contain
+              wildcards.
+        defaultPermissions:
+          type: array
+          description: >-
+            The permissions from the original default role (if this is a
+            customised default role).
+          items:
+            type: string
+            description: >-
+              The permissions from the original default role (if this is a
+              customised default role).
+        defaultPermissionPatterns:
+          type: array
+          description: >-
+            The permission patterns from the original default role (if this is a
+            customised default role).
+          items:
+            type: string
+            description: >-
+              The permission patterns from the original default role (if this is
+              a customised default role).
+        allowedActions:
+          $ref: '#/components/schemas/RoleAllowedActionsResult'
+      description: Defines a role with permissions and extra metadata.
+    RuleInput:
+      required:
+        - accessType
+        - description
+        - filter
+        - objectType
+        - permissionsExcluded
+        - policyId
+        - rolesExcluded
+      type: object
+      properties:
+        policyId:
+          type: string
+          description: ID of the parent policy.
+          format: uuid
+        description:
+          maxLength: 250
+          minLength: 0
+          type: string
+          description: Describes the purpose of the rule.
+        objectType:
+          type: string
+          description: >-
+            The object type (schema) that the rule applies to. This may be a
+            custom object.
+        filter:
+          type: string
+          description: >-
+            A filter expressed in the Skedulo Elastic Query Language (EQL),
+            possibly with placeholders. This filter must be valid with respect
+            to the object type and the custom data model.
+        accessType:
+          type: string
+          description: >-
+            Specifies whether the filter allows or denies access. All Deny rules
+            will be applied with the AND operator and then all Allow filters
+            will be applied with the OR operator.
+          enum:
+            - deny
+            - allow
+        permissionsExcluded:
+          type: array
+          description: >-
+            An optional set of permission keys for which this rule should be
+            ignored. If the user has any of these permissions, the rule will not
+            be applied.
+          items:
+            type: string
+            description: >-
+              An optional set of permission keys for which this rule should be
+              ignored. If the user has any of these permissions, the rule will
+              not be applied.
+        rolesExcluded:
+          type: array
+          description: >-
+            An optional set of role ids for which this rule should be ignored.
+            If the user has any of these roles, the rule will not be applied.
+          items:
+            type: string
+            description: >-
+              An optional set of role ids for which this rule should be ignored.
+              If the user has any of these roles, the rule will not be applied.
+            format: uuid
+    RuleResult:
+      required:
+        - accessType
+        - description
+        - filter
+        - id
+        - objectType
+        - permissionsExcluded
+        - policyId
+        - rolesExcluded
+      type: object
+      properties:
+        id:
+          type: string
+          description: >-
+            Uniquely identifies the rule. This ID can be used for updating or
+            deleting the rule.
+          format: uuid
+        policyId:
+          type: string
+          description: ID of the parent policy.
+          format: uuid
+        description:
+          maxLength: 250
+          minLength: 0
+          type: string
+          description: Describes the purpose of the rule.
+        objectType:
+          type: string
+          description: >-
+            The object type (schema) that the rule applies to. This may be a
+            custom object.
+        filter:
+          type: string
+          description: >-
+            A filter expressed in the Skedulo Elastic Query Language (EQL),
+            possibly with placeholders. This filter must be valid with respect
+            to the object type and the custom data model.
+        accessType:
+          type: string
+          description: >-
+            Specifies whether the filter allows or denies access. All Deny rules
+            will be applied with the AND operator and then all Allow filters
+            will be applied with the OR operator.
+          enum:
+            - deny
+            - allow
+        permissionsExcluded:
+          type: array
+          description: >-
+            An optional set of permission keys for which this rule should be
+            ignored. If the user has any of these permissions, the rule will not
+            be applied.
+          items:
+            type: string
+            description: >-
+              An optional set of permission keys for which this rule should be
+              ignored. If the user has any of these permissions, the rule will
+              not be applied.
+        rolesExcluded:
+          type: array
+          description: >-
+            An optional set of role ids for which this rule should be ignored.
+            If the user has any of these roles, the rule will not be applied.
+          items:
+            type: string
+            description: >-
+              An optional set of role ids for which this rule should be ignored.
+              If the user has any of these roles, the rule will not be applied.
+            format: uuid
+      description: A record access rule that controls access to data.
+    RuleTemplateResult:
+      required:
+        - accessType
+        - description
+        - filter
+        - objectType
+        - permissionsExcluded
+      type: object
+      properties:
+        description:
+          type: string
+          description: See RuleResult.
+        objectType:
+          type: string
+          description: See RuleResult.
+        filter:
+          type: string
+          description: See RuleResult.
+        accessType:
+          type: string
+          description: See RuleResult.
+          enum:
+            - deny
+            - allow
+        permissionsExcluded:
+          type: array
+          description: See RuleResult.
+          items:
+            type: string
+            description: See RuleResult.
+      description: A pre-defined rule.
+    TemplateResult:
+      required:
+        - description
+        - id
+        - name
+        - rules
+      type: object
+      properties:
+        id:
+          type: string
+          description: >-
+            Uniquely identifies the template. This ID must be provided when
+            applying the template to create a policy.
+          format: uuid
+        name:
+          type: string
+          description: Short name for the policy.
+        description:
+          type: string
+          description: Detailed description of the policy.
+        rules:
+          type: array
+          description: The rules for the policy.
+          items:
+            $ref: '#/components/schemas/RuleTemplateResult'
+      description: A pre-defined policy with rules.
+    TenantUser:
+      required:
+        - publicIdentifier
+        - roles
+        - tenantId
+        - userId
+        - userName
+        - vendor
+        - vendorUserId
+      type: object
+      properties:
+        tenantId:
+          type: string
+        userId:
+          type: string
+        vendorUserId:
+          type: string
+        userName:
+          type: string
+        resourceId:
+          type: string
+        roles:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+        vendor:
+          type: string
+          enum:
+            - SALESFORCE
+            - SKEDULO
+        publicIdentifier:
+          type: string
+    Unit:
+      type: object
+    User:
+      required:
+        - currentUserTypes
+        - migratedUserTypes
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        currentUserTypes:
+          type: array
+          items:
+            type: string
+        migratedUserTypes:
+          type: array
+          items:
+            type: string
+    UserPermissionsResult:
+      required:
+        - permissions
+        - roles
+      type: object
+      properties:
+        permissions:
+          type: array
+          description: The fully resolved set of permissions for a user.
+          items:
+            type: string
+            description: The fully resolved set of permissions for a user.
+        roles:
+          type: array
+          description: Basic information about the user's roles.
+          items:
+            $ref: '#/components/schemas/UserRoleResult'
+      description: The permissions and roles for a user.
+    UserResult:
+      required:
+        - active
+        - createdAt
+        - userId
+      type: object
+      properties:
+        userId:
+          type: string
+          description: User ID
+        active:
+          type: boolean
+          description: User is active
+        permissionKeys:
+          type: array
+          description: Keys of the user's permissions
+          items:
+            type: string
+            description: Keys of the user's permissions
+        roleNames:
+          type: array
+          description: Names of the user's roles
+          items:
+            type: string
+            description: Names of the user's roles
+        licensedAs:
+          type: string
+          description: User's license type, inferred from their roles
+          enum:
+            - Resource
+            - Scheduler
+            - Other
+        maskedEmail:
+          type: string
+          description: Email (masked due to personally identifiable information)
+        createdAt:
+          type: string
+          description: Created date
+        lastLoginDate:
+          type: string
+          description: Last login date (only returned on Pulse teams)
+        status:
+          type: string
+          description: User status (only returned on Pulse teams)
+      description: User
+    UserRoleResult:
+      required:
+        - id
+        - name
+        - userType
+      type: object
+      properties:
+        name:
+          type: string
+          description: Role name.
+        id:
+          type: string
+          description: Role ID.
+          format: uuid
+        userType:
+          type: string
+          description: >-
+            Value for the UserType vocabulary. This would be used for removing
+            this role from the user.
+      description: A user's role.
+    UserRulesResult:
+      required:
+        - rules
+      type: object
+      properties:
+        rules:
+          type: array
+          description: The fully resolved set of rules for a user.
+          items:
+            $ref: '#/components/schemas/ResolvedRuleResult'
+      description: The record access rules for a user.
+    UserSearchFilter:
+      type: object
+      properties:
+        userIds:
+          maxItems: 1000
+          minItems: 1
+          type: array
+          description: User IDs to filter by
+          items:
+            type: string
+            description: User IDs to filter by
+        active:
+          type: boolean
+          description: 'User is active. True: Is active; False: Is either active or inactive'
+        licenseActive:
+          type: boolean
+          description: >-
+            User has an active license. True: Has non-null licensedAs value;
+            False: Has any licensedAs value
+        hasAnyRoles:
+          type: boolean
+          description: 'User has roles. True: Has any roles; False: Has no roles'
+      description: User search filter
+    UserSummary:
+      required:
+        - tenantId
+        - totalActiveResources
+        - totalActiveSchedulers
+        - totalActiveUnknowns
+        - totalActiveUsers
+      type: object
+      properties:
+        tenantId:
+          type: string
+          description: Tenant ID
+        totalActiveUsers:
+          type: integer
+          description: Total count of non-deactivated users
+          format: int64
+        totalActiveResources:
+          type: integer
+          description: >-
+            Total count of non-deactivated users that are considered to be
+            'resources'
+          format: int64
+        totalActiveSchedulers:
+          type: integer
+          description: >-
+            Total count of non-deactivated users that are considered to be
+            'schedulers'
+          format: int64
+        totalActiveUnknowns:
+          type: integer
+          description: >-
+            Total count of non-deactivated users that are not 'resources' or
+            'schedulers'
+          format: int64
+      description: User summary
+    UserSummaryInput:
+      required:
+        - tenantIds
+      type: object
+      properties:
+        tenantIds:
+          maxItems: 100
+          minItems: 1
+          type: array
+          description: Tenant IDs to filter by
+          items:
+            type: string
+            description: Tenant IDs to filter by
+      description: Parameters to retrieve user summary.
+    UserTypeMigrationInput:
+      required:
+        - dryRun
+        - skipUserIds
+        - tenantId
+      type: object
+      properties:
+        tenantId:
+          type: string
+        dryRun:
+          type: boolean
+        skipUserIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    UserTypeMigrationResult:
+      required:
+        - before
+        - status
+        - tenantId
+      type: object
+      properties:
+        tenantId:
+          type: string
+        status:
+          type: string
+          enum:
+            - REQUIRES_MIGRATION
+            - MIGRATION_COMPLETE
+            - MIGRATION_FAILED
+        before:
+          $ref: '#/components/schemas/UserTypeMigrationStatusResult'
+        after:
+          $ref: '#/components/schemas/UserTypeMigrationStatusResult'
+    UserTypeMigrationStatusResult:
+      required:
+        - activeUserTypes
+        - migratedRoles
+        - migratedUsers
+        - rolesToMigrate
+        - status
+        - tenantId
+        - usersToMigrate
+      type: object
+      properties:
+        tenantId:
+          type: string
+        activeUserTypes:
+          type: array
+          items:
+            type: string
+        migratedRoles:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomRole'
+        rolesToMigrate:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomRole'
+        migratedUsers:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        usersToMigrate:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        status:
+          type: string
+          enum:
+            - REQUIRES_MIGRATION
+            - MIGRATION_COMPLETE
+            - MIGRATION_FAILED
+    VerifyUserInput:
+      required:
+        - authProviderId
+        - email
+      type: object
+      properties:
+        email:
+          type: string
+        authProviderId:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: http
+      name: bearerAuth
+      scheme: bearer
+      bearerFormat: JWT

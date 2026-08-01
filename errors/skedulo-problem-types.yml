@@ -1,0 +1,94 @@
+generated: '2026-07-21'
+method: derived
+source: OpenAPI 4xx/5xx/default responses across 21 Skedulo specs
+format: http-status
+envelope: Skedulo error responses return a JSON body; several services wrap results
+  in ApiResult/ErrorDetails objects (components.schemas Error/ErrorDetails).
+docs: https://developer.skedulo.com/skedulo-api/
+problems:
+- status: 400
+  code: '400'
+  title: Bad Request
+  occurrences: 93
+  descriptions:
+  - Bad Request
+  - Bad request. eg. resourceId cannot be empty
+  - Data format error or there was not exactly one file attached.
+  - File exceeds the maximum size limit for EXIF extraction
+  source_operations:
+  - openapi/skedulo-authentication-openapi.yml#configTeamMobileV3
+  - openapi/skedulo-authorization-openapi.yml#getPolicyById
+  - openapi/skedulo-authorization-openapi.yml#updatePolicy
+- status: 401
+  code: '401'
+  title: Unauthorized
+  occurrences: 46
+  descriptions:
+  - Authentication/Authorization failed
+  - If the current user's token is not valid
+  - Not authorized
+  - Unauthorized
+  source_operations:
+  - openapi/skedulo-authentication-openapi.yml#configTeamWebUser
+  - openapi/skedulo-authentication-openapi.yml#configTeamMobileUser
+  - openapi/skedulo-authentication-openapi.yml#configTeamMobileV3User
+- status: 403
+  code: '403'
+  title: Forbidden
+  occurrences: 26
+  descriptions:
+  - Forbidden — requires ATTACHMENTS_VIEW or MOBILE_V2_ACCESS permission
+  - If the user does not have the "modify other users" permission.
+  - If the user does not have the required permissions
+  - If the user does not have the required permissions.
+  source_operations:
+  - openapi/skedulo-authentication-openapi.yml#setApiUser
+  - openapi/skedulo-authentication-openapi.yml#removeApiUser
+  - openapi/skedulo-authentication-openapi.yml#getApiUserClientCredentials
+- status: 404
+  code: '404'
+  title: Not Found
+  occurrences: 57
+  descriptions:
+  - API user is not setup
+  - Attachment with the given identifier is not found
+  - Device information for this user cannot be found.
+  - File with the given identifier is not found
+  source_operations:
+  - openapi/skedulo-authentication-openapi.yml#getApiUserClientCredentials
+  - openapi/skedulo-authentication-openapi.yml#linkResource
+  - openapi/skedulo-authentication-openapi.yml#unlinkResource
+- status: 409
+  code: '409'
+  title: Conflict
+  occurrences: 1
+  descriptions:
+  - An item with that value already exists
+  source_operations:
+  - openapi/skedulo-customfields-openapi.yml#vocabularyCreate
+- status: 412
+  code: '412'
+  title: Precondition Failed
+  occurrences: 5
+  descriptions:
+  - If the current user does not belong to a team
+  - Tenant not initialized on this service.
+  - The user belongs to a tenant that is not associated with a team
+  source_operations:
+  - openapi/skedulo-authentication-openapi.yml#configTeamWebUser
+  - openapi/skedulo-authentication-openapi.yml#configTeamMobileUser
+  - openapi/skedulo-authentication-openapi.yml#configTeamMobileV3User
+- status: null
+  code: default
+  title: Error
+  occurrences: 84
+  descriptions:
+  - Error
+  - Error.
+  - 'Phone number or country code was invalid, message was too long, phone number
+    already has a request outstanding, job has '
+  - Phone number or country code was invalid, or message was too long.
+  source_operations:
+  - openapi/skedulo-availability-openapi.yml#getAvailability
+  - openapi/skedulo-availability-openapi.yml#postAvailability
+  - openapi/skedulo-availability-openapi.yml#postAvailabilitySimple

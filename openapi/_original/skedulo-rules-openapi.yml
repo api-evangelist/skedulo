@@ -1,0 +1,2521 @@
+openapi: 3.0.1
+info:
+  title: Rules Service
+  version: 1.0.0
+servers:
+  - url: https://api.skedulo.com/rules
+  - url: https://api.uk.skedulo.com/rules
+  - url: https://api.ca.skedulo.com/rules
+  - url: https://api.au.skedulo.com/rules
+paths:
+  /violation:
+    put:
+      tags:
+        - Rule Violation Management
+      summary: Insert or update a custom rule violation
+      operationId: upsertCustomViolation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleViolationInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultBigInteger'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+    delete:
+      tags:
+        - Rule Violation Management
+      summary: Delete a custom rule violation by key
+      operationId: deleteCustomViolation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomRuleViolationKeyInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultBigInteger'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /violations:
+    put:
+      tags:
+        - Rule Violation Management
+      summary: Batch insert or update custom rule violations
+      operationId: upsertManyCustomViolation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleViolationsInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultListBigInteger'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+    delete:
+      tags:
+        - Rule Violation Management
+      summary: Delete custom rule violations by key
+      operationId: deleteCustomViolations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomRuleViolationKeysInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultListBigInteger'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /violations/{tenantId}/resetOffsets:
+    post:
+      tags:
+        - Rule Violation Management
+      summary: >-
+        Reset the change event offset of all core (non-custom) violations for a
+        tenant to 0 so event and batch processing can update them again.
+        Internal use only.
+      operationId: resetViolationOffsets
+      parameters:
+        - name: tenantId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultResetViolationOffsetsResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /violations/search:
+    post:
+      tags:
+        - Rule Violation Management
+      summary: Find core and custom violations by filter criteria
+      operationId: getViolationsForTargets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleViolationSearchInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultRuleViolationSearchResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /violations/findByTargetIds:
+    post:
+      tags:
+        - Rule Violation Management
+      summary: >-
+        Find core and custom violations affecting a list of target objects.
+        Warning: This endpoint does not support pagination of the results and is
+        therefore deprecated. Please use the '/violations/search' endpoint
+        instead.
+      operationId: getViolationsForTargets_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleViolationTargetIdsInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultRuleViolationListResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      deprecated: true
+      security:
+        - ApiKeyAuth: []
+  /violations/assignUser:
+    post:
+      tags:
+        - Rule Violation Management
+      summary: Assign a user to a core or custom violation
+      operationId: assignViolationUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleViolationAssignUserInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultBigInteger'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /violations/assignStatus:
+    post:
+      tags:
+        - Rule Violation Management
+      summary: Assign a status to a core or custom violation
+      operationId: assignViolationStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleViolationAssignStatusInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultBigInteger'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /asyncJobs/evaluateViolations:
+    post:
+      tags:
+        - Async Job Management
+      summary: Create a new async job for batch evaluating violations
+      operationId: createEvaluateViolationsJobAndTasks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvaluateViolationsJobInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultJobIdResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /violations/{violationId}:
+    get:
+      tags:
+        - Rule Violation Management
+      summary: Find core and custom violations by violation id
+      operationId: getViolationById
+      parameters:
+        - name: violationId
+          in: path
+          description: Rule violation ID
+          required: true
+          schema:
+            type: integer
+          example: 2756
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultRuleViolationResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /custom:
+    get:
+      tags:
+        - Rule Violation Management
+      summary: Get a list of the custom rules currently in use.
+      operationId: getCustomRules
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultListCustomRuleResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /asyncJobs/{asyncJobId}:
+    get:
+      tags:
+        - Async Job Management
+      summary: Get an async job by ID
+      operationId: getJobById
+      parameters:
+        - name: asyncJobId
+          in: path
+          description: Async Job ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: bebddd90-8f39-4d3d-8601-35f406f27db2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultAsyncJob'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /violations/{targetId}:
+    delete:
+      tags:
+        - Rule Violation Management
+      summary: Delete all custom rule violations for a specific object
+      operationId: deleteCustomViolationByTargetId
+      parameters:
+        - name: targetId
+          in: path
+          description: Target ID
+          required: true
+          schema:
+            type: string
+          example: b055d7c1-ef2f-40e9-bcd2-634e9835e69b
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultListBigInteger'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /violations/rule/{ruleId}:
+    delete:
+      tags:
+        - Rule Violation Management
+      summary: Delete all custom rule violations for a given rule ID
+      operationId: deleteCustomViolationByRuleId
+      parameters:
+        - name: ruleId
+          in: path
+          description: Rule ID
+          required: true
+          schema:
+            type: string
+          example: unsafeArea
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultListBigInteger'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+  /violation/{id}:
+    delete:
+      tags:
+        - Rule Violation Management
+      summary: Delete a custom rule violation by ID
+      operationId: deleteCustomViolationById
+      parameters:
+        - name: id
+          in: path
+          description: Rule violation ID
+          required: true
+          schema:
+            type: integer
+          example: 2756
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResultBigInteger'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+      security:
+        - ApiKeyAuth: []
+components:
+  schemas:
+    ApiResultAsyncJob:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/AsyncJob'
+    ApiResultBigInteger:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          type: integer
+    ApiResultJobIdResult:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/JobIdResult'
+    ApiResultListBigInteger:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            type: integer
+    ApiResultListCustomRuleResult:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomRuleResult'
+    ApiResultResetViolationOffsetsResult:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/ResetViolationOffsetsResult'
+    ApiResultRuleViolationListResult:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/RuleViolationListResult'
+    ApiResultRuleViolationResult:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/RuleViolationResult'
+    ApiResultRuleViolationSearchResult:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/RuleViolationSearchResult'
+    AssignedToFilter:
+      required:
+        - includeUnassigned
+      type: object
+      properties:
+        userIds:
+          maxItems: 100
+          minItems: 0
+          uniqueItems: true
+          type: array
+          description: >-
+            Include only violations that are assigned to these specific user
+            IDs.
+          items:
+            type: string
+            example: 44bb347c-457d-4dbe-be9c-a6c6fe5d57f5
+        includeUnassigned:
+          type: boolean
+          description: If true, include violations that are not assigned to user IDs.
+          example: true
+      description: AssignedTo search filter parameters.
+    AsyncJob:
+      required:
+        - createdBy
+        - createdTime
+        - jobId
+        - parameters
+        - status
+        - tasks
+        - type
+      type: object
+      properties:
+        jobId:
+          type: string
+          description: Globally unique identifier for the async job
+          format: uuid
+          example: bebddd90-8f39-4d3d-8601-35f406f27db2
+        type:
+          type: string
+          description: The job type of the async job
+          example: BatchEvaluateViolations
+          enum:
+            - BatchEvaluateViolations
+        status:
+          type: string
+          description: The current status of the async job
+          example: Queued
+          enum:
+            - Queued
+            - InProgress
+            - Completed
+            - CompletedWithErrors
+        createdBy:
+          type: string
+          description: The ID of the user that created the async job
+        createdTime:
+          type: string
+          description: The timestamp indicating when the job was created
+          format: date-time
+          example: '2022-01-01T09:00:00Z'
+        inProgressTime:
+          type: string
+          description: The timestamp indicating when the job started processing
+          format: date-time
+          example: '2022-01-01T09:15:00Z'
+        completedTime:
+          type: string
+          description: The timestamp indicating when the job completed processing
+          format: date-time
+          example: '2022-01-01T09:30:00Z'
+        parameters:
+          $ref: '#/components/schemas/AsyncJobParameters'
+        tasks:
+          $ref: '#/components/schemas/AsyncJobTasks'
+      description: Summary details of an async job.
+    AsyncJobParameters:
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of async job
+          example: BatchEvaluateViolations
+          enum:
+            - BatchEvaluateViolations
+      description: The parameters specified when creating the job
+      discriminator:
+        propertyName: type
+    AsyncJobTasks:
+      required:
+        - failure
+        - inProgress
+        - queued
+        - success
+        - total
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of tasks
+          format: int32
+          example: 22
+        queued:
+          type: integer
+          description: Number of tasks with a 'Queued' status
+          format: int32
+          example: 10
+        inProgress:
+          type: integer
+          description: Number of tasks with an 'InProgress' status
+          format: int32
+          example: 5
+        success:
+          type: integer
+          description: Number of tasks with a 'Success' status
+          format: int32
+          example: 5
+        failure:
+          type: integer
+          description: Number of tasks with a 'Failure' status
+          format: int32
+          example: 2
+      description: A summary of the tasks associated with the job
+    CustomContext:
+      required:
+        - _type
+      type: object
+      description: A JSON object containing extra information for the violation
+      example:
+        jobAllocationCount: 3
+      allOf:
+        - $ref: '#/components/schemas/RuleViolationContext'
+    CustomRuleResult:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier for the rule.
+          example: unsafeArea
+      description: Details of a custom rule.
+    CustomRuleViolationKeyInput:
+      required:
+        - ruleId
+        - sourceId
+        - targetId
+      type: object
+      properties:
+        ruleId:
+          type: string
+          description: The type of rule that was violated.
+          example: unsafeArea
+        targetId:
+          type: string
+          description: The UID of the object that the rule violation affects.
+          example: b055d7c1-ef2f-40e9-bcd2-634e9835e69b
+        sourceId:
+          type: string
+          description: >-
+            The UID of the object that caused rule violation (may be the same as
+            the target).
+          example: 5c832cd6-006b-454a-b747-5cb62beef885
+      description: Uniquely identifies a Custom Rule Violation.
+    CustomRuleViolationKeysInput:
+      required:
+        - keys
+      type: object
+      properties:
+        keys:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: The type of rule that was violated.
+          example: unsafeArea
+          items:
+            $ref: '#/components/schemas/CustomRuleViolationKeyInput'
+      description: A list of violation keys.
+    ErrorDetails:
+      type: object
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+    EvaluateViolationsJobInput:
+      required:
+        - endTime
+        - ruleIds
+        - startTime
+      type: object
+      properties:
+        startTime:
+          type: string
+          description: Start of the evaluation time window
+          format: date-time
+          example: '2022-07-04T12:00:00Z'
+        endTime:
+          type: string
+          description: End of the evaluation time window
+          format: date-time
+          example: '2022-08-04T12:00:00Z'
+        ruleIds:
+          $ref: '#/components/schemas/RuleIdFilter'
+      description: Details of the async job to be created
+    EventDetails:
+      type: object
+    ExternalRuleViolationLink:
+      required:
+        - name
+        - type
+        - url
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/RuleViolationLink'
+        - type: object
+          properties:
+            name:
+              type: string
+            url:
+              maxLength: 255
+              minLength: 1
+              type: string
+              description: The url of the link.
+              example: www.external.com
+    IncludeAllRuleId:
+      required:
+        - include
+      type: object
+      description: Includes all rule ids.
+      allOf:
+        - $ref: '#/components/schemas/RuleIdFilter'
+    IncludeOnlyRuleId:
+      required:
+        - ids
+        - include
+      type: object
+      description: Includes only specified rule ids.
+      allOf:
+        - $ref: '#/components/schemas/RuleIdFilter'
+        - type: object
+          properties:
+            ids:
+              maxItems: 100
+              minItems: 0
+              uniqueItems: true
+              type: array
+              description: Include only violations that match these specific rule ids.
+              items:
+                maxLength: 255
+                minLength: 1
+                type: string
+                example: unsafeArea
+    IncludeType:
+      type: string
+      enum:
+        - all
+        - only
+    InsufficientTravelTimeActivity:
+      required:
+        - details
+        - type
+      type: object
+      description: The activity
+      allOf:
+        - $ref: '#/components/schemas/InsufficientTravelTimeEvent'
+        - type: object
+          properties:
+            details:
+              $ref: '#/components/schemas/InsufficientTravelTimeActivityDetails'
+    InsufficientTravelTimeActivityDetails:
+      required:
+        - end
+        - name
+        - start
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+      description: The details of the activity.
+    InsufficientTravelTimeContext:
+      required:
+        - _type
+        - resource
+      type: object
+      description: >-
+        Details of the insufficient travel time violation. Fields correspond to
+        those in the Skedulo data model, unless stated otherwise.
+      allOf:
+        - $ref: '#/components/schemas/RuleViolationContext'
+        - type: object
+          properties:
+            resource:
+              $ref: '#/components/schemas/InsufficientTravelTimeResource'
+    InsufficientTravelTimeEvent:
+      required:
+        - details
+        - type
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/InsufficientTravelTimeEventType'
+        details:
+          $ref: '#/components/schemas/EventDetails'
+      description: >-
+        The timeline event (work item or home visit) assigned to a resource with
+        insufficient travel time.
+      discriminator:
+        propertyName: type
+        mapping:
+          Job: '#/components/schemas/InsufficientTravelTimeJobAllocation'
+          Activity: '#/components/schemas/InsufficientTravelTimeActivity'
+          HomeVisit: '#/components/schemas/InsufficientTravelTimeHomeVisit'
+    InsufficientTravelTimeEventType:
+      type: string
+      enum:
+        - Job
+        - Activity
+        - HomeVisit
+    InsufficientTravelTimeHomeVisit:
+      required:
+        - details
+        - type
+      type: object
+      description: The home visit
+      allOf:
+        - $ref: '#/components/schemas/InsufficientTravelTimeEvent'
+        - type: object
+          properties:
+            details:
+              $ref: '#/components/schemas/InsufficientTravelTimeHomeVisitDetails'
+    InsufficientTravelTimeHomeVisitDetails:
+      required:
+        - end
+        - start
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+      description: The details of the home visit.
+    InsufficientTravelTimeJob:
+      required:
+        - name
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+    InsufficientTravelTimeJobAllocation:
+      required:
+        - details
+        - type
+      type: object
+      description: The job allocation
+      allOf:
+        - $ref: '#/components/schemas/InsufficientTravelTimeEvent'
+        - type: object
+          properties:
+            details:
+              $ref: '#/components/schemas/InsufficientTravelTimeJobAllocationDetails'
+    InsufficientTravelTimeJobAllocationDetails:
+      required:
+        - job
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        job:
+          $ref: '#/components/schemas/InsufficientTravelTimeJob'
+      description: The details of the job allocation.
+    InsufficientTravelTimeResource:
+      required:
+        - destination
+        - name
+        - origin
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        origin:
+          $ref: '#/components/schemas/InsufficientTravelTimeEvent'
+        destination:
+          $ref: '#/components/schemas/InsufficientTravelTimeEvent'
+        travelTimeInSeconds:
+          type: integer
+          format: int32
+        maxTravelTimeRestrictionInSeconds:
+          type: integer
+          format: int32
+    JobDependenciesContext:
+      required:
+        - _type
+        - jobDependency
+      type: object
+      description: >-
+        Details of the job dependency violation. Fields correspond to those in
+        the Skedulo data model, unless stated otherwise.
+      allOf:
+        - $ref: '#/components/schemas/RuleViolationContext'
+        - type: object
+          properties:
+            jobDependency:
+              $ref: '#/components/schemas/JobDependency'
+    JobDependency:
+      required:
+        - fromAnchor
+        - fromJob
+        - toAnchor
+        - toJob
+      type: object
+      properties:
+        fromAnchor:
+          $ref: '#/components/schemas/JobDependencyAnchor'
+        toAnchor:
+          $ref: '#/components/schemas/JobDependencyAnchor'
+        toAnchorMinOffsetMinutes:
+          type: integer
+          format: int32
+        toAnchorMaxOffsetMinutes:
+          type: integer
+          format: int32
+        fromJob:
+          $ref: '#/components/schemas/JobDependencyJob'
+        toJob:
+          $ref: '#/components/schemas/JobDependencyJob'
+    JobDependencyAnchor:
+      type: string
+      enum:
+        - Start
+        - End
+    JobDependencyJob:
+      required:
+        - name
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+    JobIdResult:
+      required:
+        - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          description: Globally unique identifier for the async job.
+          format: uuid
+          example: bebddd90-8f39-4d3d-8601-35f406f27db2
+      description: Job ID Result of the async job created for processing
+    JobOverallocatedContext:
+      required:
+        - _type
+        - job
+      type: object
+      description: >-
+        Details of the job overallocated violation. Fields correspond to those
+        in the Skedulo data model, unless stated otherwise.
+      allOf:
+        - $ref: '#/components/schemas/RuleViolationContext'
+        - type: object
+          properties:
+            job:
+              $ref: '#/components/schemas/JobOverallocatedJob'
+    JobOverallocatedJob:
+      required:
+        - jobAllocationCount
+        - name
+        - personAllocationCount
+        - resourceRequirements
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+        jobAllocationCount:
+          type: integer
+          format: int32
+        personAllocationCount:
+          type: integer
+          description: >-
+            A count of the job allocations assigned to a resource of type
+            'Person'.
+          format: int32
+        resourceRequirements:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobOverallocatedResourceRequirement'
+    JobOverallocatedResourceRequirement:
+      required:
+        - jobAllocationCount
+        - name
+        - personAllocationCount
+        - quantity
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+        jobAllocationCount:
+          type: integer
+          format: int32
+        personAllocationCount:
+          type: integer
+          description: >-
+            A count of the job allocations assigned to a resource of type
+            'Person'.
+          format: int32
+    JobTag:
+      required:
+        - required
+        - tag
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        tag:
+          $ref: '#/components/schemas/Tag'
+        required:
+          type: boolean
+    JobTimeConstraintsContext:
+      required:
+        - _type
+        - job
+      type: object
+      description: >-
+        Details of the job time constraints violation. Fields correspond to
+        those in the Skedulo data model, unless stated otherwise.
+      allOf:
+        - $ref: '#/components/schemas/RuleViolationContext'
+        - type: object
+          properties:
+            job:
+              $ref: '#/components/schemas/JobWithConstraintViolations'
+    JobTimeConstraintsRule:
+      type: string
+      description: The rule type of the violated job time constraint.
+      enum:
+        - MustStartAfter
+        - MustStartBefore
+        - MustEndBefore
+        - ShouldStartAfter
+        - ShouldStartBefore
+        - ShouldEndBefore
+        - MustMatchAtLeastOne
+    JobWithConstraintViolations:
+      required:
+        - end
+        - name
+        - start
+        - uid
+        - violations
+      type: object
+      properties:
+        uid:
+          type: string
+        description:
+          type: string
+        name:
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        timezone:
+          type: string
+        violations:
+          type: array
+          description: Details of the job time constraint violations.
+          items:
+            $ref: '#/components/schemas/TimeConstraintViolation'
+    MissingJobTagsContext:
+      required:
+        - _type
+        - job
+        - violations
+      type: object
+      description: >-
+        Details of the missing job tag violation. Fields correspond to those in
+        the Skedulo data model, unless stated otherwise.
+      allOf:
+        - $ref: '#/components/schemas/RuleViolationContext'
+        - type: object
+          properties:
+            job:
+              $ref: '#/components/schemas/MissingJobTagsJob'
+            violations:
+              type: array
+              description: Details of the missing job tag violations.
+              items:
+                $ref: '#/components/schemas/MissingJobTagsViolationDetail'
+    MissingJobTagsJob:
+      required:
+        - jobAllocation
+        - jobTags
+        - name
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        description:
+          type: string
+        name:
+          type: string
+        jobAllocation:
+          $ref: '#/components/schemas/MissingJobTagsJobAllocation'
+        jobTags:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobTag'
+    MissingJobTagsJobAllocation:
+      required:
+        - resource
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        resource:
+          $ref: '#/components/schemas/MissingJobTagsResource'
+        resourceRequirement:
+          $ref: '#/components/schemas/MissingJobTagsResourceRequirement'
+    MissingJobTagsResource:
+      required:
+        - name
+        - resourceTags
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        resourceTags:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceTag'
+    MissingJobTagsResourceRequirement:
+      required:
+        - resourceRequirementTags
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        resourceRequirementTags:
+          type: array
+          items:
+            $ref: '#/components/schemas/MissingJobTagsResourceRequirementTag'
+    MissingJobTagsResourceRequirementTag:
+      required:
+        - required
+        - tag
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        tag:
+          $ref: '#/components/schemas/Tag'
+        required:
+          type: boolean
+    MissingJobTagsViolationDetail:
+      required:
+        - reason
+        - tag
+      type: object
+      properties:
+        tag:
+          $ref: '#/components/schemas/Tag'
+        reason:
+          $ref: '#/components/schemas/MissingJobTagsViolationType'
+        expiryDate:
+          type: string
+          format: date-time
+      description: Details of a missing tag violation.
+    MissingJobTagsViolationType:
+      type: string
+      description: The reason for the missing job tag violation.
+      enum:
+        - Missing
+        - Expired
+    Order:
+      required:
+        - direction
+        - field
+      type: object
+      properties:
+        field:
+          type: string
+          description: >-
+            The field to order by. The following fields are accepted:
+            createdTime, description, endTime, id, isCustom, lastModifiedTime,
+            regionId, ruleId, sourceId, sourceType, startTime, status, targetId,
+            targetType
+          example: ruleId
+        direction:
+          type: string
+          description: The direction in which to order the 'field' by
+          example: ASC
+          enum:
+            - ASC
+            - DESC
+      description: The order in which to sort results
+    ResetViolationOffsetsResult:
+      required:
+        - tenantId
+        - violationsReset
+      type: object
+      properties:
+        tenantId:
+          type: string
+          description: The tenant whose violation offsets were reset.
+        violationsReset:
+          type: integer
+          description: >-
+            The number of core (non-custom) violations whose change event offset
+            was reset to 0.
+          format: int64
+          example: 42
+    ResourceAccountExcludedAccount:
+      required:
+        - name
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+    ResourceAccountExcludedContext:
+      required:
+        - _type
+        - job
+      type: object
+      description: >-
+        Details of the excluded account violation. Fields correspond to those in
+        the Skedulo data model, unless stated otherwise.
+      allOf:
+        - $ref: '#/components/schemas/RuleViolationContext'
+        - type: object
+          properties:
+            job:
+              $ref: '#/components/schemas/ResourceAccountExcludedJob'
+    ResourceAccountExcludedJob:
+      required:
+        - jobAllocation
+        - name
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        description:
+          type: string
+        name:
+          type: string
+        account:
+          $ref: '#/components/schemas/ResourceAccountExcludedAccount'
+        jobAllocation:
+          $ref: '#/components/schemas/ResourceAccountExcludedJobAllocation'
+    ResourceAccountExcludedJobAllocation:
+      required:
+        - resource
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        resource:
+          $ref: '#/components/schemas/ResourceAccountExcludedResource'
+    ResourceAccountExcludedResource:
+      required:
+        - name
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+    ResourceAccountNotIncludedAccount:
+      required:
+        - name
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+    ResourceAccountNotIncludedContext:
+      required:
+        - _type
+        - job
+      type: object
+      description: >-
+        Details of the not included account violation. Fields correspond to
+        those in the Skedulo data model, unless stated otherwise.
+      allOf:
+        - $ref: '#/components/schemas/RuleViolationContext'
+        - type: object
+          properties:
+            job:
+              $ref: '#/components/schemas/ResourceAccountNotIncludedJob'
+    ResourceAccountNotIncludedJob:
+      required:
+        - jobAllocation
+        - name
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        description:
+          type: string
+        name:
+          type: string
+        account:
+          $ref: '#/components/schemas/ResourceAccountNotIncludedAccount'
+        jobAllocation:
+          $ref: '#/components/schemas/ResourceAccountNotIncludedJobAllocation'
+    ResourceAccountNotIncludedJobAllocation:
+      required:
+        - resource
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        resource:
+          $ref: '#/components/schemas/ResourceAccountNotIncludedResource'
+    ResourceAccountNotIncludedResource:
+      required:
+        - name
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+    ResourceInactiveContext:
+      required:
+        - _type
+        - resource
+      type: object
+      description: >-
+        Details of the inactive resource violation. Fields correspond to those
+        in the Skedulo data model, unless stated otherwise.
+      allOf:
+        - $ref: '#/components/schemas/RuleViolationContext'
+        - type: object
+          properties:
+            resource:
+              $ref: '#/components/schemas/ResourceInactiveResource'
+    ResourceInactiveJob:
+      required:
+        - name
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+    ResourceInactiveJobAllocation:
+      required:
+        - details
+        - type
+      type: object
+      description: The job allocation assigned to an inactive resource.
+      allOf:
+        - $ref: '#/components/schemas/ResourceInactiveWorkAllocation'
+        - type: object
+          properties:
+            details:
+              $ref: '#/components/schemas/ResourceInactiveJobAllocationDetails'
+    ResourceInactiveJobAllocationDetails:
+      required:
+        - job
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        job:
+          $ref: '#/components/schemas/ResourceInactiveJob'
+      description: The details of the job allocation.
+    ResourceInactiveResource:
+      required:
+        - name
+        - uid
+        - workAllocation
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        workAllocation:
+          $ref: '#/components/schemas/ResourceInactiveWorkAllocation'
+    ResourceInactiveWorkAllocation:
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ResourceInactiveWorkAllocationType'
+      description: The work allocation assigned to an inactive resource.
+      discriminator:
+        propertyName: type
+        mapping:
+          Job: '#/components/schemas/ResourceInactiveJobAllocation'
+    ResourceInactiveWorkAllocationType:
+      type: string
+      enum:
+        - Job
+    ResourceLocationExcludedContext:
+      required:
+        - _type
+        - job
+      type: object
+      description: >-
+        Details of the excluded location violation. Fields correspond to those
+        in the Skedulo data model, unless stated otherwise.
+      allOf:
+        - $ref: '#/components/schemas/RuleViolationContext'
+        - type: object
+          properties:
+            job:
+              $ref: '#/components/schemas/ResourceLocationExcludedJob'
+    ResourceLocationExcludedJob:
+      required:
+        - jobAllocation
+        - name
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        description:
+          type: string
+        name:
+          type: string
+        location:
+          $ref: '#/components/schemas/ResourceLocationExcludedLocation'
+        jobAllocation:
+          $ref: '#/components/schemas/ResourceLocationExcludedJobAllocation'
+    ResourceLocationExcludedJobAllocation:
+      required:
+        - resource
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        resource:
+          $ref: '#/components/schemas/ResourceLocationExcludedResource'
+    ResourceLocationExcludedLocation:
+      required:
+        - name
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+    ResourceLocationExcludedResource:
+      required:
+        - name
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+    ResourceLocationNotIncludedContext:
+      required:
+        - _type
+        - job
+      type: object
+      description: >-
+        Details of the not included location violation. Fields correspond to
+        those in the Skedulo data model, unless stated otherwise.
+      allOf:
+        - $ref: '#/components/schemas/RuleViolationContext'
+        - type: object
+          properties:
+            job:
+              $ref: '#/components/schemas/ResourceLocationNotIncludedJob'
+    ResourceLocationNotIncludedJob:
+      required:
+        - jobAllocation
+        - name
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        description:
+          type: string
+        name:
+          type: string
+        location:
+          $ref: '#/components/schemas/ResourceLocationNotIncludedLocation'
+        jobAllocation:
+          $ref: '#/components/schemas/ResourceLocationNotIncludedJobAllocation'
+    ResourceLocationNotIncludedJobAllocation:
+      required:
+        - resource
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        resource:
+          $ref: '#/components/schemas/ResourceLocationNotIncludedResource'
+    ResourceLocationNotIncludedLocation:
+      required:
+        - name
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+    ResourceLocationNotIncludedResource:
+      required:
+        - name
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+    ResourceTag:
+      required:
+        - tag
+      type: object
+      properties:
+        tag:
+          $ref: '#/components/schemas/Tag'
+        expiryDate:
+          type: string
+          format: date-time
+    ResourceUnavailableContext:
+      required:
+        - _type
+        - job
+      type: object
+      description: >-
+        Details of the unavailable resource violation. Fields correspond to
+        those in the Skedulo data model, unless stated otherwise.
+      allOf:
+        - $ref: '#/components/schemas/RuleViolationContext'
+        - type: object
+          properties:
+            job:
+              $ref: '#/components/schemas/ResourceUnavailableJob'
+            _type:
+              type: string
+    ResourceUnavailableJob:
+      required:
+        - jobAllocation
+        - name
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        jobAllocation:
+          $ref: '#/components/schemas/ResourceUnavailableJobAllocation'
+    ResourceUnavailableJobAllocation:
+      required:
+        - resource
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        resource:
+          $ref: '#/components/schemas/ResourceUnavailableResource'
+    ResourceUnavailableResource:
+      required:
+        - name
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+    RuleIdFilter:
+      required:
+        - include
+      type: object
+      properties:
+        include:
+          $ref: '#/components/schemas/IncludeType'
+      description: Filter parameters.
+      discriminator:
+        propertyName: include
+        mapping:
+          all: '#/components/schemas/IncludeAllRuleId'
+          only: '#/components/schemas/IncludeOnlyRuleId'
+    RuleIdSearchFilter:
+      type: object
+      properties:
+        core:
+          $ref: '#/components/schemas/RuleIdFilter'
+        custom:
+          $ref: '#/components/schemas/RuleIdFilter'
+      description: Rule id search filter parameters.
+    RuleViolationAssignStatusInput:
+      required:
+        - status
+        - violationId
+      type: object
+      properties:
+        violationId:
+          type: integer
+          description: The ID of the Rule Violation to assign the status
+          example: 2756
+        status:
+          type: string
+          description: The status to assign to the Rule Violation
+          example: In Progress
+      description: Details of the Rule Violation status assignment.
+    RuleViolationAssignUserInput:
+      required:
+        - violationId
+      type: object
+      properties:
+        violationId:
+          type: integer
+          description: The ID of the Rule Violation to assign to the user
+          example: 2756
+        user:
+          type: string
+          description: The user to assign to the Rule Violation
+          example: a521ed9f-a353-4952-b6cd-e7b5e02c3591
+      description: Details of the Rule Violation user assignment.
+    RuleViolationContext:
+      required:
+        - _type
+      type: object
+      properties:
+        _type:
+          type: string
+      description: A JSON object containing extra information for the violation
+      discriminator:
+        propertyName: _type
+        mapping:
+          custom: '#/components/schemas/CustomContext'
+          insufficientTravelTime: '#/components/schemas/InsufficientTravelTimeContext'
+          jobDependencies: '#/components/schemas/JobDependenciesContext'
+          jobOverallocated: '#/components/schemas/JobOverallocatedContext'
+          jobTimeConstraints: '#/components/schemas/JobTimeConstraintsContext'
+          missingJobTags: '#/components/schemas/MissingJobTagsContext'
+          missingOptionalJobTags: '#/components/schemas/MissingJobTagsContext'
+          resourceAccountExcluded: '#/components/schemas/ResourceAccountExcludedContext'
+          resourceAccountNotIncluded: '#/components/schemas/ResourceAccountNotIncludedContext'
+          resourceInactive: '#/components/schemas/ResourceInactiveContext'
+          resourceLocationExcluded: '#/components/schemas/ResourceLocationExcludedContext'
+          resourceLocationNotIncluded: '#/components/schemas/ResourceLocationNotIncludedContext'
+          resourceUnavailable: '#/components/schemas/ResourceUnavailableContext'
+          workOverlap: '#/components/schemas/WorkOverlapContext'
+    RuleViolationInput:
+      required:
+        - link
+        - regionId
+        - resourceIds
+        - ruleId
+        - sourceId
+        - sourceType
+        - targetId
+        - targetType
+      type: object
+      properties:
+        ruleId:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: >-
+            The type of rule that was violated. Custom violations must have any
+            non-empty rule ID.
+          example: unsafeArea
+        targetId:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: >-
+            The UID of the object that the rule violation affects. Target IDs
+            should be unique across all object types.
+          example: b055d7c1-ef2f-40e9-bcd2-634e9835e69b
+        sourceId:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: >-
+            The UID of the object that caused rule violation (may be the same as
+            the target). Source IDs should be unique across all object types.
+          example: 5c832cd6-006b-454a-b747-5cb62beef885
+        targetType:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: >-
+            The object type of the target object. This must be a standard or
+            custom data model object type in singular camelCase.
+          example: job
+        sourceType:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: >-
+            The object type of the source object. This must be a standard or
+            custom data model object type in singular camelCase.
+          example: job
+        startTime:
+          type: string
+          description: >-
+            The time at which the violation starts. This is used for filtering
+            by time window.
+          format: date-time
+        endTime:
+          type: string
+          description: >-
+            The time at which the violation ends. This is used for filtering by
+            time window.
+          format: date-time
+        regionId:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: The region of the target object. Used for filtering results.
+          example: 6cdd3be8-6fab-44c5-a6b7-e9ddc6860eb7
+        resourceIds:
+          maxItems: 100
+          minItems: 0
+          uniqueItems: true
+          type: array
+          description: >-
+            The resources that the violation applies to, if any. Used for
+            filtering results.
+          items:
+            maxLength: 255
+            minLength: 1
+            type: string
+            example: d5ed41db-87ee-4dd2-a65c-dd37dc253d3b
+        description:
+          maxLength: 1024
+          minLength: 1
+          type: string
+          description: >-
+            A user-friendly description of the rule violation, to be displayed
+            by the UI.
+          example: Job is in an area that may be unsafe
+        link:
+          $ref: '#/components/schemas/RuleViolationLink'
+        context:
+          type: object
+      description: >-
+        Details of the custom Rule Violation. The ruleId, targetId and sourceId
+        form a unique key.
+    RuleViolationLink:
+      required:
+        - name
+        - type
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/RuleViolationLinkType'
+        name:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: The name of the link.
+          example: Job
+      description: Link details to the target of the violation.
+      discriminator:
+        propertyName: type
+        mapping:
+          skedulo: '#/components/schemas/SkeduloRuleViolationLink'
+          external: '#/components/schemas/ExternalRuleViolationLink'
+    RuleViolationLinkType:
+      type: string
+      enum:
+        - skedulo
+        - external
+    RuleViolationListResult:
+      required:
+        - limitReached
+        - violations
+      type: object
+      properties:
+        violations:
+          type: array
+          description: List of violations.
+          items:
+            $ref: '#/components/schemas/RuleViolationResult'
+        limitReached:
+          type: boolean
+          description: >-
+            True if the maximum number of violations retrievable in a single
+            query has been reached (currently 2000 violations).
+      description: Results of a find Rule Violations by list of target object UIDs query.
+    RuleViolationResult:
+      required:
+        - context
+        - createdTime
+        - id
+        - isCustom
+        - lastModifiedTime
+        - regionId
+        - resourceIds
+        - ruleId
+        - sourceId
+        - sourceType
+        - status
+        - targetId
+        - targetType
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Globally unique identifier for the violation.
+          example: 123
+        ruleId:
+          type: string
+          description: >-
+            The type of rule that was violated. Core rule ids
+            are:<br><ul><li>insufficientTravelTime</li><li>jobDependencies</li><li>jobOverallocated</li><li>jobTimeConstraints</li><li>missingJobTags</li><li>missingOptionalJobTags</li><li>resourceAccountExcluded</li><li>resourceAccountNotIncluded</li><li>resourceInactive</li><li>resourceLocationExcluded</li><li>resourceLocationNotIncluded</li><li>resourceUnavailable</li><li>workOverlap</li></ul>
+          example: workOverlap
+        isCustom:
+          type: boolean
+          description: True if the violation was inserted by an external client.
+          example: false
+        targetId:
+          type: string
+          description: The UID of the object that the rule violation affects.
+          example: b055d7c1-ef2f-40e9-bcd2-634e9835e69b
+        sourceId:
+          type: string
+          description: >-
+            The UID of the object that caused rule violation (may be the same as
+            the target).
+          example: 5c832cd6-006b-454a-b747-5cb62beef885
+        targetType:
+          type: string
+          description: The object type of the target object.
+          example: job
+        sourceType:
+          type: string
+          description: The object type of the source object.
+          example: job
+        startTime:
+          type: string
+          description: The time at which the violation starts.
+          format: date-time
+          example: '2022-01-01T09:00:00Z'
+        endTime:
+          type: string
+          description: The time at which the violation ends.
+          format: date-time
+          example: '2022-01-01T10:00:00Z'
+        regionId:
+          type: string
+          description: The region of the target object. Used for filtering results.
+          example: 6cdd3be8-6fab-44c5-a6b7-e9ddc6860eb7
+        resourceIds:
+          uniqueItems: true
+          type: array
+          description: The resources that the violation applies to, if any.
+          items:
+            type: string
+            example: d5ed41db-87ee-4dd2-a65c-dd37dc253d3b
+        description:
+          type: string
+          description: A user-friendly description of the rule violation.
+          example: Job is in an area that may be unsafe
+        link:
+          $ref: '#/components/schemas/RuleViolationLink'
+        status:
+          type: string
+          description: The current status assigned to the violation
+          example: In Progress
+        assignedTo:
+          type: string
+          description: The user assigned to the violation
+          example: a521ed9f-a353-4952-b6cd-e7b5e02c3591
+        context:
+          $ref: '#/components/schemas/RuleViolationContext'
+        createdTime:
+          type: string
+          description: Created timestamp
+          format: date-time
+        lastModifiedTime:
+          type: string
+          description: Last modified timestamp
+          format: date-time
+      description: >-
+        Details of a Rule Violation that was either generated by the core engine
+        or inserted by a client.
+    RuleViolationSearchFilterInput:
+      required:
+        - startTime
+      type: object
+      properties:
+        startTime:
+          type: string
+          description: Start of the search time window.
+          format: date-time
+        endTime:
+          type: string
+          description: >-
+            End of the search time window. If not specified, it defaults to
+            startTime + 365 days.
+          format: date-time
+        targetTypes:
+          maxItems: 200
+          minItems: 0
+          type: array
+          description: >-
+            If provided, only violations having these targetType values are
+            included.
+          items:
+            type: string
+            example: job
+        regionIds:
+          maxItems: 200
+          minItems: 0
+          type: array
+          description: If provided, only violations from these regions are included.
+          items:
+            type: string
+            example: 6cdd3be8-6fab-44c5-a6b7-e9ddc6860eb7
+        resourceIds:
+          maxItems: 200
+          minItems: 0
+          type: array
+          description: If provided, only violations for these resources are included.
+          items:
+            type: string
+            example: d5ed41db-87ee-4dd2-a65c-dd37dc253d3b
+        statuses:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: If provided, only violations for these statuses are included.
+          items:
+            type: string
+            example: In Progress
+        ruleIds:
+          $ref: '#/components/schemas/RuleIdSearchFilter'
+        assignedTo:
+          $ref: '#/components/schemas/AssignedToFilter'
+        includeNoTimestamp:
+          type: boolean
+          description: If true, violations with no startTime and endTime are included.
+          example: false
+        targetIds:
+          maxItems: 200
+          minItems: 0
+          type: array
+          description: If provided, only violations for these targetIds are included.
+          items:
+            type: string
+            example: d5ed41db-87ee-4dd2-a65c-dd37dc253d3b
+      description: >-
+        Search Rule Violations filter criteria.
+
+
+        For the time range filter, Rule Violations whose [startTime, endTime]
+        interval overlaps with the provided search time range are returned. Time
+        ranges are treated as half-open intervals, meaning that violations that
+        start at the end time of the range will not be returned.
+    RuleViolationSearchInput:
+      required:
+        - filter
+      type: object
+      properties:
+        filter:
+          $ref: '#/components/schemas/RuleViolationSearchFilterInput'
+        limit:
+          maximum: 2000
+          minimum: 1
+          type: integer
+          description: >-
+            Pagination limit (number of violations per page). If not specified,
+            a default limit of 200 is used.
+          format: int32
+          example: 200
+        offset:
+          maximum: 9223372036854776000
+          minimum: 0
+          type: integer
+          description: Pagination offset (zero-based). Defaults to 0.
+          format: int64
+          example: 100
+        sortBy:
+          type: array
+          description: >-
+            List of Rule Violation fields the results should be ordered by. Any
+            results that are equal after ordering will be ordered by 'id ASC'.
+
+
+            If not provided, the default ordering is 'startTime ASC' followed by
+            'id ASC'.
+          items:
+            $ref: '#/components/schemas/Order'
+      description: Parameters of a search Rule Violations query.
+    RuleViolationSearchResult:
+      required:
+        - hasNextPage
+        - totalCount
+        - violations
+      type: object
+      properties:
+        violations:
+          type: array
+          description: List of violations for the current page.
+          items:
+            $ref: '#/components/schemas/RuleViolationResult'
+        totalCount:
+          type: integer
+          description: Total number of violations.
+          format: int64
+          example: 440
+        hasNextPage:
+          type: boolean
+          description: True if there are more results after the current page.
+          example: true
+        nextOffset:
+          type: integer
+          description: Start offset of the next page (null if hasNextPage is false).
+          format: int64
+          example: 300
+      description: Results of a search Rule Violations query.
+    RuleViolationTargetIdsInput:
+      required:
+        - targetIds
+      type: object
+      properties:
+        targetIds:
+          maxItems: 1000
+          minItems: 0
+          type: array
+          description: >-
+            List of the UIDs of the objects that the rule violation affects.
+            Target IDs should be unique across all object types.
+          items:
+            type: string
+            example: b055d7c1-ef2f-40e9-bcd2-634e9835e69b
+      description: A list of target object UIDs.
+    RuleViolationsInput:
+      required:
+        - violations
+      type: object
+      properties:
+        violations:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: The type of rule that was violated.
+          example: unsafeArea
+          items:
+            $ref: '#/components/schemas/RuleViolationInput'
+      description: A list of violations.
+    SkeduloRuleViolationLink:
+      required:
+        - name
+        - type
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/RuleViolationLink'
+        - type: object
+          properties:
+            name:
+              type: string
+    Tag:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+    TimeConstraintViolation:
+      required:
+        - constraintRule
+      type: object
+      properties:
+        constraintRule:
+          $ref: '#/components/schemas/JobTimeConstraintsRule'
+      description: Details of a job time constraint violation.
+      discriminator:
+        propertyName: constraintRule
+        mapping:
+          MustStartAfter: '#/components/schemas/TimeConstraintViolationWithTime'
+          MustStartBefore: '#/components/schemas/TimeConstraintViolationWithTime'
+          MustEndBefore: '#/components/schemas/TimeConstraintViolationWithTime'
+          ShouldStartAfter: '#/components/schemas/TimeConstraintViolationWithTime'
+          ShouldStartBefore: '#/components/schemas/TimeConstraintViolationWithTime'
+          ShouldEndBefore: '#/components/schemas/TimeConstraintViolationWithTime'
+          MustMatchAtLeastOne: '#/components/schemas/TimeConstraintViolationWithoutTime'
+    TimeConstraintViolationWithTime:
+      required:
+        - constraintRule
+        - constraintTime
+      type: object
+      description: Details of a job time constraint violation.
+      allOf:
+        - $ref: '#/components/schemas/TimeConstraintViolation'
+        - type: object
+          properties:
+            constraintTime:
+              type: string
+              format: date-time
+    TimeConstraintViolationWithoutTime:
+      required:
+        - constraintRule
+      type: object
+      description: >-
+        Details of a job time constraint violation that does not apply to a
+        specific time.
+      allOf:
+        - $ref: '#/components/schemas/TimeConstraintViolation'
+    WorkOverlapActivity:
+      required:
+        - details
+        - type
+      type: object
+      description: The overlapping activity
+      allOf:
+        - $ref: '#/components/schemas/WorkOverlapWorkAllocation'
+        - type: object
+          properties:
+            details:
+              $ref: '#/components/schemas/WorkOverlapActivityDetails'
+    WorkOverlapActivityDetails:
+      required:
+        - end
+        - name
+        - start
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+      description: The details of the activity.
+    WorkOverlapContext:
+      required:
+        - _type
+        - resource
+      type: object
+      description: >-
+        Details of the work overlap violation. Fields correspond to those in the
+        Skedulo data model, unless stated otherwise.
+      allOf:
+        - $ref: '#/components/schemas/RuleViolationContext'
+        - type: object
+          properties:
+            resource:
+              $ref: '#/components/schemas/WorkOverlapResource'
+    WorkOverlapJob:
+      required:
+        - name
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+    WorkOverlapJobAllocation:
+      required:
+        - details
+        - type
+      type: object
+      description: The overlapping job allocation
+      allOf:
+        - $ref: '#/components/schemas/WorkOverlapWorkAllocation'
+        - type: object
+          properties:
+            details:
+              $ref: '#/components/schemas/WorkOverlapJobAllocationDetails'
+    WorkOverlapJobAllocationDetails:
+      required:
+        - job
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        job:
+          $ref: '#/components/schemas/WorkOverlapJob'
+      description: The details of the job allocation.
+    WorkOverlapResource:
+      required:
+        - name
+        - uid
+        - workAllocation1
+        - workAllocation2
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        workAllocation1:
+          $ref: '#/components/schemas/WorkOverlapWorkAllocation'
+        workAllocation2:
+          $ref: '#/components/schemas/WorkOverlapWorkAllocation'
+    WorkOverlapWorkAllocation:
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/WorkOverlapWorkAllocationType'
+      description: The overlapping work allocation.
+      discriminator:
+        propertyName: type
+        mapping:
+          Job: '#/components/schemas/WorkOverlapJobAllocation'
+          Activity: '#/components/schemas/WorkOverlapActivity'
+    WorkOverlapWorkAllocationType:
+      type: string
+      enum:
+        - Job
+        - Activity
+  securitySchemes:
+    ApiKeyAuth:
+      type: http
+      name: bearerAuth
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,412 @@
+openapi: 3.0.2
+info:
+  title: Virtual Meeting
+  version: v1
+  contact:
+    email: support@skedulo.com
+servers:
+  - url: https://api.skedulo.com/virtualmeeting
+  - url: https://api.uk.skedulo.com/virtualmeeting
+  - url: https://api.ca.skedulo.com/virtualmeeting
+  - url: https://api.au.skedulo.com/virtualmeeting
+security:
+  - BearerAuth: []
+paths:
+  /meetings:
+    post:
+      operationId: createMeeting
+      summary: Create a virtual meeting hosted by a resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMeetingRequest'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeetingResponse'
+        '400':
+          description: The hosting resource has no email specified
+  /meetings/{id}:
+    get:
+      operationId: getMeeting
+      summary: Fetch information of the virtual meeting specified by the id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            description: Id of the virtual meeting to be fetched
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeetingResponse'
+    put:
+      operationId: updateMeeting
+      summary: Update the virtual meeting specified by the id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            description: Id of the virtual meeting to be updated
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BaseMeetingRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeetingResponse'
+    delete:
+      operationId: deleteMeeting
+      summary: Delete the virtual meeting specified by the id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            description: Id of the virtual meeting to be deleted
+      responses:
+        '204':
+          description: Success
+components:
+  schemas:
+    CreateMeetingRequest:
+      allOf:
+        - $ref: '#/components/schemas/BaseMeetingRequest'
+        - type: object
+          properties:
+            hostResourceId:
+              type: string
+              description: Resource Id of the resource that hosts the virtual meeting
+          required:
+            - hostResourceId
+    BaseMeetingRequest:
+      type: object
+      properties:
+        topic:
+          type: string
+          description: Topic of the virtual meeting
+        agenda:
+          type: string
+          description: Agenda of the virtual meeting
+        startTime:
+          type: string
+          format: date-time
+          description: Start time of the virtual meeting in ISO8601 format
+        duration:
+          type: integer
+          description: Duration (in minutes) of the virtual meeting
+        password:
+          type: string
+          description: Password of the virtual meeting
+        zoom:
+          type: object
+          description: >-
+            Optional Zoom specific information about the virtual meeting (when
+            Zoom is the meeting provider). Most Zoom meetings can be created
+            without this.
+        teams:
+          type: object
+          description: >-
+            Optional MS Teams specific information about the virtual meeting
+            (when Teams is the meeting provider). Most Teams meetings can be
+            created without this.
+      required:
+        - topic
+        - agenda
+        - startTime
+        - duration
+    MeetingResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            hostUrl:
+              type: string
+              format: uri
+              description: URL for the host to join and start the meeting
+            inviteeUrl:
+              type: string
+              format: uri
+              description: URL for an invitee to join the meeting
+            id:
+              type: string
+              description: Unique Id of the virtual meeting
+            password:
+              type: string
+              description: Password of the virtual meeting
+            zoom:
+              type: object
+              description: >-
+                Zoom specific information about the virtual meeting (when Zoom
+                is the meeting provider)
+            teams:
+              type: object
+              description: >-
+                MS Teams specific information about the virtual meeting (when
+                Teams is the meeting provider)
+          required:
+            - hostUrl
+            - inviteeUrl
+            - id
+      required:
+        - result
+      example: |
+        {
+          "result": {
+            "hostUrl": "https://skedulo.zoom.us/s/96228647552?zak=eyJ6bV9za20iOiJ6bV9vMm0iLCJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJjbGllbnQiLCJ1aWQiOiJiSVFNaF8tclJTVzZXNDRzQlJBb193IiwiaXNzIjoid2ViIiwic3R5IjoxLCJ3Y2QiOiJhdzEiLCJjbHQiOjAsInN0ayI6IkZiaXM4blNHeENCdlFtMGJGRXJYS25Mb2o1QXR4cmtDSVlBbkFaVlFWaVUuRWdJQUFBRnlCMThQNEFBQUhDQWdiblJHVFdObmRtVlRRMjlUUWpCMlZtSjFlREJGUjBWdlFrZEZOMmwwTjBjQURETkRRa0YxYjJsWlV6TnpQUU5oZHpFIiwiZXhwIjoxNTg5MjY4NzcwLCJpYXQiOjE1ODkyNjE1NzAsImFpZCI6Im9RRjJ6SVQtUV9DLTRGZy1mZ2RQQXciLCJjaWQiOiIifQ.qWPMxnBqCTn-HYryCE1begsYzZEAJOAb-_MyW3q-mRI",
+            "inviteeUrl": "https://skedulo.zoom.us/j/96228647552",
+            "id": "Zoom:96228647552",
+            "zoom": {
+              "uuid": "OI/WyUesTYi7WQUG/GN1AQ==",
+              "id": 96228647552,
+              "host_id": "bIQMh_-rRSW6W44sBRAo_w",
+              "topic": "Skedulo Consultation",
+              "type": 2,
+              "status": "waiting",
+              "start_time": "2020-04-27T13:30:00Z",
+              "duration": 1,
+              "timezone": "Australia/Sydney",
+              "agenda": "[JOB-0006] Consultation with Skedulo Admin",
+              "created_at": "2020-05-12T05:32:49Z",
+              "start_url": "https://skedulo.zoom.us/s/96228647552?zak=eyJ6bV9za20iOiJ6bV9vMm0iLCJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJjbGllbnQiLCJ1aWQiOiJiSVFNaF8tclJTVzZXNDRzQlJBb193IiwiaXNzIjoid2ViIiwic3R5IjoxLCJ3Y2QiOiJhdzEiLCJjbHQiOjAsInN0ayI6IkZiaXM4blNHeENCdlFtMGJGRXJYS25Mb2o1QXR4cmtDSVlBbkFaVlFWaVUuRWdJQUFBRnlCMThQNEFBQUhDQWdiblJHVFdObmRtVlRRMjlUUWpCMlZtSjFlREJGUjBWdlFrZEZOMmwwTjBjQURETkRRa0YxYjJsWlV6TnpQUU5oZHpFIiwiZXhwIjoxNTg5MjY4NzcwLCJpYXQiOjE1ODkyNjE1NzAsImFpZCI6Im9RRjJ6SVQtUV9DLTRGZy1mZ2RQQXciLCJjaWQiOiIifQ.qWPMxnBqCTn-HYryCE1begsYzZEAJOAb-_MyW3q-mRI",
+              "join_url": "https://skedulo.zoom.us/j/96228647552",
+              "settings": {
+                "host_video": false,
+                "participant_video": false,
+                "cn_meeting": false,
+                "in_meeting": false,
+                "join_before_host": true,
+                "mute_upon_entry": false,
+                "watermark": false,
+                "use_pmi": false,
+                "approval_type": 2,
+                "audio": "both",
+                "auto_recording": "none",
+                "enforce_login": false,
+                "enforce_login_domains": "",
+                "alternative_hosts": "",
+                "close_registration": false,
+                "registrants_confirmation_email": true,
+                "waiting_room": false,
+                "global_dial_in_countries": [
+                  "AU",
+                  "GB",
+                  "NZ",
+                  "US",
+                  "CA"
+                ],
+                "global_dial_in_numbers": [
+                  {
+                    "country_name": "US",
+                    "city": "Houston",
+                    "number": "+1 3462487799",
+                    "type": "toll",
+                    "country": "US"
+                  },
+                  {
+                    "country_name": "US",
+                    "city": "San Jose",
+                    "number": "+1 6699006833",
+                    "type": "toll",
+                    "country": "US"
+                  },
+                  {
+                    "country_name": "US",
+                    "city": "Tacoma",
+                    "number": "+1 2532158782",
+                    "type": "toll",
+                    "country": "US"
+                  },
+                  {
+                    "country_name": "US",
+                    "city": "Chicago",
+                    "number": "+1 3126266799",
+                    "type": "toll",
+                    "country": "US"
+                  },
+                  {
+                    "country_name": "US",
+                    "city": "New York",
+                    "number": "+1 6465588656",
+                    "type": "toll",
+                    "country": "US"
+                  },
+                  {
+                    "country_name": "US",
+                    "city": "Germantown",
+                    "number": "+1 3017158592",
+                    "type": "toll",
+                    "country": "US"
+                  },
+                  {
+                    "country_name": "US",
+                    "city": "",
+                    "number": "+1 8773690926",
+                    "type": "tollfree",
+                    "country": "US"
+                  },
+                  {
+                    "country_name": "US",
+                    "city": "",
+                    "number": "+1 8778535247",
+                    "type": "tollfree",
+                    "country": "US"
+                  },
+                  {
+                    "country_name": "Australia",
+                    "number": "+61 861193900",
+                    "type": "toll",
+                    "country": "AU"
+                  },
+                  {
+                    "country_name": "Australia",
+                    "number": "+61 871501149",
+                    "type": "toll",
+                    "country": "AU"
+                  },
+                  {
+                    "country_name": "Australia",
+                    "number": "+61 280156011",
+                    "type": "toll",
+                    "country": "AU"
+                  },
+                  {
+                    "country_name": "Australia",
+                    "number": "+61 370182005",
+                    "type": "toll",
+                    "country": "AU"
+                  },
+                  {
+                    "country_name": "Australia",
+                    "number": "+61 731853730",
+                    "type": "toll",
+                    "country": "AU"
+                  },
+                  {
+                    "country_name": "Australia",
+                    "number": "+61 1800893423",
+                    "type": "tollfree",
+                    "country": "AU"
+                  },
+                  {
+                    "country_name": "New Zealand",
+                    "number": "+64 48860026",
+                    "type": "toll",
+                    "country": "NZ"
+                  },
+                  {
+                    "country_name": "New Zealand",
+                    "number": "+64 98846780",
+                    "type": "toll",
+                    "country": "NZ"
+                  },
+                  {
+                    "country_name": "New Zealand",
+                    "number": "+64 800002260",
+                    "type": "tollfree",
+                    "country": "NZ"
+                  },
+                  {
+                    "country_name": "United Kingdom",
+                    "number": "+44 2080806592",
+                    "type": "toll",
+                    "country": "GB"
+                  },
+                  {
+                    "country_name": "United Kingdom",
+                    "number": "+44 3300885830",
+                    "type": "toll",
+                    "country": "GB"
+                  },
+                  {
+                    "country_name": "United Kingdom",
+                    "number": "+44 1314601196",
+                    "type": "toll",
+                    "country": "GB"
+                  },
+                  {
+                    "country_name": "United Kingdom",
+                    "number": "+44 2034815237",
+                    "type": "toll",
+                    "country": "GB"
+                  },
+                  {
+                    "country_name": "United Kingdom",
+                    "number": "+44 2034815240",
+                    "type": "toll",
+                    "country": "GB"
+                  },
+                  {
+                    "country_name": "United Kingdom",
+                    "number": "+44 2080806591",
+                    "type": "toll",
+                    "country": "GB"
+                  },
+                  {
+                    "country_name": "United Kingdom",
+                    "number": "+44 8000315717",
+                    "type": "tollfree",
+                    "country": "GB"
+                  },
+                  {
+                    "country_name": "Canada",
+                    "number": "+1 6475580588",
+                    "type": "toll",
+                    "country": "CA"
+                  },
+                  {
+                    "country_name": "Canada",
+                    "number": "+1 7789072071",
+                    "type": "toll",
+                    "country": "CA"
+                  },
+                  {
+                    "country_name": "Canada",
+                    "number": "+1 4388097799",
+                    "type": "toll",
+                    "country": "CA"
+                  },
+                  {
+                    "country_name": "Canada",
+                    "number": "+1 5873281099",
+                    "type": "toll",
+                    "country": "CA"
+                  },
+                  {
+                    "country_name": "Canada",
+                    "number": "+1 6473744685",
+                    "type": "toll",
+                    "country": "CA"
+                  },
+                  {
+                    "country_name": "Canada",
+                    "number": "+1 8557038985",
+                    "type": "tollfree",
+                    "country": "CA"
+                  }
+                ],
+                "registrants_email_notification": true,
+                "meeting_authentication": false
+              }
+            }
+          }
+        }

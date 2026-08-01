@@ -1,0 +1,1222 @@
+openapi: 3.0.0
+info:
+  title: Notification API
+  description: Skedulo Notification API
+  version: 1.0.0
+paths:
+  /dispatch:
+    post:
+      security:
+        - Authorization: []
+      summary: Dispatch resources
+      tags:
+        - Job Notifications and Responses
+      description: This endpoint will dispatch the resources and notify them.
+      responses:
+        '200':
+          description: Result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DispatchResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        $ref: '#/components/requestBodies/NotifyRequest'
+  /notify:
+    post:
+      security:
+        - Authorization: []
+      summary: Notify resources about an allocated job
+      tags:
+        - Job Notifications and Responses
+      description: >-
+        Notify resources that they are allocated to a job. This can be used to
+        send a reminder message after the initial job dispatch. Individual
+        resources can be notified, or all resources allocated to the job.
+      responses:
+        '200':
+          description: Result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DispatchResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        $ref: '#/components/requestBodies/NotifyRequest'
+  /notify_cancel:
+    post:
+      security:
+        - Authorization: []
+      summary: Notify resources of job cancellation
+      tags:
+        - Job Notifications and Responses
+      description: >-
+        Send a message to all resources allocated to the job advising that it
+        has been cancelled.
+      responses:
+        '200':
+          description: Result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DispatchResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelRequest'
+        required: true
+  /oneoff:
+    post:
+      security:
+        - Authorization: []
+      summary: Send a message to a resource
+      description: Send a message to a resource via push notification or SMS.
+      tags:
+        - Job Notifications and Responses
+      responses:
+        '200':
+          description: Message sent
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - protocol
+                properties:
+                  protocol:
+                    description: The protocol the message was sent with.
+                    type: string
+                    enum:
+                      - push
+                      - sms
+        '400':
+          description: Message too long or invalid request body.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - resourceId
+                - message
+              properties:
+                resourceId:
+                  type: string
+                message:
+                  type: string
+                  description: >-
+                    Message to send to the resource. Message length is limited
+                    to 800 characters and must not be blank.
+                protocol:
+                  type: string
+                  description: >-
+                    The notification method to use to send the message. If not
+                    provided, the resource's default notification method is
+                    used.
+                  enum:
+                    - push
+                    - sms
+        required: true
+  /sms:
+    get:
+      security:
+        - Authorization: []
+      summary: Get metadata for sent SMS messages
+      description: >-
+        Get metadata including phone number, job and resource IDs and delivery
+        status for SMS messages that have been sent. The body of the message is
+        not included. Messages are returned in pages of 250 items, sorted by
+        creation time in descending order.
+      tags:
+        - SMS Messaging
+      parameters:
+        - name: cursor
+          description: Returns messages sent after the message with this cursor.
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SMSSentForTenant'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      security:
+        - Authorization: []
+      summary: Send an SMS to any phone number
+      description: >-
+        Send an SMS message to any phone number, such as a customer.
+
+
+        For example 'Thanks for confirming your booking'. Replies from the
+        recipient will not be tracked back to a job but can be used to trigger
+        an 'inbound_sms' webhook.
+      tags:
+        - SMS Messaging
+      responses:
+        '200':
+          description: Result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Phone number or country code was invalid, or message was too long.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - phoneNumber
+                - countryCode
+                - message
+              properties:
+                phoneNumber:
+                  type: string
+                  description: The phone number of the recipient.
+                countryCode:
+                  type: string
+                  description: The two character country code of the phone number.
+                message:
+                  type: string
+                  description: >-
+                    Message to send to the resource. Message length is limited
+                    to 800 characters and must not be blank.
+                expectsReply:
+                  type: boolean
+                  default: false
+                  description: >-
+                    Set to true if a reply is expected. The reply should be
+                    handled by an external process such as a webhook. If this
+                    flag is false or absent and the recipient sends a reply to
+                    the message, an error message will be sent back to them.
+        required: true
+  /sms/confirmation_request:
+    post:
+      security:
+        - Authorization: []
+      summary: Request confirmation by SMS
+      description: >-
+        Send an SMS message to any phone number, such as a customer, to request
+        confirmation that a job should proceed. This will set the job's
+        confirmation status to `Pending`. Upon receiving a Y/YES or N/NO SMS
+        message from the recipient, the job's confirmation status will be
+        updated accordingly.
+
+
+        Note that while a job's confirmation status is `Pending`, SMS
+        confirmation requests cannot be sent to the recipient for that job.
+
+
+        Note that a job's confirmation status is for use by custom workflows. It
+        does not affect the normal workflow of the job.
+      tags:
+        - SMS Messaging
+      responses:
+        '200':
+          description: Result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: >-
+            Phone number or country code was invalid, message was too long,
+            phone number already has a request outstanding, job has been
+            completed or cancelled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - phoneNumber
+                - countryCode
+                - jobId
+                - message
+              properties:
+                phoneNumber:
+                  type: string
+                  description: The phone number of the recipient.
+                countryCode:
+                  type: string
+                  description: The two character country code of the phone number.
+                jobId:
+                  type: string
+                  description: The UID of the job that this message relates to.
+                message:
+                  type: string
+                  description: >-
+                    Message to send to the resource. Message length is limited
+                    to 800 characters.
+        required: true
+  /offer/job/resource/{resource_job_offer_id}/accept:
+    post:
+      security:
+        - Authorization: []
+      summary: Accept a job offer
+      tags:
+        - Offers
+      description: >-
+        The offered job will be automatically allocated if the
+        `autoAllocateJobOffers` org preference is enabled. Schedulers and Admins
+        can accept any offer. Resources can only accept an offer that is
+        assigned to them. Stores the time the response was sent as either the
+        given timestamp or the current time if a time is not provided.
+      parameters:
+        - name: resource_job_offer_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AllocationActionTimestamp'
+        required: true
+      responses:
+        '200':
+          description: Result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessAndStatus'
+        default:
+          description: 'Error. '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /offer/job/resource/{resource_job_offer_id}/decline:
+    post:
+      security:
+        - Authorization: []
+      summary: Decline a job offer
+      tags:
+        - Offers
+      description: >-
+        Closes the offer. After an offer is declined, it cannot be subsequently
+        accepted. Schedulers and Admins can decline any offer. Resources can
+        only decline an offer that is assigned to them. Stores the time the
+        response was sent as either the given timestamp or the current time if a
+        time is not provided.
+      parameters:
+        - name: resource_job_offer_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AllocationActionTimestamp'
+        required: true
+      responses:
+        '200':
+          description: Result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessAndStatus'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /offer/job/{job_offer_id}/notify:
+    post:
+      security:
+        - Authorization: []
+      summary: Notify associated resources about a job offer
+      tags:
+        - Offers
+      description: >-
+        Send a notification to some or all resources who have an open offer on
+        the given job. Resources who have declined will not be notified. Each
+        resource's preferred notification method (push or SMS) will be used, if
+        set. If job offer notifications are disabled then no notifications will
+        be sent and an appropriate message will be returned in the response.
+      parameters:
+        - name: job_offer_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          List of Resource Job Offer IDs to notify. This is optional -- if not
+          present, all resources will be notified.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotifyResources'
+        required: false
+      responses:
+        '200':
+          description: The results of notifying each resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotifyResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /offer/shift/resource/{resource_shift_offer_id}/accept:
+    post:
+      security:
+        - Authorization: []
+      summary: Accept a shift offer
+      tags:
+        - Offers
+      description: >-
+        The offered shift will be automatically allocated if the
+        `autoAllocateShiftOffers` org preference is enabled. Schedulers and
+        Admins can accept any offer. Resources can only accept an offer that is
+        assigned to them. Stores the time the response was sent as either the
+        given timestamp or the current time if a time is not provided.
+      parameters:
+        - name: resource_shift_offer_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AllocationActionTimestamp'
+        required: true
+      responses:
+        '200':
+          description: Result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessAndStatus'
+        default:
+          description: 'Error. '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /offer/job/{job_offer_id}/cancel:
+    post:
+      security:
+        - Authorization: []
+      summary: Cancel a job offer
+      tags:
+        - Offers
+      description: >-
+        Cancels the job offer. After an offer is cancelled, it cannot be
+        subsequently accepted. Also cancels any associated pending resource jobs
+        offers
+      parameters:
+        - name: job_offer_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The IDs of the ResourceJobOffers that were cancelled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelOfferResponse'
+        default:
+          description: 'Error. '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /offer/shift/resource/{resource_shift_offer_id}/decline:
+    post:
+      security:
+        - Authorization: []
+      summary: Decline a shift offer
+      tags:
+        - Offers
+      description: >-
+        Closes the offer. After an offer is declined, it cannot be subsequently
+        accepted. Schedulers and Admins can decline any offer. Resources can
+        only decline an offer that is assigned to them. Stores the time the
+        response was sent as either the given timestamp or the current time if a
+        time is not provided.
+      parameters:
+        - name: resource_shift_offer_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AllocationActionTimestamp'
+        required: true
+      responses:
+        '200':
+          description: Result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessAndStatus'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /offer/shift/{shift_offer_id}/notify:
+    post:
+      security:
+        - Authorization: []
+      summary: Notify associated resources about a shift offer
+      tags:
+        - Offers
+      description: >-
+        Send a notification to some or all resources who have an open offer on
+        the given shift. Resources who have declined will not be notified. Each
+        resource's preferred notification method (push or SMS) will be used, if
+        set.
+      parameters:
+        - name: shift_offer_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          List of Resource Shift Offer IDs to notify. This is optional: if not
+          present, all resources will be notified.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotifyResources'
+        required: false
+      responses:
+        '200':
+          description: The results of notifying each resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotifyResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /device_id:
+    post:
+      security:
+        - Authorization: []
+      summary: Register a device ID
+      tags:
+        - Device Notification Information and Registration
+      description: Register a device ID.
+      responses:
+        '200':
+          description: Result
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceIDRequest'
+        required: true
+    delete:
+      security:
+        - Authorization: []
+      summary: Delete device ID
+      tags:
+        - Device Notification Information and Registration
+      description: Delete device ID.
+      responses:
+        '200':
+          description: Result
+        '404':
+          description: Device information for this user cannot be found.
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/templates/defaults:
+    get:
+      security:
+        - Authorization: []
+      summary: Notification template default values
+      description: Fetch the default values for notification templates.
+      tags:
+        - Notification Templates
+      responses:
+        '200':
+          description: Result
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NotificationTemplateV2Defaults'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/templates:
+    get:
+      security:
+        - Authorization: []
+      summary: Get all notification templates
+      tags:
+        - Notification Templates
+      responses:
+        '200':
+          description: Result
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                  - error
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NotificationTemplateV2'
+                  error:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NotificationTemplateV2Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/template/{type}/{protocol}:
+    parameters:
+      - $ref: '#/components/parameters/NotificationTemplateType'
+      - $ref: '#/components/parameters/NotificationTemplateProtocol'
+    post:
+      security:
+        - Authorization: []
+      summary: Create or update a notification template for a protocol
+      tags:
+        - Notification Templates
+      operationId: templateV2Upsert
+      responses:
+        '200':
+          description: Successfully created or updated.
+        '403':
+          description: If the user does not have the required permissions.
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                template:
+                  type: string
+                  description: >-
+                    A notification template to use for this protocol. Accepts
+                    Mustache style variables that point at schema fields and a
+                    small number of Handlebar handlers.
+                  example: >-
+                    New {{ Name }}. {{ Start }}. {{first Address "Unknown
+                    Address" }}. For {{first Account.Name Contact.FullName
+                    "Unknown Customer" }}, {{ Duration }}.
+        required: true
+    delete:
+      security:
+        - Authorization: []
+      summary: Delete notification template
+      description: >-
+        Delete the notification template associated with a message protocol. Any
+        future messages sent through this protocol will use the default
+        template.
+      tags:
+        - Notification Templates
+      responses:
+        '200':
+          description: Successfully deleted
+        '403':
+          description: If the user does not have the required permissions.
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  requestBodies:
+    NotifyRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotifyRequest'
+      required: true
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    MsgType:
+      name: msgType
+      in: path
+      required: true
+      schema:
+        type: string
+        enum:
+          - sms
+          - push
+    NotificationTemplateType:
+      name: type
+      in: path
+      required: true
+      schema:
+        type: string
+        enum:
+          - job_dispatch
+          - job_reminder
+          - job_cancelled
+          - job_offer
+    NotificationTemplateProtocol:
+      name: protocol
+      in: path
+      required: true
+      schema:
+        type: string
+        enum:
+          - sms
+          - push
+  schemas:
+    DeviceIDRequest:
+      type: object
+      required:
+        - deviceId
+        - platform
+      properties:
+        deviceId:
+          type: string
+        platform:
+          type: string
+          enum:
+            - Skedulo-X-iOS
+            - Skedulo-X-Android
+        features:
+          type: object
+          description: >-
+            This field is optional for backwards compatibility reasons (all
+            features defaults to false if not provided).
+          properties:
+            chat:
+              type: boolean
+              description: >-
+                Whether this device can has team chat functionality (e.g. can
+                understand push notifications for chat).
+    DestinationInfo:
+      type: object
+      required:
+        - sms
+        - push
+      properties:
+        sms:
+          $ref: '#/components/schemas/Destination'
+        push:
+          $ref: '#/components/schemas/Destination'
+    DevicesInfo:
+      description: A mapping from resource ID to device info
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/DestinationInfo'
+    Destination:
+      type: object
+      required:
+        - isValid
+      properties:
+        isValid:
+          type: boolean
+        errorMsg:
+          type: string
+        errorKey:
+          type: string
+          enum:
+            - no_protocol
+            - invalid_protocol
+            - invalid_country_code
+            - invalid_number
+            - no_device
+            - no_country_code
+            - no_number
+    NotifyRequest:
+      type: object
+      required:
+        - jobId
+      properties:
+        jobId:
+          type: string
+        resourceId:
+          type: string
+        resourceIds:
+          type: array
+          items:
+            type: string
+    CancelRequest:
+      type: object
+      required:
+        - jobId
+      properties:
+        jobId:
+          type: string
+    DispatchResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          required:
+            - jobId
+            - results
+          properties:
+            jobId:
+              type: string
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResourceResult'
+    NotifyResources:
+      type: object
+      properties:
+        resourceOfferIds:
+          type: array
+          items:
+            type: string
+    NotifyResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceResult'
+    AllocationActionTimestamp:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+    GetNotificationTemplatesResponse:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationTemplate'
+    UpsertNotificationTemplateResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/NotificationTemplate'
+    NotificationTemplate:
+      type: object
+      required:
+        - msgType
+        - template
+        - createDate
+        - modifyDate
+      properties:
+        msgType:
+          type: string
+          enum:
+            - sms
+            - push
+        template:
+          type: string
+          description: The template string used to generate the notification template
+        createDate:
+          type: string
+          format: dateTime
+          description: The date / time the template was created
+        modifyDate:
+          type: string
+          format: dateTime
+          description: The date / time the template was last modified
+    NotificationTemplateV2Defaults:
+      type: object
+      required:
+        - job_dispatch
+        - job_reminder
+        - job_cancelled
+        - job_offer
+      properties:
+        job_dispatch:
+          $ref: '#/components/schemas/NotificationTemplateV2Template'
+        job_reminder:
+          $ref: '#/components/schemas/NotificationTemplateV2Template'
+        job_cancelled:
+          $ref: '#/components/schemas/NotificationTemplateV2Template'
+        job_offer:
+          $ref: '#/components/schemas/NotificationTemplateV2Template'
+      additionalProperties: false
+    NotificationTemplateV2:
+      type: object
+      required:
+        - type
+        - protocol
+        - schema
+        - template
+      properties:
+        type:
+          type: string
+          enum:
+            - job_dispatch
+            - job_reminder
+            - job_cancelled
+            - job_offer
+        protocol:
+          type: string
+          enum:
+            - sms
+            - push
+        schema:
+          type: string
+        template:
+          $ref: '#/components/schemas/NotificationTemplateV2Template'
+    NotificationTemplateV2Template:
+      type: object
+      required:
+        - text
+        - parts
+      properties:
+        text:
+          type: string
+        parts:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationTemplateV2Part'
+    NotificationTemplateV2Part:
+      type: object
+      discriminator:
+        propertyName: type
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - text
+            - variable
+            - function
+    NotificationTemplateV2PartText:
+      allOf:
+        - $ref: '#/components/schemas/NotificationTemplateV2Part'
+      required:
+        - value
+      properties:
+        value:
+          type: string
+    NotificationTemplateV2PartVariable:
+      allOf:
+        - $ref: '#/components/schemas/NotificationTemplateV2Part'
+      required:
+        - value
+      properties:
+        value:
+          type: string
+    NotificationTemplateV2PartFunction:
+      allOf:
+        - $ref: '#/components/schemas/NotificationTemplateV2Part'
+      discriminator:
+        propertyName: name
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          enum:
+            - first
+    NotificationTemplateV2PartFunctionFirst:
+      allOf:
+        - $ref: '#/components/schemas/NotificationTemplateV2PartFunction'
+      discriminator:
+        propertyName: name
+      required:
+        - vars
+      properties:
+        vars:
+          description: Non-empty array
+          type: array
+          items:
+            type: string
+        default:
+          type: string
+          nullable: true
+    NotificationTemplateV2Error:
+      type: object
+      required:
+        - type
+        - protocol
+        - template
+        - error
+      properties:
+        type:
+          type: string
+          enum:
+            - job_dispatch
+            - job_reminder
+            - job_cancelled
+            - job_offer
+        protocol:
+          type: string
+          enum:
+            - sms
+            - push
+        template:
+          type: string
+        error:
+          description: A description of the error
+          type: string
+    ResourceResult:
+      type: object
+      properties:
+        resourceId:
+          type: string
+        protocol:
+          type: string
+        error:
+          description: null if the notification was sent successfully
+          $ref: '#/components/schemas/Error'
+    Success:
+      type: object
+      properties:
+        success:
+          type: boolean
+          default: true
+    SuccessAndStatus:
+      type: object
+      properties:
+        success:
+          type: boolean
+          default: true
+        status:
+          type: string
+          enum:
+            - Accepted
+            - Declined
+            - Allocated
+    CancelOfferResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          required:
+            - result
+          properties:
+            cancelledResourceJobOfferIds:
+              type: array
+              items:
+                type: string
+              example:
+                - 001449b0-1130-4e8c-9b8d-d30d812db84b
+                - 001334b0-1130-5e8c-9b8d-d30d812db84b
+    Error:
+      type: object
+      required:
+        - errorType
+        - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+    SMSSentForTenant:
+      type: object
+      required:
+        - key
+        - to
+        - status
+        - created
+        - updated
+        - cursor
+      properties:
+        key:
+          type: object
+          required:
+            - vendor
+            - id
+          properties:
+            vendor:
+              type: string
+            id:
+              type: string
+        to:
+          type: string
+          description: E164 phone number that the SMS was sent to
+        status:
+          type: string
+          description: >-
+            Should be one of the following strings: accepted, delivered, failed,
+            queued, sending, sent, undelivered
+        resourceId:
+          type: string
+          nullable: true
+        jobId:
+          type: string
+          nullable: true
+        created:
+          type: string
+          format: date-time
+          description: The time when the SMS was created
+        updated:
+          type: string
+          format: date-time
+          description: The time when the SMS last had its status updated
+        cursor:
+          type: string
+          description: >-
+            A string to pass as the cursor GET parameter to fetch records that
+            occur after this one
+    EmailRecipient:
+      type: object
+      required:
+        - email
+      properties:
+        name:
+          type: string
+          description: Name of this recipient
+        email:
+          type: string
+          format: email
+      example:
+        name: John Doe
+        email: john.doe@company.com
+    NotificationLogEntry:
+      type: object
+      discriminator:
+        propertyName: type
+      required:
+        - timestamp
+        - referenceId
+        - type
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        referenceId:
+          description: The identifier of the object that the notification was for
+          type: string
+        type:
+          type: string
+          enum:
+            - job
+            - shift
+    JobNotificationLogEntry:
+      allOf:
+        - $ref: '#/components/schemas/NotificationLogEntry'
+      required:
+        - action
+      properties:
+        action:
+          type: string
+          enum:
+            - new
+            - cancelled
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        description:
+          type: string
+    ShiftNotificationLogEntry:
+      allOf:
+        - $ref: '#/components/schemas/NotificationLogEntry'
+      required:
+        - action
+        - start
+        - end
+      properties:
+        action:
+          type: string
+          enum:
+            - new
+            - changed
+            - cancelled
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+servers:
+  - url: https://api.skedulo.com/notifications
+  - url: https://api.uk.skedulo.com/notifications
+  - url: https://api.ca.skedulo.com/notifications
+  - url: https://api.au.skedulo.com/notifications

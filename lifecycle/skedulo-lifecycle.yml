@@ -1,0 +1,19 @@
+generated: '2026-07-21'
+method: searched
+source: https://developer.skedulo.com/
+versioning:
+  scheme: per-service semantic versions in OpenAPI info.version; some paths carry
+    version segments (e.g. /v2/templates, /config/team/mobile/v3)
+  current: 1.0.0 (majority of services)
+regions:
+- api.skedulo.com (US/global)
+- api.au.skedulo.com (AU)
+- api.uk.skedulo.com (UK)
+- api.ca.skedulo.com (CA)
+status_page: https://status.skedulo.com
+deprecation:
+  observed: Several authorization/permission docs are explicitly marked deprecated
+    (object-and-field, role-based, insufficient-access); no formal RFC 8594 Sunset-header
+    policy documented.
+  policy_url: null
+support: https://support.skedulo.com

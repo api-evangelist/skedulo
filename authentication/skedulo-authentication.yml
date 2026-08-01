@@ -1,0 +1,63 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/skedulo-authentication-openapi.yml, openapi/skedulo-authorization-openapi.yml,
+  openapi/skedulo-availability-openapi.yml, openapi/skedulo-changehistory-openapi.yml,
+  openapi/skedulo-configurations-openapi.yml, openapi/skedulo-customfields-openapi.yml,
+  openapi/skedulo-files-openapi.yml, openapi/skedulo-geoservices-openapi.yml, openapi/skedulo-graphql-openapi.yml,
+  openapi/skedulo-ical-openapi.yml, openapi/skedulo-notifications-openapi.yml, openapi/skedulo-onboarding-openapi.yml
+  ...
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: Authorization
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/skedulo-authentication-openapi.yml
+  - openapi/skedulo-authorization-openapi.yml
+  - openapi/skedulo-availability-openapi.yml
+  - openapi/skedulo-changehistory-openapi.yml
+  - openapi/skedulo-configurations-openapi.yml
+  - openapi/skedulo-customfields-openapi.yml
+  - openapi/skedulo-files-openapi.yml
+  - openapi/skedulo-graphql-openapi.yml
+  - openapi/skedulo-ical-openapi.yml
+  - openapi/skedulo-notifications-openapi.yml
+  - openapi/skedulo-onboarding-openapi.yml
+  - openapi/skedulo-optimization-openapi.yml
+  - openapi/skedulo-planr-openapi.yml
+  - openapi/skedulo-recurring-openapi.yml
+  - openapi/skedulo-rules-openapi.yml
+  - openapi/skedulo-schedule-openapi.yml
+  - openapi/skedulo-triggered-actions-openapi.yml
+  - openapi/skedulo-webhooks-openapi.yml
+- name: Authorization
+  type: apiKey
+  in: header
+  parameter: Authorization
+  sources:
+  - openapi/skedulo-geoservices-openapi.yml
+  - openapi/skedulo-resource-tracking-openapi.yml
+docs: https://developer.skedulo.com/developer-guides/deskless-productivity-cloud/authentication-and-authorization/authentication-for-skedulo/authentication-requirements-api-tokens/
+model:
+  type: Bearer JWT API token
+  header: 'Authorization: Bearer <token>'
+  token_management: Admins create/manage API tokens in the Skedulo web app under Developer
+    Tools > API tokens.
+  create_token: POST https://api.skedulo.com/auth/token (bearer a session JWT; empty
+    {} body for a long-lived token or an expiry).
+  whoami: GET https://api.skedulo.com/auth/whoami
+  api_user: A dedicated Skedulo API user can be designated (POST /auth/api_user) to
+    own integration access.
+  salesforce: Skedulo for Salesforce uses OAuth/connected-app based auth from the
+    managed package.
+  regions:
+  - api.skedulo.com
+  - api.au.skedulo.com
+  - api.uk.skedulo.com
+  - api.ca.skedulo.com

@@ -1,0 +1,48 @@
+generated: '2026-07-21'
+method: searched
+source: https://www.npmjs.com/org/skedulo
+packages:
+- language: javascript
+  registry: npm
+  name: '@skedulo/sdk'
+  url: https://www.npmjs.com/package/@skedulo/sdk
+  install: yarn global add @skedulo/sdk
+  official: true
+  notes: Skedulo SDK; provides the `sked` CLI and developer tooling.
+- language: javascript
+  registry: npm
+  name: '@skedulo/integration-sdk'
+  url: https://www.npmjs.com/package/@skedulo/integration-sdk
+  install: npm install @skedulo/integration-sdk
+  official: true
+  notes: Runtime SDK for Skedulo integration data flows.
+- language: javascript
+  registry: npm
+  name: '@skedulo/sked-ui'
+  url: https://www.npmjs.com/package/@skedulo/sked-ui
+  install: npm install @skedulo/sked-ui
+  official: true
+  notes: 'Skedulo UI component library (demo: https://ui.skedulo.com).'
+- language: javascript
+  registry: npm
+  name: '@skedulo/eql'
+  url: https://www.npmjs.com/package/@skedulo/eql
+  install: npm install @skedulo/eql
+  official: true
+  notes: TypeScript parser for Skedulo's Entity Query Language (EQL).
+- language: javascript
+  registry: npm
+  name: '@skedulo/mcp-client'
+  url: https://www.npmjs.com/package/@skedulo/mcp-client
+  install: npm install @skedulo/mcp-client
+  official: true
+  notes: Client for the Skedulo MCP server.
+- language: javascript
+  registry: npm
+  name: '@skedulo/optimization-manager-client'
+  url: https://www.npmjs.com/package/@skedulo/optimization-manager-client
+  install: npm install @skedulo/optimization-manager-client
+  official: true
+  notes: Client for the Optimization Manager API.
+note: All packages published under the official @skedulo npm org. The unofficial @skedip
+  scope is a third party and excluded.
