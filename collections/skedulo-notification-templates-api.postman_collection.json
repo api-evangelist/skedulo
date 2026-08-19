@@ -1,0 +1,802 @@
+{
+  "item": [
+    {
+      "id": "d2e96084-be0e-4af2-9403-81f21a54612c",
+      "name": "Notification Templates",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8a2aca2f-6dc7-4e98-b2b4-70d4461efd00",
+          "name": "Notification template default values",
+          "request": {
+            "name": "Notification template default values",
+            "description": {
+              "content": "Fetch the default values for notification templates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "templates",
+                "defaults"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e1670dfb-15ad-464f-9350-66787199fb8b",
+              "name": "Result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "templates",
+                    "defaults"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"job_dispatch\": {\n        \"text\": \"string\",\n        \"parts\": [\n          {\n            \"type\": \"text\"\n          },\n          {\n            \"type\": \"function\"\n          }\n        ]\n      },\n      \"job_reminder\": {\n        \"text\": \"string\",\n        \"parts\": [\n          {\n            \"type\": \"text\"\n          },\n          {\n            \"type\": \"text\"\n          }\n        ]\n      },\n      \"job_cancelled\": {\n        \"text\": \"string\",\n        \"parts\": [\n          {\n            \"type\": \"function\"\n          },\n          {\n            \"type\": \"function\"\n          }\n        ]\n      },\n      \"job_offer\": {\n        \"text\": \"string\",\n        \"parts\": [\n          {\n            \"type\": \"variable\"\n          },\n          {\n            \"type\": \"function\"\n          }\n        ]\n      }\n    },\n    {\n      \"job_dispatch\": {\n        \"text\": \"string\",\n        \"parts\": [\n          {\n            \"type\": \"function\"\n          },\n          {\n            \"type\": \"variable\"\n          }\n        ]\n      },\n      \"job_reminder\": {\n        \"text\": \"string\",\n        \"parts\": [\n          {\n            \"type\": \"text\"\n          },\n          {\n            \"type\": \"function\"\n          }\n        ]\n      },\n      \"job_cancelled\": {\n        \"text\": \"string\",\n        \"parts\": [\n          {\n            \"type\": \"text\"\n          },\n          {\n            \"type\": \"variable\"\n          }\n        ]\n      },\n      \"job_offer\": {\n        \"text\": \"string\",\n        \"parts\": [\n          {\n            \"type\": \"text\"\n          },\n          {\n            \"type\": \"function\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b21ec4d-0954-4629-af3f-5a0593fefcf3",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "templates",
+                    "defaults"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fefa1b78-b2e1-4181-9b89-baaec820f9a3",
+          "name": "Get all notification templates",
+          "request": {
+            "name": "Get all notification templates",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "templates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ad300b23-dc61-4410-82e9-fa8800dea659",
+              "name": "Result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"type\": \"job_dispatch\",\n      \"protocol\": \"sms\",\n      \"schema\": \"string\",\n      \"template\": {\n        \"text\": \"string\",\n        \"parts\": [\n          {\n            \"type\": \"variable\"\n          },\n          {\n            \"type\": \"text\"\n          }\n        ]\n      }\n    },\n    {\n      \"type\": \"job_reminder\",\n      \"protocol\": \"push\",\n      \"schema\": \"string\",\n      \"template\": {\n        \"text\": \"string\",\n        \"parts\": [\n          {\n            \"type\": \"variable\"\n          },\n          {\n            \"type\": \"variable\"\n          }\n        ]\n      }\n    }\n  ],\n  \"error\": [\n    {\n      \"type\": \"job_cancelled\",\n      \"protocol\": \"push\",\n      \"template\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"type\": \"job_cancelled\",\n      \"protocol\": \"sms\",\n      \"template\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43c82cef-6736-42dd-9c5c-e9fc1145928e",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bea35c43-41b1-4c78-b473-b20e034283d2",
+          "name": "Create or update a notification template for a protocol",
+          "request": {
+            "name": "Create or update a notification template for a protocol",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "template",
+                ":type",
+                ":protocol"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "type",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "protocol",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"template\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "28492c97-8332-4ac8-beb4-c748a6b6f476",
+              "name": "Successfully created or updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    ":type",
+                    ":protocol"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "protocol",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"template\": \"New {{ Name }}. {{ Start }}. {{first Address \\\"Unknown Address\\\" }}. For {{first Account.Name Contact.FullName \\\"Unknown Customer\\\" }}, {{ Duration }}.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3afe69d5-0ce9-49d1-ab51-2fe5b8e7ae98",
+              "name": "If the user does not have the required permissions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    ":type",
+                    ":protocol"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "protocol",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"template\": \"New {{ Name }}. {{ Start }}. {{first Address \\\"Unknown Address\\\" }}. For {{first Account.Name Contact.FullName \\\"Unknown Customer\\\" }}, {{ Duration }}.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "22258739-e0e2-4392-9933-6fc8be5d035e",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    ":type",
+                    ":protocol"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "protocol",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"template\": \"New {{ Name }}. {{ Start }}. {{first Address \\\"Unknown Address\\\" }}. For {{first Account.Name Contact.FullName \\\"Unknown Customer\\\" }}, {{ Duration }}.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fd15d522-cddc-49ab-8fe9-e6ecaea332d2",
+          "name": "Delete notification template",
+          "request": {
+            "name": "Delete notification template",
+            "description": {
+              "content": "Delete the notification template associated with a message protocol. Any future messages sent through this protocol will use the default template.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "template",
+                ":type",
+                ":protocol"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "type",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "protocol",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bd76266a-a86f-493f-b119-f096b55275f8",
+              "name": "Successfully deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    ":type",
+                    ":protocol"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "protocol",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "293d757e-77ad-4572-8b1e-41029c9b44db",
+              "name": "If the user does not have the required permissions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    ":type",
+                    ":protocol"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "protocol",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5dce5715-d6e1-4569-a617-e07fc8fc1715",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    ":type",
+                    ":protocol"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "protocol",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "beea7c89-dd06-4410-9030-696020b91f24",
+    "name": "Authentication Admin Notification Templates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

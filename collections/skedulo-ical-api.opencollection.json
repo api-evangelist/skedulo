@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin ICal API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ICal",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch an iCal for the given token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The token"
+              }
+            ]
+          },
+          "docs": "Fetch an iCal for the given token"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

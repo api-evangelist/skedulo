@@ -1,0 +1,220 @@
+{
+  "item": [
+    {
+      "id": "a0470f6b-b205-4fb7-b2ed-2c40ca86386c",
+      "name": "Resource allocations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d6995e18-a764-488e-bd17-2d38be157efd",
+          "name": "Create/update job allocations for resources",
+          "request": {
+            "name": "Create/update job allocations for resources",
+            "description": {
+              "content": "Create or update job allocations for certain resources",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedules",
+                "job_allocations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"<dateTime>\",\n  \"recurringScheduleId\": \"<string>\",\n  \"resourceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"jobAllocBase\": {\n    \"key_0\": true\n  },\n  \"excludeJobIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cf609ecb-22d7-4164-b766-ab2cb44765b5",
+              "name": "Jobs allocations has been successfully created or updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    "job_allocations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"2017-05-17T03:30:00Z\",\n  \"recurringScheduleId\": \"<string>\",\n  \"resourceIds\": [\n    \"res_1\",\n    \"res_2\"\n  ],\n  \"jobAllocBase\": {\n    \"Hours\": 5,\n    \"NotificationType\": \"push\"\n  },\n  \"excludeJobIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"inserted\": [\n      \"string\",\n      \"string\"\n    ],\n    \"updated\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df90ceef-1542-4325-b7eb-e250c686f39d",
+          "name": "Delete job allocation",
+          "request": {
+            "name": "Delete job allocation",
+            "description": {
+              "content": "Delete job allocations for certain resources",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedules",
+                "job_allocations",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"<dateTime>\",\n  \"recurringScheduleId\": \"<string>\",\n  \"resourceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "64715a78-62f1-479f-9f3b-d7988671b2fd",
+              "name": "Job allocations deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    "job_allocations",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"2017-05-17T03:30:00Z\",\n  \"recurringScheduleId\": \"<string>\",\n  \"resourceIds\": [\n    \"res_1\",\n    \"res_2\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"job_1\": [\n      \"job_alloc_1\",\n      \"job_alloc_2\"\n    ],\n    \"job_2\": [\n      \"job_alloc_3\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "243a98ab-b651-4941-9569-7fff1d48fd88",
+    "name": "Authentication Admin Resource allocations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

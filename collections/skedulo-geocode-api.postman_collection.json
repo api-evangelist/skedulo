@@ -1,0 +1,190 @@
+{
+  "item": [
+    {
+      "id": "f60d281d-9ff0-4318-bc95-f8e499ee7667",
+      "name": "Geocode",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8b67964c-de33-44a1-8b65-aa3a3fc1eee8",
+          "name": "Geocode an address",
+          "request": {
+            "name": "Geocode an address",
+            "description": {
+              "content": "For a given list of addreseses, returns a list of geocoded `LatLng`, or errors.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geocode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"language\": \"<string>\",\n  \"responseType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ee06671c-512c-4c7c-b8ea-e4462a269230",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geocode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"language\": \"<string>\",\n  \"responseType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"GeocodeSuccess\": {\n        \"address\": \"string\",\n        \"latlng\": {\n          \"lat\": 9663.172379500127,\n          \"lng\": 4069.9355777485525\n        },\n        \"granularity\": \"streetAddress\"\n      },\n      \"GeocodeFailure\": {\n        \"address\": \"string\",\n        \"reason\": {\n          \"msg\": \"string\"\n        }\n      },\n      \"GeocodeMultipleMatchSuccess\": [\n        {\n          \"address\": \"string\",\n          \"latlng\": {\n            \"lat\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lng\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"granularity\": \"other\"\n        },\n        {\n          \"address\": \"string\",\n          \"latlng\": {\n            \"lat\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lng\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"granularity\": \"streetAddress\"\n        }\n      ]\n    },\n    {\n      \"GeocodeSuccess\": {\n        \"address\": \"string\",\n        \"latlng\": {\n          \"lat\": 8810.809602195775,\n          \"lng\": 1448.5540368954864\n        },\n        \"granularity\": \"streetAddress\"\n      },\n      \"GeocodeFailure\": {\n        \"address\": \"string\",\n        \"reason\": {\n          \"msg\": \"string\"\n        }\n      },\n      \"GeocodeMultipleMatchSuccess\": [\n        {\n          \"address\": \"string\",\n          \"latlng\": {\n            \"lat\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lng\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"granularity\": \"other\"\n        },\n        {\n          \"address\": \"string\",\n          \"latlng\": {\n            \"lat\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lng\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"granularity\": \"other\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80261fa9-50c6-4e4e-97d2-6b542cf2e95d",
+              "name": "unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geocode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"language\": \"<string>\",\n  \"responseType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9d2a27f2-180f-4711-9709-fcb3cd7b5b70",
+    "name": "Authentication Admin Geocode API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

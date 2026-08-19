@@ -1,0 +1,186 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Availability API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Availability",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch resource availability",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/availability",
+            "params": [
+              {
+                "name": "resource_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated string of resource IDs. There must be at least one ID and at most 200."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Instant to fetch from."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "Instant to fetch to, must be after start and within 375 days of it."
+              },
+              {
+                "name": "availability",
+                "value": "",
+                "type": "query",
+                "description": "Should availability be returned"
+              },
+              {
+                "name": "unavailability",
+                "value": "",
+                "type": "query",
+                "description": "Should unavailability be returned"
+              }
+            ]
+          },
+          "docs": "Fetch resource availability between a time period. The returned availability intervals are not trimmed to the request interval, so some intervals might extend beyond the request interval's bounds."
+        },
+        {
+          "info": {
+            "name": "Resource availability",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/availability",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetch resource availability between a time period."
+        },
+        {
+          "info": {
+            "name": "Fetch resource availability in a simplified format",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/availability/simple",
+            "params": [
+              {
+                "name": "resource_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated string of resource IDs. There must be at least one ID and at most 200."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Instant to fetch from."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "Instant to fetch to, must be after start and within 375 days of it."
+              },
+              {
+                "name": "mergedAvailabilities",
+                "value": "",
+                "type": "query",
+                "description": "If true, merged availability time intervals are returned with the result."
+              },
+              {
+                "name": "entries",
+                "value": "",
+                "type": "query",
+                "description": "If true or omitted, the list of availability entries is returned."
+              }
+            ]
+          },
+          "docs": "Fetch resource availability between a time period in a simplified format. The returned availability intervals are not trimmed to the request interval, so some intervals might extend beyond the request interval's bounds. This method is deprecated and replaced by the POST method."
+        },
+        {
+          "info": {
+            "name": "Fetch resource availability in a simplified format",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/availability/simple",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetch resource availability between a time period. This method is functionally the same as the GET method, but supports filters via the `availabilityFilterValues` array or `availabilityFilterEntityIds` map and replaces the deprecated GET method. Returned intervals might extend beyond the requested bounds."
+        },
+        {
+          "info": {
+            "name": "Fetch available resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/availability/resources",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetch available resources for given criteria in a time period. Must specify at least one of `resourceIds` or `regionIds`. Note that the `regionIds` filter only restricts the list of resources to query the availabilities for; resource availability is global, there is no concept of per-region availability in the system. The returned availability intervals are not trimmed to the request interval, so some intervals might extend beyond the request interval's bounds."
+        },
+        {
+          "info": {
+            "name": "Upsert availability patterns",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/availability/patterns",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or update availability patterns and the related resources.\n\nIf a UID is present on the pattern it will be updated, otherwise a new pattern will be created."
+        },
+        {
+          "info": {
+            "name": "Retrieve information about the status of the Availability Template to Pattern migration.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/availability/migrate_to_patterns/status"
+          },
+          "docs": "Retrieve information about the status of the Availability Template to Pattern migration. The Availability Patterns feature flag must be enabled in the org before calling this endpoint."
+        },
+        {
+          "info": {
+            "name": "Migrate all Availability Templates to Patterns in the org.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/availability/migrate_to_patterns/migrate"
+          },
+          "docs": "Migrate all Availability Template and Availability Template Resource objects in the org to Availability Pattern and Availability Pattern Resource objects, respectively.\n\nThe Availability Patterns feature flag must be enabled in the org before calling this endpoint. No data is deleted by the migration process. The operation is idempotent, meaning that calling the endpoint multiple times will migrate every object only once. If the operation was interrupted or not all objects could be migrated due "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,801 @@
+{
+  "item": [
+    {
+      "id": "d3f7c6ef-6a2a-4df9-9b05-6e4670d8784a",
+      "name": "Recipe",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fd1c3df0-5a80-459f-9916-74c685ed5d72",
+          "name": "Get a list of recipes",
+          "request": {
+            "name": "Get a list of recipes",
+            "description": {
+              "content": "Returns a paginated list of optimization recipes visible to the authenticated tenant. Recipes encapsulate optimizer configuration and can be filtered by name, description, status, system flag, and the user who created or last modified them.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recipe"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Match part of the recipe name"
+                },
+                {
+                  "disabled": false,
+                  "key": "description",
+                  "value": "<string>",
+                  "description": "Match part of the recipe description"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Recipe status: active, archived"
+                },
+                {
+                  "disabled": false,
+                  "key": "system",
+                  "value": "<string>",
+                  "description": "System flag: true/false"
+                },
+                {
+                  "disabled": false,
+                  "key": "createdByVendorUserId",
+                  "value": "<string>",
+                  "description": "Filter on the Vendor UserId of the Vendor User that created this Recipe. Accepts `null` to explicitly filter by empty value"
+                },
+                {
+                  "disabled": false,
+                  "key": "modifiedByVendorUserId",
+                  "value": "<string>",
+                  "description": "Filter on the Vendor UserId Of the Vendor User that last modified this Recipe. Accepts `null` to explicitly filter by empty value"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort in format column,direction. Valid columns: name, system, modifiedByVendorUserId, createdByVendorUserId. Valid directions: asc, desc. e.g. sort=name,desc"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "972dad4e-2e2f-4e60-8cc5-743e74306f66",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recipe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "description",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "system",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdByVendorUserId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "modifiedByVendorUserId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paging\": {\n    \"limit\": 10,\n    \"total\": 3\n  },\n  \"result\": [\n    {\n      \"default\": true,\n      \"setAsDefaultBy\": {\n        \"userId\": \"skedulo\"\n      },\n      \"setAsDefaultAt\": \"2022-12-27T14:34:00Z\",\n      \"system\": true,\n      \"id\": \"a52a74c0-8d9e-4e4a-bce9-2d49d66517d7\",\n      \"name\": \"Least travel\",\n      \"description\": \"Minimize travel time\",\n      \"status\": \"active\",\n      \"objectiveWeights\": {\n        \"preferredResources\": 10,\n        \"minimizeDisruption\": 10,\n        \"travelTime\": 75,\n        \"softSkills\": 5,\n        \"jobsPriority\": 10\n      },\n      \"options\": {\n        \"ignoreTravelTime\": false,\n        \"ignoreTravelTimeFirstJob\": false,\n        \"ignoreTravelTimeLastJob\": false,\n        \"respectAllocationTimes\": false,\n        \"respectAllocationTimesOverTimeConstraints\": false,\n        \"respectSchedule\": false,\n        \"transformers\": [],\n        \"ignoreResourceOverrideLocations\": false,\n        \"allowPartiallyAllocatedJobs\": true,\n        \"allowPartiallyAllocatedJobDependencies\": true\n      },\n      \"createdAt\": \"2024-01-26T23:00:00Z\",\n      \"modifiedAt\": \"2024-01-26T23:00:00Z\",\n      \"createdBy\": {\n        \"userId\": \"skedulo\"\n      },\n      \"modifiedBy\": {\n        \"userId\": \"skedulo\"\n      }\n    },\n    {\n      \"default\": false,\n      \"system\": true,\n      \"id\": \"711db875-5cab-40be-a88b-58ee07a98def\",\n      \"name\": \"Least resources\",\n      \"description\": \"Minimize resources\",\n      \"status\": \"active\",\n      \"objectiveWeights\": {\n        \"preferredResources\": 10,\n        \"minimizeDisruption\": 10,\n        \"travelTime\": 35,\n        \"minimizeResources\": 50,\n        \"softSkills\": 5\n      },\n      \"options\": {\n        \"ignoreTravelTime\": false,\n        \"ignoreTravelTimeFirstJob\": false,\n        \"ignoreTravelTimeLastJob\": false,\n        \"respectAllocationTimes\": false,\n        \"respectAllocationTimesOverTimeConstraints\": false,\n        \"respectSchedule\": false,\n        \"transformers\": [],\n        \"ignoreResourceOverrideLocations\": false,\n        \"allowPartiallyAllocatedJobs\": true,\n        \"allowPartiallyAllocatedJobDependencies\": true\n      },\n      \"createdAt\": \"2024-01-26T23:00:00Z\",\n      \"modifiedAt\": \"2024-01-26T23:00:00Z\",\n      \"createdBy\": {\n        \"userId\": \"skedulo\"\n      },\n      \"modifiedBy\": {\n        \"userId\": \"skedulo\"\n      }\n    },\n    {\n      \"default\": false,\n      \"system\": false,\n      \"tenantId\": \"tenant-1\",\n      \"id\": \"db739dbf-9813-4031-9bf2-47ced61d77f3\",\n      \"name\": \"Tenant 1 Custom Recipe 1\",\n      \"description\": \"Tenant 1 Custom Recipe 1 Description\",\n      \"status\": \"active\",\n      \"objectiveWeights\": {\n        \"travelTime\": 50,\n        \"minimizeResources\": 50\n      },\n      \"options\": {\n        \"ignoreTravelTime\": false,\n        \"ignoreTravelTimeFirstJob\": false,\n        \"ignoreTravelTimeLastJob\": false,\n        \"respectAllocationTimes\": false,\n        \"respectAllocationTimesOverTimeConstraints\": false,\n        \"respectSchedule\": false,\n        \"transformers\": [],\n        \"ignoreResourceOverrideLocations\": false,\n        \"allowPartiallyAllocatedJobs\": true,\n        \"allowPartiallyAllocatedJobDependencies\": true\n      },\n      \"createdAt\": \"2024-01-26T23:00:00Z\",\n      \"modifiedAt\": \"2024-01-26T23:00:00Z\",\n      \"createdBy\": {\n        \"userId\": \"auth0|user-1\",\n        \"vendorUserId\": \"user-1\"\n      },\n      \"modifiedBy\": {\n        \"userId\": \"auth0|user-1\",\n        \"vendorUserId\": \"user-1\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee962a1e-0e9f-4923-854b-00fa83e11ff6",
+              "name": "Invalid value for: query parameter name, Invalid value for: query parameter description, Invalid value for: query parameter status, Invalid value for: query parameter system, Invalid value for: query parameter createdByVendorUserId, Invalid value for: query parameter modifiedByVendorUserId, Invalid value for: query parameter sort",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recipe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "description",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "system",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdByVendorUserId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "modifiedByVendorUserId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba13fb81-a532-4730-a9a1-4331ea667ce4",
+          "name": "Create a new recipe",
+          "request": {
+            "name": "Create a new recipe",
+            "description": {
+              "content": "Creates a new optimization recipe for the authenticated tenant. The recipe encapsulates optimizer settings such as objective weights and feature options that can be referenced when starting optimization runs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recipe"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"objectiveWeights\": {\n    \"minimizeDisruption\": \"<integer>\",\n    \"balanceAbsoluteWorkload\": \"<integer>\",\n    \"travelTime\": \"<integer>\",\n    \"minimizeResources\": \"<integer>\",\n    \"softSkills\": \"<integer>\",\n    \"jobsPriority\": \"<integer>\",\n    \"resourceRating\": \"<integer>\",\n    \"scheduleImmediacy\": \"<integer>\",\n    \"urgency\": \"<integer>\",\n    \"overtime\": \"<integer>\"\n  },\n  \"options\": {\n    \"ignoreTravelTime\": \"<boolean>\",\n    \"ignoreTravelTimeFirstJob\": \"<boolean>\",\n    \"ignoreTravelTimeLastJob\": \"<boolean>\",\n    \"respectAllocationTimes\": \"<boolean>\",\n    \"respectAllocationTimesOverTimeConstraints\": \"<boolean>\",\n    \"respectSchedule\": \"<boolean>\",\n    \"allowPartiallyAllocatedJobs\": \"<boolean>\",\n    \"allowPartiallyAllocatedJobDependencies\": \"<boolean>\",\n    \"maxDailyTravelTimeInMinutes\": \"<long>\",\n    \"maxTravelTimeBetweenLocations\": \"<long>\",\n    \"snapUnit\": \"<integer>\",\n    \"padding\": \"<integer>\",\n    \"onJobRemoval\": [\n      \"<string>\"\n    ],\n    \"rollingScheduleWindowInterval\": {}\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fd8c8a2e-2b00-47bc-8f22-558317d5bf6e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recipe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Least travel\",\n  \"description\": \"Minimize travel time\",\n  \"objectiveWeights\": {\n    \"travelTime\": 100\n  },\n  \"options\": {\n    \"ignoreTravelTime\": false,\n    \"ignoreTravelTimeFirstJob\": false,\n    \"ignoreTravelTimeLastJob\": false,\n    \"respectAllocationTimes\": false,\n    \"respectAllocationTimesOverTimeConstraints\": false,\n    \"respectSchedule\": false,\n    \"transformers\": [],\n    \"ignoreResourceOverrideLocations\": false,\n    \"allowPartiallyAllocatedJobs\": true,\n    \"allowPartiallyAllocatedJobDependencies\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"default\": true,\n    \"setAsDefaultBy\": {\n      \"userId\": \"skedulo\"\n    },\n    \"setAsDefaultAt\": \"2022-12-27T14:34:00Z\",\n    \"system\": true,\n    \"id\": \"a52a74c0-8d9e-4e4a-bce9-2d49d66517d7\",\n    \"name\": \"Least travel\",\n    \"description\": \"Minimize travel time\",\n    \"status\": \"active\",\n    \"objectiveWeights\": {\n      \"preferredResources\": 10,\n      \"minimizeDisruption\": 10,\n      \"travelTime\": 75,\n      \"softSkills\": 5,\n      \"jobsPriority\": 10\n    },\n    \"options\": {\n      \"ignoreTravelTime\": false,\n      \"ignoreTravelTimeFirstJob\": false,\n      \"ignoreTravelTimeLastJob\": false,\n      \"respectAllocationTimes\": false,\n      \"respectAllocationTimesOverTimeConstraints\": false,\n      \"respectSchedule\": false,\n      \"transformers\": [],\n      \"ignoreResourceOverrideLocations\": false,\n      \"allowPartiallyAllocatedJobs\": true,\n      \"allowPartiallyAllocatedJobDependencies\": true\n    },\n    \"createdAt\": \"2024-01-26T23:00:00Z\",\n    \"modifiedAt\": \"2024-01-26T23:00:00Z\",\n    \"createdBy\": {\n      \"userId\": \"skedulo\"\n    },\n    \"modifiedBy\": {\n      \"userId\": \"skedulo\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d10e4eb8-b2d3-477e-9b8b-fd7c1e448607",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recipe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Least travel\",\n  \"description\": \"Minimize travel time\",\n  \"objectiveWeights\": {\n    \"travelTime\": 100\n  },\n  \"options\": {\n    \"ignoreTravelTime\": false,\n    \"ignoreTravelTimeFirstJob\": false,\n    \"ignoreTravelTimeLastJob\": false,\n    \"respectAllocationTimes\": false,\n    \"respectAllocationTimesOverTimeConstraints\": false,\n    \"respectSchedule\": false,\n    \"transformers\": [],\n    \"ignoreResourceOverrideLocations\": false,\n    \"allowPartiallyAllocatedJobs\": true,\n    \"allowPartiallyAllocatedJobDependencies\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "025f729a-600e-4788-9933-eb454c2cfbb7",
+          "name": "Get a recipe by id",
+          "request": {
+            "name": "Get a recipe by id",
+            "description": {
+              "content": "Returns the full configuration of a single recipe identified by its ID, including its name, description, status, and optimizer settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recipe",
+                ":recipeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recipeId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "8da95189-6f99-45ae-89df-44d0d806c7e8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recipe",
+                    ":recipeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recipeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"default\": true,\n    \"setAsDefaultBy\": {\n      \"userId\": \"skedulo\"\n    },\n    \"setAsDefaultAt\": \"2022-12-27T14:34:00Z\",\n    \"system\": true,\n    \"id\": \"a52a74c0-8d9e-4e4a-bce9-2d49d66517d7\",\n    \"name\": \"Least travel\",\n    \"description\": \"Minimize travel time\",\n    \"status\": \"active\",\n    \"objectiveWeights\": {\n      \"preferredResources\": 10,\n      \"minimizeDisruption\": 10,\n      \"travelTime\": 75,\n      \"softSkills\": 5,\n      \"jobsPriority\": 10\n    },\n    \"options\": {\n      \"ignoreTravelTime\": false,\n      \"ignoreTravelTimeFirstJob\": false,\n      \"ignoreTravelTimeLastJob\": false,\n      \"respectAllocationTimes\": false,\n      \"respectAllocationTimesOverTimeConstraints\": false,\n      \"respectSchedule\": false,\n      \"transformers\": [],\n      \"ignoreResourceOverrideLocations\": false,\n      \"allowPartiallyAllocatedJobs\": true,\n      \"allowPartiallyAllocatedJobDependencies\": true\n    },\n    \"createdAt\": \"2024-01-26T23:00:00Z\",\n    \"modifiedAt\": \"2024-01-26T23:00:00Z\",\n    \"createdBy\": {\n      \"userId\": \"skedulo\"\n    },\n    \"modifiedBy\": {\n      \"userId\": \"skedulo\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d86b6acd-5a7c-4cfb-b338-701b1456f4f3",
+          "name": "Update a recipe",
+          "request": {
+            "name": "Update a recipe",
+            "description": {
+              "content": "Replaces the configuration of an existing recipe identified by its ID. This will affect any future optimization runs that reference this recipe.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recipe",
+                ":recipeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recipeId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"objectiveWeights\": {\n    \"minimizeDisruption\": \"<integer>\",\n    \"balanceAbsoluteWorkload\": \"<integer>\",\n    \"travelTime\": \"<integer>\",\n    \"minimizeResources\": \"<integer>\",\n    \"softSkills\": \"<integer>\",\n    \"jobsPriority\": \"<integer>\",\n    \"resourceRating\": \"<integer>\",\n    \"scheduleImmediacy\": \"<integer>\",\n    \"urgency\": \"<integer>\",\n    \"overtime\": \"<integer>\"\n  },\n  \"options\": {\n    \"ignoreTravelTime\": \"<boolean>\",\n    \"ignoreTravelTimeFirstJob\": \"<boolean>\",\n    \"ignoreTravelTimeLastJob\": \"<boolean>\",\n    \"respectAllocationTimes\": \"<boolean>\",\n    \"respectAllocationTimesOverTimeConstraints\": \"<boolean>\",\n    \"respectSchedule\": \"<boolean>\",\n    \"allowPartiallyAllocatedJobs\": \"<boolean>\",\n    \"allowPartiallyAllocatedJobDependencies\": \"<boolean>\",\n    \"maxDailyTravelTimeInMinutes\": \"<long>\",\n    \"maxTravelTimeBetweenLocations\": \"<long>\",\n    \"snapUnit\": \"<integer>\",\n    \"padding\": \"<integer>\",\n    \"onJobRemoval\": [\n      \"<string>\"\n    ],\n    \"rollingScheduleWindowInterval\": {}\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5e2fa607-8ca3-4b8f-86a3-0f8b7b6830c4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recipe",
+                    ":recipeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recipeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Least travel\",\n  \"description\": \"Minimize travel time\",\n  \"objectiveWeights\": {\n    \"travelTime\": 100\n  },\n  \"options\": {\n    \"ignoreTravelTime\": false,\n    \"ignoreTravelTimeFirstJob\": false,\n    \"ignoreTravelTimeLastJob\": false,\n    \"respectAllocationTimes\": false,\n    \"respectAllocationTimesOverTimeConstraints\": false,\n    \"respectSchedule\": false,\n    \"transformers\": [],\n    \"ignoreResourceOverrideLocations\": false,\n    \"allowPartiallyAllocatedJobs\": true,\n    \"allowPartiallyAllocatedJobDependencies\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"default\": true,\n    \"setAsDefaultBy\": {\n      \"userId\": \"skedulo\"\n    },\n    \"setAsDefaultAt\": \"2022-12-27T14:34:00Z\",\n    \"system\": true,\n    \"id\": \"a52a74c0-8d9e-4e4a-bce9-2d49d66517d7\",\n    \"name\": \"Least travel\",\n    \"description\": \"Minimize travel time\",\n    \"status\": \"active\",\n    \"objectiveWeights\": {\n      \"preferredResources\": 10,\n      \"minimizeDisruption\": 10,\n      \"travelTime\": 75,\n      \"softSkills\": 5,\n      \"jobsPriority\": 10\n    },\n    \"options\": {\n      \"ignoreTravelTime\": false,\n      \"ignoreTravelTimeFirstJob\": false,\n      \"ignoreTravelTimeLastJob\": false,\n      \"respectAllocationTimes\": false,\n      \"respectAllocationTimesOverTimeConstraints\": false,\n      \"respectSchedule\": false,\n      \"transformers\": [],\n      \"ignoreResourceOverrideLocations\": false,\n      \"allowPartiallyAllocatedJobs\": true,\n      \"allowPartiallyAllocatedJobDependencies\": true\n    },\n    \"createdAt\": \"2024-01-26T23:00:00Z\",\n    \"modifiedAt\": \"2024-01-26T23:00:00Z\",\n    \"createdBy\": {\n      \"userId\": \"skedulo\"\n    },\n    \"modifiedBy\": {\n      \"userId\": \"skedulo\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b0d44b8-ab4d-46f0-99e7-c0e5c299f14e",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recipe",
+                    ":recipeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recipeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Least travel\",\n  \"description\": \"Minimize travel time\",\n  \"objectiveWeights\": {\n    \"travelTime\": 100\n  },\n  \"options\": {\n    \"ignoreTravelTime\": false,\n    \"ignoreTravelTimeFirstJob\": false,\n    \"ignoreTravelTimeLastJob\": false,\n    \"respectAllocationTimes\": false,\n    \"respectAllocationTimesOverTimeConstraints\": false,\n    \"respectSchedule\": false,\n    \"transformers\": [],\n    \"ignoreResourceOverrideLocations\": false,\n    \"allowPartiallyAllocatedJobs\": true,\n    \"allowPartiallyAllocatedJobDependencies\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4da7cd7a-1efb-4aca-9def-d96330da5f52",
+          "name": "Set the default recipe for a tenant",
+          "request": {
+            "name": "Set the default recipe for a tenant",
+            "description": {
+              "content": "Designates the specified recipe as the default for the authenticated tenant. When no explicit recipe is provided at the time of scheduling, this recipe's settings will be used.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recipe",
+                ":recipeId",
+                "default"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recipeId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT"
+          },
+          "response": [
+            {
+              "id": "4830c7d8-59f7-4ecd-899a-ee693c2630d5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recipe",
+                    ":recipeId",
+                    "default"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recipeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"default\": true,\n    \"setAsDefaultBy\": {\n      \"userId\": \"user-1\",\n      \"vendorUserId\": \"vendor-user-1\"\n    },\n    \"setAsDefaultAt\": \"2022-12-31T17:29:00Z\",\n    \"system\": true,\n    \"id\": \"a52a74c0-8d9e-4e4a-bce9-2d49d66517d7\",\n    \"name\": \"Least travel\",\n    \"description\": \"Minimize travel time\",\n    \"status\": \"active\",\n    \"objectiveWeights\": {\n      \"preferredResources\": 10,\n      \"minimizeDisruption\": 10,\n      \"travelTime\": 75,\n      \"softSkills\": 5,\n      \"jobsPriority\": 10\n    },\n    \"options\": {\n      \"ignoreTravelTime\": false,\n      \"ignoreTravelTimeFirstJob\": false,\n      \"ignoreTravelTimeLastJob\": false,\n      \"respectAllocationTimes\": false,\n      \"respectAllocationTimesOverTimeConstraints\": false,\n      \"respectSchedule\": false,\n      \"transformers\": [],\n      \"ignoreResourceOverrideLocations\": false,\n      \"allowPartiallyAllocatedJobs\": true,\n      \"allowPartiallyAllocatedJobDependencies\": true\n    },\n    \"createdAt\": \"2024-01-26T23:00:00Z\",\n    \"modifiedAt\": \"2024-01-26T23:00:00Z\",\n    \"createdBy\": {\n      \"userId\": \"skedulo\"\n    },\n    \"modifiedBy\": {\n      \"userId\": \"skedulo\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a0a20732-ee7a-4e86-88b2-a5625cb7c96a",
+          "name": "Get the default recipe of the tenant",
+          "request": {
+            "name": "Get the default recipe of the tenant",
+            "description": {
+              "content": "Returns the recipe currently set as the default for the authenticated tenant. Returns 204 No Content if no default recipe has been configured.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recipe",
+                "default"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "f0aedc96-5de2-48d4-bb6b-4bb5520b1b62",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recipe",
+                    "default"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"default\": true,\n    \"setAsDefaultBy\": {\n      \"userId\": \"user-1\",\n      \"vendorUserId\": \"vendor-user-1\"\n    },\n    \"setAsDefaultAt\": \"2022-12-31T17:29:00Z\",\n    \"system\": true,\n    \"id\": \"a52a74c0-8d9e-4e4a-bce9-2d49d66517d7\",\n    \"name\": \"Least travel\",\n    \"description\": \"Minimize travel time\",\n    \"status\": \"active\",\n    \"objectiveWeights\": {\n      \"preferredResources\": 10,\n      \"minimizeDisruption\": 10,\n      \"travelTime\": 75,\n      \"softSkills\": 5,\n      \"jobsPriority\": 10\n    },\n    \"options\": {\n      \"ignoreTravelTime\": false,\n      \"ignoreTravelTimeFirstJob\": false,\n      \"ignoreTravelTimeLastJob\": false,\n      \"respectAllocationTimes\": false,\n      \"respectAllocationTimesOverTimeConstraints\": false,\n      \"respectSchedule\": false,\n      \"transformers\": [],\n      \"ignoreResourceOverrideLocations\": false,\n      \"allowPartiallyAllocatedJobs\": true,\n      \"allowPartiallyAllocatedJobDependencies\": true\n    },\n    \"createdAt\": \"2024-01-26T23:00:00Z\",\n    \"modifiedAt\": \"2024-01-26T23:00:00Z\",\n    \"createdBy\": {\n      \"userId\": \"skedulo\"\n    },\n    \"modifiedBy\": {\n      \"userId\": \"skedulo\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88c553d3-f33a-4c0b-a5a4-ebedc8549e18",
+              "name": "No default recipe fot tenant",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recipe",
+                    "default"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cfd77bb2-282f-4ebd-8ff8-b28d8e983ad5",
+    "name": "Authentication Admin Recipe API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

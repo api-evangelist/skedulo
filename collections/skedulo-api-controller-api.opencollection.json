@@ -1,0 +1,359 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin api-controller API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "api-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get record change transactions (simple)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/transactions/simple",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "An opaque cursor representing a position in the stream of transactions. Provide this to return all transactions after this position. Returned in the nextCursor property of a transactions result."
+              },
+              {
+                "name": "start",
+                "value": "2021-12-24T00:00:00Z",
+                "type": "query",
+                "description": "Filter transactions after this timestamp (UTC) inclusive"
+              },
+              {
+                "name": "end",
+                "value": "2021-12-24T00:00:00Z",
+                "type": "query",
+                "description": "Filter transactions before this timestamp (UTC)"
+              },
+              {
+                "name": "userIds",
+                "value": "",
+                "type": "query",
+                "description": "Filter transactions by user ids"
+              },
+              {
+                "name": "entityTypes",
+                "value": "",
+                "type": "query",
+                "description": "Filter transactions by entity types"
+              },
+              {
+                "name": "entityIds",
+                "value": "",
+                "type": "query",
+                "description": "Filter transactions by entity ids"
+              },
+              {
+                "name": "operations",
+                "value": "",
+                "type": "query",
+                "description": "Filter transactions by operations"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Order in which to sort results (by event timestamp)"
+              }
+            ]
+          },
+          "docs": "Return data changes for the current tenant and search parameters, grouped by transaction, in a simple format."
+        },
+        {
+          "info": {
+            "name": "Get record change transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/transactions",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "An opaque cursor representing a position in the stream of transactions. Provide this to return all transactions after this position. Returned in the nextCursor property of a transactions result."
+              },
+              {
+                "name": "start",
+                "value": "2021-12-24T00:00:00Z",
+                "type": "query",
+                "description": "Filter transactions after this timestamp (UTC) inclusive"
+              },
+              {
+                "name": "end",
+                "value": "2021-12-24T00:00:00Z",
+                "type": "query",
+                "description": "Filter transactions before this timestamp (UTC)"
+              },
+              {
+                "name": "userIds",
+                "value": "",
+                "type": "query",
+                "description": "Filter transactions by user ids"
+              },
+              {
+                "name": "entityTypes",
+                "value": "",
+                "type": "query",
+                "description": "Filter transactions by entity types"
+              },
+              {
+                "name": "entityIds",
+                "value": "",
+                "type": "query",
+                "description": "Filter transactions by entity ids"
+              },
+              {
+                "name": "operations",
+                "value": "",
+                "type": "query",
+                "description": "Filter transactions by operations"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Order in which to sort results (by event timestamp)"
+              }
+            ]
+          },
+          "docs": "Return data changes for the current tenant and search parameters, grouped by transaction."
+        },
+        {
+          "info": {
+            "name": "Get record changes for a tenant (simple)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/changes/:tenantId/simple",
+            "params": [
+              {
+                "name": "tenantId",
+                "value": "sk_d9778d81d2e94e428984a85278b266fb",
+                "type": "path",
+                "description": "The tenant id to retrieve changes for. Only supported for internal admin tokens. "
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "An opaque cursor representing a position in the stream of changes. Provide this to return all changes after this position. Returned in the nextCursor property of a changes result."
+              },
+              {
+                "name": "start",
+                "value": "2021-12-24T00:00:00Z",
+                "type": "query",
+                "description": "Filter changes after this timestamp (UTC) inclusive"
+              },
+              {
+                "name": "end",
+                "value": "2021-12-24T00:00:00Z",
+                "type": "query",
+                "description": "Filter changes before this timestamp (UTC)"
+              },
+              {
+                "name": "userIds",
+                "value": "",
+                "type": "query",
+                "description": "Filter changes by user ids"
+              },
+              {
+                "name": "entityTypes",
+                "value": "",
+                "type": "query",
+                "description": "Filter changes by entity types"
+              },
+              {
+                "name": "entityIds",
+                "value": "",
+                "type": "query",
+                "description": "Filter changes by entity ids"
+              },
+              {
+                "name": "operations",
+                "value": "",
+                "type": "query",
+                "description": "Filter changes by operations"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Order in which to sort results (by event timestamp)"
+              }
+            ]
+          },
+          "docs": "Return data changes (simple format) for the given tenant and search parameters. Requires an internal admin token."
+        },
+        {
+          "info": {
+            "name": "Get record changes (simple)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/changes/simple",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "An opaque cursor representing a position in the stream of changes. Provide this to return all changes after this position. Returned in the nextCursor property of a changes result."
+              },
+              {
+                "name": "start",
+                "value": "2021-12-24T00:00:00Z",
+                "type": "query",
+                "description": "Filter changes after this timestamp (UTC) inclusive"
+              },
+              {
+                "name": "end",
+                "value": "2021-12-24T00:00:00Z",
+                "type": "query",
+                "description": "Filter changes before this timestamp (UTC)"
+              },
+              {
+                "name": "userIds",
+                "value": "",
+                "type": "query",
+                "description": "Filter changes by user ids"
+              },
+              {
+                "name": "entityTypes",
+                "value": "",
+                "type": "query",
+                "description": "Filter changes by entity types"
+              },
+              {
+                "name": "entityIds",
+                "value": "",
+                "type": "query",
+                "description": "Filter changes by entity ids"
+              },
+              {
+                "name": "operations",
+                "value": "",
+                "type": "query",
+                "description": "Filter changes by operations"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Order in which to sort results (by event timestamp)"
+              }
+            ]
+          },
+          "docs": "Return data changes (simple format) for the current tenant and search parameters."
+        },
+        {
+          "info": {
+            "name": "Get record changes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/changes",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "An opaque cursor representing a position in the stream of changes. Provide this to return all changes after this position. Returned in the nextCursor property of a changes result."
+              },
+              {
+                "name": "start",
+                "value": "2021-12-24T00:00:00Z",
+                "type": "query",
+                "description": "Filter changes after this timestamp (UTC) inclusive"
+              },
+              {
+                "name": "end",
+                "value": "2021-12-24T00:00:00Z",
+                "type": "query",
+                "description": "Filter changes before this timestamp (UTC)"
+              },
+              {
+                "name": "userIds",
+                "value": "",
+                "type": "query",
+                "description": "Filter changes by user ids"
+              },
+              {
+                "name": "entityTypes",
+                "value": "",
+                "type": "query",
+                "description": "Filter changes by entity types"
+              },
+              {
+                "name": "entityIds",
+                "value": "",
+                "type": "query",
+                "description": "Filter changes by entity ids"
+              },
+              {
+                "name": "operations",
+                "value": "",
+                "type": "query",
+                "description": "Filter changes by operations"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Order in which to sort results (by event timestamp)"
+              }
+            ]
+          },
+          "docs": "Return data changes for the current tenant and search parameters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,295 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Schedule API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Schedule",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Start an one-off optimization run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/schedule",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This will begin a new one-off optimization run that will start as soon as possible for the requested input."
+        },
+        {
+          "info": {
+            "name": "Get a list of schedule runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/schedule/run"
+          },
+          "docs": "Returns a paginated list of schedule runs for the authenticated tenant. Schedule runs are product-level optimization runs initiated via the schedule endpoint."
+        },
+        {
+          "info": {
+            "name": "Get a schedule run by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/schedule/run/:runId",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the details of a single schedule run identified by its run ID, including its current status, configuration, and timing information."
+        },
+        {
+          "info": {
+            "name": "Get the routes for a schedule run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/schedule/run/:runId/routes",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "userResult",
+                "value": "",
+                "type": "query",
+                "description": "if `true`, response is wrapped into `result` field. Default `false`"
+              }
+            ]
+          },
+          "docs": "Returns the planned travel routes for all resources in a completed schedule run, including the ordered sequence of locations visited, travel times and distances between stops, and per-day breakdowns."
+        },
+        {
+          "info": {
+            "name": "Get results of a schedule run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/schedule/run/:runId/results",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the optimization results for a completed schedule run, including which jobs were scheduled (with their assigned resources and start times), which jobs could not be scheduled and the reasons why, any excluded jobs, and aggregate totals for the run."
+        },
+        {
+          "info": {
+            "name": "Get parameters for a schedule run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/schedule/run/:runId/params",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the input parameters used to configure a schedule run, including the set of jobs and resources, the schedule window, timezone, and any recipe or scheduling goal overrides."
+        },
+        {
+          "info": {
+            "name": "Get the save status of a schedule run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/schedule/run/:runId/save",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the current save status of a completed schedule run."
+        },
+        {
+          "info": {
+            "name": "Save a completed schedule run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/schedule/run/:runId/save",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Persist the results of a completed optimization run, applying the scheduled allocations to the system. Once saved the run results are committed and cannot be rolled back through this API."
+        },
+        {
+          "info": {
+            "name": "Reject a schedule run save",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/schedule/run/:runId/save/reject",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Reject the pending save for a completed optimization run, discarding the scheduled allocations without applying them to the system."
+        },
+        {
+          "info": {
+            "name": "Defer auto-save for a run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/schedule/run/:runId/save/defer",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Sets the run's persistence strategy to `Optimize`, preventing auto-save from occurring. Only valid for in-progress runs with no existing save record."
+        },
+        {
+          "info": {
+            "name": "Get the save mutations for a schedule run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/schedule/run/:runId/save/mutations",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the set of data mutations that would be applied when saving a completed schedule run."
+        },
+        {
+          "info": {
+            "name": "Get the full schedule plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/schedule/plan",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint will return all the data necessary to run optimization. This includes any extra jobs or resources that need to be considered to avoid schedule clashes for the requested resources. The optimization run will not be started until the body of this request is POSTed to the /solve/planned endpoint."
+        },
+        {
+          "info": {
+            "name": "Full scope of optimization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/schedule/scope",
+            "params": [
+              {
+                "name": "includeIds",
+                "value": "",
+                "type": "query",
+                "description": "Include ids in the response"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The full scope required to optimize a set of jobs. This includes any extra jobs or resources that need to be considered to avoid schedule clashes for the requested resources."
+        },
+        {
+          "info": {
+            "name": "Get the latest transformer state for a schedule run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/schedule/run/:runId/transformer/state/latest",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the most recent transformer state recorded for a given schedule run, including the log entry identifier and the transformer data payload."
+        },
+        {
+          "info": {
+            "name": "Update the state of a transformer for a schedule run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/schedule/run/:runId/transformer/state/:transformerId",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "transformerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the persistent state associated with a specific transformer for a given schedule run. Transformers use this state to carry information between successive optimization runs."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

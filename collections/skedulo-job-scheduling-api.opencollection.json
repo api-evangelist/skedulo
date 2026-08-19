@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Job scheduling API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Job scheduling",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create recurring schedule from an existing job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/schedules/jobs/existing",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fields and Child relationships can be specified (e.g., giving created jobs the same job tags or allocations). By default, required Job fields like Region ID and duration will be propagated even if not specified."
+        },
+        {
+          "info": {
+            "name": "Preview job recurring schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/schedules/jobs/preview",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Preview the intervals that will be generated for a given recurrence pattern and job details."
+        },
+        {
+          "info": {
+            "name": "Create a recurring schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/schedules/jobs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a recurring schedule from a base job and pattern"
+        },
+        {
+          "info": {
+            "name": "Update jobs in a recurring schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.skedulo.com/auth/schedules/jobs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the fields and attached objects of jobs in a recurring schedule, where the jobs start at or after the provided timestamp. Arrays of attached 'HasMany' objects can be provided along with the fields to be updated. In this case, all existing attached objects of the same type on future jobs will be deleted and replaced with the provided objects. Job IDs may be explicitly excluded - this allows the caller to prevent modifying the job that they are currently displaying. Jobs that are Locked, I"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

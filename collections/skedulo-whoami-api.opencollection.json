@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Whoami API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Whoami",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Whoami",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/whoami",
+            "params": [
+              {
+                "name": "access_token",
+                "value": "",
+                "type": "query",
+                "description": "Access token. This is an alternative to passing the Authorization: `Bearer` header"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return the current user's authentication information"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

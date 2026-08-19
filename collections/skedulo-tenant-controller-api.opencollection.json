@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin tenant-controller API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "tenant-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get tenant status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/admin/tenants/:tenantId",
+            "params": [
+              {
+                "name": "tenantId",
+                "value": "sk_d9778d81d2e94e428984a85278b266fb",
+                "type": "path",
+                "description": "The tenant id to check status for."
+              }
+            ]
+          },
+          "docs": "Returns the current status of a tenant in event-store. Requires an internal admin token."
+        },
+        {
+          "info": {
+            "name": "Delete all data for a tenant",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.skedulo.com/auth/admin/tenants/:tenantId",
+            "params": [
+              {
+                "name": "tenantId",
+                "value": "sk_d9778d81d2e94e428984a85278b266fb",
+                "type": "path",
+                "description": "The tenant id to delete data for."
+              }
+            ]
+          },
+          "docs": "Marks a tenant for deletion. Data is deleted asynchronously by a background task. Requires an internal admin token."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

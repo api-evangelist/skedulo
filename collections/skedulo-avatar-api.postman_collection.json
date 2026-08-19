@@ -1,0 +1,162 @@
+{
+  "item": [
+    {
+      "id": "c62e1abf-f243-4bee-9aaf-3a1574b0694b",
+      "name": "Avatar",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f42cec7d-fe6a-4a35-a6cf-e194bd7e1c84",
+          "name": "Return a map of (userId -> url) for the given userIds",
+          "request": {
+            "name": "Return a map of (userId -> url) for the given userIds",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "avatar"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "user_ids",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated identifiers of the users to get the avatar urls for"
+                },
+                {
+                  "disabled": false,
+                  "key": "size_hint",
+                  "value": "<string>",
+                  "description": "Requested image size. Return thumbnail image for 'small' or 'thumbnail' input, full image otherwise"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "07238bed-4107-40b0-8760-754cacd70ebc",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "avatar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "user_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size_hint",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"key_0\": \"string\"\n  },\n  \"errors\": {\n    \"key_0\": {\n      \"errorType\": \"string\",\n      \"errorMsg\": \"string\"\n    }\n  },\n  \"extra\": {\n    \"key_0\": {\n      \"signature\": \"string\",\n      \"expiry\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c119095-9296-42e7-b286-e2cec763802f",
+              "name": "User with the given identifier not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "avatar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "user_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size_hint",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "aded64ef-4809-468f-9e4c-0268f111beb3",
+    "name": "Authentication Admin Avatar API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,218 @@
+{
+  "item": [
+    {
+      "id": "81c843c1-003c-4901-ab92-109e3417708d",
+      "name": "Optimize",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c01068c8-27a2-445d-9c4d-39e0c5dc7603",
+          "name": "Suggest times for a single job",
+          "request": {
+            "name": "Suggest times for a single job",
+            "description": {
+              "content": "Query the `/optimize/suggest` endpoint to find the best time to schedule a single job given a set of resources within a specific time range.\n\nFor example, if a job must be done on Thursday before noon you can specify the time window of 8AM to 12PM on Thursday and the resources that are available to find the best time to schedule the job that morning.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "optimize",
+                "suggest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"suggestForNode\": \"<string>\",\n  \"resourceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scheduleStart\": \"<dateTime>\",\n  \"scheduleEnd\": \"<dateTime>\",\n  \"schedulingOptions\": {\n    \"jobTimeAsTimeConstraint\": true,\n    \"preferJobTimeOverTimeConstraint\": true,\n    \"respectSchedule\": true,\n    \"ignoreTravelTimes\": false,\n    \"ignoreTravelTimeFirstJob\": false,\n    \"ignoreTravelTimeLastJob\": false,\n    \"assumeResourceCanTravelBeforeStart\": false,\n    \"assumeResourceCanTravelAfterEnd\": false,\n    \"padding\": 0,\n    \"snapUnit\": 0\n  },\n  \"accountResourceScores\": [\n    {\n      \"resourceId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"whitelist\": \"<boolean>\",\n      \"blacklist\": \"<boolean>\"\n    },\n    {\n      \"resourceId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"whitelist\": \"<boolean>\",\n      \"blacklist\": \"<boolean>\"\n    }\n  ],\n  \"regionId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b6c71663-acce-4d82-a6c0-44d9fe2c8343",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "optimize",
+                    "suggest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"suggestForNode\": \"<string>\",\n  \"resourceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scheduleStart\": \"<dateTime>\",\n  \"scheduleEnd\": \"<dateTime>\",\n  \"schedulingOptions\": {\n    \"jobTimeAsTimeConstraint\": true,\n    \"preferJobTimeOverTimeConstraint\": true,\n    \"respectSchedule\": true,\n    \"ignoreTravelTimes\": false,\n    \"ignoreTravelTimeFirstJob\": false,\n    \"ignoreTravelTimeLastJob\": false,\n    \"assumeResourceCanTravelBeforeStart\": false,\n    \"assumeResourceCanTravelAfterEnd\": false,\n    \"padding\": 0,\n    \"snapUnit\": 0\n  },\n  \"accountResourceScores\": [\n    {\n      \"resourceId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"whitelist\": \"<boolean>\",\n      \"blacklist\": \"<boolean>\"\n    },\n    {\n      \"resourceId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"whitelist\": \"<boolean>\",\n      \"blacklist\": \"<boolean>\"\n    }\n  ],\n  \"regionId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"routes\": {\n      \"key_0\": {\n        \"resourceId\": \"string\",\n        \"isAllocated\": true,\n        \"route\": {\n          \"duration\": 4868,\n          \"jobId\": \"string\",\n          \"jobName\": \"string\",\n          \"start\": \"2003-04-29T23:45:34.223Z\",\n          \"travelTime\": 8758,\n          \"type\": \"string\"\n        }\n      },\n      \"key_1\": {\n        \"resourceId\": \"string\",\n        \"isAllocated\": false,\n        \"route\": {\n          \"duration\": 8103,\n          \"jobId\": \"string\",\n          \"jobName\": \"string\",\n          \"start\": \"2010-12-01T11:14:47.981Z\",\n          \"travelTime\": 3656,\n          \"type\": \"string\"\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "30182c0a-25ff-4dec-b9bf-578b89ca0400",
+          "name": "Suggest resources for a given job",
+          "request": {
+            "name": "Suggest resources for a given job",
+            "description": {
+              "content": "Find the best resources within a given time range, for a given job and resource availabilities.\n\nThis query provides the amount of time each resource has available during the time period to complete the task.\n\n* Resource availability is determined by working hours, holidays, existing jobs, shifts, and activities.\n* You can provide availability directly (via `resources`) or by referencing existing resources (via `resourceIds`).\n* Capacity fields (`currentCapacityInSeconds` and `newCapacityInSeconds`) show how much time a resource has available before and after scheduling the job.\n\n**Availability Preferences**\n\nYou can optionally enable Availability Preferences using the `useAvailabilityPreferences` flag.\n\nWhen `useAvailabilityPreferences` is set to `true`, Planr derives availability preferences for the job from enabled Jobs Record Filters and applies them when evaluating resource availability. This allows you to prioritise resources whose availability preferences match the job’s attributes.\n\nBehaviour when `useAvailabilityPreferences` is enabled:\n\n* Preferences are derived server-side from Jobs Record Filters associated with the given `jobId`.\n* Only filters that apply to availability preferences are considered.\n* If no relevant preferences are found for the job, the result is equivalent to calling the endpoint with `useAvailabilityPreferences` set to `false`.\n* When `useAvailabilityPreferences` is omitted or `false`, resource suggestions do not consider availability preferences.\n\nUnlike `/grid/schedule`, which accepts client-supplied `availabilityFilterValues`,\nthis endpoint derives availability preferences automatically from Jobs Record Filters\nassociated with the given `jobId`. The caller does not supply preference values directly;\nPlanr evaluates the job against all relevant filters to determine which preferences apply.\n\n**Behaviour with `resources` availability window input**\n\nWhen using the resources map variant (where availability windows are supplied directly),\nPlanr does not re-query the Availability engine, and useAvailabilityPreferences is ignored.\nPreference evaluation is only applied for the `resourceIds` request shape.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "optimize",
+                "resource_suggestions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jobId\": \"<string>\",\n  \"resourceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scheduleStart\": \"<dateTime>\",\n  \"scheduleEnd\": \"<dateTime>\",\n  \"schedulingOptions\": {\n    \"jobTimeAsTimeConstraint\": true,\n    \"preferJobTimeOverTimeConstraint\": true,\n    \"respectSchedule\": true,\n    \"ignoreTravelTimes\": false,\n    \"ignoreTravelTimeFirstJob\": false,\n    \"ignoreTravelTimeLastJob\": false,\n    \"assumeResourceCanTravelBeforeStart\": false,\n    \"assumeResourceCanTravelAfterEnd\": false,\n    \"padding\": 0,\n    \"snapUnit\": 0\n  },\n  \"accountResourceScores\": [\n    {\n      \"resourceId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"whitelist\": \"<boolean>\",\n      \"blacklist\": \"<boolean>\"\n    },\n    {\n      \"resourceId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"whitelist\": \"<boolean>\",\n      \"blacklist\": \"<boolean>\"\n    }\n  ],\n  \"regionId\": \"<string>\",\n  \"useAvailabilityPreferences\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eedec6b2-1032-4961-b4c8-677609c95e49",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "optimize",
+                    "resource_suggestions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobId\": \"0014cac9-4ba2-4944-b7ca-b4d2c40b1403\",\n  \"resourceIds\": [\n    \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n    \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n  ],\n  \"scheduleStart\": \"2025-06-26T22:00:00.000Z\",\n  \"scheduleEnd\": \"2025-06-27T04:00:00.000Z\",\n  \"schedulingOptions\": {\n    \"jobTimeAsTimeConstraint\": true,\n    \"respectSchedule\": true\n  },\n  \"regionId\": \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n  \"useAvailabilityPreferences\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"0005ce31-b45d-4b68-8c0a-eeed9ce82dfb\": {\n      \"resourceId\": \"0005ce31-b45d-4b68-8c0a-eeed9ce82dfb\",\n      \"allTagsUnmet\": false,\n      \"unmetTags\": [],\n      \"metTags\": [],\n      \"travelFromHome\": {\n        \"distanceFromHomeInMeters\": 89995,\n        \"durationFromHomeInMinutes\": 68\n      },\n      \"feasible\": true,\n      \"score\": {\n        \"hard\": 0,\n        \"medium\": 0,\n        \"soft\": -133\n      },\n      \"start\": \"2025-12-05T05:00:00.000Z\",\n      \"durationInMinutes\": 120,\n      \"travelFromPreviousLocation\": {\n        \"previousLocationIsHome\": true,\n        \"distanceFromPreviousLocationInMeters\": 89995,\n        \"durationFromPreviousLocationInMinutes\": 68\n      },\n      \"contextUtilizationInMinutes\": 0,\n      \"contextAvailabilityInMinutes\": 1440,\n      \"isAllocated\": true\n    },\n    \"000592ab-a998-441c-a08d-598322f8d91d\": {\n      \"resourceId\": \"000592ab-a998-441c-a08d-598322f8d91d\",\n      \"allTagsUnmet\": false,\n      \"unmetTags\": [],\n      \"metTags\": [],\n      \"travelFromHome\": {\n        \"distanceFromHomeInMeters\": 0,\n        \"durationFromHomeInMinutes\": 0\n      },\n      \"feasible\": false,\n      \"infeasibleReasons\": [\n        {\n          \"type\": \"resource_availability_preferences\",\n          \"rendered\": \"Availability preference: Non Urgent Jobs\"\n        }\n      ],\n      \"onlyInfeasibleDueToAvailability\": true,\n      \"feasibleAvailability\": false,\n      \"contextUtilizationInMinutes\": 30,\n      \"contextAvailabilityInMinutes\": 0,\n      \"isAllocated\": false,\n      \"infeasibleDueToAvailabilityPreferences\": true,\n      \"availabilityPreferenceExplanation\": {\n        \"preferenceFiltered\": true,\n        \"matchingRecordFilterIds\": [],\n        \"mismatchedRecordFilterIds\": [\n          \"0042e422-06b2-4c74-8495-701a12d0545f\"\n        ],\n        \"recordFiltersById\": {\n          \"0042e422-06b2-4c74-8495-701a12d0545f\": {\n            \"uid\": \"0042e422-06b2-4c74-8495-701a12d0545f\",\n            \"name\": \"RF-0958\",\n            \"description\": \"Non Urgent Jobs\",\n            \"expression\": \"Urgency != 'Critical'\",\n            \"objectType\": \"Jobs\"\n          }\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7789fb09-f74a-4bf5-81c1-fc0498e724ce",
+    "name": "Authentication Admin Optimize API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

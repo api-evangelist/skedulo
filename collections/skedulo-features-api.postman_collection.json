@@ -1,0 +1,554 @@
+{
+  "item": [
+    {
+      "id": "8f3e6a8c-3b0f-427e-a327-14af34a600e3",
+      "name": "Features",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c4214a7b-c239-4e7e-b8cd-a55d45991d53",
+          "name": "Feature flag status, description, and type",
+          "request": {
+            "name": "Feature flag status, description, and type",
+            "description": {
+              "content": "Retrieves the status of feature flags along with their descriptions and type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "features",
+                "descriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c401cadd-ce8f-4544-8536-6c3210f9bb34",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "features",
+                    "descriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"type\": \"Package\",\n      \"status\": \"Alpha\",\n      \"platform\": \"All\",\n      \"defaultValue\": false,\n      \"value\": true\n    },\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"type\": \"Package\",\n      \"status\": \"Beta\",\n      \"platform\": \"All\",\n      \"defaultValue\": false,\n      \"value\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83bf1d9e-df8b-4594-af6d-33e49c5576e8",
+          "name": "Tenant Feature flag statuses",
+          "request": {
+            "name": "Tenant Feature flag statuses",
+            "description": {
+              "content": "Retrieves the status of feature flags for the provided tenant",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "features",
+                ":tenant_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenant_id",
+                  "description": "(Required) ID of the tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "748944b0-cfd4-401d-82f9-cdcb34af196e",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "features",
+                    ":tenant_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant_id",
+                      "description": "(Required) ID of the tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2a12bf44-3ea9-40f6-a00e-d2b94efc7092",
+          "name": "Feature flag status",
+          "request": {
+            "name": "Feature flag status",
+            "description": {
+              "content": "Retrieves the status of feature flags along with their descriptions and type of the provided tenant.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "features",
+                "descriptions",
+                ":tenant_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenant_id",
+                  "description": "(Required) ID of the tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9f047986-c022-4b8b-ad4c-0443b13cadac",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "features",
+                    "descriptions",
+                    ":tenant_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant_id",
+                      "description": "(Required) ID of the tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"type\": \"Package\",\n      \"status\": \"Alpha\",\n      \"platform\": \"Skedulo\",\n      \"defaultValue\": true,\n      \"value\": true\n    },\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"type\": \"Retired\",\n      \"status\": \"Beta\",\n      \"platform\": \"All\",\n      \"defaultValue\": false,\n      \"value\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d935fc48-3eb8-4383-9b98-1e302a29bdd9",
+          "name": "Feature flag status for multiple tenants",
+          "request": {
+            "name": "Feature flag status for multiple tenants",
+            "description": {
+              "content": "Retrieves the status of feature flags for all the provided Tenant ID's.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "features",
+                "tenants",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"<string>\",\n  \"<string>\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d40f9786-ee12-4a6a-9852-6deca5309937",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "features",
+                    "tenants",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<string>\",\n  \"<string>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"successes\": {\n      \"key_0\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"key_1\": {\n        \"key_0\": \"string\"\n      }\n    },\n    \"failures\": {\n      \"sk_123oiusdf\": \"Tenant sk_123oiusdf has not been initialized with this service. Please run the onboarding process for this tenant!\",\n      \"sk_3432423524\": \"Tenant sk_3432423524 has not been initialized with this service. Please run the onboarding process for this tenant!\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42f95897-e703-49bc-a234-3409184e60a2",
+          "name": "Feature flag status and descriptions for multiple tenants",
+          "request": {
+            "name": "Feature flag status and descriptions for multiple tenants",
+            "description": {
+              "content": "Retrieves the status of feature flags along with their descriptions and type for all the provided Tenant ID's.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "features",
+                "descriptions",
+                "tenants",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"<string>\",\n  \"<string>\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5cce261e-4420-4746-8bc8-625605f568e7",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "features",
+                    "descriptions",
+                    "tenants",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<string>\",\n  \"<string>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"successes\": {\n      \"key_0\": [\n        [\n          {\n            \"name\": \"string\",\n            \"description\": \"string\",\n            \"type\": \"Feature\",\n            \"status\": \"GeneralAvailability\",\n            \"platform\": \"Skedulo\",\n            \"defaultValue\": true,\n            \"value\": false\n          },\n          {\n            \"name\": \"string\",\n            \"description\": \"string\",\n            \"type\": \"Feature\",\n            \"status\": \"Internal\",\n            \"platform\": \"Salesforce\",\n            \"defaultValue\": false,\n            \"value\": false\n          }\n        ],\n        [\n          {\n            \"name\": \"string\",\n            \"description\": \"string\",\n            \"type\": \"Package\",\n            \"status\": \"Alpha\",\n            \"platform\": \"All\",\n            \"defaultValue\": true,\n            \"value\": true\n          },\n          {\n            \"name\": \"string\",\n            \"description\": \"string\",\n            \"type\": \"Feature\",\n            \"status\": \"Internal\",\n            \"platform\": \"All\",\n            \"defaultValue\": true,\n            \"value\": true\n          }\n        ]\n      ]\n    },\n    \"failures\": {\n      \"sk_123oiusdf\": \"Tenant sk_123oiusdf has not been initialized with this service. Please run the onboarding process for this tenant!\",\n      \"sk_3432423524\": \"Tenant sk_3432423524 has not been initialized with this service. Please run the onboarding process for this tenant!\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "053c8b10-524b-4586-bded-c036b2faed08",
+    "name": "Authentication Admin Features API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

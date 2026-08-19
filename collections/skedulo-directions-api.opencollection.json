@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Directions API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Directions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find directions between two locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/directions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "The Directions endpoint calculates directions between source and destination addresses, possibly including multiple waypoints enroute. It returns the recommended travel route (if one can be found), along with estimated travel time and distance."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

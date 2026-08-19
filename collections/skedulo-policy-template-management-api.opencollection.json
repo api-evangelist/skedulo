@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Policy Template Management API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Policy Template Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Apply a policy template.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/policies/templates/:id/apply",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Apply a policy template."
+        },
+        {
+          "info": {
+            "name": "Get all policy templates. Convert a template to a real policy by calling the apply endpoint.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/policies/templates"
+          },
+          "docs": "Get all policy templates. Convert a template to a real policy by calling the apply endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

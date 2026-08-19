@@ -1,0 +1,196 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Offers API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Offers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Accept a job offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/offer/job/resource/:resource_job_offer_id/accept",
+            "params": [
+              {
+                "name": "resource_job_offer_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "The offered job will be automatically allocated if the `autoAllocateJobOffers` org preference is enabled. Schedulers and Admins can accept any offer. Resources can only accept an offer that is assigned to them. Stores the time the response was sent as either the given timestamp or the current time if a time is not provided."
+        },
+        {
+          "info": {
+            "name": "Decline a job offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/offer/job/resource/:resource_job_offer_id/decline",
+            "params": [
+              {
+                "name": "resource_job_offer_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Closes the offer. After an offer is declined, it cannot be subsequently accepted. Schedulers and Admins can decline any offer. Resources can only decline an offer that is assigned to them. Stores the time the response was sent as either the given timestamp or the current time if a time is not provided."
+        },
+        {
+          "info": {
+            "name": "Notify associated resources about a job offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/offer/job/:job_offer_id/notify",
+            "params": [
+              {
+                "name": "job_offer_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Send a notification to some or all resources who have an open offer on the given job. Resources who have declined will not be notified. Each resource's preferred notification method (push or SMS) will be used, if set. If job offer notifications are disabled then no notifications will be sent and an appropriate message will be returned in the response."
+        },
+        {
+          "info": {
+            "name": "Accept a shift offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/offer/shift/resource/:resource_shift_offer_id/accept",
+            "params": [
+              {
+                "name": "resource_shift_offer_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "The offered shift will be automatically allocated if the `autoAllocateShiftOffers` org preference is enabled. Schedulers and Admins can accept any offer. Resources can only accept an offer that is assigned to them. Stores the time the response was sent as either the given timestamp or the current time if a time is not provided."
+        },
+        {
+          "info": {
+            "name": "Cancel a job offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/offer/job/:job_offer_id/cancel",
+            "params": [
+              {
+                "name": "job_offer_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Cancels the job offer. After an offer is cancelled, it cannot be subsequently accepted. Also cancels any associated pending resource jobs offers"
+        },
+        {
+          "info": {
+            "name": "Decline a shift offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/offer/shift/resource/:resource_shift_offer_id/decline",
+            "params": [
+              {
+                "name": "resource_shift_offer_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Closes the offer. After an offer is declined, it cannot be subsequently accepted. Schedulers and Admins can decline any offer. Resources can only decline an offer that is assigned to them. Stores the time the response was sent as either the given timestamp or the current time if a time is not provided."
+        },
+        {
+          "info": {
+            "name": "Notify associated resources about a shift offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/offer/shift/:shift_offer_id/notify",
+            "params": [
+              {
+                "name": "shift_offer_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Send a notification to some or all resources who have an open offer on the given shift. Resources who have declined will not be notified. Each resource's preferred notification method (push or SMS) will be used, if set."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

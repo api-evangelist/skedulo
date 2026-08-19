@@ -1,0 +1,338 @@
+{
+  "item": [
+    {
+      "id": "c93f5830-4d84-4207-aff8-982c56f86cbb",
+      "name": "Suggest",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e739ba12-ff0e-4952-942c-070ed7eb3599",
+          "name": "Get scheduling suggestions for a job",
+          "request": {
+            "name": "Get scheduling suggestions for a job",
+            "description": {
+              "content": "Runs an optimization to produce scheduling suggestions for a given job, returning suggested start times across the supplied resources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "suggest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jobId\": \"<string>\",\n  \"resourceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"suggestWindow\": {\n    \"start\": \"<dateTime>\",\n    \"end\": \"<dateTime>\"\n  },\n  \"timezone\": \"<string>\",\n  \"resourceRequirementId\": \"<string>\",\n  \"recipeId\": \"<string>\",\n  \"persistenceStrategy\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c58febd1-a9e3-448e-960a-6b7d5f2f8dd4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "suggest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobId\": \"e223ee46-ff38-4bcf-b93d-9dff6aa35f67\",\n  \"resourceRequirementId\": \"a1b2c3d4-0000-0000-0000-000000000001\",\n  \"resourceIds\": [\n    \"f67950ad-5dce-478d-bb22-565e0b072f65\",\n    \"06988f48-aeb3-422a-bb0c-1d925dd2f47e\"\n  ],\n  \"recipeId\": \"62cb6c6c-c210-4aa5-92a6-9dccfc327b59\",\n  \"suggestWindow\": {\n    \"start\": \"2022-07-05T09:00:00Z\",\n    \"end\": \"2022-07-06T09:00:00Z\"\n  },\n  \"timezone\": \"UTC\",\n  \"persistenceStrategy\": \"save\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"suggestions\": [\n      {\n        \"jobId\": \"e223ee46-ff38-4bcf-b93d-9dff6aa35f67\",\n        \"score\": 100,\n        \"resourceRequirementId\": \"a1b2c3d4-0000-0000-0000-000000000001\",\n        \"resourceId\": \"f67950ad-5dce-478d-bb22-565e0b072f65\",\n        \"suggestedStartTime\": \"2022-07-05T10:00:00Z\"\n      }\n    ],\n    \"runId\": \"a52a74c0-8d9e-4e4a-bce9-2d49d66517d7\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "559a133b-6f5f-4afa-a67f-f66303c90e40",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "suggest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobId\": \"e223ee46-ff38-4bcf-b93d-9dff6aa35f67\",\n  \"resourceRequirementId\": \"a1b2c3d4-0000-0000-0000-000000000001\",\n  \"resourceIds\": [\n    \"f67950ad-5dce-478d-bb22-565e0b072f65\",\n    \"06988f48-aeb3-422a-bb0c-1d925dd2f47e\"\n  ],\n  \"recipeId\": \"62cb6c6c-c210-4aa5-92a6-9dccfc327b59\",\n  \"suggestWindow\": {\n    \"start\": \"2022-07-05T09:00:00Z\",\n    \"end\": \"2022-07-06T09:00:00Z\"\n  },\n  \"timezone\": \"UTC\",\n  \"persistenceStrategy\": \"save\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dee95422-1703-49df-affa-9da55bdaa777",
+          "name": "Get suggestions for a completed suggest run",
+          "request": {
+            "name": "Get suggestions for a completed suggest run",
+            "description": {
+              "content": "Returns the scheduling suggestions produced by a previously completed suggest run.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "suggest",
+                ":runId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "2c061703-ad22-41f5-80f7-0a7534e126d0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "suggest",
+                    ":runId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"suggestions\": [\n      {\n        \"jobId\": \"e223ee46-ff38-4bcf-b93d-9dff6aa35f67\",\n        \"score\": 100,\n        \"resourceRequirementId\": \"a1b2c3d4-0000-0000-0000-000000000001\",\n        \"resourceId\": \"f67950ad-5dce-478d-bb22-565e0b072f65\",\n        \"suggestedStartTime\": \"2022-07-05T10:00:00Z\"\n      }\n    ],\n    \"runId\": \"a52a74c0-8d9e-4e4a-bce9-2d49d66517d7\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "761cbf2c-01cd-4040-889f-7f65e35a1845",
+          "name": "Get raw feature model suggestions for a run",
+          "request": {
+            "name": "Get raw feature model suggestions for a run",
+            "description": {
+              "content": "Returns the raw CorePVRP feature model suggestions produced by a previously completed suggest run.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "suggest",
+                "feature",
+                ":runId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "3cf526a1-ebdc-4648-8b54-8cf46ec14789",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "suggest",
+                    "feature",
+                    ":runId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"suggestions\": [\n      {\n        \"resourceId\": \"f67950ad-5dce-478d-bb22-565e0b072f65\",\n        \"allocationId\": \"e223ee46-ff38-4bcf-b93d-9dff6aa35f67\",\n        \"suggestedStart\": \"2022-07-05T10:00:00Z\",\n        \"score\": {\n          \"hard\": 0,\n          \"medium\": 0,\n          \"soft\": 0\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1c08b051-1e9c-4a03-a70c-5587600ff12a",
+    "name": "Authentication Admin Suggest API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin DistanceMatrix API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DistanceMatrix",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Compute the Distance Matrix for origin and destination addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/distanceMatrix",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "The Distance Matrix endpoint computes travel distance and time for all combinations of origin and destination locations, based on the recommended route between start and end points.\nIt should be noted that there are limits on the total number elements that can be requested and that large requests (where origins * destinations > 1000) may take several seconds to satisfy. These limits may vary depending on your underlying configuration.\n\nDepending on your configuration, requesting travel times and"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,602 @@
+{
+  "item": [
+    {
+      "id": "d126e46c-933a-4872-bf42-1c6104ccf807",
+      "name": "Attachments",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "85cd4383-5079-4f44-896b-fcbfacb83de8",
+          "name": "Find attachments that belong to the parent",
+          "request": {
+            "name": "Find attachments that belong to the parent",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attachments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "parent_ids",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated identifiers of the parents to retrieve attachments for"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "545dde0c-48f2-4419-909e-bc2e8c74721c",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "parent_ids",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": [\n    {\n      \"fileName\": \"string\",\n      \"filePtr\": \"string\",\n      \"parentId\": \"string\",\n      \"uploadDate\": \"2007-06-25T09:22:16.931Z\",\n      \"size\": \"string\",\n      \"contentType\": \"string\",\n      \"createdBy\": \"string\",\n      \"createdById\": \"string\",\n      \"description\": \"string\",\n      \"downloadUrl\": \"string\"\n    },\n    {\n      \"fileName\": \"string\",\n      \"filePtr\": \"string\",\n      \"parentId\": \"string\",\n      \"uploadDate\": \"2003-06-02T18:09:09.775Z\",\n      \"size\": \"string\",\n      \"contentType\": \"string\",\n      \"createdBy\": \"string\",\n      \"createdById\": \"string\",\n      \"description\": \"string\",\n      \"downloadUrl\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a45af1dd-a2f1-4111-860c-88df40f932f4",
+              "name": "Resource with parent identifier not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "parent_ids",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79392825-7e30-4735-908a-fc628826506c",
+          "name": "Find attachments that belong to the parent",
+          "request": {
+            "name": "Find attachments that belong to the parent",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attachments",
+                ":parentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "parentId",
+                  "description": "(Required) Identifier of the parent to retrieve attachments for"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b6818451-dff0-4ada-93e5-2c61cd3d5a64",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":parentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parentId",
+                      "description": "(Required) Identifier of the parent to retrieve attachments for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"fileName\": \"string\",\n      \"filePtr\": \"string\",\n      \"parentId\": \"string\",\n      \"uploadDate\": \"2022-05-04T12:29:59.222Z\",\n      \"size\": \"string\",\n      \"contentType\": \"string\",\n      \"createdBy\": \"string\",\n      \"createdById\": \"string\",\n      \"description\": \"string\",\n      \"downloadUrl\": \"string\"\n    },\n    {\n      \"fileName\": \"string\",\n      \"filePtr\": \"string\",\n      \"parentId\": \"string\",\n      \"uploadDate\": \"1998-07-24T18:37:57.112Z\",\n      \"size\": \"string\",\n      \"contentType\": \"string\",\n      \"createdBy\": \"string\",\n      \"createdById\": \"string\",\n      \"description\": \"string\",\n      \"downloadUrl\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52096d2f-aff5-4837-b09c-51d67bac1149",
+              "name": "Resource with parent identifier not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":parentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parentId",
+                      "description": "(Required) Identifier of the parent to retrieve attachments for"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f8cc3a69-c2ba-455b-91e8-85890997eed8",
+          "name": "Upload an attachment to a parent record id or a temporary parent id. Content-Length and Content-Type are required.",
+          "request": {
+            "name": "Upload an attachment to a parent record id or a temporary parent id. Content-Length and Content-Type are required.",
+            "description": {
+              "content": "This API is to upload attachment to an existing parent record or a temporary parent id. If the temporary parent id is linked to a real parent id, the real parent id will be swapped in automatically. Otherwise, the file is uploaded to a temporary place awaiting the temporary parent id to be linked.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attachments",
+                ":parentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "parentId",
+                  "description": "(Required) Identifier of the parent to add the attachment to or the temporary parent id. A temporary parent id must start with 'temp-'."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The name of the attachment",
+                "key": "X-Skedulo-Name",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "An optional description of the attachment",
+                "key": "X-Skedulo-Description",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "34464557-71a8-4407-aa75-bbb40a6d577e",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":parentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parentId",
+                      "description": "(Required) Identifier of the parent to add the attachment to or the temporary parent id. A temporary parent id must start with 'temp-'."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The name of the attachment",
+                    "key": "X-Skedulo-Name",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional description of the attachment",
+                    "key": "X-Skedulo-Description",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"fileName\": \"string\",\n    \"filePtr\": \"string\",\n    \"parentId\": \"string\",\n    \"uploadDate\": \"1985-05-07T06:32:00.341Z\",\n    \"size\": \"string\",\n    \"contentType\": \"string\",\n    \"createdBy\": \"string\",\n    \"createdById\": \"string\",\n    \"description\": \"string\",\n    \"downloadUrl\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4dff2cc-c664-4a8e-b58e-d9c937153869",
+              "name": "Invalid data supplied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":parentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parentId",
+                      "description": "(Required) Identifier of the parent to add the attachment to or the temporary parent id. A temporary parent id must start with 'temp-'."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The name of the attachment",
+                    "key": "X-Skedulo-Name",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional description of the attachment",
+                    "key": "X-Skedulo-Description",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf459cf8-d267-4ffc-978e-6de9a3b5d3a2",
+          "name": "Upload an attachment to a parent record id or a temporary parent id. Content-Length and Content-Type are required.",
+          "request": {
+            "name": "Upload an attachment to a parent record id or a temporary parent id. Content-Length and Content-Type are required.",
+            "description": {
+              "content": "This API is to upload attachment to an existing parent record or a temporary parent id. If the temporary parent id is linked to a real parent id, the real parent id will be swapped in automatically. Otherwise, the file is uploaded to a temporary place awaiting the temporary parent id to be linked.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attachments",
+                ":parentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "parentId",
+                  "description": "(Required) Identifier of the parent to add the attachment to or the temporary parent id. A temporary parent id must start with 'temp-'."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The name of the attachment",
+                "key": "X-Skedulo-Name",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "An optional description of the attachment",
+                "key": "X-Skedulo-Description",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "89c49dba-aca4-4138-82d4-35c3cc7a294d",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":parentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parentId",
+                      "description": "(Required) Identifier of the parent to add the attachment to or the temporary parent id. A temporary parent id must start with 'temp-'."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The name of the attachment",
+                    "key": "X-Skedulo-Name",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional description of the attachment",
+                    "key": "X-Skedulo-Description",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"id\": \"string\",\n    \"parentId\": \"string\",\n    \"name\": \"string\",\n    \"createdById\": \"string\",\n    \"createdDate\": \"2003-10-23T21:11:05.637Z\",\n    \"contentType\": \"string\",\n    \"contentLength\": \"string\",\n    \"description\": \"string\",\n    \"downloadUrl\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c9bb12c-b686-49cb-bff6-a9856d7b93c9",
+              "name": "Invalid data supplied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":parentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parentId",
+                      "description": "(Required) Identifier of the parent to add the attachment to or the temporary parent id. A temporary parent id must start with 'temp-'."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The name of the attachment",
+                    "key": "X-Skedulo-Name",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional description of the attachment",
+                    "key": "X-Skedulo-Description",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6d63e847-8d24-41e0-a1bd-e2d31bc6d789",
+    "name": "Authentication Admin Attachments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

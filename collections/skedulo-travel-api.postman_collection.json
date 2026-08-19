@@ -1,0 +1,237 @@
+{
+  "item": [
+    {
+      "id": "bf3b0e07-2612-4671-aa13-9e2f620322d6",
+      "name": "Travel",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "645874c9-b28b-4fd2-8fc5-7052d63511af",
+          "name": "Retrieve historical routes for one or more resources.",
+          "request": {
+            "name": "Retrieve historical routes for one or more resources.",
+            "description": {
+              "content": "Given a comma-separated list of resource Ids and a start and end date, return the route taken by that resource between the start and end time.\n\nThe maximum amount of time supported is 24 hours.\n\nThe supported formats are\n* _polyline_ Uses the Google Maps Polyline encoding (default)\n* _wkt_ - Well Known Text Strings.  Either a LINESTRING or a POINT is returned\n* _geojson_ - GeoJSON format. Either a linestring or a point is returned\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "travel",
+                "routes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "resource_ids",
+                  "value": "<string>",
+                  "description": "(Required) Comma separated resource Id values"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "(Required) Start time"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "(Required) End Time"
+                },
+                {
+                  "disabled": false,
+                  "key": "accuracy",
+                  "value": "<double>",
+                  "description": "All points returned will have an accuracy of at least the number given. If this parameter is not provided the default value is 100. To return all points use an empty string."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Output Format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5077820a-1ecc-4806-a9d7-4c4844090990",
+              "name": "Map from resourceId to route in the requested format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "travel",
+                    "routes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "accuracy",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"result\": {\n      \"key_0\": {\n        \"start\": \"1975-07-28T16:40:41.860Z\",\n        \"end\": \"1997-01-22T03:49:25.646Z\",\n        \"polyline\": \"string\",\n        \"wkt\": \"string\",\n        \"geoJson\": {}\n      },\n      \"key_1\": {\n        \"start\": \"2025-01-01T06:03:09.803Z\",\n        \"end\": \"1963-04-22T02:46:01.060Z\",\n        \"polyline\": \"string\",\n        \"wkt\": \"string\",\n        \"geoJson\": {}\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "86ea9de0-a23a-4668-abe2-e9978e962582",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "travel",
+                    "routes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "accuracy",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "723f1d64-8bc0-46d5-98dd-ba928d6f7c07",
+    "name": "Authentication Admin Travel API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

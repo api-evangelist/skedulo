@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin scheduling API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "scheduling",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Make a copy of scheduled work",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/async/copy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is deprecated, use `/schedule/copy` instead.\n\nJobs, shifts and activities can be copied with their attached allocations/resources and other attachments (e.g. tags). EQL filters must be provided to specify the jobs, shifts and/or activities to be copied. The start and end times of the copied work items will be offset (incremented or decremented) by the provided number of days. Executed in the background as an asynchronous task."
+        },
+        {
+          "info": {
+            "name": "Make a copy of scheduled work",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/copy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Jobs, shifts and activities can be copied with their attached allocations/resources and other attachments (e.g., tags). EQL filters must be provided to specify the jobs, shifts and/or activities to be copied. If a work item has a start and end time, the copied work item will be offset (incremented or decremented) by the provided number of days. Executed in the background as an asynchronous task."
+        },
+        {
+          "info": {
+            "name": "Retrieve the status and results of an asynchronous copy schedule task.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/async/copy/:taskId",
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the asynchronous task to be queried."
+              }
+            ]
+          },
+          "docs": "This endpoint is deprecated, use `/schedule/copy/{taskId}` instead.\n\nThis endpoint can be polled to get the status of the task and the results of the operation, if any."
+        },
+        {
+          "info": {
+            "name": "Retrieve the status of an asynchronous copy schedule task.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/copy/:taskId",
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the asynchronous task to be queried."
+              }
+            ]
+          },
+          "docs": "This endpoint can be polled to get the status of the task and the results of the operation, if any."
+        },
+        {
+          "info": {
+            "name": "Dispatch allocated work",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/sync/dispatch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Multiple jobs and shifts can be dispatched/published in one request. EQL filters must be provided to specify the jobs and shifts to be dispatched. Summary notifications can optionally be sent to each resource. Individual notifications will not be sent for each job/shift."
+        },
+        {
+          "info": {
+            "name": "Apply a template at a point in time.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/template/apply",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "A schedule template is converted to real jobs, shifts and activities, starting at the given date. Executed in the background as an asynchronous task."
+        },
+        {
+          "info": {
+            "name": "Retrieve the status and results of an asynchronous 'apply template' task.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/template/apply/:taskId",
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the asynchronous task to be queried."
+              }
+            ]
+          },
+          "docs": "This endpoint can be polled to get the status of the task and the results of the operation, if any."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

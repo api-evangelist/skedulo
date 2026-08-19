@@ -1,0 +1,1128 @@
+{
+  "item": [
+    {
+      "id": "1bfd5e0e-2a60-4d1d-9b54-ac65c8126035",
+      "name": "Availability",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "52e6839a-1db5-4879-9265-c2ad335ef755",
+          "name": "Fetch resource availability",
+          "request": {
+            "name": "Fetch resource availability",
+            "description": {
+              "content": "Fetch resource availability between a time period. The returned availability intervals are not trimmed to the request interval, so some intervals might extend beyond the request interval's bounds.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "availability"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "resource_ids",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated string of resource IDs. There must be at least one ID and at most 200."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "(Required) Instant to fetch from."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "(Required) Instant to fetch to, must be after start and within 375 days of it."
+                },
+                {
+                  "disabled": false,
+                  "key": "availability",
+                  "value": "false",
+                  "description": "Should availability be returned"
+                },
+                {
+                  "disabled": false,
+                  "key": "unavailability",
+                  "value": "false",
+                  "description": "Should unavailability be returned"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f5f8b379-fd85-41ae-a8e7-934c06879055",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availability"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "availability",
+                      "value": "false"
+                    },
+                    {
+                      "key": "unavailability",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"key_0\": {\n      \"available\": [\n        {\n          \"start\": \"1954-10-16T01:45:10.935Z\",\n          \"end\": \"1990-10-14T17:57:34.677Z\"\n        },\n        {\n          \"start\": \"2003-05-09T08:32:10.078Z\",\n          \"end\": \"1969-02-21T14:04:30.540Z\"\n        }\n      ],\n      \"unavailable\": [\n        {\n          \"start\": \"1972-06-25T00:26:29.450Z\",\n          \"end\": \"1980-07-19T16:37:24.423Z\"\n        },\n        {\n          \"start\": \"2005-06-09T10:20:25.504Z\",\n          \"end\": \"1951-02-21T03:07:24.765Z\"\n        }\n      ],\n      \"availability\": {\n        \"records\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"entries\": {\n          \"holiday\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"custom\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"template\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"pattern\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"unavailability\": {\n        \"defaults\": [\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"chunks\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"records\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"entries\": {\n          \"template\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"pattern\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"holiday\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"custom\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"shifts\": [\n        {\n          \"UID\": \"string\",\n          \"start\": \"2005-09-29T20:50:24.863Z\",\n          \"end\": \"1977-08-09T01:10:27.772Z\",\n          \"locationId\": \"string\",\n          \"regionId\": \"string\",\n          \"displayName\": \"string\"\n        },\n        {\n          \"UID\": \"string\",\n          \"start\": \"1964-10-15T22:20:52.152Z\",\n          \"end\": \"2005-05-26T15:58:38.120Z\",\n          \"locationId\": \"string\",\n          \"regionId\": \"string\",\n          \"displayName\": \"string\"\n        }\n      ],\n      \"regions\": [\n        {\n          \"start\": \"1989-01-07T01:49:59.175Z\",\n          \"end\": \"2003-10-06T08:06:14.334Z\",\n          \"regionIds\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"start\": \"1959-05-16T21:56:19.448Z\",\n          \"end\": \"1986-06-29T21:25:36.302Z\",\n          \"regionIds\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    },\n    \"key_1\": {\n      \"available\": [\n        {\n          \"start\": \"2019-10-10T03:23:46.414Z\",\n          \"end\": \"1949-05-12T07:00:43.289Z\"\n        },\n        {\n          \"start\": \"1983-11-13T09:58:37.626Z\",\n          \"end\": \"1999-07-23T14:36:00.039Z\"\n        }\n      ],\n      \"unavailable\": [\n        {\n          \"start\": \"1993-05-22T14:03:40.978Z\",\n          \"end\": \"1993-05-22T10:44:19.945Z\"\n        },\n        {\n          \"start\": \"1985-09-03T06:46:33.649Z\",\n          \"end\": \"1973-06-11T21:51:09.588Z\"\n        }\n      ],\n      \"availability\": {\n        \"records\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"entries\": {\n          \"holiday\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"custom\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"template\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_4\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"pattern\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"unavailability\": {\n        \"defaults\": [\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"chunks\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"records\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"entries\": {\n          \"template\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"pattern\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"holiday\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"custom\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"shifts\": [\n        {\n          \"UID\": \"string\",\n          \"start\": \"1974-08-04T00:10:48.279Z\",\n          \"end\": \"1994-03-29T19:07:10.825Z\",\n          \"locationId\": \"string\",\n          \"regionId\": \"string\",\n          \"displayName\": \"string\"\n        },\n        {\n          \"UID\": \"string\",\n          \"start\": \"2020-11-30T16:03:31.467Z\",\n          \"end\": \"1968-12-18T14:11:39.490Z\",\n          \"locationId\": \"string\",\n          \"regionId\": \"string\",\n          \"displayName\": \"string\"\n        }\n      ],\n      \"regions\": [\n        {\n          \"start\": \"2000-09-07T12:06:55.793Z\",\n          \"end\": \"1994-12-11T01:15:28.500Z\",\n          \"regionIds\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"start\": \"2017-04-20T15:02:40.689Z\",\n          \"end\": \"2016-05-11T00:28:04.070Z\",\n          \"regionIds\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    },\n    \"key_2\": {\n      \"available\": [\n        {\n          \"start\": \"2015-09-29T08:27:22.038Z\",\n          \"end\": \"2003-09-30T20:37:06.191Z\"\n        },\n        {\n          \"start\": \"1951-01-05T11:38:57.703Z\",\n          \"end\": \"2017-12-16T09:56:46.497Z\"\n        }\n      ],\n      \"unavailable\": [\n        {\n          \"start\": \"1963-05-14T10:24:08.754Z\",\n          \"end\": \"1991-01-29T15:59:07.552Z\"\n        },\n        {\n          \"start\": \"1985-07-28T12:38:32.808Z\",\n          \"end\": \"2025-05-11T17:47:22.006Z\"\n        }\n      ],\n      \"availability\": {\n        \"records\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"entries\": {\n          \"holiday\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"custom\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"template\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"pattern\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"unavailability\": {\n        \"defaults\": [\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"chunks\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"records\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"entries\": {\n          \"template\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"pattern\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"holiday\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"custom\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"shifts\": [\n        {\n          \"UID\": \"string\",\n          \"start\": \"1957-06-29T17:06:08.735Z\",\n          \"end\": \"1985-07-03T11:18:59.840Z\",\n          \"locationId\": \"string\",\n          \"regionId\": \"string\",\n          \"displayName\": \"string\"\n        },\n        {\n          \"UID\": \"string\",\n          \"start\": \"1973-07-19T19:09:11.026Z\",\n          \"end\": \"2009-09-05T09:56:40.882Z\",\n          \"locationId\": \"string\",\n          \"regionId\": \"string\",\n          \"displayName\": \"string\"\n        }\n      ],\n      \"regions\": [\n        {\n          \"start\": \"2009-08-10T16:48:13.556Z\",\n          \"end\": \"2006-01-15T16:15:01.933Z\",\n          \"regionIds\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"start\": \"1990-09-12T14:14:49.186Z\",\n          \"end\": \"1961-11-02T00:20:49.063Z\",\n          \"regionIds\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b8590a60-422f-4ca0-96bf-b23fe76d2070",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availability"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "availability",
+                      "value": "false"
+                    },
+                    {
+                      "key": "unavailability",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "580b6dd9-6c6c-4d60-a93d-c6418a9a2569",
+          "name": "Resource availability",
+          "request": {
+            "name": "Resource availability",
+            "description": {
+              "content": "Fetch resource availability between a time period.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "availability"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"availability\": false,\n  \"unavailability\": false,\n  \"availabilityFilterValues\": [\n    {\n      \"objectType\": \"<string>\",\n      \"values\": {\n        \"key_0\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"groupId\": \"<string>\"\n    },\n    {\n      \"objectType\": \"<string>\",\n      \"values\": {\n        \"key_0\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"key_1\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"groupId\": \"<string>\"\n    }\n  ],\n  \"availabilityFilterEntityIds\": {\n    \"key_0\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e117d1cd-0fe6-4ba1-9a63-c59ce0c1b2ec",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availability"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"availability\": false,\n  \"unavailability\": false,\n  \"availabilityFilterValues\": [\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": {\n        \"key_0\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"groupId\": \"<string>\"\n    },\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": {\n        \"key_0\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"key_1\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"key_2\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"groupId\": \"<string>\"\n    }\n  ],\n  \"availabilityFilterEntityIds\": {\n    \"key_0\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"key_0\": {\n      \"available\": [\n        {\n          \"start\": \"2017-08-16T08:16:22.905Z\",\n          \"end\": \"2023-10-02T10:26:14.196Z\"\n        },\n        {\n          \"start\": \"1962-11-13T14:41:48.576Z\",\n          \"end\": \"1999-06-10T20:45:34.197Z\"\n        }\n      ],\n      \"unavailable\": [\n        {\n          \"start\": \"2006-05-01T16:28:00.171Z\",\n          \"end\": \"1974-03-22T15:06:37.948Z\"\n        },\n        {\n          \"start\": \"1971-05-07T23:25:08.003Z\",\n          \"end\": \"1971-02-03T01:10:40.310Z\"\n        }\n      ],\n      \"availability\": {\n        \"records\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"entries\": {\n          \"holiday\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_4\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"custom\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"template\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_4\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"pattern\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"unavailability\": {\n        \"defaults\": [\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"chunks\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"records\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"entries\": {\n          \"template\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"pattern\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"holiday\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"custom\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"shifts\": [\n        {\n          \"UID\": \"string\",\n          \"start\": \"1978-08-18T11:40:21.053Z\",\n          \"end\": \"2022-05-28T00:25:58.557Z\",\n          \"locationId\": \"string\",\n          \"regionId\": \"string\",\n          \"displayName\": \"string\"\n        },\n        {\n          \"UID\": \"string\",\n          \"start\": \"2018-09-03T17:54:17.151Z\",\n          \"end\": \"1967-06-29T04:22:36.738Z\",\n          \"locationId\": \"string\",\n          \"regionId\": \"string\",\n          \"displayName\": \"string\"\n        }\n      ],\n      \"regions\": [\n        {\n          \"start\": \"1949-07-17T04:50:04.705Z\",\n          \"end\": \"2006-08-11T01:41:11.686Z\",\n          \"regionIds\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"start\": \"1969-11-25T23:29:35.755Z\",\n          \"end\": \"2025-08-25T18:11:47.001Z\",\n          \"regionIds\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    },\n    \"key_1\": {\n      \"available\": [\n        {\n          \"start\": \"1957-02-16T13:08:19.475Z\",\n          \"end\": \"1987-11-23T09:41:05.838Z\"\n        },\n        {\n          \"start\": \"2013-06-09T03:46:09.487Z\",\n          \"end\": \"2010-03-18T13:22:36.271Z\"\n        }\n      ],\n      \"unavailable\": [\n        {\n          \"start\": \"2019-04-13T00:45:15.482Z\",\n          \"end\": \"2020-08-03T06:52:12.633Z\"\n        },\n        {\n          \"start\": \"1974-04-17T12:33:55.276Z\",\n          \"end\": \"1958-07-24T06:18:56.659Z\"\n        }\n      ],\n      \"availability\": {\n        \"records\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"entries\": {\n          \"holiday\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"custom\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"template\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"pattern\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"unavailability\": {\n        \"defaults\": [\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"chunks\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"records\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"entries\": {\n          \"template\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"pattern\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"holiday\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"custom\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"shifts\": [\n        {\n          \"UID\": \"string\",\n          \"start\": \"1986-03-01T09:28:17.657Z\",\n          \"end\": \"2008-06-05T09:34:37.255Z\",\n          \"locationId\": \"string\",\n          \"regionId\": \"string\",\n          \"displayName\": \"string\"\n        },\n        {\n          \"UID\": \"string\",\n          \"start\": \"1972-12-04T04:54:35.920Z\",\n          \"end\": \"1949-09-03T10:26:55.114Z\",\n          \"locationId\": \"string\",\n          \"regionId\": \"string\",\n          \"displayName\": \"string\"\n        }\n      ],\n      \"regions\": [\n        {\n          \"start\": \"1952-04-25T08:18:34.331Z\",\n          \"end\": \"2007-02-05T09:28:55.479Z\",\n          \"regionIds\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"start\": \"1982-02-04T17:18:44.873Z\",\n          \"end\": \"1975-02-26T12:29:49.722Z\",\n          \"regionIds\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "749cb4ac-be11-445d-a490-dcab5650d242",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availability"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"availability\": false,\n  \"unavailability\": false,\n  \"availabilityFilterValues\": [\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": {\n        \"key_0\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"groupId\": \"<string>\"\n    },\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": {\n        \"key_0\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"key_1\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"key_2\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"groupId\": \"<string>\"\n    }\n  ],\n  \"availabilityFilterEntityIds\": {\n    \"key_0\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9847bb93-dd6e-49ee-b17b-b606cc64fc9f",
+          "name": "Fetch resource availability in a simplified format",
+          "request": {
+            "name": "Fetch resource availability in a simplified format",
+            "description": {
+              "content": "Fetch resource availability between a time period. This method is functionally the same as the GET method, but supports filters via the `availabilityFilterValues` array or `availabilityFilterEntityIds` map and replaces the deprecated GET method. Returned intervals might extend beyond the requested bounds.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "availability",
+                "simple"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"mergedAvailabilities\": false,\n  \"entries\": true,\n  \"availabilityFilterValues\": [\n    {\n      \"objectType\": \"<string>\",\n      \"values\": {\n        \"key_0\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"key_1\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"key_2\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"key_3\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"groupId\": \"<string>\"\n    },\n    {\n      \"objectType\": \"<string>\",\n      \"values\": {\n        \"key_0\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"key_1\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"groupId\": \"<string>\"\n    }\n  ],\n  \"availabilityFilterEntityIds\": {\n    \"key_0\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"key_1\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"key_2\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "26813a29-1e2d-4ebc-acb5-834a44d63683",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availability",
+                    "simple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"mergedAvailabilities\": false,\n  \"entries\": true,\n  \"availabilityFilterValues\": [\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": {\n        \"key_0\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"groupId\": \"<string>\"\n    },\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": {\n        \"key_0\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"key_1\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"groupId\": \"<string>\"\n    }\n  ],\n  \"availabilityFilterEntityIds\": {\n    \"key_0\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"resourceId\": \"string\",\n      \"entries\": [\n        {\n          \"templateId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"templateEntryId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"templateId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"templateEntryId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"mergedAvailabilties\": [\n        {\n          \"start\": \"1977-04-01T22:08:32.648Z\",\n          \"end\": \"1990-12-05T00:59:04.715Z\"\n        },\n        {\n          \"start\": \"1963-04-12T05:10:20.263Z\",\n          \"end\": \"2001-04-06T11:12:18.708Z\"\n        }\n      ]\n    },\n    {\n      \"resourceId\": \"string\",\n      \"entries\": [\n        {\n          \"templateId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"templateEntryId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"templateId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"templateEntryId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"mergedAvailabilties\": [\n        {\n          \"start\": \"1969-10-30T09:07:18.231Z\",\n          \"end\": \"1953-05-23T10:15:32.995Z\"\n        },\n        {\n          \"start\": \"2011-11-27T06:21:19.603Z\",\n          \"end\": \"1990-07-22T10:08:22.509Z\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b0b3dc6-3f16-4002-bc20-fa3470e45a17",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availability",
+                    "simple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"mergedAvailabilities\": false,\n  \"entries\": true,\n  \"availabilityFilterValues\": [\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": {\n        \"key_0\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"groupId\": \"<string>\"\n    },\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": {\n        \"key_0\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"key_1\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"groupId\": \"<string>\"\n    }\n  ],\n  \"availabilityFilterEntityIds\": {\n    \"key_0\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e900c9e4-2dc3-4a72-993d-fad08dae1061",
+          "name": "Fetch resource availability in a simplified format",
+          "request": {
+            "name": "Fetch resource availability in a simplified format",
+            "description": {
+              "content": "Fetch resource availability between a time period in a simplified format. The returned availability intervals are not trimmed to the request interval, so some intervals might extend beyond the request interval's bounds. This method is deprecated and replaced by the POST method.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "availability",
+                "simple"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "resource_ids",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated string of resource IDs. There must be at least one ID and at most 200."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "(Required) Instant to fetch from."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "(Required) Instant to fetch to, must be after start and within 375 days of it."
+                },
+                {
+                  "disabled": false,
+                  "key": "mergedAvailabilities",
+                  "value": "false",
+                  "description": "If true, merged availability time intervals are returned with the result."
+                },
+                {
+                  "disabled": false,
+                  "key": "entries",
+                  "value": "true",
+                  "description": "If true or omitted, the list of availability entries is returned."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5f753111-f29e-4384-b80a-89db6f976e89",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availability",
+                    "simple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "mergedAvailabilities",
+                      "value": "false"
+                    },
+                    {
+                      "key": "entries",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"resourceId\": \"string\",\n      \"entries\": [\n        {\n          \"templateId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"templateEntryId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"templateId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"templateEntryId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"mergedAvailabilties\": [\n        {\n          \"start\": \"1959-08-20T02:09:13.549Z\",\n          \"end\": \"2001-11-09T07:34:16.395Z\"\n        },\n        {\n          \"start\": \"2026-02-07T03:29:23.988Z\",\n          \"end\": \"2000-02-12T07:59:23.089Z\"\n        }\n      ]\n    },\n    {\n      \"resourceId\": \"string\",\n      \"entries\": [\n        {\n          \"templateId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"templateEntryId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"templateId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"templateEntryId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"mergedAvailabilties\": [\n        {\n          \"start\": \"2022-05-21T15:08:21.357Z\",\n          \"end\": \"1951-09-10T15:47:21.329Z\"\n        },\n        {\n          \"start\": \"2020-04-12T20:27:33.943Z\",\n          \"end\": \"1952-10-19T11:54:02.811Z\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82e6171b-a682-4f9a-adb0-9a03d1f918c3",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availability",
+                    "simple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "mergedAvailabilities",
+                      "value": "false"
+                    },
+                    {
+                      "key": "entries",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6580d935-6294-4009-b3d4-a36d55677aa4",
+          "name": "Fetch available resources",
+          "request": {
+            "name": "Fetch available resources",
+            "description": {
+              "content": "Fetch available resources for given criteria in a time period. Must specify at least one of `resourceIds` or `regionIds`. Note that the `regionIds` filter only restricts the list of resources to query the availabilities for; resource availability is global, there is no concept of per-region availability in the system. The returned availability intervals are not trimmed to the request interval, so some intervals might extend beyond the request interval's bounds.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "availability",
+                "resources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"resourceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"regionIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"resourceFilter\": \"<string>\",\n  \"availability\": false,\n  \"unavailability\": false,\n  \"availabilityFilterValues\": [\n    {\n      \"objectType\": \"<string>\",\n      \"values\": {\n        \"key_0\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"key_1\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"key_2\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"key_3\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"groupId\": \"<string>\"\n    },\n    {\n      \"objectType\": \"<string>\",\n      \"values\": {\n        \"key_0\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"key_1\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"groupId\": \"<string>\"\n    }\n  ],\n  \"availabilityFilterEntityIds\": {\n    \"key_0\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"key_1\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"key_2\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"key_3\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4dc28ce6-dfa2-42ea-b4ba-eb4c1457964c",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availability",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"resourceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"regionIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"resourceFilter\": \"EmploymentType == \\\"Full-time\\\"\",\n  \"availability\": false,\n  \"unavailability\": false,\n  \"availabilityFilterValues\": [\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": {\n        \"key_0\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"key_1\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"groupId\": \"<string>\"\n    },\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": {\n        \"key_0\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"groupId\": \"<string>\"\n    }\n  ],\n  \"availabilityFilterEntityIds\": {\n    \"key_0\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"key_1\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"key_0\": {\n      \"available\": [\n        {\n          \"start\": \"2017-08-16T08:16:22.905Z\",\n          \"end\": \"2023-10-02T10:26:14.196Z\"\n        },\n        {\n          \"start\": \"1962-11-13T14:41:48.576Z\",\n          \"end\": \"1999-06-10T20:45:34.197Z\"\n        }\n      ],\n      \"unavailable\": [\n        {\n          \"start\": \"2006-05-01T16:28:00.171Z\",\n          \"end\": \"1974-03-22T15:06:37.948Z\"\n        },\n        {\n          \"start\": \"1971-05-07T23:25:08.003Z\",\n          \"end\": \"1971-02-03T01:10:40.310Z\"\n        }\n      ],\n      \"availability\": {\n        \"records\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"entries\": {\n          \"holiday\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_4\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"custom\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"template\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_4\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"pattern\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"unavailability\": {\n        \"defaults\": [\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"chunks\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"records\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"entries\": {\n          \"template\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"pattern\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"holiday\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"custom\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"shifts\": [\n        {\n          \"UID\": \"string\",\n          \"start\": \"1978-08-18T11:40:21.053Z\",\n          \"end\": \"2022-05-28T00:25:58.557Z\",\n          \"locationId\": \"string\",\n          \"regionId\": \"string\",\n          \"displayName\": \"string\"\n        },\n        {\n          \"UID\": \"string\",\n          \"start\": \"2018-09-03T17:54:17.151Z\",\n          \"end\": \"1967-06-29T04:22:36.738Z\",\n          \"locationId\": \"string\",\n          \"regionId\": \"string\",\n          \"displayName\": \"string\"\n        }\n      ],\n      \"regions\": [\n        {\n          \"start\": \"1949-07-17T04:50:04.705Z\",\n          \"end\": \"2006-08-11T01:41:11.686Z\",\n          \"regionIds\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"start\": \"1969-11-25T23:29:35.755Z\",\n          \"end\": \"2025-08-25T18:11:47.001Z\",\n          \"regionIds\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    },\n    \"key_1\": {\n      \"available\": [\n        {\n          \"start\": \"1957-02-16T13:08:19.475Z\",\n          \"end\": \"1987-11-23T09:41:05.838Z\"\n        },\n        {\n          \"start\": \"2013-06-09T03:46:09.487Z\",\n          \"end\": \"2010-03-18T13:22:36.271Z\"\n        }\n      ],\n      \"unavailable\": [\n        {\n          \"start\": \"2019-04-13T00:45:15.482Z\",\n          \"end\": \"2020-08-03T06:52:12.633Z\"\n        },\n        {\n          \"start\": \"1974-04-17T12:33:55.276Z\",\n          \"end\": \"1958-07-24T06:18:56.659Z\"\n        }\n      ],\n      \"availability\": {\n        \"records\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"entries\": {\n          \"holiday\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"custom\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"template\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"pattern\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"unavailability\": {\n        \"defaults\": [\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"chunks\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"records\": [\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        ],\n        \"entries\": {\n          \"template\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"pattern\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"holiday\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"custom\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"shifts\": [\n        {\n          \"UID\": \"string\",\n          \"start\": \"1986-03-01T09:28:17.657Z\",\n          \"end\": \"2008-06-05T09:34:37.255Z\",\n          \"locationId\": \"string\",\n          \"regionId\": \"string\",\n          \"displayName\": \"string\"\n        },\n        {\n          \"UID\": \"string\",\n          \"start\": \"1972-12-04T04:54:35.920Z\",\n          \"end\": \"1949-09-03T10:26:55.114Z\",\n          \"locationId\": \"string\",\n          \"regionId\": \"string\",\n          \"displayName\": \"string\"\n        }\n      ],\n      \"regions\": [\n        {\n          \"start\": \"1952-04-25T08:18:34.331Z\",\n          \"end\": \"2007-02-05T09:28:55.479Z\",\n          \"regionIds\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"start\": \"1982-02-04T17:18:44.873Z\",\n          \"end\": \"1975-02-26T12:29:49.722Z\",\n          \"regionIds\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a1d68955-3b6b-43d8-816a-afc4bc29ff88",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availability",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"resourceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"regionIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"resourceFilter\": \"EmploymentType == \\\"Full-time\\\"\",\n  \"availability\": false,\n  \"unavailability\": false,\n  \"availabilityFilterValues\": [\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": {\n        \"key_0\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"key_1\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"groupId\": \"<string>\"\n    },\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": {\n        \"key_0\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"groupId\": \"<string>\"\n    }\n  ],\n  \"availabilityFilterEntityIds\": {\n    \"key_0\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"key_1\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2874524c-25f6-4bce-b2cd-808a38240596",
+          "name": "Upsert availability patterns",
+          "request": {
+            "name": "Upsert availability patterns",
+            "description": {
+              "content": "Create or update availability patterns and the related resources.\n\nIf a UID is present on the pattern it will be updated, otherwise a new pattern will be created.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "availability",
+                "patterns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pattern\": {\n    \"UID\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"pattern\": {\n      \"days\": [\n        {\n          \"day\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"intervals\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"day\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"intervals\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"lengthDays\": \"<number>\",\n      \"type\": \"<string>\"\n    }\n  },\n  \"resources\": [\n    {\n      \"resourceId\": \"<string>\",\n      \"start\": \"<dateTime>\",\n      \"UID\": \"<string>\",\n      \"end\": \"<dateTime>\"\n    },\n    {\n      \"resourceId\": \"<string>\",\n      \"start\": \"<dateTime>\",\n      \"UID\": \"<string>\",\n      \"end\": \"<dateTime>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f4d235d0-40fc-4a12-81b6-da26e7dcc669",
+              "name": "successful update",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availability",
+                    "patterns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pattern\": {\n    \"UID\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"pattern\": {\n      \"days\": [\n        {\n          \"day\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"intervals\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"day\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"intervals\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"lengthDays\": 5,\n      \"type\": \"<string>\"\n    }\n  },\n  \"resources\": [\n    {\n      \"resourceId\": \"<string>\",\n      \"start\": \"<dateTime>\",\n      \"UID\": \"<string>\",\n      \"end\": \"<dateTime>\"\n    },\n    {\n      \"resourceId\": \"<string>\",\n      \"start\": \"<dateTime>\",\n      \"UID\": \"<string>\",\n      \"end\": \"<dateTime>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": \"0d16569e-cd17-5d0f-6753-3efd63ea1836\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be5111bb-71ca-4782-8cb0-847ff95e5916",
+              "name": "successful insert",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availability",
+                    "patterns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pattern\": {\n    \"UID\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"pattern\": {\n      \"days\": [\n        {\n          \"day\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"intervals\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"day\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"intervals\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"lengthDays\": 5,\n      \"type\": \"<string>\"\n    }\n  },\n  \"resources\": [\n    {\n      \"resourceId\": \"<string>\",\n      \"start\": \"<dateTime>\",\n      \"UID\": \"<string>\",\n      \"end\": \"<dateTime>\"\n    },\n    {\n      \"resourceId\": \"<string>\",\n      \"start\": \"<dateTime>\",\n      \"UID\": \"<string>\",\n      \"end\": \"<dateTime>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created\": \"7d903a98-ee3e-c363-1a4b-a25491437ea0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7772e285-68d2-4525-9841-6a13c071a2c2",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availability",
+                    "patterns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pattern\": {\n    \"UID\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"pattern\": {\n      \"days\": [\n        {\n          \"day\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"intervals\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"day\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"intervals\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"lengthDays\": 5,\n      \"type\": \"<string>\"\n    }\n  },\n  \"resources\": [\n    {\n      \"resourceId\": \"<string>\",\n      \"start\": \"<dateTime>\",\n      \"UID\": \"<string>\",\n      \"end\": \"<dateTime>\"\n    },\n    {\n      \"resourceId\": \"<string>\",\n      \"start\": \"<dateTime>\",\n      \"UID\": \"<string>\",\n      \"end\": \"<dateTime>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_type\": {},\n  \"message\": {},\n  \"pattern\": [\n    {\n      \"pattern-not-found\": \"string\"\n    },\n    {\n      \"pattern-not-found\": \"string\"\n    }\n  ],\n  \"resources\": [\n    {\n      \"pattern-resource-not-found\": \"string\"\n    },\n    {\n      \"pattern-resource-not-found\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47f1e877-3400-46f3-9c2d-a9ce1aaeff47",
+          "name": "Retrieve information about the status of the Availability Template to Pattern migration.",
+          "request": {
+            "name": "Retrieve information about the status of the Availability Template to Pattern migration.",
+            "description": {
+              "content": "Retrieve information about the status of the Availability Template to Pattern migration. The Availability Patterns feature flag must be enabled in the org before calling this endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "availability",
+                "migrate_to_patterns",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b6bccad0-47f2-485b-b443-14b461e43535",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availability",
+                    "migrate_to_patterns",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"totalTemplates\": 1794,\n    \"totalTemplateResources\": 6677,\n    \"unmigratedTemplates\": 8519,\n    \"unmigratedTemplateResources\": 1192\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "62de6a13-7674-4fcf-818c-ef0d6fc0beb9",
+          "name": "Migrate all Availability Templates to Patterns in the org.",
+          "request": {
+            "name": "Migrate all Availability Templates to Patterns in the org.",
+            "description": {
+              "content": "Migrate all Availability Template and Availability Template Resource objects in the org to Availability Pattern and Availability Pattern Resource objects, respectively.\n\nThe Availability Patterns feature flag must be enabled in the org before calling this endpoint. No data is deleted by the migration process. The operation is idempotent, meaning that calling the endpoint multiple times will migrate every object only once. If the operation was interrupted or not all objects could be migrated due to some errors, the endpoint should be called again to migrate the rest of the data (perhaps after fixing some problems manually first).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "availability",
+                "migrate_to_patterns",
+                "migrate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0912a184-b5c2-4495-b9f4-6d94ca4f1269",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availability",
+                    "migrate_to_patterns",
+                    "migrate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"totalTemplates\": 8370,\n    \"totalTemplateResources\": 4465,\n    \"unmigratedTemplatesPreMigration\": 2804,\n    \"unmigratedTemplateResourcesPreMigration\": 1179,\n    \"unmigratedTemplatesPostMigration\": 9479,\n    \"unmigratedTemplateResourcesPostMigration\": 3115,\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d21077bb-8443-404b-bdf8-d7100693b781",
+    "name": "Authentication Admin Availability API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

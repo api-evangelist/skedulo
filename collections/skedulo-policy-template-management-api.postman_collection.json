@@ -1,0 +1,422 @@
+{
+  "item": [
+    {
+      "id": "82dbee6f-84d5-4dce-9a30-f41cbd51c524",
+      "name": "Policy Template Management",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "13b8f20c-6f1e-483e-a4a4-e6cc2344d53f",
+          "name": "Apply a policy template.",
+          "request": {
+            "name": "Apply a policy template.",
+            "description": {},
+            "url": {
+              "path": [
+                "policies",
+                "templates",
+                ":id",
+                "apply"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST"
+          },
+          "response": [
+            {
+              "id": "3d4b9531-1f73-48a0-81cb-8fa4dff24a50",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    "templates",
+                    ":id",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"description\": \"string\",\n    \"enabled\": false,\n    \"id\": \"857b8c2b-ba0b-a0c4-e765-119c409e9da0\",\n    \"name\": \"string\",\n    \"rules\": [\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"40ce7947-ce9c-a98f-b549-72ba7fb6fcab\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"1e320569-9ff6-3184-089c-ab04c171c950\",\n        \"rolesExcluded\": [\n          \"a4104877-24ed-1197-d255-9b39d88b2594\",\n          \"f1ce661a-ae0d-eb03-d3d1-15c7a437b8bd\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"44c934ca-dd80-9443-2348-4ae12e0dea38\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"27f889ce-4992-ed99-d3f6-4ceb18827f50\",\n        \"rolesExcluded\": [\n          \"4f5855d9-d0df-7af9-b567-3aaa3de08c12\",\n          \"4158a769-b56d-70cb-e54f-c8105c42d0a0\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"b5e0812b-af86-38b7-ad21-9b97f0cee687\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"a2c5ea46-28af-9c26-63ce-991042757922\",\n        \"rolesExcluded\": [\n          \"3f0f2096-f72b-f206-3024-6d10ec93e18b\",\n          \"bf1f5db3-c59c-be22-4f5e-d4acd7664e0e\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"c21bfe6a-5980-6429-901b-5ce2f7f2aa05\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"e67daec2-efcf-ebdb-2955-2ddca43bef75\",\n        \"rolesExcluded\": [\n          \"3d01bfc7-75d0-788f-169a-55c90a0de1b5\",\n          \"1fb9a648-fddb-9e26-8047-8a47923662c2\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"b41d8780-649f-ee87-0f84-0af9b9ca74bb\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"002da315-40c0-4c8f-55a6-cc6b34d9ac52\",\n        \"rolesExcluded\": [\n          \"a02527c6-d2c0-5b41-774d-cb1698111a73\",\n          \"e2a2e3de-f347-c98b-e244-1a1bbc281bbe\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"9c22b1a9-14c2-ef65-a121-2ff96c0f82f7\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"4e1ab259-3ab6-265a-4579-ee43aaf26b4d\",\n        \"rolesExcluded\": [\n          \"39db4d51-32f1-a5a0-235e-5d92eb312b82\",\n          \"e59ee57f-ed91-80ad-9ce4-2421b3886850\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"b8f089f1-f9c7-cc01-7e61-38ede4ff16e4\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"1722725c-0515-89a6-3e70-0014367d4d91\",\n        \"rolesExcluded\": [\n          \"0db0f2a1-dbbb-9f63-a855-5482da456934\",\n          \"241aa667-b63a-8eac-c99a-cef8f405cb25\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"351a603a-c839-2314-f4ea-9f0b43087100\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"52ab0da3-9380-5894-8721-3212ecc1a7eb\",\n        \"rolesExcluded\": [\n          \"6fa5838b-8113-e653-cef2-f3d36f3c3923\",\n          \"fa787bde-86ab-aab1-aaf9-f3cac358d877\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"47ccc094-adbe-5ac4-5daf-1ffe5a172d70\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"87b5d283-63ba-a020-9b53-5a3c4d389d8a\",\n        \"rolesExcluded\": [\n          \"9cd838b2-9136-42cc-884e-6dd88d1f800e\",\n          \"bd65b358-6fba-0829-bc3e-82aaa9bc41a6\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"65c80147-f63e-15f4-5e64-333e7438fa84\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"f3472b6f-eb81-5e18-916e-fcb33c9630eb\",\n        \"rolesExcluded\": [\n          \"e105c4cf-a4ec-6eda-9c4b-0c397cba8928\",\n          \"e2402bfc-8eec-ef7f-1b6e-10f95348d271\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"9c1cf360-6472-002d-bd63-65cb85f5d0ee\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"1f039a6b-3cb8-638d-07fc-2e9634099970\",\n        \"rolesExcluded\": [\n          \"16b1731a-af6b-9ceb-e058-05b8b68f597c\",\n          \"4e35f382-99b6-639f-d6d1-83f8b07d66dd\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"34b71f48-6720-5c9a-11bc-2d712ac19f0e\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"ebd21e00-ab95-866d-acba-16e24870876e\",\n        \"rolesExcluded\": [\n          \"069ea95d-b0a5-dddb-ddee-4e8765b977b5\",\n          \"b0817174-d19c-8bf9-2dfe-8a5a9d274b8c\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"a85df505-3813-80ec-8260-298536dd7f1a\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"a8978268-fa98-29f8-f2ee-738bbc9e1a01\",\n        \"rolesExcluded\": [\n          \"eef42a94-0b4a-18a8-f21a-d332d6b7e9c2\",\n          \"095b5998-ead4-982a-4511-59761c244d3c\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"a431c5f7-6494-739a-5103-9ae5e70672d0\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"8b64d355-ccaf-3c25-ece7-1fe4560cc144\",\n        \"rolesExcluded\": [\n          \"c83f2b94-1c90-cde2-b02f-6912edc6280f\",\n          \"b35c5b3d-aa3c-9d4f-17cd-4bd95e95017b\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"781abc9f-3c55-248f-a190-19b780c8305d\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"40498ade-ee71-9d1f-06a8-542fb0ad24a6\",\n        \"rolesExcluded\": [\n          \"b93001c5-0b37-a97c-9b22-0f68d326de0a\",\n          \"69c475f4-e33e-5f52-25cb-45360e11f45f\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"bf9170fd-946d-ba9e-78c4-2829b5fe6768\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"4c28bba8-8691-f3cc-06cd-0e2a8e1f97f3\",\n        \"rolesExcluded\": [\n          \"56cafacf-03da-6289-8271-424f9ba12adf\",\n          \"6cfc2576-f85e-996d-bf76-73c10cf18aa3\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"8c84fdf5-665e-9913-92b6-ee18efa670bc\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"adb27a60-9678-e862-b605-f99b57bc158a\",\n        \"rolesExcluded\": [\n          \"b8c03e51-2732-c67a-b832-b5512180777e\",\n          \"31ff713a-d77f-39d6-36de-dd67552be6f9\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"3e4764ea-7b31-8566-9719-8e6ceb1b5a45\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"a0f28e34-41f5-8cbc-5797-92b7d4818f7a\",\n        \"rolesExcluded\": [\n          \"57dea719-3818-12d2-7116-944010c6711e\",\n          \"f43005c3-5306-222d-1d9f-9f8304df2396\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"236e3979-92a1-5ac4-fcbd-6c523c94cc87\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"f7c35866-2dc2-f123-1824-7c4dc9716602\",\n        \"rolesExcluded\": [\n          \"98504f7f-c8bc-a4f9-1def-bbe5b90830d6\",\n          \"55c02bb2-3e51-014d-ad40-e2f94891484d\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"6b28be01-c73c-d34d-1dba-3ee5bdd69132\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"e351c552-166a-47df-e57f-6095010dbd8b\",\n        \"rolesExcluded\": [\n          \"d8c6f939-5833-7cd9-83db-c605f06624c7\",\n          \"0492f885-cecb-9752-ec2a-1469809578ba\"\n        ]\n      }\n    ],\n    \"sourceTemplateId\": \"b38eacd0-299d-62c5-6616-57ccd2c772bd\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb2c4d35-4491-4a06-810e-ff2ddf286772",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    "templates",
+                    ":id",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"extraFields\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6584f3a-d45d-4445-b129-fc30ea6978c9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    "templates",
+                    ":id",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b3b4bd29-adbb-4ae8-abf2-895e3f5bd66b",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    "templates",
+                    ":id",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"extraFields\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8e08760-c6f2-4e3b-a19d-657aa57cfc57",
+          "name": "Get all policy templates. Convert a template to a real policy by calling the apply endpoint.",
+          "request": {
+            "name": "Get all policy templates. Convert a template to a real policy by calling the apply endpoint.",
+            "description": {},
+            "url": {
+              "path": [
+                "policies",
+                "templates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "a2d944a3-8bff-4829-9570-e0751ca25b5d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    "templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"description\": \"string\",\n      \"id\": \"28e7d1f3-2537-5f53-9a09-50d931b700c1\",\n      \"name\": \"string\",\n      \"rules\": [\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    },\n    {\n      \"description\": \"string\",\n      \"id\": \"a930edb1-7605-27c3-5696-b084a3fe7c1a\",\n      \"name\": \"string\",\n      \"rules\": [\n        {\n          \"accessType\": \"allow\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87995817-5ccd-41cf-9186-f8f56bcf11fb",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    "templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"extraFields\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e238a23-b605-42cf-9da1-66c73039b066",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    "templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0316a1ce-8782-4fbd-be43-ab4f31665f35",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    "templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"extraFields\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6d07b8fb-5a4e-4b6d-a013-fc37e16f5c71",
+    "name": "Authentication Admin Policy Template Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

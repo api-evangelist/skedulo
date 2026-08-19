@@ -1,0 +1,142 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Admin",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get API user for tenant (Internal)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/admin/api_user/:tenantId",
+            "params": [
+              {
+                "name": "tenantId",
+                "value": "",
+                "type": "path",
+                "description": "The tenant ID to get the API user for"
+              }
+            ]
+          },
+          "docs": "Get the API user for a given tenant ID. The caller must be an internal administrator."
+        },
+        {
+          "info": {
+            "name": "Get API user for multiple tenants (Internal)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/admin/api_user/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get the API user for the given list of tenant IDs. The caller must be an internal administrator."
+        },
+        {
+          "info": {
+            "name": "List all API tokens for tenant (Internal)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/admin/tokens/:tenantId",
+            "params": [
+              {
+                "name": "tenantId",
+                "value": "",
+                "type": "path",
+                "description": "The tenant ID"
+              }
+            ]
+          },
+          "docs": "List metadata for all API tokens, including revoked tokens for a tenant. The actual token values are not returned."
+        },
+        {
+          "info": {
+            "name": "Get an API token for a tenant (Internal)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/admin/token/:tenantId/:jti",
+            "params": [
+              {
+                "name": "tenantId",
+                "value": "",
+                "type": "path",
+                "description": "The tenant ID"
+              },
+              {
+                "name": "jti",
+                "value": "",
+                "type": "path",
+                "description": "The JWT Identifier for the API token"
+              }
+            ]
+          },
+          "docs": "Get metadata for an API token for a tenant by specifying its JTI."
+        },
+        {
+          "info": {
+            "name": "Revoke an API token for a tenant (Internal)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/admin/token/revoke/:tenantId",
+            "params": [
+              {
+                "name": "tenantId",
+                "value": "",
+                "type": "path",
+                "description": "The tenant ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Revoke an API token so it can no longer be used to authenticate API requests."
+        },
+        {
+          "info": {
+            "name": "Unrevoke an API token for a tenant (Internal)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/admin/token/unrevoke/:tenantId",
+            "params": [
+              {
+                "name": "tenantId",
+                "value": "",
+                "type": "path",
+                "description": "The tenant ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Unrevoke an API token that has previously been revoked so it can be used again."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,230 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Vocabulary API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vocabulary",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get vocabulary items for a picklist field",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/vocabulary/:objectName/:fieldName",
+            "params": [
+              {
+                "name": "objectName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the object that the picklist field belongs to"
+              },
+              {
+                "name": "fieldName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the picklist field"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the vocabulary items (allowed values) for a picklist field"
+        },
+        {
+          "info": {
+            "name": "Add a vocabulary (picklist) item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/vocabulary/:objectName/:fieldName",
+            "params": [
+              {
+                "name": "objectName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the object that the picklist field belongs to"
+              },
+              {
+                "name": "fieldName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the picklist field"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add an allowed item to a picklist field"
+        },
+        {
+          "info": {
+            "name": "Update a vocabulary item on a picklist field",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.skedulo.com/auth/vocabulary/:objectName/:fieldName/:value",
+            "params": [
+              {
+                "name": "objectName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the object that the picklist field belongs to"
+              },
+              {
+                "name": "fieldName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the picklist field"
+              },
+              {
+                "name": "value",
+                "value": "",
+                "type": "path",
+                "description": "Value of the vocabulary item to modify"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a picklist item. Note the value cannot be modified"
+        },
+        {
+          "info": {
+            "name": "Deactivate a vocabulary item for a picklist",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.skedulo.com/auth/vocabulary/:objectName/:fieldName/:value",
+            "params": [
+              {
+                "name": "objectName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the object that the picklist field belongs to"
+              },
+              {
+                "name": "fieldName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the picklist field"
+              },
+              {
+                "name": "value",
+                "value": "",
+                "type": "path",
+                "description": "Vocabulary item value to deactivate"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Sets the active state of the vocabulary item to false"
+        },
+        {
+          "info": {
+            "name": "Create or modify a dependency relationship on a picklist field",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/vocabulary/dependency",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Set up a dependency between picklist items (vocabulary) and another field"
+        },
+        {
+          "info": {
+            "name": "Remove the dependency relationship of a picklist field",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/vocabulary/dependency/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Remove the dependency relationship of a picklist field"
+        },
+        {
+          "info": {
+            "name": "Add a dependency to a picklist value",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/vocabulary/dependency/entry",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add a dependency between a picklist value and another value"
+        },
+        {
+          "info": {
+            "name": "Remove the dependency on a picklist value",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/vocabulary/dependency/entry/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Remove the dependency on a picklist value"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

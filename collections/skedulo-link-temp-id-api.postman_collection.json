@@ -1,0 +1,160 @@
+{
+  "item": [
+    {
+      "id": "d17b6a45-26d0-4217-9bdb-5f0904022a76",
+      "name": "Link Temp Id",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "136e744e-fe06-4e19-abbf-bef7fb7ec2b5",
+          "name": "Link temporary ids with corresponding real ids. The temporary ids must start with 'temp-'.",
+          "request": {
+            "name": "Link temporary ids with corresponding real ids. The temporary ids must start with 'temp-'.",
+            "description": {
+              "content": "This establishes a link between a temporary id and a real id. If there are temporary files previously uploaded with the given temporary id as parent id, they will be swapped into the real id and re-uploaded.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "link_temp_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": \"<string>\",\n  \"key_1\": \"<string>\",\n  \"key_2\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f7ae2b9b-bd1c-49ad-be51-71a4182a0ec4",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "link_temp_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"temp-mdP29kdAbu\": \"a0L5i000002zL8zEAE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"temp-mdP29kdAbu\": \"a0L5i000002zL8zEAE\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f3b6ad55-850d-4926-9ef4-ebaa1eafa5eb",
+              "name": "Invalid data supplied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "link_temp_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"temp-mdP29kdAbu\": \"a0L5i000002zL8zEAE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "40739be9-ba3b-4f98-a71b-0388f6b58265",
+    "name": "Authentication Admin Link Temp Id API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

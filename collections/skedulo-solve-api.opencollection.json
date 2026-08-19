@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Solve API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Solve",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Start an optimization run for a model",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/solve",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This starts a one-off optimization run to solve the model given as an input."
+        },
+        {
+          "info": {
+            "name": "Start an optimization run to evaluate the given model",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/solve/evaluate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Evaluation will not change the data that is being optimized. Instead it will evaluate the current allocation in comparison to the results the optimizer would produce."
+        },
+        {
+          "info": {
+            "name": "Start an optimization run for the provided plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/solve/planned",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint will start a one-off optimization run based on the provided plan. The plan can be generated using the GET /schedule/plan endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

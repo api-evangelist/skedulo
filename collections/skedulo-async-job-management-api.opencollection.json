@@ -1,0 +1,52 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Async Job Management API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Async Job Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new async job for batch evaluating violations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/asyncJobs/evaluateViolations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new async job for batch evaluating violations"
+        },
+        {
+          "info": {
+            "name": "Get an async job by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/asyncJobs/:asyncJobId",
+            "params": [
+              {
+                "name": "asyncJobId",
+                "value": "bebddd90-8f39-4d3d-8601-35f406f27db2",
+                "type": "path",
+                "description": "Async Job ID"
+              }
+            ]
+          },
+          "docs": "Get an async job by ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

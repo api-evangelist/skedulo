@@ -1,0 +1,1108 @@
+{
+  "item": [
+    {
+      "id": "6497b1c5-0b7b-4ee5-9b24-f4eac5fad1dd",
+      "name": "Policy Management",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0243f2f5-d22f-4914-8326-141cf10c3fee",
+          "name": "Get a policy by ID.",
+          "request": {
+            "name": "Get a policy by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "policies",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "965123e7-b985-4c9f-9df1-419de897d111",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"description\": \"string\",\n    \"enabled\": true,\n    \"id\": \"19fecc94-0f63-53c7-1c6e-0c1c37570377\",\n    \"name\": \"string\",\n    \"rules\": [\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"7d2b447f-c5de-1fbb-ad4d-374275af1a09\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"481fb11e-6746-c732-7c02-b7edea4f7c11\",\n        \"rolesExcluded\": [\n          \"2ede612a-a9e7-ebcc-a68c-fccd5fe93dd2\",\n          \"86ffbcd8-dc95-3966-8b80-dda308c57c40\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"8bb427bd-e533-07bf-ed72-cdd0009b22f0\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"af417951-3636-8cd6-c3ab-4a8fbd5cf8b0\",\n        \"rolesExcluded\": [\n          \"1fa25139-08e8-79e3-37db-e8ed7754ba43\",\n          \"ab5310d8-c872-b7d9-5566-7573f65d12fe\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"19a06444-8559-79e7-6810-4fcc9f677e07\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"f0205755-e360-b9bb-540b-fb00d4e57c80\",\n        \"rolesExcluded\": [\n          \"d8fa42f4-633e-526a-83c6-631041eabfc2\",\n          \"01bda3c9-5afe-99d6-146d-926935b2a033\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"19a297d9-9777-7892-7858-414afa6abc78\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"e9b124d8-4db5-816e-23f7-61bc7d422d1e\",\n        \"rolesExcluded\": [\n          \"4cd44733-f1d2-f32b-1712-5969a06143b0\",\n          \"913d8ace-10f8-d11f-f7c9-c622e55aa253\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"7ee5b759-e2c1-eb17-8a70-70f6fb8173f1\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"dce4cd5a-8ca4-0968-2939-6ffd9881b09e\",\n        \"rolesExcluded\": [\n          \"6f8c8e97-12d8-a801-08d9-4166b638de2b\",\n          \"d1e573a7-8fa3-4df8-ac42-916029f9c79a\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"4608f52e-dfdd-8a36-ecd5-c116ea5c65df\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"3d2c1243-3052-2235-ba65-443a8b4b39b5\",\n        \"rolesExcluded\": [\n          \"bc1ecbcb-4cd4-4d6f-a373-2a5ad0ec2858\",\n          \"29be0a2b-4687-da76-68ec-97555205d6c1\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"88f32bf9-3bae-58bf-c65e-af9fe475c2b7\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"a3617ace-1114-85e9-79b1-5acf6e06a53d\",\n        \"rolesExcluded\": [\n          \"b03f3020-cf10-c6dc-6d37-4b5a01b8ca20\",\n          \"50f2bfdd-d73e-5c62-93ec-d207fe802cb7\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"fc617e7d-d004-cf45-2fef-de6d75f152f1\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"893c486b-0559-ea7d-5af2-64b9c2082e0d\",\n        \"rolesExcluded\": [\n          \"0aef6e13-9b3a-f41f-0401-3c12ad94f9a2\",\n          \"35797208-4a01-7be6-d02a-50c77de5c5af\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"3a7e11ed-b10d-6385-cb6d-11d835b6898c\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"6a2c5f9e-f194-21b9-01b9-bbd7d1fed456\",\n        \"rolesExcluded\": [\n          \"6f114e73-f1cd-7c15-b8be-266f693d4f5a\",\n          \"49d870ef-fc93-9a62-ef27-26647c146a58\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"f5092ef8-1400-5463-738a-a28a1ba50009\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"ed641ad1-6805-6dfa-3c7d-afc481bd6c87\",\n        \"rolesExcluded\": [\n          \"59a20c81-a882-337f-36e6-06c97cdf5872\",\n          \"ff5a80e9-71c9-97d5-77f1-7fc0332da86f\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"01fe4530-daa6-b82e-f635-029fb974fbd1\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"43f44cfc-a7ce-2d33-f8c7-3d1b54abce20\",\n        \"rolesExcluded\": [\n          \"0234c687-c2b7-53f4-e104-bb5e5baef0ef\",\n          \"324d2a0a-f681-cf36-667d-7b668efef156\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"b666ed2e-edce-1129-621e-7f90ff1ae4a9\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"edc73ac0-5086-49be-72f0-c73960268dae\",\n        \"rolesExcluded\": [\n          \"a78d0302-85c4-421e-1cd6-a7417b5574d7\",\n          \"f2eb8796-a4f2-53db-03ac-95dc773aa676\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"b1565e74-334a-de64-d6a4-f245e119b019\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"9ae2602c-1e0f-7654-7284-6a0c48f965f9\",\n        \"rolesExcluded\": [\n          \"9b4b2188-1e39-2dce-80ee-735450ca3c14\",\n          \"628a09f3-9329-c812-d6d8-c609a44dabd4\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"a46b4d60-5552-14e2-d654-88e6eda30ad7\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"28bfaccb-bb5e-9277-2f52-cfc49a226466\",\n        \"rolesExcluded\": [\n          \"6cbe2b3f-63df-c975-9f05-c6e442cb1f29\",\n          \"361dd71e-7e31-df64-b4b5-80256d102e7c\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"4325c9e8-33fe-0e26-b0ca-26988f8b8c89\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"30c7c177-e751-78fd-f249-f2af244c4ea2\",\n        \"rolesExcluded\": [\n          \"1fec1330-a071-1cf6-60a0-7ffb2064c2c6\",\n          \"a982bf37-a636-94ca-81fa-f1e23c1262f1\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"aca64725-cf9e-3307-587e-e0e960f274b6\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"6b1fe2e1-5e43-0857-6a41-dc006c7d7364\",\n        \"rolesExcluded\": [\n          \"a91ce583-7dd0-04b6-a188-56455dc33ea0\",\n          \"d7d1c59b-f522-4f3b-801c-e5695774dbaf\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"cfb5acc6-4129-ead0-7423-26490185098f\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"b5d26865-ff24-9bdd-b495-59c2645159bc\",\n        \"rolesExcluded\": [\n          \"af4e2c57-646c-d038-377f-07b138d16a97\",\n          \"056c11f6-958a-7358-c3fb-34ab2921752c\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"7cc8cfff-508e-4f80-4640-c728bbb267e6\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"2399b71d-bf1a-1f29-3198-23640fd75f6a\",\n        \"rolesExcluded\": [\n          \"b70fdda2-6451-2e51-ad9d-d81e00fb9e09\",\n          \"865bc411-3269-919b-43b7-907b83013a9e\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"4c5885ed-ed75-a8ce-33c1-564c9c1e82d9\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"e796dae8-8972-6cd8-0d56-c50cffa8ac23\",\n        \"rolesExcluded\": [\n          \"3bfa12be-1575-0af1-3c31-9a1e346221a0\",\n          \"3593faef-9306-ee49-f8c1-51b66257e34b\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"0270c70d-33e6-95ee-5ff6-d37a9d946e3d\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"af16c95e-62dc-05f9-a104-4c61a106dfa8\",\n        \"rolesExcluded\": [\n          \"a6466232-3577-da0e-bbd7-f94193ee9e36\",\n          \"090afe84-a824-444e-00a1-b23419406351\"\n        ]\n      }\n    ],\n    \"sourceTemplateId\": \"c23aa426-6a0e-accf-c1c4-197f0638c80b\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f465b1f-9dc2-4d3c-8437-cf72b79f628c",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"extraFields\": {\n    \"key_0\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73f73bd4-bc4b-4293-9161-cc6b182e4532",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "405b7d56-b936-4198-b1f8-73ce60cbee15",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"extraFields\": {\n    \"key_0\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed3559a4-4b41-4c36-9b5c-4ecb4b4544a0",
+          "name": "Update an existing policy.",
+          "request": {
+            "name": "Update an existing policy.",
+            "description": {},
+            "url": {
+              "path": [
+                "policies",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"rules\": [\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    }\n  ],\n  \"sourceTemplateId\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "137ec541-884a-434a-82d1-df4bac3230c0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"rules\": [\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    }\n  ],\n  \"sourceTemplateId\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"description\": \"string\",\n    \"enabled\": false,\n    \"id\": \"05b440ba-3afd-4a7f-125a-fae9f83cf066\",\n    \"name\": \"string\",\n    \"rules\": [\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"4da11515-18fe-c859-8c53-83c5914357a9\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"dc3f5d22-514e-090e-ee1a-59f4bd2a1d04\",\n        \"rolesExcluded\": [\n          \"00afb96b-6b0b-b5f8-4b88-010614d12601\",\n          \"9aacdb91-eb26-fa7f-76cf-d379a122847e\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"d3c0ed53-22e9-5369-5258-bd4757ab6ef1\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"2daed303-79b5-5c2a-223f-1d88eee09229\",\n        \"rolesExcluded\": [\n          \"75eadf3c-1058-3b8f-7786-7816691511c7\",\n          \"e5bb7bee-eec8-cacd-8313-099fab251b51\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"3480a859-ec8c-dec2-d70f-b818c4fd0b7e\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"cbb00d50-f8aa-7927-e975-b509186f0c31\",\n        \"rolesExcluded\": [\n          \"d68abea6-c893-64fa-d84d-650d89e9ae82\",\n          \"28b86623-d5ec-dd75-5130-8e76c2f87a5e\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"23930474-bde9-56cb-b538-dadbadd230b8\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"a84aa64d-0910-ce5f-d3cb-b29332a6053d\",\n        \"rolesExcluded\": [\n          \"b93fe611-99e2-4d1b-f2dc-c1b3c7499764\",\n          \"5f98827e-60a9-8955-4191-b9a89dbdd391\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"8e5fcbc1-b38f-52c7-d913-6f920819280c\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"828bc1ce-6770-3559-dcb5-52590e55f9c5\",\n        \"rolesExcluded\": [\n          \"d8abd372-1087-8bc1-2d37-f646ddacab48\",\n          \"c9cef3ea-3a7c-ca46-2d69-72e23b838318\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"17943917-d73a-2486-d68a-fd7956152cae\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"7c3caf19-e689-a8f6-b0ed-ac8d5bbf6fa9\",\n        \"rolesExcluded\": [\n          \"27fde7d5-7a61-aebb-dfb9-5494ef260145\",\n          \"dcc674cc-7a51-7636-e40b-325506b2c6c6\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"94e4160e-08f3-aacb-51ce-b164deb045fe\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"223d5f69-1f68-573a-a67e-9bd090559f55\",\n        \"rolesExcluded\": [\n          \"e9b4d83a-eada-fe5e-4fe3-923ce4efecd6\",\n          \"13222e06-02c9-fe4d-dab2-55b7910bece4\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"4348fc6d-2b8e-972e-c32b-75b5156a1bbb\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"342c118d-b88c-1eed-e4ac-5129b84a742a\",\n        \"rolesExcluded\": [\n          \"e51b0025-ba11-227b-8351-503ef9eeaf17\",\n          \"aa6cb71c-4fca-74ce-1094-e5c157927133\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"ac360120-b2ba-c85b-2f01-dc53e3efdaaf\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"fb133a61-7c2f-ede5-1f91-539d67650641\",\n        \"rolesExcluded\": [\n          \"5c859fb8-f543-0d0f-7329-0a3365612973\",\n          \"aa0ae597-ca3d-1572-ae32-5256b1008ebb\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"4328a89b-5328-6645-6d7c-4ca9f0bae7f3\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"77e1ba24-3170-8165-77cb-2a58e848b052\",\n        \"rolesExcluded\": [\n          \"714c7e3f-fd44-6495-c999-1efd0c4152b5\",\n          \"ee28cc3f-479c-1aef-90c5-1d5d829cce23\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"2efa364c-da37-f82e-6c11-2cd2f513a982\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"48e5e13f-b0eb-9639-5acc-230604befecb\",\n        \"rolesExcluded\": [\n          \"046173bb-25e7-2e8a-6ae1-1b52990c90f6\",\n          \"07d7fd34-b633-bcc2-afd7-d87b38f2c5de\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"95c968c1-4d53-82f4-cbdc-5b7ec71f9b9b\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"83f66f2b-01c6-ad22-39f3-d19b36cd99bf\",\n        \"rolesExcluded\": [\n          \"6f1c571a-1b6f-58e7-a987-c6e149107a81\",\n          \"0e08b4f2-12aa-3917-a682-cb34cd1aeff4\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"5837a4ae-8153-5298-c667-f1c4f7fb0b61\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"bad18494-88a1-9925-9593-c8cb63cd8fa3\",\n        \"rolesExcluded\": [\n          \"059dad76-1fe8-a6b9-05fe-f50704e80c5e\",\n          \"ece4d916-9ac5-b9ee-5594-6c972b92ae66\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"59173b2b-bb67-4b14-800c-7863878ec40c\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"524a3915-1f15-1cbe-3e4a-f442a3e0d040\",\n        \"rolesExcluded\": [\n          \"f4fbddca-3a4e-687d-94af-ba53555683fe\",\n          \"b3b0be90-0e23-6c4f-270a-6818ab22530f\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"2668ff4e-2b69-26b3-f37e-faa6ea28b830\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"884f2a1a-43c4-4937-0b2b-28849e45b12e\",\n        \"rolesExcluded\": [\n          \"341a5f6e-9e3c-df41-e797-bb078f39a000\",\n          \"3d8b5dcb-3e5a-3a80-c67c-57975663fdf5\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"e016ef01-87a1-6b50-771c-2ea250e65e4d\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"d947dbe6-bda8-781d-2a1e-253b1a409502\",\n        \"rolesExcluded\": [\n          \"e63c046a-0edc-95f4-e7d3-c0376dbfdfdf\",\n          \"90da2743-a6fe-3218-26ec-d26a08248d0f\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"3d7bfaa7-0f57-8f22-8788-02d7f472fa26\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"9255864e-ae34-9cee-6d9d-bace0908b5e7\",\n        \"rolesExcluded\": [\n          \"5ffa584b-724f-588f-5be5-6ca98ee50901\",\n          \"b727dd50-648f-94f2-2050-b28138cbac59\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"8377e6e8-015a-749c-bd2d-02c4d548c4e7\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"e12678d4-0b4c-37d0-71d6-ee89ebde5e24\",\n        \"rolesExcluded\": [\n          \"5f4b97b4-f3f6-7e51-35eb-418fdb133d3e\",\n          \"2ec4a7ff-5e07-f3de-7009-95bef2519a29\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"601188a4-3143-195a-66e6-41fdfe5a97fd\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"16d1db82-4567-0151-7c71-943db91023e6\",\n        \"rolesExcluded\": [\n          \"e9c1fd1d-816a-0408-2f70-99052c27efa4\",\n          \"17de83a4-2589-7fee-fd89-0ed8f0e1f5fb\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"b9fd6ee5-f815-0730-8603-7f5fea2cc38a\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"8d9b61a9-fed3-0bb7-b3dc-bae92ad90a79\",\n        \"rolesExcluded\": [\n          \"041ad24c-fe8e-c36c-85a5-3ccf1ebaf0f2\",\n          \"533de961-e4dd-2b23-ec15-d07a4625d72f\"\n        ]\n      }\n    ],\n    \"sourceTemplateId\": \"1449c6ea-80a4-1759-7675-76671a130426\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aeef6d1d-2634-4a66-94ae-11be9a2b54e1",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"rules\": [\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    }\n  ],\n  \"sourceTemplateId\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"extraFields\": {\n    \"key_0\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30a41264-f62d-48e2-ab36-0d3e557d1ca1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"rules\": [\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    }\n  ],\n  \"sourceTemplateId\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "80780d88-2651-49af-a55c-2b886e7211bb",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"rules\": [\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    }\n  ],\n  \"sourceTemplateId\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"extraFields\": {\n    \"key_0\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8aa80876-a725-4b36-b66b-333e990e8758",
+          "name": "Delete a policy.",
+          "request": {
+            "name": "Delete a policy.",
+            "description": {},
+            "url": {
+              "path": [
+                "policies",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "id": "295facc1-9aa8-43a2-948a-71d2546fb150",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d12445cb-4c88-4c9c-b41c-f8f881a899b2",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"extraFields\": {\n    \"key_0\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5839805c-501a-403a-ad92-d871bfcfc066",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6742f3ec-ba50-4f00-a4c8-20ddfd3c1353",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"extraFields\": {\n    \"key_0\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "84b8307b-8267-4609-8670-c5ccbc662428",
+          "name": "Get multiple policies.",
+          "request": {
+            "name": "Get multiple policies.",
+            "description": {},
+            "url": {
+              "path": [
+                "policies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "enabledOnly",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "5b9e6629-f574-4eaa-be18-e9271b875a09",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "enabledOnly",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"description\": \"string\",\n      \"enabled\": false,\n      \"id\": \"112e00c4-6ae6-aff5-3b0d-ef7852e6947f\",\n      \"name\": \"string\",\n      \"rules\": [\n        {\n          \"accessType\": \"allow\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"6078622e-5217-1bb7-86a6-086cd8206b14\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"f9f171c1-31f5-c0c8-1bb7-f10b4d36b1c9\",\n          \"rolesExcluded\": [\n            \"1a20c340-f2eb-4953-b020-5f4c2392e37a\",\n            \"5dff23a8-cf9a-a8e9-0dec-74403e127b29\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"8b67b538-9b24-856f-c511-745395d6b37d\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"6777e78e-ef0e-901a-5ad7-4c5ef3be46d4\",\n          \"rolesExcluded\": [\n            \"cb579330-f76a-863c-aa74-002589ea5233\",\n            \"9154a911-0cac-1bf7-646f-b0a9e531b505\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"34ae218d-7f9c-bf17-6599-811e71ba4401\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"01139260-eadd-fbea-71ba-7d1e943b1bc7\",\n          \"rolesExcluded\": [\n            \"644da4a6-0f15-3416-b3ee-a21ebef0d773\",\n            \"d9f09f3a-0272-8fd4-3f98-d24484ce0609\"\n          ]\n        },\n        {\n          \"accessType\": \"allow\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"039fd7e3-caac-f23d-64aa-8265f002c2e2\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"b98d7abd-3302-24fd-d25d-4590863fc476\",\n          \"rolesExcluded\": [\n            \"d977864e-c0aa-4880-7239-71701cf39875\",\n            \"12e43e90-cae4-31f0-36cc-11daa0daf113\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"499e16ac-cae3-6647-73f7-6b854dc57eb6\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"5e50bd10-4f4c-15c9-52bd-b569a3326238\",\n          \"rolesExcluded\": [\n            \"8dbbd6e7-e609-cc17-67f9-b4b01ec71ac1\",\n            \"86abf9a2-ba47-e530-4fa5-7ef3dd01c5ac\"\n          ]\n        },\n        {\n          \"accessType\": \"allow\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"fa0eb02b-6e7e-e8bb-b001-c3cbb72b5fac\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"6adbe381-7c8a-25c0-440d-9019035feff3\",\n          \"rolesExcluded\": [\n            \"19b711ed-df6c-b9b5-5f04-7239097579ae\",\n            \"5ec8766f-9871-3abd-c359-951737bde10a\"\n          ]\n        },\n        {\n          \"accessType\": \"allow\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"51821c76-cb70-7167-b4c3-16a9daf9ff29\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"0f9a25d7-af5a-c51c-864d-709b391b766a\",\n          \"rolesExcluded\": [\n            \"1ae0eb8d-d017-3ce6-3025-80d734f89e2d\",\n            \"ae7bb11a-8954-a4d1-8ab9-33232203bd2f\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"eeb7a81a-380c-ec37-5486-53e463aec341\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"212c1706-7173-052a-2abb-36ea9f150072\",\n          \"rolesExcluded\": [\n            \"9ab44de9-2111-c02f-dbe9-c3587c32814b\",\n            \"592024ab-3af8-96a8-04e8-fbedfbebda1f\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"95848c56-fb90-d51c-3d81-d68bf506905c\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"23a8f5e0-967b-1303-0147-a70370841add\",\n          \"rolesExcluded\": [\n            \"ff1d2a7f-0ae3-1d5d-edcc-0adaca5115fa\",\n            \"3f0a314e-fb0a-50e2-c4e3-bdba2eb76708\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"e9a2b27c-2914-243c-181c-1e346a52db2a\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"eaf08fce-e52e-d935-7795-2cb209baa71b\",\n          \"rolesExcluded\": [\n            \"14f3188d-ac4a-41d1-f4d7-3836b4751dde\",\n            \"ad95a9eb-97f2-88c3-fa7f-103e2b30e036\"\n          ]\n        },\n        {\n          \"accessType\": \"allow\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"1461a403-bf7f-02a3-fae4-b19cd5b1525a\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"eafbe5f7-ac0c-e885-ab54-94b812cc925a\",\n          \"rolesExcluded\": [\n            \"7438e7e8-6bcb-b3b4-6913-725173e014ff\",\n            \"d71a6c93-9832-2b3b-371e-86014d9b4766\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"ec1e692a-b4c8-4047-076d-5f5edf7ccf85\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"94906b79-8fc0-b781-dfd4-dd250ed7e90e\",\n          \"rolesExcluded\": [\n            \"0022967c-119f-6cbe-411a-a8cf3722819f\",\n            \"dbc37001-c904-a495-8d99-7bf0f1972182\"\n          ]\n        },\n        {\n          \"accessType\": \"allow\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"4ab77095-b50a-f845-bea6-5901e37e7598\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"833831c3-ef9e-2189-c43a-d4a88a8b7035\",\n          \"rolesExcluded\": [\n            \"31be2cbb-295c-0f58-f0cc-ef06933069c0\",\n            \"7104716b-3e3d-5e1f-76a9-6acbfad239b3\"\n          ]\n        },\n        {\n          \"accessType\": \"allow\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"2f0e4d34-584f-9a51-f2d8-3fc01bc8465e\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"c621886c-9080-1415-aa5d-4bbbe941d238\",\n          \"rolesExcluded\": [\n            \"c0baa59c-3061-fbe5-1f27-ba31ed93c3e9\",\n            \"268b9d45-6086-30e2-57e0-97fdee88faba\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"13e72f99-076a-1ad1-266a-e774e2db20a2\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"52274bda-5e0e-4ace-a9b1-42ff18005a37\",\n          \"rolesExcluded\": [\n            \"94816674-c3f9-bad6-fcba-ad749fedc265\",\n            \"8f9f9170-dd30-3d02-6d47-da4df23a92d6\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"f2caa5f4-1cfc-12e3-5353-aef34195bedc\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"735aacd5-5ce5-2c14-8a3d-2045ad9a9a3d\",\n          \"rolesExcluded\": [\n            \"3ae83500-bf36-595b-9263-0f95c3ad217d\",\n            \"b9ff59db-aec3-ac34-fed7-ccfc40f460b0\"\n          ]\n        },\n        {\n          \"accessType\": \"allow\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"55a84fa6-9568-479d-094c-547975f1ad6c\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"15cdb976-b2a2-9838-cdc1-93a6e441f24e\",\n          \"rolesExcluded\": [\n            \"4d7da238-cea5-26a8-1fd5-17e4956ae932\",\n            \"a2d47e3e-3e5b-6ba6-8d7f-5cef478f214b\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"591b7e37-071e-a4b6-389c-3a877bb5cd1e\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"9bd8df03-23b6-738b-a8d0-8852cf8da5f6\",\n          \"rolesExcluded\": [\n            \"e21df92f-b37e-d7ae-b7c1-91777d6d0e46\",\n            \"4f3de150-11f7-459f-7531-f8d6eace3fac\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"1b5af4f9-8806-52ee-cc08-947562427b53\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"36b7b198-0a85-9db1-cfeb-db0586e15622\",\n          \"rolesExcluded\": [\n            \"25b5a720-eb08-4995-4bc2-e577af6566d1\",\n            \"e3529a63-7934-755f-e532-6b883998e39d\"\n          ]\n        },\n        {\n          \"accessType\": \"allow\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"3fccb6a2-53f4-d588-f23f-90418e8f4311\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"afa423fb-c224-29b6-515d-545a23fff982\",\n          \"rolesExcluded\": [\n            \"b31f2eb8-34b6-9bff-d1f7-91e602f04966\",\n            \"40a29295-5eb4-bcef-18bc-5c06374aeb5a\"\n          ]\n        }\n      ],\n      \"sourceTemplateId\": \"cda5e913-fce4-d458-9e8b-dcf268c575b7\"\n    },\n    {\n      \"description\": \"string\",\n      \"enabled\": false,\n      \"id\": \"ab457529-f504-8fcb-c916-505ea7ec79e8\",\n      \"name\": \"string\",\n      \"rules\": [\n        {\n          \"accessType\": \"allow\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"984b612f-c3b4-eab7-4bec-85bc866f6223\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"211bd756-cf73-9868-d046-64e92a6f2f45\",\n          \"rolesExcluded\": [\n            \"58dc07f1-a6ff-8fa5-dec2-267a58a222a6\",\n            \"e11e714a-d36e-05cb-c2d4-69c1748d61b6\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"76278737-5784-78b0-07ec-d661f04094e5\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"8b8e5f3a-f1ec-7385-465b-cec41d29a19b\",\n          \"rolesExcluded\": [\n            \"f1545791-b61e-2d06-c947-c9eb8c10655b\",\n            \"32222433-618e-c5d6-9b31-f8a51a3a7fb0\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"69604b80-f5fc-c15b-81ac-2300f8c1e642\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"65cc9432-8788-2210-a4a0-3ea204a291d2\",\n          \"rolesExcluded\": [\n            \"2dd8e3d9-5892-d07b-4c52-09a6ae6f95a7\",\n            \"9f602288-caf6-4d1a-6494-c0f36225c1dc\"\n          ]\n        },\n        {\n          \"accessType\": \"allow\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"934adbdf-e238-5a19-abb4-6f21f6e174be\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"314af211-ac9b-b0ea-997a-d573f38f7903\",\n          \"rolesExcluded\": [\n            \"19c1f323-862c-4481-2940-8b15239c51b9\",\n            \"4940eb4e-b675-5258-12b0-dde264e75e3d\"\n          ]\n        },\n        {\n          \"accessType\": \"allow\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"f232cbb2-9ff5-74e8-2015-13ac83ec91f9\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"955eca0a-427a-0445-a9e0-d84bcec2a510\",\n          \"rolesExcluded\": [\n            \"52d0b59f-ad20-175a-c79f-fc75c4b52511\",\n            \"b636d415-b207-4a5b-0441-0f45c471eaf1\"\n          ]\n        },\n        {\n          \"accessType\": \"allow\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"3a79e160-bd29-c58b-0ea7-0c95a7c9b108\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"b2324f24-3473-a97c-4c83-5fb95bcd4cc9\",\n          \"rolesExcluded\": [\n            \"d6aacb37-ea88-e631-2261-532dfb8d264d\",\n            \"ec31618e-44c3-65e7-8270-4735403273c1\"\n          ]\n        },\n        {\n          \"accessType\": \"allow\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"4eb03c2a-a0c3-6214-43cb-57d0426d0a5a\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"1d69c7dd-a1fb-7131-897e-e3f2fc645df7\",\n          \"rolesExcluded\": [\n            \"22813362-7787-967c-0dcd-144be3af4f06\",\n            \"20dc75ad-f1fe-fe8f-f123-4d3e252f34e2\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"bce8e106-9694-1499-314a-bad32145ec48\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"d807a530-3e08-cc39-6f0e-9ce597b0442b\",\n          \"rolesExcluded\": [\n            \"ae1f0273-41bd-224d-aa98-640412c90e76\",\n            \"a7658d35-9599-36a1-9155-4f9943b4b284\"\n          ]\n        },\n        {\n          \"accessType\": \"allow\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"58811319-cba0-b400-77bd-b94aae123c3b\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"4f439a04-a868-7da3-aa19-cea615a9754d\",\n          \"rolesExcluded\": [\n            \"09c4ed78-0b50-93f3-3935-832e13cddf94\",\n            \"62aedd86-fcdb-9cba-5edf-79604fc675a0\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"c1a27e1e-af2d-6b30-7829-b63c91ccf793\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"9bc123aa-9ee6-5705-8342-e8274bbc8300\",\n          \"rolesExcluded\": [\n            \"eeef8bde-1eb9-5a0a-61ac-9f805bce4182\",\n            \"098778bd-9417-0961-c1f1-eaf4d424bc7a\"\n          ]\n        },\n        {\n          \"accessType\": \"allow\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"60a90f1b-0599-2038-9ddb-247205396e16\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"46bb6f0f-c507-4058-ca98-2dfd37766a88\",\n          \"rolesExcluded\": [\n            \"f68cab6e-1782-b834-a53d-dd2d5e1371a4\",\n            \"513d5703-499b-5061-22ef-940868c8b307\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"89ab7a58-c99b-d884-9946-105e693cc038\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"e652e556-b457-bcac-a12d-a9b3d92e1ec5\",\n          \"rolesExcluded\": [\n            \"8e079c4c-6077-1350-2b32-19845d6742ff\",\n            \"b4be3430-d9f7-347d-0ad2-043fef640771\"\n          ]\n        },\n        {\n          \"accessType\": \"allow\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"730b4206-ccf3-3a73-04ec-7646dd57887f\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"1b2bac40-7aa2-f80b-23d8-06286011326d\",\n          \"rolesExcluded\": [\n            \"aeabfe63-8986-a058-d5b0-eec2d6e15adb\",\n            \"3fcb6849-b5ad-7db9-bf1d-1c5b89f7fc9a\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"950219ef-01ca-f8a6-fe1a-4b4fb2393e02\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"5708cecd-4316-12a8-d9b2-cca033be0bce\",\n          \"rolesExcluded\": [\n            \"6a7cc6c9-f2b1-b920-053e-eb7da657727d\",\n            \"cc0c9cfa-6dcb-f673-6908-2c509f5d985d\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"23c245fe-b952-264e-aa5c-74acc56fb63a\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"a648c68d-789c-b2df-b6ab-3462c47a6da2\",\n          \"rolesExcluded\": [\n            \"a98fdf82-c806-a201-a71b-9faeb8167cb4\",\n            \"44a21d92-3093-58f5-4526-86a21fdd001d\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"fa5bf409-4b24-c4ae-80ef-6dc00c17194e\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"cd299873-51ac-921d-0857-507af950cf43\",\n          \"rolesExcluded\": [\n            \"b4c24daa-e2da-0dc8-c9ce-667bb4c40a3d\",\n            \"e652f589-fef5-c903-44e8-57c0ac864e66\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"cc6a1787-b987-be8b-5dc7-34b483b551a7\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"5779f3c7-0d06-0d47-e754-28dc3720f73d\",\n          \"rolesExcluded\": [\n            \"17fcfdec-168f-deb7-bc2e-7de2d94d13b1\",\n            \"2b96759a-727c-db1e-6d61-a10f11683fa3\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"7eece47e-d880-ab6b-54b4-e067096f2dae\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"b0ca3633-601a-9826-aee2-976415812a34\",\n          \"rolesExcluded\": [\n            \"fbae3a29-84be-0ea7-1eb5-5665d1c1d54e\",\n            \"f490d8d4-e2f0-3c32-6426-26894662a28a\"\n          ]\n        },\n        {\n          \"accessType\": \"allow\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"b082e9ab-40d7-6fad-8d3b-2915f82ff122\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"b924f7e1-6e95-b964-9f11-5801201fce9f\",\n          \"rolesExcluded\": [\n            \"91e5bcda-d1c1-4c4e-a16e-13e003ac0af3\",\n            \"acbbe6f0-18ed-9c1d-65cf-f954b3106e59\"\n          ]\n        },\n        {\n          \"accessType\": \"deny\",\n          \"description\": \"string\",\n          \"filter\": \"string\",\n          \"id\": \"1163859f-7927-24cb-179b-cd7d356911c7\",\n          \"objectType\": \"string\",\n          \"permissionsExcluded\": [\n            \"string\",\n            \"string\"\n          ],\n          \"policyId\": \"522d16ee-279e-c57f-7672-9baaa911764c\",\n          \"rolesExcluded\": [\n            \"5f149321-e081-ca8c-306f-43f60942e5db\",\n            \"312cdea7-22ef-132c-8cf3-77cfad897699\"\n          ]\n        }\n      ],\n      \"sourceTemplateId\": \"9c1bcc77-c3e5-a224-03b2-978abeff768f\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "682fa2a7-b623-4761-986b-bfa0d124fbee",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "enabledOnly",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"extraFields\": {\n    \"key_0\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "873ce2f8-d170-4d44-89e6-c96f597b903c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "enabledOnly",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "177ac714-ebe3-4d4b-b200-99f24aae3efb",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "enabledOnly",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"extraFields\": {\n    \"key_0\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fbece0c3-8ca5-427a-859c-0d6a5ec0f79e",
+          "name": "Create a new policy.",
+          "request": {
+            "name": "Create a new policy.",
+            "description": {},
+            "url": {
+              "path": [
+                "policies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"rules\": [\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    }\n  ],\n  \"sourceTemplateId\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9be03762-0e38-43ef-adf1-e8e5432e451a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"rules\": [\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    }\n  ],\n  \"sourceTemplateId\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"description\": \"string\",\n    \"enabled\": false,\n    \"id\": \"05b440ba-3afd-4a7f-125a-fae9f83cf066\",\n    \"name\": \"string\",\n    \"rules\": [\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"4da11515-18fe-c859-8c53-83c5914357a9\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"dc3f5d22-514e-090e-ee1a-59f4bd2a1d04\",\n        \"rolesExcluded\": [\n          \"00afb96b-6b0b-b5f8-4b88-010614d12601\",\n          \"9aacdb91-eb26-fa7f-76cf-d379a122847e\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"d3c0ed53-22e9-5369-5258-bd4757ab6ef1\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"2daed303-79b5-5c2a-223f-1d88eee09229\",\n        \"rolesExcluded\": [\n          \"75eadf3c-1058-3b8f-7786-7816691511c7\",\n          \"e5bb7bee-eec8-cacd-8313-099fab251b51\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"3480a859-ec8c-dec2-d70f-b818c4fd0b7e\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"cbb00d50-f8aa-7927-e975-b509186f0c31\",\n        \"rolesExcluded\": [\n          \"d68abea6-c893-64fa-d84d-650d89e9ae82\",\n          \"28b86623-d5ec-dd75-5130-8e76c2f87a5e\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"23930474-bde9-56cb-b538-dadbadd230b8\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"a84aa64d-0910-ce5f-d3cb-b29332a6053d\",\n        \"rolesExcluded\": [\n          \"b93fe611-99e2-4d1b-f2dc-c1b3c7499764\",\n          \"5f98827e-60a9-8955-4191-b9a89dbdd391\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"8e5fcbc1-b38f-52c7-d913-6f920819280c\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"828bc1ce-6770-3559-dcb5-52590e55f9c5\",\n        \"rolesExcluded\": [\n          \"d8abd372-1087-8bc1-2d37-f646ddacab48\",\n          \"c9cef3ea-3a7c-ca46-2d69-72e23b838318\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"17943917-d73a-2486-d68a-fd7956152cae\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"7c3caf19-e689-a8f6-b0ed-ac8d5bbf6fa9\",\n        \"rolesExcluded\": [\n          \"27fde7d5-7a61-aebb-dfb9-5494ef260145\",\n          \"dcc674cc-7a51-7636-e40b-325506b2c6c6\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"94e4160e-08f3-aacb-51ce-b164deb045fe\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"223d5f69-1f68-573a-a67e-9bd090559f55\",\n        \"rolesExcluded\": [\n          \"e9b4d83a-eada-fe5e-4fe3-923ce4efecd6\",\n          \"13222e06-02c9-fe4d-dab2-55b7910bece4\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"4348fc6d-2b8e-972e-c32b-75b5156a1bbb\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"342c118d-b88c-1eed-e4ac-5129b84a742a\",\n        \"rolesExcluded\": [\n          \"e51b0025-ba11-227b-8351-503ef9eeaf17\",\n          \"aa6cb71c-4fca-74ce-1094-e5c157927133\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"ac360120-b2ba-c85b-2f01-dc53e3efdaaf\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"fb133a61-7c2f-ede5-1f91-539d67650641\",\n        \"rolesExcluded\": [\n          \"5c859fb8-f543-0d0f-7329-0a3365612973\",\n          \"aa0ae597-ca3d-1572-ae32-5256b1008ebb\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"4328a89b-5328-6645-6d7c-4ca9f0bae7f3\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"77e1ba24-3170-8165-77cb-2a58e848b052\",\n        \"rolesExcluded\": [\n          \"714c7e3f-fd44-6495-c999-1efd0c4152b5\",\n          \"ee28cc3f-479c-1aef-90c5-1d5d829cce23\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"2efa364c-da37-f82e-6c11-2cd2f513a982\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"48e5e13f-b0eb-9639-5acc-230604befecb\",\n        \"rolesExcluded\": [\n          \"046173bb-25e7-2e8a-6ae1-1b52990c90f6\",\n          \"07d7fd34-b633-bcc2-afd7-d87b38f2c5de\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"95c968c1-4d53-82f4-cbdc-5b7ec71f9b9b\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"83f66f2b-01c6-ad22-39f3-d19b36cd99bf\",\n        \"rolesExcluded\": [\n          \"6f1c571a-1b6f-58e7-a987-c6e149107a81\",\n          \"0e08b4f2-12aa-3917-a682-cb34cd1aeff4\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"5837a4ae-8153-5298-c667-f1c4f7fb0b61\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"bad18494-88a1-9925-9593-c8cb63cd8fa3\",\n        \"rolesExcluded\": [\n          \"059dad76-1fe8-a6b9-05fe-f50704e80c5e\",\n          \"ece4d916-9ac5-b9ee-5594-6c972b92ae66\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"59173b2b-bb67-4b14-800c-7863878ec40c\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"524a3915-1f15-1cbe-3e4a-f442a3e0d040\",\n        \"rolesExcluded\": [\n          \"f4fbddca-3a4e-687d-94af-ba53555683fe\",\n          \"b3b0be90-0e23-6c4f-270a-6818ab22530f\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"2668ff4e-2b69-26b3-f37e-faa6ea28b830\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"884f2a1a-43c4-4937-0b2b-28849e45b12e\",\n        \"rolesExcluded\": [\n          \"341a5f6e-9e3c-df41-e797-bb078f39a000\",\n          \"3d8b5dcb-3e5a-3a80-c67c-57975663fdf5\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"e016ef01-87a1-6b50-771c-2ea250e65e4d\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"d947dbe6-bda8-781d-2a1e-253b1a409502\",\n        \"rolesExcluded\": [\n          \"e63c046a-0edc-95f4-e7d3-c0376dbfdfdf\",\n          \"90da2743-a6fe-3218-26ec-d26a08248d0f\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"3d7bfaa7-0f57-8f22-8788-02d7f472fa26\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"9255864e-ae34-9cee-6d9d-bace0908b5e7\",\n        \"rolesExcluded\": [\n          \"5ffa584b-724f-588f-5be5-6ca98ee50901\",\n          \"b727dd50-648f-94f2-2050-b28138cbac59\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"8377e6e8-015a-749c-bd2d-02c4d548c4e7\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"e12678d4-0b4c-37d0-71d6-ee89ebde5e24\",\n        \"rolesExcluded\": [\n          \"5f4b97b4-f3f6-7e51-35eb-418fdb133d3e\",\n          \"2ec4a7ff-5e07-f3de-7009-95bef2519a29\"\n        ]\n      },\n      {\n        \"accessType\": \"deny\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"601188a4-3143-195a-66e6-41fdfe5a97fd\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"16d1db82-4567-0151-7c71-943db91023e6\",\n        \"rolesExcluded\": [\n          \"e9c1fd1d-816a-0408-2f70-99052c27efa4\",\n          \"17de83a4-2589-7fee-fd89-0ed8f0e1f5fb\"\n        ]\n      },\n      {\n        \"accessType\": \"allow\",\n        \"description\": \"string\",\n        \"filter\": \"string\",\n        \"id\": \"b9fd6ee5-f815-0730-8603-7f5fea2cc38a\",\n        \"objectType\": \"string\",\n        \"permissionsExcluded\": [\n          \"string\",\n          \"string\"\n        ],\n        \"policyId\": \"8d9b61a9-fed3-0bb7-b3dc-bae92ad90a79\",\n        \"rolesExcluded\": [\n          \"041ad24c-fe8e-c36c-85a5-3ccf1ebaf0f2\",\n          \"533de961-e4dd-2b23-ec15-d07a4625d72f\"\n        ]\n      }\n    ],\n    \"sourceTemplateId\": \"1449c6ea-80a4-1759-7675-76671a130426\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1f24d80-bc34-4e04-bf05-a39baf149b52",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"rules\": [\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    }\n  ],\n  \"sourceTemplateId\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"extraFields\": {\n    \"key_0\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a5fdbdb7-d370-4e14-95f0-cbcc27846764",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"rules\": [\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    }\n  ],\n  \"sourceTemplateId\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "181d4f60-ef6f-444c-89da-4a90e94dcf78",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"rules\": [\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"accessType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"objectType\": \"<string>\",\n      \"permissionsExcluded\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"rolesExcluded\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    }\n  ],\n  \"sourceTemplateId\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"extraFields\": {\n    \"key_0\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a2ed1086-5fd4-497e-b631-15a28ad4e4f1",
+    "name": "Authentication Admin Policy Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

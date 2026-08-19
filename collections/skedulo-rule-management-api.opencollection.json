@@ -1,0 +1,121 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Rule Management API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rule Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a rule by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/policies/rules/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a rule by ID."
+        },
+        {
+          "info": {
+            "name": "Update an existing rule.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.skedulo.com/auth/policies/rules/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing rule."
+        },
+        {
+          "info": {
+            "name": "Delete a rule.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.skedulo.com/auth/policies/rules/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a rule."
+        },
+        {
+          "info": {
+            "name": "Get multiple rules.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/policies/rules",
+            "params": [
+              {
+                "name": "enabled",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to return only rules for enabled policies or false to return only rules for disabled policies."
+              }
+            ]
+          },
+          "docs": "Get multiple rules."
+        },
+        {
+          "info": {
+            "name": "Create a new rule.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/policies/rules",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new rule."
+        },
+        {
+          "info": {
+            "name": "Get the resolved rules for the current user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/policies/rules/resolved"
+          },
+          "docs": "Get the resolved rules for the current user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin SMS Messaging API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SMS Messaging",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get metadata for sent SMS messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/sms",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Returns messages sent after the message with this cursor."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get metadata including phone number, job and resource IDs and delivery status for SMS messages that have been sent. The body of the message is not included. Messages are returned in pages of 250 items, sorted by creation time in descending order."
+        },
+        {
+          "info": {
+            "name": "Send an SMS to any phone number",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/sms",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Send an SMS message to any phone number, such as a customer.\n\nFor example 'Thanks for confirming your booking'. Replies from the recipient will not be tracked back to a job but can be used to trigger an 'inbound_sms' webhook."
+        },
+        {
+          "info": {
+            "name": "Request confirmation by SMS",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/sms/confirmation_request",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Send an SMS message to any phone number, such as a customer, to request confirmation that a job should proceed. This will set the job's confirmation status to `Pending`. Upon receiving a Y/YES or N/NO SMS message from the recipient, the job's confirmation status will be updated accordingly.\n\nNote that while a job's confirmation status is `Pending`, SMS confirmation requests cannot be sent to the recipient for that job.\n\nNote that a job's confirmation status is for use by custom workflows. It doe"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

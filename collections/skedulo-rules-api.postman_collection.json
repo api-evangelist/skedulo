@@ -1,0 +1,229 @@
+{
+  "item": [
+    {
+      "id": "08decff4-7729-459f-8c7f-39cdb07d39c8",
+      "name": "Rules",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a5d9f78c-7bb7-4bfb-8af2-a1222e954718",
+          "name": "Resolve record access rules",
+          "request": {
+            "name": "Resolve record access rules",
+            "description": {
+              "content": "Resolves the supplied rule definitions into valid EQL filters, combining rules by object type and returning errors for any invalid filter definitions. Requires the Record Access Policies feature to be enabled.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rules",
+                "resolve"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accessRules\": [\n    {\n      \"objectType\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"accessType\": \"<string>\"\n    },\n    {\n      \"objectType\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"accessType\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f0427a96-9af4-4172-a2d0-44043dfd8a90",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rules",
+                    "resolve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessRules\": [\n    {\n      \"objectType\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"accessType\": \"<string>\"\n    },\n    {\n      \"objectType\": \"<string>\",\n      \"filter\": \"<string>\",\n      \"accessType\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"valid\": true,\n  \"accessRules\": [\n    {\n      \"objectType\": \"string\",\n      \"filter\": \"string\"\n    },\n    {\n      \"objectType\": \"string\",\n      \"filter\": \"string\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"objectType\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"objectType\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0599bbf1-ffcf-4ca9-ad70-00b4d1668347",
+          "name": "Record access rules for the current user",
+          "request": {
+            "name": "Record access rules for the current user",
+            "description": {
+              "content": "Returns the current user's record access rules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rules",
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "addc5ba1-7016-4d8d-9472-fcb2c1294fe4",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rules",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"objectType\": \"string\",\n      \"filter\": \"string\"\n    },\n    {\n      \"objectType\": \"string\",\n      \"filter\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "3afadffb-0a94-4fb3-9014-563f237839a8",
+    "name": "Authentication Admin Rules API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

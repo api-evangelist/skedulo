@@ -1,0 +1,818 @@
+{
+  "item": [
+    {
+      "id": "203ff522-e67c-47f0-85c2-fb8f1a12a15b",
+      "name": "Run",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "005bddc6-2fde-4d3f-bc73-8b049d4b2a6e",
+          "name": "Get a list of runs",
+          "request": {
+            "name": "Get a list of runs",
+            "description": {
+              "content": "Returns a paginated list of feature model optimization runs for the authenticated tenant. Results can be filtered by run ID, schedule ID, user, and run type, and support limit/offset pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "run"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "Run id"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>",
+                  "description": "(Required) Coma separated run ids"
+                },
+                {
+                  "disabled": false,
+                  "key": "schedule_id",
+                  "value": "<string>",
+                  "description": "Schedule id"
+                },
+                {
+                  "disabled": false,
+                  "key": "schedule_ids",
+                  "value": "<string>",
+                  "description": "Coma separated run schedule ids"
+                },
+                {
+                  "disabled": false,
+                  "key": "user",
+                  "value": "<string>",
+                  "description": "User id"
+                },
+                {
+                  "disabled": false,
+                  "key": "user_ids",
+                  "value": "<string>",
+                  "description": "Coma separated user ids"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Run type"
+                },
+                {
+                  "disabled": false,
+                  "key": "types",
+                  "value": "<string>",
+                  "description": "Coma separated types"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Number of results to skip"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<integer>",
+                  "description": "Return results after this cursor value"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "1785cbbe-e43d-487c-898b-1b6181d34af1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "schedule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "schedule_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paging\": {\n    \"limit\": 10,\n    \"total\": 2\n  },\n  \"result\": [\n    {\n      \"start\": \"2022-08-18T19:00:00Z\",\n      \"operation\": \"optimize\",\n      \"optimizationType\": \"pvrp\",\n      \"status\": \"complete\",\n      \"scheduleId\": \"a15c285f-2c69-4a3c-9b9b-c9a8c5252db6\",\n      \"createdByUserId\": \"user-1\",\n      \"label\": \"label-1\",\n      \"completedAt\": \"2022-02-15T19:02:00Z\",\n      \"summary\": {\n        \"totalPlannedJobs\": 3,\n        \"totalScheduledJobs\": 3,\n        \"requestedJobs\": 2,\n        \"requestedJobsScheduled\": 2\n      },\n      \"window\": {\n        \"start\": \"2022-07-05T09:00:00Z\",\n        \"end\": \"2022-08-05T23:59:59Z\"\n      },\n      \"id\": \"20ecb249-8331-491f-9049-565a2252df76\"\n    },\n    {\n      \"errors\": [\n        {\n          \"message\": \"error-1\"\n        }\n      ],\n      \"start\": \"2022-08-18T19:00:00Z\",\n      \"operation\": \"optimize\",\n      \"optimizationType\": \"pvrp\",\n      \"status\": \"failed\",\n      \"scheduleId\": \"a15c285f-2c69-4a3c-9b9b-c9a8c5252db6\",\n      \"createdByUserId\": \"user-1\",\n      \"label\": \"label-1\",\n      \"completedAt\": \"2022-02-15T19:02:00Z\",\n      \"summary\": {\n        \"totalPlannedJobs\": 3,\n        \"totalScheduledJobs\": 3,\n        \"requestedJobs\": 2,\n        \"requestedJobsScheduled\": 2\n      },\n      \"window\": {\n        \"start\": \"2022-07-05T09:00:00Z\",\n        \"end\": \"2022-08-05T23:59:59Z\"\n      },\n      \"id\": \"20ecb249-8331-491f-9049-565a2252df76\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc2992af-760f-4f52-a691-4118afe16c5a",
+              "name": "Invalid value for: query parameter id, Invalid value for: query parameter ids, Invalid value for: query parameter schedule_id, Invalid value for: query parameter schedule_ids, Invalid value for: query parameter user, Invalid value for: query parameter user_ids, Invalid value for: query parameter type, Invalid value for: query parameter types, Invalid value for: query parameter limit, Invalid value for: query parameter offset, Invalid value for: query parameter after",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "schedule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "schedule_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e59b607-470d-469d-bef4-9f7e27635729",
+          "name": "Get a run by id",
+          "request": {
+            "name": "Get a run by id",
+            "description": {
+              "content": "Returns the details of a single feature model optimization run identified by its run ID, including its status, type, schedule association, and timing information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "run",
+                ":runId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "981b1a3c-98e7-488e-b540-b0894ecc8fb8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "run",
+                    ":runId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"start\": \"2022-08-18T19:00:00Z\",\n    \"operation\": \"optimize\",\n    \"optimizationType\": \"pvrp\",\n    \"status\": \"complete\",\n    \"scheduleId\": \"a15c285f-2c69-4a3c-9b9b-c9a8c5252db6\",\n    \"createdByUserId\": \"user-1\",\n    \"label\": \"label-1\",\n    \"completedAt\": \"2022-02-15T19:02:00Z\",\n    \"summary\": {\n      \"totalPlannedJobs\": 3,\n      \"totalScheduledJobs\": 3,\n      \"requestedJobs\": 2,\n      \"requestedJobsScheduled\": 2\n    },\n    \"window\": {\n      \"start\": \"2022-07-05T09:00:00Z\",\n      \"end\": \"2022-08-05T23:59:59Z\"\n    },\n    \"id\": \"20ecb249-8331-491f-9049-565a2252df76\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c678049-8c86-4e2f-b749-031d1775b094",
+          "name": "Get the diff of the run",
+          "request": {
+            "name": "Get the diff of the run",
+            "description": {
+              "content": "Returns the allocation diff produced by an optimization run, showing for each allocation which resource was deallocated and which resource was allocated, along with any change in scheduled time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "run",
+                ":runId",
+                "diff"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "6cd0855a-f1ac-4c5c-9495-6cfad1d194f8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "run",
+                    ":runId",
+                    "diff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"meta\": {\n      \"key\": \"value\"\n    },\n    \"solver\": \"pvrp\",\n    \"allocations\": {\n      \"alloc-1\": {\n        \"deallocation\": \"res-1\",\n        \"allocation\": \"res-2\",\n        \"initialScheduleTime\": \"2022-10-31T07:00:00Z\",\n        \"scheduleTime\": \"2022-10-31T11:00:00Z\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "634d55a7-9f2d-4b65-ad71-7b2bb8e31346",
+          "name": "Get results of an optimization run",
+          "request": {
+            "name": "Get results of an optimization run",
+            "description": {
+              "content": "Returns the feature-model-level optimization results for a completed run. For ARCShift (shift scheduling) runs this shows which allocations were assigned to resources and which were left unscheduled. For CorePVRP (route optimization) runs this additionally includes the scheduled start times and per-allocation infeasibility reasons explaining why each resource could not be used for each unscheduled allocation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "run",
+                ":runId",
+                "results"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "6c311fc9-91a6-4aac-82d9-9dc3b3774874",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "run",
+                    ":runId",
+                    "results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"type\": \"string\",\n    \"scheduled\": {\n      \"key_0\": {\n        \"resourceId\": \"string\"\n      },\n      \"key_1\": {\n        \"resourceId\": \"string\"\n      },\n      \"key_2\": {\n        \"resourceId\": \"string\"\n      }\n    },\n    \"unscheduled\": {\n      \"key_0\": {\n        \"previousResourceId\": \"string\"\n      },\n      \"key_1\": {\n        \"previousResourceId\": \"string\"\n      },\n      \"key_2\": {\n        \"previousResourceId\": \"string\"\n      },\n      \"key_3\": {\n        \"previousResourceId\": \"string\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cbc1f937-8901-4f60-9eb1-dcdb13c7b0d6",
+          "name": "Get the model for the run",
+          "request": {
+            "name": "Get the model for the run",
+            "description": {
+              "content": "Get the feature model used for the run. This is a fully anonymized version of the problem that is solved in the optimization run",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "run",
+                ":runId",
+                "model"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "2a136cb7-0132-4979-9e2b-43f26776eafc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "run",
+                    ":runId",
+                    "model"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"allocations\": [\n      {\n        \"id\": \"alloc-1\",\n        \"groupId\": \"alloc-group-1\",\n        \"groupIds\": [\n          \"alloc-group-1\"\n        ],\n        \"start\": \"2022-01-26T09:00:00Z\",\n        \"duration\": 30,\n        \"resourceId\": \"res-1\",\n        \"locationId\": \"loc-1\",\n        \"priority\": 10,\n        \"locked\": true,\n        \"attributeRequirements\": [\n          {\n            \"id\": \"attr-1\"\n          },\n          {\n            \"id\": \"attr-2\",\n            \"weighting\": 10\n          }\n        ],\n        \"resourceConstraints\": {\n          \"type\": \"blocked\",\n          \"resources\": [\n            \"res-2\"\n          ]\n        },\n        \"scheduleConstraints\": [\n          {\n            \"windowStart\": \"2022-01-26T10:00:00Z\",\n            \"windowEnd\": \"2022-01-26T11:00:00Z\"\n          }\n        ],\n        \"resourceRatings\": [\n          {\n            \"resourceId\": \"res-1\",\n            \"rating\": 75\n          }\n        ],\n        \"urgency\": 20\n      }\n    ],\n    \"groups\": [\n      {\n        \"id\": \"gr-1\",\n        \"synchronizationMode\": \"start_time\",\n        \"locked\": true,\n        \"enablePartialAllocation\": false\n      }\n    ],\n    \"resources\": [\n      {\n        \"id\": \"res-1\",\n        \"attributes\": [\n          {\n            \"id\": \"attr-1\"\n          }\n        ],\n        \"locationId\": \"loc-1\",\n        \"availability\": [\n          {\n            \"from\": \"2022-01-26T09:00:00Z\",\n            \"to\": \"2022-01-30T23:00:00Z\",\n            \"attributes\": []\n          }\n        ],\n        \"maxDailyTravelTimeInMinutes\": 180,\n        \"maxTravelTimeBetweenLocations\": 60,\n        \"periodConstraints\": [\n          {\n            \"start\": \"2022-01-26T09:00:00Z\",\n            \"end\": \"2022-01-30T23:00:00Z\",\n            \"maxServiceTimeInMinutes\": 100,\n            \"minServiceTimeInMinutes\": 50,\n            \"groupConstraints\": [\n              {\n                \"groupId\": \"group-1\",\n                \"maxAllocations\": 5\n              }\n            ]\n          }\n        ],\n        \"breaks\": [\n          {\n            \"breakTimeInMinutes\": 30,\n            \"minStartTime\": \"2022-01-26T12:00:00Z\",\n            \"maxStartTime\": \"2022-01-26T13:00:00Z\"\n          },\n          {\n            \"startTime\": \"2022-01-26T15:00:00Z\",\n            \"endTime\": \"2022-01-26T15:30:00Z\",\n            \"locationId\": \"loc-1\"\n          }\n        ],\n        \"rating\": 80,\n        \"compatibleResources\": [\n          \"res-2\"\n        ]\n      }\n    ],\n    \"allocationDependencies\": [],\n    \"resourceDependencies\": [],\n    \"locations\": [\n      {\n        \"id\": \"loc-1\",\n        \"latitude\": 51.5072,\n        \"longitude\": 0.1276\n      }\n    ],\n    \"schedulingPeriod\": {\n      \"start\": \"2022-01-26T09:00:00Z\",\n      \"end\": \"2022-01-30T23:00:00Z\"\n    },\n    \"timezone\": \"UTC\",\n    \"meta\": {\n      \"key\": \"value\"\n    },\n    \"options\": {\n      \"full\": false,\n      \"ignoreTravelTime\": false,\n      \"ignoreTravelTimeFirstJob\": false,\n      \"ignoreTravelTimeLastJob\": false,\n      \"minimizeResources\": false,\n      \"respectAllocationTimes\": false,\n      \"respectAllocationTimesOverTimeConstraints\": false,\n      \"balanceAbsoluteWorkload\": false,\n      \"enablePartiallyAllocatedGroups\": true,\n      \"enablePartiallyAllocatedAllocationDependencies\": true,\n      \"removeLockedJobsFromShifts\": true\n    },\n    \"sharedGroupConstraints\": [\n      {\n        \"groupId\": \"group-1\",\n        \"resourceIds\": [\n          \"res-1\",\n          \"res-2\"\n        ],\n        \"maxAllocations\": 10,\n        \"start\": \"2022-01-26T09:00:00Z\",\n        \"end\": \"2022-01-30T23:00:00Z\"\n      }\n    ],\n    \"solver\": \"pvrp\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53eacc1e-1811-4112-a934-161a33f5aa8c",
+          "name": "Get the remodel of the run",
+          "request": {
+            "name": "Get the remodel of the run",
+            "description": {
+              "content": "Get the final model of the run. This is similar to the result of the GET /run/{runId}/model endpoint, but with the model populated with the scheduled allocations from the optimization run.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "run",
+                ":runId",
+                "remodel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "e793a1df-5bcd-4287-8aee-ab2637cd97bc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "run",
+                    ":runId",
+                    "remodel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"allocations\": [\n      {\n        \"id\": \"alloc-1\",\n        \"groupId\": \"alloc-group-1\",\n        \"groupIds\": [\n          \"alloc-group-1\"\n        ],\n        \"start\": \"2022-01-26T09:00:00Z\",\n        \"duration\": 30,\n        \"resourceId\": \"res-1\",\n        \"locationId\": \"loc-1\",\n        \"priority\": 10,\n        \"locked\": true,\n        \"attributeRequirements\": [\n          {\n            \"id\": \"attr-1\"\n          },\n          {\n            \"id\": \"attr-2\",\n            \"weighting\": 10\n          }\n        ],\n        \"resourceConstraints\": {\n          \"type\": \"blocked\",\n          \"resources\": [\n            \"res-2\"\n          ]\n        },\n        \"scheduleConstraints\": [\n          {\n            \"windowStart\": \"2022-01-26T10:00:00Z\",\n            \"windowEnd\": \"2022-01-26T11:00:00Z\"\n          }\n        ],\n        \"resourceRatings\": [\n          {\n            \"resourceId\": \"res-1\",\n            \"rating\": 75\n          }\n        ],\n        \"urgency\": 20\n      }\n    ],\n    \"groups\": [\n      {\n        \"id\": \"gr-1\",\n        \"synchronizationMode\": \"start_time\",\n        \"locked\": true,\n        \"enablePartialAllocation\": false\n      }\n    ],\n    \"resources\": [\n      {\n        \"id\": \"res-1\",\n        \"attributes\": [\n          {\n            \"id\": \"attr-1\"\n          }\n        ],\n        \"locationId\": \"loc-1\",\n        \"availability\": [\n          {\n            \"from\": \"2022-01-26T09:00:00Z\",\n            \"to\": \"2022-01-30T23:00:00Z\",\n            \"attributes\": []\n          }\n        ],\n        \"maxDailyTravelTimeInMinutes\": 180,\n        \"maxTravelTimeBetweenLocations\": 60,\n        \"periodConstraints\": [\n          {\n            \"start\": \"2022-01-26T09:00:00Z\",\n            \"end\": \"2022-01-30T23:00:00Z\",\n            \"maxServiceTimeInMinutes\": 100,\n            \"minServiceTimeInMinutes\": 50,\n            \"groupConstraints\": [\n              {\n                \"groupId\": \"group-1\",\n                \"maxAllocations\": 5\n              }\n            ]\n          }\n        ],\n        \"breaks\": [\n          {\n            \"breakTimeInMinutes\": 30,\n            \"minStartTime\": \"2022-01-26T12:00:00Z\",\n            \"maxStartTime\": \"2022-01-26T13:00:00Z\"\n          },\n          {\n            \"startTime\": \"2022-01-26T15:00:00Z\",\n            \"endTime\": \"2022-01-26T15:30:00Z\",\n            \"locationId\": \"loc-1\"\n          }\n        ],\n        \"rating\": 80,\n        \"compatibleResources\": [\n          \"res-2\"\n        ]\n      }\n    ],\n    \"allocationDependencies\": [],\n    \"resourceDependencies\": [],\n    \"locations\": [\n      {\n        \"id\": \"loc-1\",\n        \"latitude\": 51.5072,\n        \"longitude\": 0.1276\n      }\n    ],\n    \"schedulingPeriod\": {\n      \"start\": \"2022-01-26T09:00:00Z\",\n      \"end\": \"2022-01-30T23:00:00Z\"\n    },\n    \"timezone\": \"UTC\",\n    \"meta\": {\n      \"key\": \"value\"\n    },\n    \"options\": {\n      \"full\": false,\n      \"ignoreTravelTime\": false,\n      \"ignoreTravelTimeFirstJob\": false,\n      \"ignoreTravelTimeLastJob\": false,\n      \"minimizeResources\": false,\n      \"respectAllocationTimes\": false,\n      \"respectAllocationTimesOverTimeConstraints\": false,\n      \"balanceAbsoluteWorkload\": false,\n      \"enablePartiallyAllocatedGroups\": true,\n      \"enablePartiallyAllocatedAllocationDependencies\": true,\n      \"removeLockedJobsFromShifts\": true\n    },\n    \"sharedGroupConstraints\": [\n      {\n        \"groupId\": \"group-1\",\n        \"resourceIds\": [\n          \"res-1\",\n          \"res-2\"\n        ],\n        \"maxAllocations\": 10,\n        \"start\": \"2022-01-26T09:00:00Z\",\n        \"end\": \"2022-01-30T23:00:00Z\"\n      }\n    ],\n    \"solver\": \"pvrp\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd0308f5-7360-4313-a630-9a337f0e2791",
+          "name": "Get the metadata for a run",
+          "request": {
+            "name": "Get the metadata for a run",
+            "description": {
+              "content": "Returns arbitrary key-value metadata associated with an optimization run. Returns null if no metadata has been recorded for the run.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "run",
+                ":runId",
+                "meta"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "08b8f50f-aace-49d5-bc0d-88f249af198d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "run",
+                    ":runId",
+                    "meta"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"key\": \"value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "3f90d93a-0bcb-4916-8554-56a366d10ac9",
+    "name": "Authentication Admin Run API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

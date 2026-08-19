@@ -1,0 +1,1947 @@
+{
+  "item": [
+    {
+      "id": "25fc0be5-b81f-4e88-badd-85ef8e00538d",
+      "name": "api-controller",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a2767ed8-a23c-4d89-85c1-a9dc4a9f6356",
+          "name": "Get record change transactions (simple)",
+          "request": {
+            "name": "Get record change transactions (simple)",
+            "description": {
+              "content": "Return data changes for the current tenant and search parameters, grouped by transaction, in a simple format.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transactions",
+                "simple"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "An opaque cursor representing a position in the stream of transactions. Provide this to return all transactions after this position. Returned in the nextCursor property of a transactions result."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "Filter transactions after this timestamp (UTC) inclusive"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "Filter transactions before this timestamp (UTC)"
+                },
+                {
+                  "disabled": false,
+                  "key": "userIds",
+                  "value": "<string>",
+                  "description": "Filter transactions by user ids"
+                },
+                {
+                  "disabled": false,
+                  "key": "entityTypes",
+                  "value": "<string>",
+                  "description": "Filter transactions by entity types"
+                },
+                {
+                  "disabled": false,
+                  "key": "entityIds",
+                  "value": "<string>",
+                  "description": "Filter transactions by entity ids"
+                },
+                {
+                  "disabled": false,
+                  "key": "operations",
+                  "value": "<string>",
+                  "description": "Filter transactions by operations"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<string>",
+                  "description": "Number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "<string>",
+                  "description": "Order in which to sort results (by event timestamp)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "4e1227cc-c16a-4ba2-9958-458dc6e89808",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "simple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"changes\": [\n        {\n          \"entityId\": \"string\",\n          \"entityType\": \"string\",\n          \"occurredAt\": \"1994-04-08T04:52:43.833Z\",\n          \"operation\": \"string\",\n          \"userId\": \"string\"\n        },\n        {\n          \"entityId\": \"string\",\n          \"entityType\": \"string\",\n          \"occurredAt\": \"2005-01-16T02:13:16.890Z\",\n          \"operation\": \"string\",\n          \"userId\": \"string\"\n        }\n      ],\n      \"transactionId\": \"string\"\n    },\n    {\n      \"changes\": [\n        {\n          \"entityId\": \"string\",\n          \"entityType\": \"string\",\n          \"occurredAt\": \"1999-08-02T01:19:48.201Z\",\n          \"operation\": \"string\",\n          \"userId\": \"string\"\n        },\n        {\n          \"entityId\": \"string\",\n          \"entityType\": \"string\",\n          \"occurredAt\": \"1952-02-25T09:41:50.717Z\",\n          \"operation\": \"string\",\n          \"userId\": \"string\"\n        }\n      ],\n      \"transactionId\": \"string\"\n    }\n  ],\n  \"nextCursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99c863bc-d4b5-435d-8df8-8bf99a02e253",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "simple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76e742e9-51b8-4681-97b1-7b3b4b0d2a20",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "simple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "27a291ff-6815-4cdb-be9d-c580abd8c5d6",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "simple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1beafb8b-47c1-41f1-be88-bedd446e7f0a",
+          "name": "Get record change transactions",
+          "request": {
+            "name": "Get record change transactions",
+            "description": {
+              "content": "Return data changes for the current tenant and search parameters, grouped by transaction.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "An opaque cursor representing a position in the stream of transactions. Provide this to return all transactions after this position. Returned in the nextCursor property of a transactions result."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "Filter transactions after this timestamp (UTC) inclusive"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "Filter transactions before this timestamp (UTC)"
+                },
+                {
+                  "disabled": false,
+                  "key": "userIds",
+                  "value": "<string>",
+                  "description": "Filter transactions by user ids"
+                },
+                {
+                  "disabled": false,
+                  "key": "entityTypes",
+                  "value": "<string>",
+                  "description": "Filter transactions by entity types"
+                },
+                {
+                  "disabled": false,
+                  "key": "entityIds",
+                  "value": "<string>",
+                  "description": "Filter transactions by entity ids"
+                },
+                {
+                  "disabled": false,
+                  "key": "operations",
+                  "value": "<string>",
+                  "description": "Filter transactions by operations"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<string>",
+                  "description": "Number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "<string>",
+                  "description": "Order in which to sort results (by event timestamp)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "7b6c31ee-5b05-4f00-b762-f874b6d419ec",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"changes\": [\n        {\n          \"data\": {},\n          \"entityId\": \"string\",\n          \"entityType\": \"string\",\n          \"occurredAt\": \"1986-02-05T12:02:59.453Z\",\n          \"operation\": \"string\",\n          \"userId\": \"string\",\n          \"previous\": {},\n          \"metadata\": {}\n        },\n        {\n          \"data\": {},\n          \"entityId\": \"string\",\n          \"entityType\": \"string\",\n          \"occurredAt\": \"1981-11-07T17:11:05.050Z\",\n          \"operation\": \"string\",\n          \"userId\": \"string\",\n          \"previous\": {},\n          \"metadata\": {}\n        }\n      ],\n      \"transactionId\": \"string\"\n    },\n    {\n      \"changes\": [\n        {\n          \"data\": {},\n          \"entityId\": \"string\",\n          \"entityType\": \"string\",\n          \"occurredAt\": \"1989-10-17T19:54:32.400Z\",\n          \"operation\": \"string\",\n          \"userId\": \"string\",\n          \"previous\": {},\n          \"metadata\": {}\n        },\n        {\n          \"data\": {},\n          \"entityId\": \"string\",\n          \"entityType\": \"string\",\n          \"occurredAt\": \"2021-07-10T10:32:35.500Z\",\n          \"operation\": \"string\",\n          \"userId\": \"string\",\n          \"previous\": {},\n          \"metadata\": {}\n        }\n      ],\n      \"transactionId\": \"string\"\n    }\n  ],\n  \"nextCursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d562e61-c3aa-4c40-bc0a-1fa8eeb3b8e5",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c68ce196-844a-4bee-86ab-9a83f6e0e0fb",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e50c373c-93ec-4134-b5c6-0db4e4a6b7e0",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac446d7c-69f2-4194-91a9-f563fa4cf083",
+          "name": "Get record changes for a tenant (simple)",
+          "request": {
+            "name": "Get record changes for a tenant (simple)",
+            "description": {
+              "content": "Return data changes (simple format) for the given tenant and search parameters. Requires an internal admin token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "changes",
+                ":tenantId",
+                "simple"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "An opaque cursor representing a position in the stream of changes. Provide this to return all changes after this position. Returned in the nextCursor property of a changes result."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "Filter changes after this timestamp (UTC) inclusive"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "Filter changes before this timestamp (UTC)"
+                },
+                {
+                  "disabled": false,
+                  "key": "userIds",
+                  "value": "<string>",
+                  "description": "Filter changes by user ids"
+                },
+                {
+                  "disabled": false,
+                  "key": "entityTypes",
+                  "value": "<string>",
+                  "description": "Filter changes by entity types"
+                },
+                {
+                  "disabled": false,
+                  "key": "entityIds",
+                  "value": "<string>",
+                  "description": "Filter changes by entity ids"
+                },
+                {
+                  "disabled": false,
+                  "key": "operations",
+                  "value": "<string>",
+                  "description": "Filter changes by operations"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<string>",
+                  "description": "Number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "<string>",
+                  "description": "Order in which to sort results (by event timestamp)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenantId",
+                  "description": "(Required) The tenant id to retrieve changes for. Only supported for internal admin tokens. "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "ae15ddda-bfc0-4e0f-8613-bd92c4041e70",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "changes",
+                    ":tenantId",
+                    "simple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) The tenant id to retrieve changes for. Only supported for internal admin tokens. "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"entityId\": \"string\",\n      \"entityType\": \"string\",\n      \"occurredAt\": \"1970-03-04T07:40:17.353Z\",\n      \"operation\": \"string\",\n      \"userId\": \"string\"\n    },\n    {\n      \"entityId\": \"string\",\n      \"entityType\": \"string\",\n      \"occurredAt\": \"1971-07-29T11:30:38.045Z\",\n      \"operation\": \"string\",\n      \"userId\": \"string\"\n    }\n  ],\n  \"nextCursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68349120-e155-4ee8-8539-e8c0f76e1262",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "changes",
+                    ":tenantId",
+                    "simple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) The tenant id to retrieve changes for. Only supported for internal admin tokens. "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77dba1cb-6b8d-45ce-b581-6953e86b8147",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "changes",
+                    ":tenantId",
+                    "simple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) The tenant id to retrieve changes for. Only supported for internal admin tokens. "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d64c78c7-9f1d-404f-b2c7-ac1a5fdbfb18",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "changes",
+                    ":tenantId",
+                    "simple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) The tenant id to retrieve changes for. Only supported for internal admin tokens. "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2a315feb-2392-4904-a897-cfe6c598aad7",
+          "name": "Get record changes (simple)",
+          "request": {
+            "name": "Get record changes (simple)",
+            "description": {
+              "content": "Return data changes (simple format) for the current tenant and search parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "changes",
+                "simple"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "An opaque cursor representing a position in the stream of changes. Provide this to return all changes after this position. Returned in the nextCursor property of a changes result."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "Filter changes after this timestamp (UTC) inclusive"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "Filter changes before this timestamp (UTC)"
+                },
+                {
+                  "disabled": false,
+                  "key": "userIds",
+                  "value": "<string>",
+                  "description": "Filter changes by user ids"
+                },
+                {
+                  "disabled": false,
+                  "key": "entityTypes",
+                  "value": "<string>",
+                  "description": "Filter changes by entity types"
+                },
+                {
+                  "disabled": false,
+                  "key": "entityIds",
+                  "value": "<string>",
+                  "description": "Filter changes by entity ids"
+                },
+                {
+                  "disabled": false,
+                  "key": "operations",
+                  "value": "<string>",
+                  "description": "Filter changes by operations"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<string>",
+                  "description": "Number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "<string>",
+                  "description": "Order in which to sort results (by event timestamp)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "ad9bae2a-2674-4a80-8a6a-d74e8ab66956",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "changes",
+                    "simple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"entityId\": \"string\",\n      \"entityType\": \"string\",\n      \"occurredAt\": \"1974-06-23T18:33:23.541Z\",\n      \"operation\": \"string\",\n      \"userId\": \"string\"\n    },\n    {\n      \"entityId\": \"string\",\n      \"entityType\": \"string\",\n      \"occurredAt\": \"1980-03-16T09:17:41.994Z\",\n      \"operation\": \"string\",\n      \"userId\": \"string\"\n    }\n  ],\n  \"nextCursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39bdab36-e463-420f-b456-41ff13091eb8",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "changes",
+                    "simple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72713790-b466-4a81-9507-3220aab50c58",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "changes",
+                    "simple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f1fd0482-ed52-4b36-ba2b-78f0140a715d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "changes",
+                    "simple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9335f976-1c93-4066-bd63-d54ee60486ba",
+          "name": "Get record changes",
+          "request": {
+            "name": "Get record changes",
+            "description": {
+              "content": "Return data changes for the current tenant and search parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "changes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "An opaque cursor representing a position in the stream of changes. Provide this to return all changes after this position. Returned in the nextCursor property of a changes result."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "Filter changes after this timestamp (UTC) inclusive"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "Filter changes before this timestamp (UTC)"
+                },
+                {
+                  "disabled": false,
+                  "key": "userIds",
+                  "value": "<string>",
+                  "description": "Filter changes by user ids"
+                },
+                {
+                  "disabled": false,
+                  "key": "entityTypes",
+                  "value": "<string>",
+                  "description": "Filter changes by entity types"
+                },
+                {
+                  "disabled": false,
+                  "key": "entityIds",
+                  "value": "<string>",
+                  "description": "Filter changes by entity ids"
+                },
+                {
+                  "disabled": false,
+                  "key": "operations",
+                  "value": "<string>",
+                  "description": "Filter changes by operations"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<string>",
+                  "description": "Number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "<string>",
+                  "description": "Order in which to sort results (by event timestamp)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "d0e06eb3-761e-4ac2-b3e8-fe5aeda1d140",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "changes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"data\": {},\n      \"entityId\": \"string\",\n      \"entityType\": \"string\",\n      \"occurredAt\": \"1968-07-14T10:25:22.401Z\",\n      \"operation\": \"string\",\n      \"userId\": \"string\",\n      \"previous\": {},\n      \"metadata\": {}\n    },\n    {\n      \"data\": {},\n      \"entityId\": \"string\",\n      \"entityType\": \"string\",\n      \"occurredAt\": \"1980-09-16T10:37:20.826Z\",\n      \"operation\": \"string\",\n      \"userId\": \"string\",\n      \"previous\": {},\n      \"metadata\": {}\n    }\n  ],\n  \"nextCursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e81078c-650f-4d4c-9a2a-ecb882a5fa0f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "changes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17d0ed0c-b382-41dd-8dd1-fe1da9f55281",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "changes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8533661b-f69f-44e4-90fd-c705983a615b",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "changes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2021-12-24T00:00:00Z"
+                    },
+                    {
+                      "key": "userIds",
+                      "value": "aea7174c-b0d2-4aa0-bc4b-e59e7e441eab"
+                    },
+                    {
+                      "key": "entityTypes",
+                      "value": "Job"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "b4eeb467-3db6-44cf-a691-01205341b0dd"
+                    },
+                    {
+                      "key": "operations",
+                      "value": "INSERT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "87e8cb3f-14b3-4235-b438-c4c5a585d750",
+    "name": "Authentication Admin api-controller API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

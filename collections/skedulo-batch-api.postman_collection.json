@@ -1,0 +1,610 @@
+{
+  "item": [
+    {
+      "id": "21b4ee6e-3019-4fff-af94-7214120615ae",
+      "name": "Batch",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b6af58d9-b2a0-4812-badb-b3ce3e9b89bf",
+          "name": "Get batch schedules by ids",
+          "request": {
+            "name": "Get batch schedules by ids",
+            "description": {
+              "content": "Returns a paginated list of batch schedules matching the provided comma-separated list of schedule IDs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "batch",
+                "schedule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>",
+                  "description": "(Required) Coma separated schedule ids"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "96fb3f4b-461a-4810-9d83-0a73d0b72df5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paging\": {\n    \"limit\": 10,\n    \"total\": 2\n  },\n  \"result\": [\n    {\n      \"dayRange\": 2,\n      \"dayOffset\": 3,\n      \"jobQuery\": \"1=1\",\n      \"resourceQuery\": \"1=1\",\n      \"region\": \"EU\",\n      \"regions\": [\n        \"EU\"\n      ],\n      \"optimizationType\": \"pvrp\",\n      \"schedulingOptions\": {\n        \"full\": false,\n        \"ignoreTravelTime\": false,\n        \"ignoreTravelTimeFirstJob\": false,\n        \"ignoreTravelTimeLastJob\": false,\n        \"minimizeResources\": false,\n        \"maxDailyTravelTimeInMinutes\": 180,\n        \"maxTravelTimeBetweenLocations\": 60,\n        \"respectAllocationTimes\": false,\n        \"respectAllocationTimesOverTimeConstraints\": false,\n        \"balanceAbsoluteWorkload\": false,\n        \"enablePartiallyAllocatedGroups\": true,\n        \"enablePartiallyAllocatedAllocationDependencies\": true,\n        \"removeLockedJobsFromShifts\": true,\n        \"respectSchedule\": false,\n        \"transformers\": [],\n        \"ignoreResourceOverrideLocations\": false\n      },\n      \"includeTemporaryRegions\": false,\n      \"includeSecondaryRegions\": false,\n      \"name\": \"schedule-1\",\n      \"runDate\": \"2020-01-02\",\n      \"timezone\": \"Z\",\n      \"earliestStartTime\": \"01:04:05\",\n      \"latestEndTime\": \"01:07:05\",\n      \"recurring\": {\n        \"step\": 1,\n        \"repeatMode\": \"daily\",\n        \"endAfterNumberOccurrences\": 1\n      },\n      \"persistenceStrategy\": \"save\",\n      \"lastModifiedByUserId\": \"user-1\",\n      \"lastModifiedByDate\": \"2020-01-02T05:04:05Z\",\n      \"createdByUserId\": \"user-1\",\n      \"createdByDate\": \"2020-01-02T03:04:05Z\"\n    },\n    {\n      \"dayRange\": 2,\n      \"dayOffset\": 3,\n      \"jobQuery\": \"1=1\",\n      \"resourceQuery\": \"1=1\",\n      \"region\": \"EU\",\n      \"regions\": [\n        \"EU\"\n      ],\n      \"optimizationType\": \"pvrp\",\n      \"schedulingOptions\": {\n        \"full\": false,\n        \"ignoreTravelTime\": false,\n        \"ignoreTravelTimeFirstJob\": false,\n        \"ignoreTravelTimeLastJob\": false,\n        \"minimizeResources\": false,\n        \"maxDailyTravelTimeInMinutes\": 180,\n        \"maxTravelTimeBetweenLocations\": 60,\n        \"respectAllocationTimes\": false,\n        \"respectAllocationTimesOverTimeConstraints\": false,\n        \"balanceAbsoluteWorkload\": false,\n        \"enablePartiallyAllocatedGroups\": true,\n        \"enablePartiallyAllocatedAllocationDependencies\": true,\n        \"removeLockedJobsFromShifts\": true,\n        \"respectSchedule\": false,\n        \"transformers\": [],\n        \"ignoreResourceOverrideLocations\": false\n      },\n      \"includeTemporaryRegions\": false,\n      \"includeSecondaryRegions\": false,\n      \"name\": \"Schedule 2\",\n      \"runDate\": \"2020-01-02\",\n      \"timezone\": \"Z\",\n      \"earliestStartTime\": \"01:04:05\",\n      \"latestEndTime\": \"01:07:05\",\n      \"recurring\": {\n        \"step\": 1,\n        \"repeatMode\": \"daily\",\n        \"endAfterNumberOccurrences\": 1\n      },\n      \"persistenceStrategy\": \"save\",\n      \"lastModifiedByUserId\": \"user-1\",\n      \"lastModifiedByDate\": \"2020-01-02T05:04:05Z\",\n      \"createdByUserId\": \"user-1\",\n      \"createdByDate\": \"2020-01-02T03:04:05Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "832bc5a0-7d46-42a7-804c-29304b2cee36",
+              "name": "Invalid value for: query parameter ids",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8b3e9930-daeb-45b5-b737-0b1dfaf298c4",
+          "name": "Create a batch schedule",
+          "request": {
+            "name": "Create a batch schedule",
+            "description": {
+              "content": "Create a new batch of scheduled runs to be optimized. These can be either one-off or recurring schedules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "batch",
+                "schedule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"runDate\": \"<date>\",\n  \"timezone\": \"<string>\",\n  \"earliestStartTime\": \"<string>\",\n  \"optimizationType\": \"<string>\",\n  \"region\": \"<string>\",\n  \"dayRange\": \"<integer>\",\n  \"dayOffset\": \"<integer>\",\n  \"schedulingOptions\": {\n    \"full\": \"<boolean>\",\n    \"ignoreTravelTime\": \"<boolean>\",\n    \"ignoreTravelTimeFirstJob\": \"<boolean>\",\n    \"ignoreTravelTimeLastJob\": \"<boolean>\",\n    \"minimizeResources\": \"<boolean>\",\n    \"maxDailyTravelTimeInMinutes\": \"<long>\",\n    \"maxTravelTimeBetweenLocations\": \"<long>\",\n    \"respectAllocationTimes\": \"<boolean>\",\n    \"respectAllocationTimesOverTimeConstraints\": \"<boolean>\",\n    \"balanceAbsoluteWorkload\": \"<boolean>\",\n    \"snapUnit\": \"<integer>\",\n    \"padding\": \"<integer>\",\n    \"objectiveWeights\": {\n      \"minimizeDisruption\": \"<integer>\",\n      \"balanceAbsoluteWorkload\": \"<integer>\",\n      \"travelTime\": \"<integer>\",\n      \"minimizeResources\": \"<integer>\",\n      \"softSkills\": \"<integer>\",\n      \"jobsPriority\": \"<integer>\",\n      \"resourceRating\": \"<integer>\",\n      \"scheduleImmediacy\": \"<integer>\",\n      \"urgency\": \"<integer>\",\n      \"overtime\": \"<integer>\"\n    },\n    \"objectiveWeightModifiers\": {\n      \"minimizeDisruption\": \"<number>\",\n      \"balanceAbsoluteWorkload\": \"<number>\",\n      \"travelTime\": \"<number>\",\n      \"minimizeResources\": \"<number>\",\n      \"softSkills\": \"<number>\",\n      \"jobsPriority\": \"<number>\",\n      \"resourceRating\": \"<number>\",\n      \"scheduleImmediacy\": \"<number>\",\n      \"urgency\": \"<number>\",\n      \"overtime\": \"<number>\"\n    },\n    \"temporalAffinityStrength\": \"<integer>\",\n    \"respectSchedule\": \"<boolean>\",\n    \"recipeId\": \"<string>\",\n    \"enablePartiallyAllocatedGroups\": \"<boolean>\",\n    \"enablePartiallyAllocatedAllocationDependencies\": \"<boolean>\",\n    \"enforceCompatibility\": \"<boolean>\",\n    \"onJobRemoval\": [\n      \"<string>\"\n    ],\n    \"rollingScheduleWindowInterval\": {}\n  },\n  \"latestEndTime\": \"<string>\",\n  \"recurring\": {\n    \"step\": \"<integer>\",\n    \"repeatMode\": \"<string>\",\n    \"endAfterNumberOccurrences\": \"<integer>\",\n    \"endOn\": \"<date>\"\n  },\n  \"persistenceStrategy\": \"<string>\",\n  \"jobQuery\": \"<string>\",\n  \"resourceQuery\": \"<string>\",\n  \"includeTemporaryRegions\": \"<boolean>\",\n  \"includeSecondaryRegions\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "394551c7-894c-46d1-b872-91bf4d7d73bd",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dayRange\": 1,\n  \"dayOffset\": 2,\n  \"jobQuery\": \"a2\",\n  \"resourceQuery\": \"a3\",\n  \"region\": \"r1\",\n  \"regions\": [\n    \"r1\"\n  ],\n  \"optimizationType\": \"pvrp\",\n  \"schedulingOptions\": {\n    \"full\": false,\n    \"ignoreTravelTime\": false,\n    \"ignoreTravelTimeFirstJob\": false,\n    \"ignoreTravelTimeLastJob\": false,\n    \"minimizeResources\": false,\n    \"respectAllocationTimes\": false,\n    \"respectAllocationTimesOverTimeConstraints\": false,\n    \"balanceAbsoluteWorkload\": false,\n    \"enablePartiallyAllocatedGroups\": true,\n    \"enablePartiallyAllocatedAllocationDependencies\": true,\n    \"removeLockedJobsFromShifts\": true,\n    \"respectSchedule\": false,\n    \"recipeId\": \"d8e4621b-eb15-4907-93c5-fb9503be476e\",\n    \"transformers\": [],\n    \"ignoreResourceOverrideLocations\": false\n  },\n  \"includeTemporaryRegions\": true,\n  \"includeSecondaryRegions\": false,\n  \"name\": \"a1\",\n  \"runDate\": \"2022-03-03\",\n  \"timezone\": \"Australia/Brisbane\",\n  \"earliestStartTime\": \"01:02:00\",\n  \"recurring\": {\n    \"step\": 1,\n    \"repeatMode\": \"weekly\",\n    \"repeatOnWeekDays\": [\n      \"sun\",\n      \"mon\",\n      \"tue\",\n      \"wed\",\n      \"thu\",\n      \"fri\",\n      \"sat\"\n    ],\n    \"endAfterNumberOccurrences\": 1\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"id\": \"6c0ec278-bea9-45f7-924f-490ba7bff61e\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3322ab6-dd16-46e4-85ab-dac5f04444ec",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dayRange\": 1,\n  \"dayOffset\": 2,\n  \"jobQuery\": \"a2\",\n  \"resourceQuery\": \"a3\",\n  \"region\": \"r1\",\n  \"regions\": [\n    \"r1\"\n  ],\n  \"optimizationType\": \"pvrp\",\n  \"schedulingOptions\": {\n    \"full\": false,\n    \"ignoreTravelTime\": false,\n    \"ignoreTravelTimeFirstJob\": false,\n    \"ignoreTravelTimeLastJob\": false,\n    \"minimizeResources\": false,\n    \"respectAllocationTimes\": false,\n    \"respectAllocationTimesOverTimeConstraints\": false,\n    \"balanceAbsoluteWorkload\": false,\n    \"enablePartiallyAllocatedGroups\": true,\n    \"enablePartiallyAllocatedAllocationDependencies\": true,\n    \"removeLockedJobsFromShifts\": true,\n    \"respectSchedule\": false,\n    \"recipeId\": \"d8e4621b-eb15-4907-93c5-fb9503be476e\",\n    \"transformers\": [],\n    \"ignoreResourceOverrideLocations\": false\n  },\n  \"includeTemporaryRegions\": true,\n  \"includeSecondaryRegions\": false,\n  \"name\": \"a1\",\n  \"runDate\": \"2022-03-03\",\n  \"timezone\": \"Australia/Brisbane\",\n  \"earliestStartTime\": \"01:02:00\",\n  \"recurring\": {\n    \"step\": 1,\n    \"repeatMode\": \"weekly\",\n    \"repeatOnWeekDays\": [\n      \"sun\",\n      \"mon\",\n      \"tue\",\n      \"wed\",\n      \"thu\",\n      \"fri\",\n      \"sat\"\n    ],\n    \"endAfterNumberOccurrences\": 1\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2c11a205-9d66-4a60-91a3-26b6397043ba",
+          "name": "Get a batch schedule",
+          "request": {
+            "name": "Get a batch schedule",
+            "description": {
+              "content": "Returns the configuration and current status of a single batch schedule identified by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "batch",
+                "schedule",
+                ":scheduleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "fb759614-bc2c-4741-b94b-e870357a5ae8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch",
+                    "schedule",
+                    ":scheduleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"dayRange\": 2,\n    \"dayOffset\": 3,\n    \"jobQuery\": \"1=1\",\n    \"resourceQuery\": \"1=1\",\n    \"region\": \"EU\",\n    \"regions\": [\n      \"EU\"\n    ],\n    \"optimizationType\": \"pvrp\",\n    \"schedulingOptions\": {\n      \"full\": false,\n      \"ignoreTravelTime\": false,\n      \"ignoreTravelTimeFirstJob\": false,\n      \"ignoreTravelTimeLastJob\": false,\n      \"minimizeResources\": false,\n      \"maxDailyTravelTimeInMinutes\": 180,\n      \"maxTravelTimeBetweenLocations\": 60,\n      \"respectAllocationTimes\": false,\n      \"respectAllocationTimesOverTimeConstraints\": false,\n      \"balanceAbsoluteWorkload\": false,\n      \"enablePartiallyAllocatedGroups\": true,\n      \"enablePartiallyAllocatedAllocationDependencies\": true,\n      \"removeLockedJobsFromShifts\": true,\n      \"respectSchedule\": false,\n      \"transformers\": [],\n      \"ignoreResourceOverrideLocations\": false\n    },\n    \"includeTemporaryRegions\": false,\n    \"includeSecondaryRegions\": false,\n    \"name\": \"schedule-1\",\n    \"runDate\": \"2020-01-02\",\n    \"timezone\": \"Z\",\n    \"earliestStartTime\": \"01:04:05\",\n    \"latestEndTime\": \"01:07:05\",\n    \"recurring\": {\n      \"step\": 1,\n      \"repeatMode\": \"daily\",\n      \"endAfterNumberOccurrences\": 1\n    },\n    \"persistenceStrategy\": \"save\",\n    \"lastModifiedByUserId\": \"user-1\",\n    \"lastModifiedByDate\": \"2020-01-02T05:04:05Z\",\n    \"createdByUserId\": \"user-1\",\n    \"createdByDate\": \"2020-01-02T03:04:05Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee84d828-c929-433e-98c2-d66fb2593c91",
+          "name": "Update a batch schedule",
+          "request": {
+            "name": "Update a batch schedule",
+            "description": {
+              "content": "Replace the configuration of an existing batch schedule with the provided definition. This will affect all future runs triggered by this schedule.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "batch",
+                "schedule",
+                ":scheduleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"runDate\": \"<date>\",\n  \"timezone\": \"<string>\",\n  \"earliestStartTime\": \"<string>\",\n  \"optimizationType\": \"<string>\",\n  \"region\": \"<string>\",\n  \"dayRange\": \"<integer>\",\n  \"dayOffset\": \"<integer>\",\n  \"schedulingOptions\": {\n    \"full\": \"<boolean>\",\n    \"ignoreTravelTime\": \"<boolean>\",\n    \"ignoreTravelTimeFirstJob\": \"<boolean>\",\n    \"ignoreTravelTimeLastJob\": \"<boolean>\",\n    \"minimizeResources\": \"<boolean>\",\n    \"maxDailyTravelTimeInMinutes\": \"<long>\",\n    \"maxTravelTimeBetweenLocations\": \"<long>\",\n    \"respectAllocationTimes\": \"<boolean>\",\n    \"respectAllocationTimesOverTimeConstraints\": \"<boolean>\",\n    \"balanceAbsoluteWorkload\": \"<boolean>\",\n    \"snapUnit\": \"<integer>\",\n    \"padding\": \"<integer>\",\n    \"objectiveWeights\": {\n      \"minimizeDisruption\": \"<integer>\",\n      \"balanceAbsoluteWorkload\": \"<integer>\",\n      \"travelTime\": \"<integer>\",\n      \"minimizeResources\": \"<integer>\",\n      \"softSkills\": \"<integer>\",\n      \"jobsPriority\": \"<integer>\",\n      \"resourceRating\": \"<integer>\",\n      \"scheduleImmediacy\": \"<integer>\",\n      \"urgency\": \"<integer>\",\n      \"overtime\": \"<integer>\"\n    },\n    \"objectiveWeightModifiers\": {\n      \"minimizeDisruption\": \"<number>\",\n      \"balanceAbsoluteWorkload\": \"<number>\",\n      \"travelTime\": \"<number>\",\n      \"minimizeResources\": \"<number>\",\n      \"softSkills\": \"<number>\",\n      \"jobsPriority\": \"<number>\",\n      \"resourceRating\": \"<number>\",\n      \"scheduleImmediacy\": \"<number>\",\n      \"urgency\": \"<number>\",\n      \"overtime\": \"<number>\"\n    },\n    \"temporalAffinityStrength\": \"<integer>\",\n    \"respectSchedule\": \"<boolean>\",\n    \"recipeId\": \"<string>\",\n    \"enablePartiallyAllocatedGroups\": \"<boolean>\",\n    \"enablePartiallyAllocatedAllocationDependencies\": \"<boolean>\",\n    \"enforceCompatibility\": \"<boolean>\",\n    \"onJobRemoval\": [\n      \"<string>\"\n    ],\n    \"rollingScheduleWindowInterval\": {}\n  },\n  \"latestEndTime\": \"<string>\",\n  \"recurring\": {\n    \"step\": \"<integer>\",\n    \"repeatMode\": \"<string>\",\n    \"endAfterNumberOccurrences\": \"<integer>\",\n    \"endOn\": \"<date>\"\n  },\n  \"persistenceStrategy\": \"<string>\",\n  \"jobQuery\": \"<string>\",\n  \"resourceQuery\": \"<string>\",\n  \"includeTemporaryRegions\": \"<boolean>\",\n  \"includeSecondaryRegions\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "be4fd778-b06e-4f5c-b349-8cecbc0a984e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch",
+                    "schedule",
+                    ":scheduleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dayRange\": 1,\n  \"dayOffset\": 2,\n  \"jobQuery\": \"a2\",\n  \"resourceQuery\": \"a3\",\n  \"region\": \"r1\",\n  \"regions\": [\n    \"r1\"\n  ],\n  \"optimizationType\": \"pvrp\",\n  \"schedulingOptions\": {\n    \"full\": false,\n    \"ignoreTravelTime\": false,\n    \"ignoreTravelTimeFirstJob\": false,\n    \"ignoreTravelTimeLastJob\": false,\n    \"minimizeResources\": false,\n    \"respectAllocationTimes\": false,\n    \"respectAllocationTimesOverTimeConstraints\": false,\n    \"balanceAbsoluteWorkload\": false,\n    \"enablePartiallyAllocatedGroups\": true,\n    \"enablePartiallyAllocatedAllocationDependencies\": true,\n    \"removeLockedJobsFromShifts\": true,\n    \"respectSchedule\": false,\n    \"recipeId\": \"d8e4621b-eb15-4907-93c5-fb9503be476e\",\n    \"transformers\": [],\n    \"ignoreResourceOverrideLocations\": false\n  },\n  \"includeTemporaryRegions\": true,\n  \"includeSecondaryRegions\": false,\n  \"name\": \"a1\",\n  \"runDate\": \"2022-03-03\",\n  \"timezone\": \"Australia/Brisbane\",\n  \"earliestStartTime\": \"01:02:00\",\n  \"recurring\": {\n    \"step\": 1,\n    \"repeatMode\": \"weekly\",\n    \"repeatOnWeekDays\": [\n      \"sun\",\n      \"mon\",\n      \"tue\",\n      \"wed\",\n      \"thu\",\n      \"fri\",\n      \"sat\"\n    ],\n    \"endAfterNumberOccurrences\": 1\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "24c9368f-9cd8-43ed-831e-82ebf615baef",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch",
+                    "schedule",
+                    ":scheduleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dayRange\": 1,\n  \"dayOffset\": 2,\n  \"jobQuery\": \"a2\",\n  \"resourceQuery\": \"a3\",\n  \"region\": \"r1\",\n  \"regions\": [\n    \"r1\"\n  ],\n  \"optimizationType\": \"pvrp\",\n  \"schedulingOptions\": {\n    \"full\": false,\n    \"ignoreTravelTime\": false,\n    \"ignoreTravelTimeFirstJob\": false,\n    \"ignoreTravelTimeLastJob\": false,\n    \"minimizeResources\": false,\n    \"respectAllocationTimes\": false,\n    \"respectAllocationTimesOverTimeConstraints\": false,\n    \"balanceAbsoluteWorkload\": false,\n    \"enablePartiallyAllocatedGroups\": true,\n    \"enablePartiallyAllocatedAllocationDependencies\": true,\n    \"removeLockedJobsFromShifts\": true,\n    \"respectSchedule\": false,\n    \"recipeId\": \"d8e4621b-eb15-4907-93c5-fb9503be476e\",\n    \"transformers\": [],\n    \"ignoreResourceOverrideLocations\": false\n  },\n  \"includeTemporaryRegions\": true,\n  \"includeSecondaryRegions\": false,\n  \"name\": \"a1\",\n  \"runDate\": \"2022-03-03\",\n  \"timezone\": \"Australia/Brisbane\",\n  \"earliestStartTime\": \"01:02:00\",\n  \"recurring\": {\n    \"step\": 1,\n    \"repeatMode\": \"weekly\",\n    \"repeatOnWeekDays\": [\n      \"sun\",\n      \"mon\",\n      \"tue\",\n      \"wed\",\n      \"thu\",\n      \"fri\",\n      \"sat\"\n    ],\n    \"endAfterNumberOccurrences\": 1\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1be2de4-a162-4385-8d2c-27e37f50e1d5",
+          "name": "Delete a batch schedule",
+          "request": {
+            "name": "Delete a batch schedule",
+            "description": {
+              "content": "Permanently deletes a batch schedule by its ID. No further optimization runs will be triggered for this schedule after deletion.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "batch",
+                "schedule",
+                ":scheduleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "id": "3b16db13-b1c6-4178-8195-643c6ded7346",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch",
+                    "schedule",
+                    ":scheduleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a3b2c917-c76a-4366-b04d-20d79a69cc56",
+    "name": "Authentication Admin Batch API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

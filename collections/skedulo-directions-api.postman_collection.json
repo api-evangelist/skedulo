@@ -1,0 +1,190 @@
+{
+  "item": [
+    {
+      "id": "b7ac42a2-5efd-4aa9-a2d8-1073e6206497",
+      "name": "Directions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d49ac1dc-1e8b-47ef-8f0b-d80d54edcd76",
+          "name": "Find directions between two locations",
+          "request": {
+            "name": "Find directions between two locations",
+            "description": {
+              "content": "The Directions endpoint calculates directions between source and destination addresses, possibly including multiple waypoints enroute. It returns the recommended travel route (if one can be found), along with estimated travel time and distance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "directions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requests\": [\n    {\n      \"origin\": {\n        \"lat\": \"<number>\",\n        \"lng\": \"<number>\"\n      },\n      \"destination\": {\n        \"lat\": \"<number>\",\n        \"lng\": \"<number>\"\n      },\n      \"waypoints\": [\n        {\n          \"lat\": \"<number>\",\n          \"lng\": \"<number>\"\n        },\n        {\n          \"lat\": \"<number>\",\n          \"lng\": \"<number>\"\n        }\n      ]\n    },\n    {\n      \"origin\": {\n        \"lat\": \"<number>\",\n        \"lng\": \"<number>\"\n      },\n      \"destination\": {\n        \"lat\": \"<number>\",\n        \"lng\": \"<number>\"\n      },\n      \"waypoints\": [\n        {\n          \"lat\": \"<number>\",\n          \"lng\": \"<number>\"\n        },\n        {\n          \"lat\": \"<number>\",\n          \"lng\": \"<number>\"\n        }\n      ]\n    }\n  ],\n  \"avoid\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3dd2d881-2d80-4f01-8394-7b1ae1da48cb",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "directions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requests\": [\n    {\n      \"origin\": {\n        \"lat\": \"<number>\",\n        \"lng\": \"<number>\"\n      },\n      \"destination\": {\n        \"lat\": \"<number>\",\n        \"lng\": \"<number>\"\n      },\n      \"waypoints\": [\n        {\n          \"lat\": \"<number>\",\n          \"lng\": \"<number>\"\n        },\n        {\n          \"lat\": \"<number>\",\n          \"lng\": \"<number>\"\n        }\n      ]\n    },\n    {\n      \"origin\": {\n        \"lat\": \"<number>\",\n        \"lng\": \"<number>\"\n      },\n      \"destination\": {\n        \"lat\": \"<number>\",\n        \"lng\": \"<number>\"\n      },\n      \"waypoints\": [\n        {\n          \"lat\": \"<number>\",\n          \"lng\": \"<number>\"\n        },\n        {\n          \"lat\": \"<number>\",\n          \"lng\": \"<number>\"\n        }\n      ]\n    }\n  ],\n  \"avoid\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"routes\": [\n    [\n      {\n        \"leg\": {\n          \"origin\": {\n            \"lat\": \"<number>\",\n            \"lng\": \"<number>\"\n          },\n          \"destination\": {\n            \"lat\": \"<number>\",\n            \"lng\": \"<number>\"\n          },\n          \"avoid\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        \"travelInfo\": {\n          \"status\": \"OK\",\n          \"duration\": {\n            \"durationInSeconds\": 5340.368148830606\n          },\n          \"distance\": {\n            \"distanceInMeters\": 8117.518675173093\n          }\n        }\n      },\n      {\n        \"leg\": {\n          \"origin\": {\n            \"lat\": \"<number>\",\n            \"lng\": \"<number>\"\n          },\n          \"destination\": {\n            \"lat\": \"<number>\",\n            \"lng\": \"<number>\"\n          },\n          \"avoid\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        \"travelInfo\": {\n          \"status\": \"NO_ROUTE\",\n          \"duration\": {\n            \"durationInSeconds\": 6977.601938698856\n          },\n          \"distance\": {\n            \"distanceInMeters\": 4909.11155487045\n          }\n        }\n      }\n    ],\n    [\n      {\n        \"leg\": {\n          \"origin\": {\n            \"lat\": \"<number>\",\n            \"lng\": \"<number>\"\n          },\n          \"destination\": {\n            \"lat\": \"<number>\",\n            \"lng\": \"<number>\"\n          },\n          \"avoid\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        \"travelInfo\": {\n          \"status\": \"NO_ROUTE\",\n          \"duration\": {\n            \"durationInSeconds\": 4069.7892702665417\n          },\n          \"distance\": {\n            \"distanceInMeters\": 1747.6092373340957\n          }\n        }\n      },\n      {\n        \"leg\": {\n          \"origin\": {\n            \"lat\": \"<number>\",\n            \"lng\": \"<number>\"\n          },\n          \"destination\": {\n            \"lat\": \"<number>\",\n            \"lng\": \"<number>\"\n          },\n          \"avoid\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        \"travelInfo\": {\n          \"status\": \"NO_ROUTE\",\n          \"duration\": {\n            \"durationInSeconds\": 6589.490915986089\n          },\n          \"distance\": {\n            \"distanceInMeters\": 2439.6882572157865\n          }\n        }\n      }\n    ]\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f2bfaad-112d-4fd1-be27-81178bebf501",
+              "name": "unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "directions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requests\": [\n    {\n      \"origin\": {\n        \"lat\": \"<number>\",\n        \"lng\": \"<number>\"\n      },\n      \"destination\": {\n        \"lat\": \"<number>\",\n        \"lng\": \"<number>\"\n      },\n      \"waypoints\": [\n        {\n          \"lat\": \"<number>\",\n          \"lng\": \"<number>\"\n        },\n        {\n          \"lat\": \"<number>\",\n          \"lng\": \"<number>\"\n        }\n      ]\n    },\n    {\n      \"origin\": {\n        \"lat\": \"<number>\",\n        \"lng\": \"<number>\"\n      },\n      \"destination\": {\n        \"lat\": \"<number>\",\n        \"lng\": \"<number>\"\n      },\n      \"waypoints\": [\n        {\n          \"lat\": \"<number>\",\n          \"lng\": \"<number>\"\n        },\n        {\n          \"lat\": \"<number>\",\n          \"lng\": \"<number>\"\n        }\n      ]\n    }\n  ],\n  \"avoid\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "60b03782-caa4-48a9-9698-4c33f84caa17",
+    "name": "Authentication Admin Directions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

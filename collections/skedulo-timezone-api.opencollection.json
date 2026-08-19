@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Timezone API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Timezone",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Return timezone information for a location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/timezone",
+            "params": [
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "Latitude and Longitude of the location to find the timezone for"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Seconds since 1970 for the timezone to return (used to compute DST offset)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Given a location and timestamp return the timezone name, the offset and Daylight Savings offset."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

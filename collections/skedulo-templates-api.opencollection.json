@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Templates API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch schema templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/templates/:schemaName",
+            "params": [
+              {
+                "name": "schemaName",
+                "value": "",
+                "type": "path",
+                "description": "Schema to retrieve templates for."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch all templates for a given schema."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

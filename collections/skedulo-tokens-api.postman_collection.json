@@ -1,0 +1,102 @@
+{
+  "item": [
+    {
+      "id": "603ebf2d-fa1d-459a-9c9c-200b300c2ad4",
+      "name": "Tokens",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2040d034-ea95-4bfb-9d22-c9a7e96b0d5b",
+          "name": "List all API tokens",
+          "request": {
+            "name": "List all API tokens",
+            "description": {
+              "content": "List metadata for all API tokens, including revoked tokens. The actual token values are not returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "56225325-a5c5-4e96-80d6-4dfbf0db5108",
+              "name": "Metadata for all tokens.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"tenantId\": \"sk_e0bb1f8aa1924a00b77a9c1f43b09e41\",\n      \"jti\": \"BM10SHoI4Z4nmhtElInXuJWLkeeqqyzy\",\n      \"claims\": {\n        \"key_0\": 3495\n      },\n      \"createdDate\": \"1977-05-11T19:24:06.397Z\",\n      \"createdBy\": \"string\",\n      \"revokedDate\": \"1975-04-25T23:31:47.941Z\",\n      \"revokedBy\": \"string\",\n      \"lastUpdated\": \"1954-06-16T19:58:26.027Z\"\n    },\n    {\n      \"tenantId\": \"sk_e0bb1f8aa1924a00b77a9c1f43b09e41\",\n      \"jti\": \"BM10SHoI4Z4nmhtElInXuJWLkeeqqyzy\",\n      \"claims\": {\n        \"key_0\": 2770,\n        \"key_1\": 642\n      },\n      \"createdDate\": \"2010-08-02T05:20:28.460Z\",\n      \"createdBy\": \"string\",\n      \"revokedDate\": \"1953-05-21T16:07:49.262Z\",\n      \"revokedBy\": \"string\",\n      \"lastUpdated\": \"1990-09-28T00:33:39.492Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0ac73a9e-98e7-424a-a4f4-b07b418c0a5f",
+    "name": "Authentication Admin Tokens API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

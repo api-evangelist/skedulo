@@ -1,0 +1,153 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Static API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Static",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find static files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/static",
+            "params": [
+              {
+                "name": "file_type",
+                "value": "",
+                "type": "query",
+                "description": "The type of files being searched for"
+              },
+              {
+                "name": "term",
+                "value": "",
+                "type": "query",
+                "description": "The search term. Files will be returned based on partial, case-insensitive match in the name or description."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Find static files with the specified type and having their name or description matching a search term"
+        },
+        {
+          "info": {
+            "name": "Upload a static file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/static",
+            "headers": [
+              {
+                "name": "X-Skedulo-Name",
+                "value": ""
+              },
+              {
+                "name": "X-Skedulo-Description",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "file_type",
+                "value": "",
+                "type": "query",
+                "description": "The type of the file being uploaded"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Upload a static file (a standalone file without a parent). Content-Length and Content-Type are required."
+        },
+        {
+          "info": {
+            "name": "Retrieve a static file with the given identifier",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/static/:fileId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the file to be retrieved"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a pre-signed S3 URL with a redirect status code (HTTP 302) to allow the client to download the file directly from S3."
+        },
+        {
+          "info": {
+            "name": "Update static file",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.skedulo.com/auth/static/:fileId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the file to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update the name and description of a static file"
+        },
+        {
+          "info": {
+            "name": "Delete static file",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.skedulo.com/auth/static/:fileId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the file to delete"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete the static file with the given identifier"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

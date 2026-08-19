@@ -1,0 +1,1301 @@
+{
+  "item": [
+    {
+      "id": "eb852702-a25c-4265-a8aa-e40eb86a0e51",
+      "name": "Triggered Actions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b9b8ee5d-4cb2-42f1-8e21-bfe2323ddf99",
+          "name": "Get all triggered actions",
+          "request": {
+            "name": "Get all triggered actions",
+            "description": {
+              "content": "Gets all configured triggered actions, including disabled ones.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "triggered_actions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "646623ce-b513-4d0b-bf4d-cf766fb8d8d4",
+              "name": "success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "triggered_actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"id\": \"6d75f9a3-4305-db27-e82d-7233a180f0bd\",\n      \"name\": \"string\",\n      \"trigger\": {\n        \"filter\": \"string\",\n        \"schemaName\": \"string\",\n        \"type\": \"object_modified\",\n        \"deferred\": {\n          \"fieldName\": \"string\",\n          \"offset\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"action\": {\n        \"headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"query\": \"{ Name Contact { FullName } JobAllocations { Resource { Name } } }\",\n        \"type\": \"call_url\",\n        \"url\": \"http://IFnaBlbWTUdetrHDdwKYuXcrcx.tgOE2AzcKuzkkt5-Z7AQl.l,Drt3qxwmTsO\",\n        \"previousFields\": \"{ JobStatus ContactId JobAllocationCount }\"\n      },\n      \"created\": \"2008-05-14T08:07:34.031Z\",\n      \"updated\": \"1988-03-19T21:41:39.274Z\",\n      \"enabled\": false,\n      \"customFields\": {}\n    },\n    {\n      \"id\": \"07164670-3583-1370-a421-a038ba07c47d\",\n      \"name\": \"string\",\n      \"trigger\": {\n        \"filter\": \"string\",\n        \"schemaName\": \"string\",\n        \"type\": \"event\",\n        \"deferred\": {\n          \"fieldName\": \"string\",\n          \"offset\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"action\": {\n        \"headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"query\": \"{ Name Contact { FullName } JobAllocations { Resource { Name } } }\",\n        \"type\": \"call_url\",\n        \"url\": \"http://bzTCqRKmnGIuzcdtgEbMFc.pjiCkEGX,cEVT3bOCkef7gq2o.nmWULVBDv+VWAzC9HQJx7\",\n        \"previousFields\": \"{ JobStatus ContactId JobAllocationCount }\"\n      },\n      \"created\": \"1986-11-18T21:14:15.078Z\",\n      \"updated\": \"1994-09-03T02:48:55.622Z\",\n      \"enabled\": true,\n      \"customFields\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05c2821d-b406-4ce6-a56f-42ee534b918d",
+              "name": "If the user does not have the required permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "triggered_actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"errorId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2bbd1993-25a0-4426-ae7f-c5a2bbb62d3d",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "triggered_actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"errorId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b51e02a4-127c-4cd6-a705-af110a342f7b",
+          "name": "Create a new triggered action",
+          "request": {
+            "name": "Create a new triggered action",
+            "description": {},
+            "url": {
+              "path": [
+                "triggered_actions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"trigger\": {\n    \"filter\": \"<string>\",\n    \"schemaName\": \"<string>\",\n    \"type\": \"<string>\",\n    \"deferred\": {\n      \"fieldName\": \"<string>\",\n      \"offset\": \"<long>\"\n    }\n  },\n  \"action\": {\n    \"headers\": {\n      \"key_0\": \"<string>\"\n    },\n    \"query\": \"<string>\",\n    \"type\": \"<string>\",\n    \"url\": \"<uri>\",\n    \"previousFields\": \"<string>\"\n  },\n  \"enabled\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "162dc414-23b6-4a82-aeb7-d1e098a0fdeb",
+              "name": "success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "triggered_actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"trigger\": {\n    \"filter\": \"<string>\",\n    \"schemaName\": \"<string>\",\n    \"type\": \"<string>\",\n    \"deferred\": {\n      \"fieldName\": \"<string>\",\n      \"offset\": \"<long>\"\n    }\n  },\n  \"action\": {\n    \"headers\": {\n      \"key_0\": \"<string>\"\n    },\n    \"query\": \"{ Name Contact { FullName } JobAllocations { Resource { Name } } }\",\n    \"type\": \"<string>\",\n    \"url\": \"<uri>\",\n    \"previousFields\": \"{ JobStatus ContactId JobAllocationCount }\"\n  },\n  \"enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"id\": \"3e25dab1-fcc4-d769-070a-654f7b4725af\",\n    \"name\": \"string\",\n    \"trigger\": {\n      \"filter\": \"<string>\",\n      \"schemaName\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deferred\": {\n        \"fieldName\": \"<string>\",\n        \"offset\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"action\": {\n      \"headers\": {\n        \"key_0\": \"<string>\"\n      },\n      \"query\": \"{ Name Contact { FullName } JobAllocations { Resource { Name } } }\",\n      \"type\": \"<string>\",\n      \"url\": \"<uri>\",\n      \"previousFields\": \"{ JobStatus ContactId JobAllocationCount }\"\n    },\n    \"created\": \"2005-11-10T14:22:12.245Z\",\n    \"updated\": \"2023-11-21T07:14:03.551Z\",\n    \"enabled\": false,\n    \"customFields\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "851159ea-4b22-4a01-bfdd-d144cea93f06",
+              "name": "If the changes do not pass validation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "triggered_actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"trigger\": {\n    \"filter\": \"<string>\",\n    \"schemaName\": \"<string>\",\n    \"type\": \"<string>\",\n    \"deferred\": {\n      \"fieldName\": \"<string>\",\n      \"offset\": \"<long>\"\n    }\n  },\n  \"action\": {\n    \"headers\": {\n      \"key_0\": \"<string>\"\n    },\n    \"query\": \"{ Name Contact { FullName } JobAllocations { Resource { Name } } }\",\n    \"type\": \"<string>\",\n    \"url\": \"<uri>\",\n    \"previousFields\": \"{ JobStatus ContactId JobAllocationCount }\"\n  },\n  \"enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"errorId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9712ef19-dfa6-4efe-bff0-014ff22d1bdf",
+              "name": "If the user does not have the required permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "triggered_actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"trigger\": {\n    \"filter\": \"<string>\",\n    \"schemaName\": \"<string>\",\n    \"type\": \"<string>\",\n    \"deferred\": {\n      \"fieldName\": \"<string>\",\n      \"offset\": \"<long>\"\n    }\n  },\n  \"action\": {\n    \"headers\": {\n      \"key_0\": \"<string>\"\n    },\n    \"query\": \"{ Name Contact { FullName } JobAllocations { Resource { Name } } }\",\n    \"type\": \"<string>\",\n    \"url\": \"<uri>\",\n    \"previousFields\": \"{ JobStatus ContactId JobAllocationCount }\"\n  },\n  \"enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"errorId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5bdb866f-465b-42e6-93f7-46b2c00f17f0",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "triggered_actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"trigger\": {\n    \"filter\": \"<string>\",\n    \"schemaName\": \"<string>\",\n    \"type\": \"<string>\",\n    \"deferred\": {\n      \"fieldName\": \"<string>\",\n      \"offset\": \"<long>\"\n    }\n  },\n  \"action\": {\n    \"headers\": {\n      \"key_0\": \"<string>\"\n    },\n    \"query\": \"{ Name Contact { FullName } JobAllocations { Resource { Name } } }\",\n    \"type\": \"<string>\",\n    \"url\": \"<uri>\",\n    \"previousFields\": \"{ JobStatus ContactId JobAllocationCount }\"\n  },\n  \"enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"errorId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "44c04d0e-2a4e-4947-8d99-eebb2e83a7fc",
+          "name": "Update an existing triggered action",
+          "request": {
+            "name": "Update an existing triggered action",
+            "description": {
+              "content": "Note that the type of the trigger and the action cannot be changed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "triggered_actions",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the triggered action to update"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"trigger\": {\n    \"filter\": \"<string>\",\n    \"schemaName\": \"<string>\",\n    \"type\": \"<string>\",\n    \"deferred\": {\n      \"fieldName\": \"<string>\",\n      \"offset\": \"<long>\"\n    }\n  },\n  \"action\": {\n    \"headers\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"query\": \"<string>\",\n    \"type\": \"<string>\",\n    \"url\": \"<uri>\",\n    \"previousFields\": \"<string>\"\n  },\n  \"enabled\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2037dd8e-94a0-4241-9863-c353cf689b0c",
+              "name": "success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "triggered_actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the triggered action to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"trigger\": {\n    \"filter\": \"<string>\",\n    \"schemaName\": \"<string>\",\n    \"type\": \"<string>\",\n    \"deferred\": {\n      \"fieldName\": \"<string>\",\n      \"offset\": \"<long>\"\n    }\n  },\n  \"action\": {\n    \"headers\": {\n      \"key_0\": \"<string>\"\n    },\n    \"query\": \"{ Name Contact { FullName } JobAllocations { Resource { Name } } }\",\n    \"type\": \"<string>\",\n    \"url\": \"<uri>\",\n    \"previousFields\": \"{ JobStatus ContactId JobAllocationCount }\"\n  },\n  \"enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"id\": \"3e25dab1-fcc4-d769-070a-654f7b4725af\",\n    \"name\": \"string\",\n    \"trigger\": {\n      \"filter\": \"<string>\",\n      \"schemaName\": \"<string>\",\n      \"type\": \"<string>\",\n      \"deferred\": {\n        \"fieldName\": \"<string>\",\n        \"offset\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"action\": {\n      \"headers\": {\n        \"key_0\": \"<string>\"\n      },\n      \"query\": \"{ Name Contact { FullName } JobAllocations { Resource { Name } } }\",\n      \"type\": \"<string>\",\n      \"url\": \"<uri>\",\n      \"previousFields\": \"{ JobStatus ContactId JobAllocationCount }\"\n    },\n    \"created\": \"2005-11-10T14:22:12.245Z\",\n    \"updated\": \"2023-11-21T07:14:03.551Z\",\n    \"enabled\": false,\n    \"customFields\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77e91f84-0c1a-4e14-8669-3772995c8025",
+              "name": "If the changes do not pass validation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "triggered_actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the triggered action to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"trigger\": {\n    \"filter\": \"<string>\",\n    \"schemaName\": \"<string>\",\n    \"type\": \"<string>\",\n    \"deferred\": {\n      \"fieldName\": \"<string>\",\n      \"offset\": \"<long>\"\n    }\n  },\n  \"action\": {\n    \"headers\": {\n      \"key_0\": \"<string>\"\n    },\n    \"query\": \"{ Name Contact { FullName } JobAllocations { Resource { Name } } }\",\n    \"type\": \"<string>\",\n    \"url\": \"<uri>\",\n    \"previousFields\": \"{ JobStatus ContactId JobAllocationCount }\"\n  },\n  \"enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"errorId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c51c426c-3886-4b1c-9446-a68cf5d14423",
+              "name": "If the user does not have the required permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "triggered_actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the triggered action to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"trigger\": {\n    \"filter\": \"<string>\",\n    \"schemaName\": \"<string>\",\n    \"type\": \"<string>\",\n    \"deferred\": {\n      \"fieldName\": \"<string>\",\n      \"offset\": \"<long>\"\n    }\n  },\n  \"action\": {\n    \"headers\": {\n      \"key_0\": \"<string>\"\n    },\n    \"query\": \"{ Name Contact { FullName } JobAllocations { Resource { Name } } }\",\n    \"type\": \"<string>\",\n    \"url\": \"<uri>\",\n    \"previousFields\": \"{ JobStatus ContactId JobAllocationCount }\"\n  },\n  \"enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"errorId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ded28381-e893-427d-b230-48a5ea51185e",
+              "name": "If there is no triggered action with the given id",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "triggered_actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the triggered action to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"trigger\": {\n    \"filter\": \"<string>\",\n    \"schemaName\": \"<string>\",\n    \"type\": \"<string>\",\n    \"deferred\": {\n      \"fieldName\": \"<string>\",\n      \"offset\": \"<long>\"\n    }\n  },\n  \"action\": {\n    \"headers\": {\n      \"key_0\": \"<string>\"\n    },\n    \"query\": \"{ Name Contact { FullName } JobAllocations { Resource { Name } } }\",\n    \"type\": \"<string>\",\n    \"url\": \"<uri>\",\n    \"previousFields\": \"{ JobStatus ContactId JobAllocationCount }\"\n  },\n  \"enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"errorId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9456c73-41d3-4800-8bb8-316eff222307",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "triggered_actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the triggered action to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"trigger\": {\n    \"filter\": \"<string>\",\n    \"schemaName\": \"<string>\",\n    \"type\": \"<string>\",\n    \"deferred\": {\n      \"fieldName\": \"<string>\",\n      \"offset\": \"<long>\"\n    }\n  },\n  \"action\": {\n    \"headers\": {\n      \"key_0\": \"<string>\"\n    },\n    \"query\": \"{ Name Contact { FullName } JobAllocations { Resource { Name } } }\",\n    \"type\": \"<string>\",\n    \"url\": \"<uri>\",\n    \"previousFields\": \"{ JobStatus ContactId JobAllocationCount }\"\n  },\n  \"enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"errorId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "825f5539-9955-4879-a4d8-280e09c08965",
+          "name": "Delete a triggered action",
+          "request": {
+            "name": "Delete a triggered action",
+            "description": {},
+            "url": {
+              "path": [
+                "triggered_actions",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the triggered action to delete"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b1b2b091-cce0-4288-b665-6f29eaf2feb2",
+              "name": "success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "triggered_actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the triggered action to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "613f2f4d-055c-4ff2-8422-df9a5f6dd4b5",
+              "name": "If the user does not have the required permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "triggered_actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the triggered action to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"errorId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b2da3fc-75b5-4bbf-a397-db102f3f2f23",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "triggered_actions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the triggered action to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"errorId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "29fc55e7-ccfe-4f4f-aae6-95d6fa91f1a8",
+          "name": "Get triggered action and webhook logs",
+          "request": {
+            "name": "Get triggered action and webhook logs",
+            "description": {
+              "content": "Return the status and details of webhooks and/or triggered actions. By default, results are in ascending order by log ID.<br>Note if the user does not have the \"View all data\" permission, all potentially sensitive data will be redacted (replaced with the text \"\\<redacted\\>\"). Note also that a triggered action wil typically produce two entries in the log: one for querying associated data and one for executing the HTTP request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "triggered_actions",
+                "logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Result offset used for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max number of results to return. Default: 200"
+                },
+                {
+                  "disabled": false,
+                  "key": "sourceId",
+                  "value": "<uuid>",
+                  "description": "A Webhook or Triggered Action ID to filter on"
+                },
+                {
+                  "disabled": false,
+                  "key": "isWebhook",
+                  "value": "<boolean>",
+                  "description": "If true, includes only webhook logs. If false, includes only triggered action logs. If omitted, includes logs of both types."
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedFrom",
+                  "value": "<dateTime>",
+                  "description": "Return logs updated after this datetime (inclusive)"
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedTo",
+                  "value": "<dateTime>",
+                  "description": "Return logs updated before this datetime (inclusive)"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "asc",
+                  "description": "Sort order for the results. Results are sorted by log ID, which corresponds to the order in which they were triggered."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "412ccc62-45f3-4dc1-b6bb-e610666d6619",
+              "name": "success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "triggered_actions",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sourceId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "isWebhook",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "updatedFrom",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "updatedTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paging\": {\n    \"total\": 1846,\n    \"limit\": 2791,\n    \"offset\": 5417\n  },\n  \"result\": [\n    {\n      \"created\": \"2001-07-13T20:56:23.141Z\",\n      \"data\": {},\n      \"id\": 1222,\n      \"retry\": 8428,\n      \"sourceId\": \"877b7dc1-9366-4070-7c25-3f8e36146f59\",\n      \"startAfter\": \"2023-01-26T18:30:20.175Z\",\n      \"status\": \"pending\",\n      \"tenantId\": \"string\",\n      \"referenceId\": 8109\n    },\n    {\n      \"created\": \"2025-05-08T11:07:03.869Z\",\n      \"data\": {},\n      \"id\": 979,\n      \"retry\": 2914,\n      \"sourceId\": \"ae38e5c6-714a-3e9d-8ffa-99d2b39809aa\",\n      \"startAfter\": \"2004-11-24T08:04:12.169Z\",\n      \"status\": \"pending\",\n      \"tenantId\": \"string\",\n      \"referenceId\": 6165\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a699970-9b79-48a8-a65a-374a90838c3c",
+              "name": "User is not an administrator",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "triggered_actions",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sourceId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "isWebhook",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "updatedFrom",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "updatedTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"errorId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06e08857-5003-48b4-b9c1-442a3b3d669f",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "triggered_actions",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sourceId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "isWebhook",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "updatedFrom",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "updatedTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"errorId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "32db6be4-5ace-4879-8172-4bd8ae0c97cb",
+    "name": "Authentication Admin Triggered Actions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

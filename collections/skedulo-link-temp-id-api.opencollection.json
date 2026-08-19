@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Link Temp Id API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Link Temp Id",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Link temporary ids with corresponding real ids. The temporary ids must start with 'temp-'.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/link_temp_id",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This establishes a link between a temporary id and a real id. If there are temporary files previously uploaded with the given temporary id as parent id, they will be swapped into the real id and re-uploaded."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

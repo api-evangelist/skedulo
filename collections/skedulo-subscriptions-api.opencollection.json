@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Subscriptions API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GraphQL Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/subscriptions",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Sets up a GraphQL subscription. Supports the `subscriptions-transport-ws` protocol. A Keep Alive message will be sent every 25 seconds. The 'Sec-WebSocket-Protocol' header must be set to 'graphql-ws'."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

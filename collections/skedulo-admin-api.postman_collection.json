@@ -1,0 +1,639 @@
+{
+  "item": [
+    {
+      "id": "c76b26ba-9002-4c13-819b-011ca69681b4",
+      "name": "Admin",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3760448c-5250-4e36-91b9-431393f336de",
+          "name": "Get API user for tenant (Internal)",
+          "request": {
+            "name": "Get API user for tenant (Internal)",
+            "description": {
+              "content": "Get the API user for a given tenant ID. The caller must be an internal administrator.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "api_user",
+                ":tenantId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenantId",
+                  "description": "(Required) The tenant ID to get the API user for"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e00b07bc-c5fc-47a8-9637-6ca2554d1131",
+              "name": "Successful result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "api_user",
+                    ":tenantId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) The tenant ID to get the API user for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"tenantId\": \"sk_e0bb1f8aa1924a00b77a9c1f43b09e41\",\n    \"type\": \"api_user\",\n    \"userId\": \"ipovey@skedulo.com\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc6e1a0a-a5de-4552-889f-57d308c753ea",
+          "name": "Get API user for multiple tenants (Internal)",
+          "request": {
+            "name": "Get API user for multiple tenants (Internal)",
+            "description": {
+              "content": "Get the API user for the given list of tenant IDs. The caller must be an internal administrator.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "api_user",
+                "bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tenantIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "979176f4-898c-44df-97e8-37f7f9eec789",
+              "name": "Successful result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "api_user",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tenantIds\": [\n    \"sk_e0bb1f8aa1924a00b77a9c1f43b09e41\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"tenantId\": \"sk_e0bb1f8aa1924a00b77a9c1f43b09e41\",\n    \"type\": \"api_user\",\n    \"userId\": \"ipovey@skedulo.com\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b9f955b1-8026-4e0e-aa43-1102144e30ab",
+          "name": "List all API tokens for tenant (Internal)",
+          "request": {
+            "name": "List all API tokens for tenant (Internal)",
+            "description": {
+              "content": "List metadata for all API tokens, including revoked tokens for a tenant. The actual token values are not returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "tokens",
+                ":tenantId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "tenantId",
+                  "description": "(Required) The tenant ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f63faa49-9907-4d90-a6ab-422b2e0e611f",
+              "name": "Metadata for all tokens.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "tokens",
+                    ":tenantId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "tenantId",
+                      "description": "(Required) The tenant ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"tenantId\": \"sk_e0bb1f8aa1924a00b77a9c1f43b09e41\",\n      \"jti\": \"BM10SHoI4Z4nmhtElInXuJWLkeeqqyzy\",\n      \"claims\": {\n        \"key_0\": 5947.026844756862,\n        \"key_1\": 6873.647399283028,\n        \"key_2\": false\n      },\n      \"createdDate\": \"1946-10-16T17:10:21.249Z\",\n      \"createdBy\": \"string\",\n      \"revokedDate\": \"1946-09-10T07:59:17.854Z\",\n      \"revokedBy\": \"string\",\n      \"lastUpdated\": \"1977-02-02T12:27:53.870Z\"\n    },\n    {\n      \"tenantId\": \"sk_e0bb1f8aa1924a00b77a9c1f43b09e41\",\n      \"jti\": \"BM10SHoI4Z4nmhtElInXuJWLkeeqqyzy\",\n      \"claims\": {\n        \"key_0\": 8955.971735609062\n      },\n      \"createdDate\": \"1984-05-13T10:23:55.526Z\",\n      \"createdBy\": \"string\",\n      \"revokedDate\": \"1989-11-10T09:46:13.621Z\",\n      \"revokedBy\": \"string\",\n      \"lastUpdated\": \"1984-10-20T15:33:31.338Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c65ad02-1569-4225-9995-eb15cd24f09d",
+          "name": "Get an API token for a tenant (Internal)",
+          "request": {
+            "name": "Get an API token for a tenant (Internal)",
+            "description": {
+              "content": "Get metadata for an API token for a tenant by specifying its JTI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "token",
+                ":tenantId",
+                ":jti"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "tenantId",
+                  "description": "(Required) The tenant ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jti",
+                  "description": "(Required) The JWT Identifier for the API token"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d4211bd5-b0e7-4806-9548-203cf8d1ca0e",
+              "name": "Metadata for the requested API token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "token",
+                    ":tenantId",
+                    ":jti"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "tenantId",
+                      "description": "(Required) The tenant ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jti",
+                      "description": "(Required) The JWT Identifier for the API token"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"tenantId\": \"sk_e0bb1f8aa1924a00b77a9c1f43b09e41\",\n    \"jti\": \"BM10SHoI4Z4nmhtElInXuJWLkeeqqyzy\",\n    \"claims\": {\n      \"key_0\": 8227.266691905334,\n      \"key_1\": false\n    },\n    \"createdDate\": \"2023-03-27T07:24:39.558Z\",\n    \"createdBy\": \"string\",\n    \"revokedDate\": \"1992-07-01T22:40:42.026Z\",\n    \"revokedBy\": \"string\",\n    \"lastUpdated\": \"1962-04-24T19:49:01.202Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e758a9dc-c743-4c2e-bc6e-a235539bf2e8",
+          "name": "Revoke an API token for a tenant (Internal)",
+          "request": {
+            "name": "Revoke an API token for a tenant (Internal)",
+            "description": {
+              "content": "Revoke an API token so it can no longer be used to authenticate API requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "token",
+                "revoke",
+                ":tenantId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "tenantId",
+                  "description": "(Required) The tenant ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jti\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "33555b08-f35a-40a0-8a43-4fab662d3bc5",
+              "name": "The token was revoked",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "token",
+                    "revoke",
+                    ":tenantId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "tenantId",
+                      "description": "(Required) The tenant ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jti\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b6c7f77d-70f3-43c9-8610-28368dbb27a6",
+          "name": "Unrevoke an API token for a tenant (Internal)",
+          "request": {
+            "name": "Unrevoke an API token for a tenant (Internal)",
+            "description": {
+              "content": "Unrevoke an API token that has previously been revoked so it can be used again.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "token",
+                "unrevoke",
+                ":tenantId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "tenantId",
+                  "description": "(Required) The tenant ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jti\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bc7e56c8-13d5-489a-9313-b5d424e0f10a",
+              "name": "The token was unrevoked",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "token",
+                    "unrevoke",
+                    ":tenantId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "tenantId",
+                      "description": "(Required) The tenant ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jti\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2214dc59-36e0-45e1-8f62-b0d0eb8d7054",
+    "name": "Authentication Admin API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

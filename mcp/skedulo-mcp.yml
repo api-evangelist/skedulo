@@ -4,16 +4,16 @@ status: published
 source: https://www.npmjs.com/package/@skedulo/mcp-client
 server:
   name: skedulo
-  note: Skedulo publishes an official MCP server; @skedulo/mcp-client is the first-party
-    client. The server endpoint is provisioned per Skedulo tenant/environment.
+  note: Skedulo publishes an official MCP server; @skedulo/mcp-client is the first-party client. The server
+    endpoint is provisioned per Skedulo tenant/environment.
   transport: http
 evidence:
 - package: '@skedulo/mcp-client'
   registry: npm
   version: 0.0.7
   description: A client for interacting with Skedulo MCP server
-candidate_tools_note: Illustrative candidates derived from OpenAPI; the published
-  server's tool list is authoritative.
+candidate_tools_note: Illustrative candidates derived from OpenAPI; the published server's tool list is
+  authoritative.
 tools:
 - name: getAvailability
   description: Fetch resource availability
@@ -63,3 +63,9 @@ tools:
 - name: Suggest
   description: Get scheduling suggestions for a job
   source_operation: openapi/skedulo-optimization-openapi.yml#Suggest
+deployment:
+  mode: remote
+  verified: searched
+  tools: 16
+  checked: '2026-08-12'
+  source: catalog MCP census

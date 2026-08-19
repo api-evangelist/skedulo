@@ -1,0 +1,100 @@
+{
+  "item": [
+    {
+      "id": "e7ad9477-89e6-443c-91ea-cbe4b89aff5a",
+      "name": "Limits",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2ae2b4ee-1ab2-46ae-92e3-55d0559b55d0",
+          "name": "Get the limits for the tenant",
+          "request": {
+            "name": "Get the limits for the tenant",
+            "description": {
+              "content": "Returns the operational limits configured for the authenticated tenant, such as maximum number of jobs or resources that can be included in a single optimization run.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "limits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "2ad9238d-3829-4b3b-911f-4aab91f52824",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "limits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"scope\": {\n      \"jobs\": 4842,\n      \"resources\": 3626\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ef584995-8f6a-4acc-bbf1-1d5239cf2076",
+    "name": "Authentication Admin Limits API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

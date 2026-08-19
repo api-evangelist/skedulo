@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Org Preference API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Org Preference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update Salesforce MFA delegation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/org_preference/salesforce-mfa",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Sets the tenant's Salesforce MFA enforcement flag and/or the stored Salesforce SAML SSO Login URL. Both fields are optional; an omitted field is left unchanged. This is the only endpoint that may set these high-impact SAML-delegation values — they are stripped from the generic `POST /org_preference`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

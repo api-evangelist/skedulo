@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Resource allocations API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Resource allocations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create/update job allocations for resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/schedules/job_allocations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or update job allocations for certain resources"
+        },
+        {
+          "info": {
+            "name": "Delete job allocation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/schedules/job_allocations/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete job allocations for certain resources"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

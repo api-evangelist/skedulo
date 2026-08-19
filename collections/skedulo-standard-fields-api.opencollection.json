@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Standard Fields API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Standard Fields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all standard field mappings for an object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/standard_fields/:schemaName",
+            "params": [
+              {
+                "name": "schemaName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the object"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Gets all standard fields and their Salesforce mappings for a given object. This endpoint is not supported for Skedulo Pulse Platform tenants (teams)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

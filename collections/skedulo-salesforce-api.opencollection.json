@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Salesforce API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Salesforce",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "initializeTenantSalesforce",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/salesforce/initialize_tenant"
+          },
+          "docs": "Installs package and sets up salesforce connection for a tenant when the user first logs in."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

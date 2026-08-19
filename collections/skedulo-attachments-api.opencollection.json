@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Attachments API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Attachments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find attachments that belong to the parent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/attachments",
+            "params": [
+              {
+                "name": "parent_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated identifiers of the parents to retrieve attachments for"
+              }
+            ]
+          },
+          "docs": "Find attachments that belong to the parent"
+        },
+        {
+          "info": {
+            "name": "Find attachments that belong to the parent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/attachments/:parentId",
+            "params": [
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the parent to retrieve attachments for"
+              }
+            ]
+          },
+          "docs": "Find attachments that belong to the parent"
+        },
+        {
+          "info": {
+            "name": "Upload an attachment to a parent record id or a temporary parent id. Content-Length and Content-Type are required.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/attachments/:parentId",
+            "headers": [
+              {
+                "name": "X-Skedulo-Name",
+                "value": ""
+              },
+              {
+                "name": "X-Skedulo-Description",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the parent to add the attachment to or the temporary parent id. A temporary parent id must start with 'temp-'."
+              }
+            ]
+          },
+          "docs": "This API is to upload attachment to an existing parent record or a temporary parent id. If the temporary parent id is linked to a real parent id, the real parent id will be swapped in automatically. Otherwise, the file is uploaded to a temporary place awaiting the temporary parent id to be linked."
+        },
+        {
+          "info": {
+            "name": "Upload an attachment to a parent record id or a temporary parent id. Content-Length and Content-Type are required.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.skedulo.com/auth/attachments/:parentId",
+            "headers": [
+              {
+                "name": "X-Skedulo-Name",
+                "value": ""
+              },
+              {
+                "name": "X-Skedulo-Description",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "parentId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the parent to add the attachment to or the temporary parent id. A temporary parent id must start with 'temp-'."
+              }
+            ]
+          },
+          "docs": "This API is to upload attachment to an existing parent record or a temporary parent id. If the temporary parent id is linked to a real parent id, the real parent id will be swapped in automatically. Otherwise, the file is uploaded to a temporary place awaiting the temporary parent id to be linked."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,937 @@
+{
+  "item": [
+    {
+      "id": "63c422c7-07dd-4abe-a7df-91a55615f937",
+      "name": "scheduling",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "87cccb15-b397-4e53-91f8-ec58b7409604",
+          "name": "Make a copy of scheduled work",
+          "request": {
+            "name": "Make a copy of scheduled work",
+            "description": {
+              "content": "This endpoint is deprecated, use `/schedule/copy` instead.\n\nJobs, shifts and activities can be copied with their attached allocations/resources and other attachments (e.g. tags). EQL filters must be provided to specify the jobs, shifts and/or activities to be copied. The start and end times of the copied work items will be offset (incremented or decremented) by the provided number of days. Executed in the background as an asynchronous task.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "async",
+                "copy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"offsetDays\": \"<integer>\",\n  \"jobs\": {\n    \"filter\": \"<string>\",\n    \"copyAllocations\": true\n  },\n  \"shifts\": {\n    \"filter\": \"<string>\",\n    \"copyAllocations\": true\n  },\n  \"activities\": {\n    \"filter\": \"<string>\",\n    \"copyAllocations\": true\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eaa3c2ef-9a98-45a6-a4ea-cdac5e65837e",
+              "name": "An asynchronous 'copy schedule' task has been scheduled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "async",
+                    "copy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offsetDays\": \"<integer>\",\n  \"jobs\": {\n    \"filter\": \"<string>\",\n    \"copyAllocations\": true\n  },\n  \"shifts\": {\n    \"filter\": \"<string>\",\n    \"copyAllocations\": true\n  },\n  \"activities\": {\n    \"filter\": \"<string>\",\n    \"copyAllocations\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"taskId\": 8423,\n    \"totalJobs\": 8456,\n    \"totalShifts\": 3482,\n    \"totalActivities\": 4936\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10900621-611a-4c9b-adf5-152f7f5606dd",
+              "name": "The request was badly formed, a copied work item would start in the past, or the work items to be copied couldn't be retrieved.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "async",
+                    "copy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offsetDays\": \"<integer>\",\n  \"jobs\": {\n    \"filter\": \"<string>\",\n    \"copyAllocations\": true\n  },\n  \"shifts\": {\n    \"filter\": \"<string>\",\n    \"copyAllocations\": true\n  },\n  \"activities\": {\n    \"filter\": \"<string>\",\n    \"copyAllocations\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ec8ae1e0-7a24-460f-8221-e7ffd99fdb78",
+          "name": "Make a copy of scheduled work",
+          "request": {
+            "name": "Make a copy of scheduled work",
+            "description": {
+              "content": "Jobs, shifts and activities can be copied with their attached allocations/resources and other attachments (e.g., tags). EQL filters must be provided to specify the jobs, shifts and/or activities to be copied. If a work item has a start and end time, the copied work item will be offset (incremented or decremented) by the provided number of days. Executed in the background as an asynchronous task.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "copy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"offsetDays\": \"<integer>\",\n  \"jobs\": {\n    \"filter\": \"<string>\",\n    \"copyAllocations\": true\n  },\n  \"shifts\": {\n    \"filter\": \"<string>\",\n    \"copyAllocations\": true\n  },\n  \"activities\": {\n    \"filter\": \"<string>\",\n    \"copyAllocations\": true\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "77033305-bba7-4e16-857a-7dd0f4015926",
+              "name": "An asynchronous 'copy schedule' task has been scheduled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "copy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offsetDays\": \"<integer>\",\n  \"jobs\": {\n    \"filter\": \"<string>\",\n    \"copyAllocations\": true\n  },\n  \"shifts\": {\n    \"filter\": \"<string>\",\n    \"copyAllocations\": true\n  },\n  \"activities\": {\n    \"filter\": \"<string>\",\n    \"copyAllocations\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"taskId\": 8423,\n    \"totalJobs\": 8456,\n    \"totalShifts\": 3482,\n    \"totalActivities\": 4936\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a9ef19bd-60c2-4729-bdd6-e4b0d471e060",
+              "name": "The request was badly formed, a copied work item would start in the past, or the work items to be copied couldn't be retrieved.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "copy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offsetDays\": \"<integer>\",\n  \"jobs\": {\n    \"filter\": \"<string>\",\n    \"copyAllocations\": true\n  },\n  \"shifts\": {\n    \"filter\": \"<string>\",\n    \"copyAllocations\": true\n  },\n  \"activities\": {\n    \"filter\": \"<string>\",\n    \"copyAllocations\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e0b9ce9-3d09-40d0-abb4-bbfe4c17677c",
+          "name": "Retrieve the status and results of an asynchronous copy schedule task.",
+          "request": {
+            "name": "Retrieve the status and results of an asynchronous copy schedule task.",
+            "description": {
+              "content": "This endpoint is deprecated, use `/schedule/copy/{taskId}` instead.\n\nThis endpoint can be polled to get the status of the task and the results of the operation, if any.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "async",
+                "copy",
+                ":taskId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "taskId",
+                  "description": "(Required) ID of the asynchronous task to be queried."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a03bae8e-0add-4f7f-9014-5d3a1487a1fe",
+              "name": "The status and results of the copy schedule task. Failed tasks will result in a 200 OK with status Failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "async",
+                    "copy",
+                    ":taskId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "taskId",
+                      "description": "(Required) ID of the asynchronous task to be queried."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"taskId\": 9890,\n    \"status\": \"InProgress\",\n    \"requestedTime\": \"string\",\n    \"completedTime\": \"string\",\n    \"jobs\": [\n      {\n        \"original\": \"string\",\n        \"copy\": \"string\"\n      },\n      {\n        \"original\": \"string\",\n        \"copy\": \"string\"\n      }\n    ],\n    \"shifts\": [\n      {\n        \"original\": \"string\",\n        \"copy\": \"string\"\n      },\n      {\n        \"original\": \"string\",\n        \"copy\": \"string\"\n      }\n    ],\n    \"activities\": [\n      {\n        \"original\": \"string\",\n        \"copy\": \"string\"\n      },\n      {\n        \"original\": \"string\",\n        \"copy\": \"string\"\n      }\n    ],\n    \"errors\": {\n      \"item\": {\n        \"schema\": \"JobAllocations\",\n        \"operation\": \"Insert\",\n        \"sourceUID\": \"string\"\n      },\n      \"errors\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "871bedc7-829d-410c-b972-98928bb4440e",
+              "name": "The task was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "async",
+                    "copy",
+                    ":taskId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "taskId",
+                      "description": "(Required) ID of the asynchronous task to be queried."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b7bfc4cf-f9ec-43b3-95d5-697020b282ae",
+          "name": "Retrieve the status of an asynchronous copy schedule task.",
+          "request": {
+            "name": "Retrieve the status of an asynchronous copy schedule task.",
+            "description": {
+              "content": "This endpoint can be polled to get the status of the task and the results of the operation, if any.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "copy",
+                ":taskId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "taskId",
+                  "description": "(Required) ID of the asynchronous task to be queried."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0fa14d43-6aed-4b46-87b1-c9e893925fe2",
+              "name": "The status and results of the copy schedule task. Failed tasks will result in a 200 OK with status Failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "copy",
+                    ":taskId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "taskId",
+                      "description": "(Required) ID of the asynchronous task to be queried."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"taskId\": 5604,\n    \"status\": \"Pending\",\n    \"requestedTime\": \"string\",\n    \"completedTime\": \"string\",\n    \"jobs\": [\n      {\n        \"original\": \"string\",\n        \"copy\": \"string\"\n      },\n      {\n        \"original\": \"string\",\n        \"copy\": \"string\"\n      }\n    ],\n    \"shifts\": [\n      {\n        \"original\": \"string\",\n        \"copy\": \"string\"\n      },\n      {\n        \"original\": \"string\",\n        \"copy\": \"string\"\n      }\n    ],\n    \"activities\": [\n      {\n        \"original\": \"string\",\n        \"copy\": \"string\"\n      },\n      {\n        \"original\": \"string\",\n        \"copy\": \"string\"\n      }\n    ],\n    \"errors\": {\n      \"item\": {\n        \"schema\": \"JobAllocations\",\n        \"operation\": \"Insert\",\n        \"sourceUID\": \"string\"\n      },\n      \"errors\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37d94fa7-4405-4736-97aa-f694ae064e64",
+              "name": "The task was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "copy",
+                    ":taskId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "taskId",
+                      "description": "(Required) ID of the asynchronous task to be queried."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "795b17ef-f887-4078-935e-80ddbcbe63c7",
+          "name": "Dispatch allocated work",
+          "request": {
+            "name": "Dispatch allocated work",
+            "description": {
+              "content": "Multiple jobs and shifts can be dispatched/published in one request. EQL filters must be provided to specify the jobs and shifts to be dispatched. Summary notifications can optionally be sent to each resource. Individual notifications will not be sent for each job/shift.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sync",
+                "dispatch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notifySummary\": \"<boolean>\",\n  \"jobsFilter\": \"<string>\",\n  \"shifts\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "67bf60ca-eb39-4040-b26c-dd21ace99dda",
+              "name": "The operation has completed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sync",
+                    "dispatch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"notifySummary\": \"<boolean>\",\n  \"jobsFilter\": \"<string>\",\n  \"shifts\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"jobs\": 7485.177387100482,\n    \"shifts\": 3023.2962788438167,\n    \"resources\": 2689.2647411942426,\n    \"resourceIds\": [\n      \"string\",\n      \"string\"\n    ],\n    \"dispatchErrorDetails\": [\n      {\n        \"errorType\": \"24650bdd-ee00-66d5-c1fa-1130dd6291b4\",\n        \"message\": \"6ed8f694-39e3-03e8-f58d-634dfc6b679d\",\n        \"jobId\": \"string\",\n        \"shiftId\": \"string\"\n      },\n      {\n        \"errorType\": \"ce2ed6ae-1e13-b8ca-5c08-b69da68207c8\",\n        \"message\": \"d2b0f8be-5f95-74a3-1f54-675b3816961c\",\n        \"jobId\": \"string\",\n        \"shiftId\": \"string\"\n      }\n    ],\n    \"notificationErrors\": 8571.74534720115,\n    \"notificationErrorDetails\": [\n      {\n        \"resourceId\": \"string\",\n        \"errorType\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"resourceId\": \"string\",\n        \"errorType\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a6bc6676-817b-433c-a60a-daf845e72b36",
+          "name": "Apply a template at a point in time.",
+          "request": {
+            "name": "Apply a template at a point in time.",
+            "description": {
+              "content": "A schedule template is converted to real jobs, shifts and activities, starting at the given date. Executed in the background as an asynchronous task.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "template",
+                "apply"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"templateId\": \"<string>\",\n  \"startDate\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fc5b8390-cfb0-4a71-9b59-931fd1bff0c5",
+              "name": "An asynchronous 'apply template' task has been scheduled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "template",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"templateId\": \"<string>\",\n  \"startDate\": \"2020-06-14\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"taskId\": 8423,\n    \"totalJobs\": 8456,\n    \"totalShifts\": 3482,\n    \"totalActivities\": 4936\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "233f2bcc-70c1-4894-a025-c80bc122207d",
+              "name": "The request was badly formed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "template",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"templateId\": \"<string>\",\n  \"startDate\": \"2020-06-14\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5402fe8d-e815-4f28-a146-970f40e707a3",
+              "name": "The schedule template was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "template",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"templateId\": \"<string>\",\n  \"startDate\": \"2020-06-14\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33e2de57-b43b-475d-93ec-5fead6bbe1c7",
+          "name": "Retrieve the status and results of an asynchronous 'apply template' task.",
+          "request": {
+            "name": "Retrieve the status and results of an asynchronous 'apply template' task.",
+            "description": {
+              "content": "This endpoint can be polled to get the status of the task and the results of the operation, if any.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "template",
+                "apply",
+                ":taskId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "taskId",
+                  "description": "(Required) ID of the asynchronous task to be queried."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a6df3d70-e4f8-4cb1-82e7-1606ab36a677",
+              "name": "The status and results of the task. Failed tasks will result in a 200 OK with status Failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "template",
+                    "apply",
+                    ":taskId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "taskId",
+                      "description": "(Required) ID of the asynchronous task to be queried."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"taskId\": 6166,\n    \"status\": \"Pending\",\n    \"requestedTime\": \"string\",\n    \"templateName\": \"string\",\n    \"startDate\": \"1988-03-14\",\n    \"endDate\": \"1972-07-13\",\n    \"lastWorkItemDate\": \"2004-08-10\",\n    \"periodDays\": 1861,\n    \"newWorkItems\": {\n      \"jobs\": [\n        \"string\",\n        \"string\"\n      ],\n      \"shifts\": [\n        \"string\",\n        \"string\"\n      ],\n      \"activities\": [\n        \"string\",\n        \"string\"\n      ],\n      \"errors\": [\n        {\n          \"item\": {\n            \"schema\": \"JobAllocations\",\n            \"operation\": \"Insert\",\n            \"sourceUID\": \"string\"\n          },\n          \"errors\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"item\": {\n            \"schema\": \"JobAllocations\",\n            \"operation\": \"Insert\",\n            \"sourceUID\": \"string\"\n          },\n          \"errors\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    },\n    \"completedTime\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "792a6c36-b701-4612-b8c0-aaec3d039c2a",
+              "name": "The task was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "template",
+                    "apply",
+                    ":taskId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "taskId",
+                      "description": "(Required) ID of the asynchronous task to be queried."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "035f39d5-4de1-43f6-8a09-dba77bcac7af",
+    "name": "Authentication Admin scheduling API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

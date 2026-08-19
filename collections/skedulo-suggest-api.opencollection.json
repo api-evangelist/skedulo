@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Suggest API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Suggest",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get scheduling suggestions for a job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/suggest",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Runs an optimization to produce scheduling suggestions for a given job, returning suggested start times across the supplied resources."
+        },
+        {
+          "info": {
+            "name": "Get suggestions for a completed suggest run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/suggest/:runId",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the scheduling suggestions produced by a previously completed suggest run."
+        },
+        {
+          "info": {
+            "name": "Get raw feature model suggestions for a run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/suggest/feature/:runId",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the raw CorePVRP feature model suggestions produced by a previously completed suggest run."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

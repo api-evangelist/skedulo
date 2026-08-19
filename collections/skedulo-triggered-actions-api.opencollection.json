@@ -1,0 +1,157 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Triggered Actions API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Triggered Actions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all triggered actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/triggered_actions",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Gets all configured triggered actions, including disabled ones."
+        },
+        {
+          "info": {
+            "name": "Create a new triggered action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/triggered_actions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new triggered action"
+        },
+        {
+          "info": {
+            "name": "Update an existing triggered action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.skedulo.com/auth/triggered_actions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the triggered action to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Note that the type of the trigger and the action cannot be changed."
+        },
+        {
+          "info": {
+            "name": "Delete a triggered action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.skedulo.com/auth/triggered_actions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the triggered action to delete"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a triggered action"
+        },
+        {
+          "info": {
+            "name": "Get triggered action and webhook logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/triggered_actions/logs",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Result offset used for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of results to return. Default: 200"
+              },
+              {
+                "name": "sourceId",
+                "value": "",
+                "type": "query",
+                "description": "A Webhook or Triggered Action ID to filter on"
+              },
+              {
+                "name": "isWebhook",
+                "value": "",
+                "type": "query",
+                "description": "If true, includes only webhook logs. If false, includes only triggered action logs. If omitted, includes logs of both types."
+              },
+              {
+                "name": "updatedFrom",
+                "value": "",
+                "type": "query",
+                "description": "Return logs updated after this datetime (inclusive)"
+              },
+              {
+                "name": "updatedTo",
+                "value": "",
+                "type": "query",
+                "description": "Return logs updated before this datetime (inclusive)"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for the results. Results are sorted by log ID, which corresponds to the order in which they were triggered."
+              }
+            ]
+          },
+          "docs": "Return the status and details of webhooks and/or triggered actions. By default, results are in ascending order by log ID.<br>Note if the user does not have the \"View all data\" permission, all potentially sensitive data will be redacted (replaced with the text \"\\<redacted\\>\"). Note also that a triggered action wil typically produce two entries in the log: one for querying associated data and one for executing the HTTP request."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

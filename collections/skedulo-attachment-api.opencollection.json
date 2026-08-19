@@ -1,0 +1,122 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Attachment API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Attachment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve an attachment with the given identifier",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/attachment/:fileId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the file to retrieve"
+              },
+              {
+                "name": "attach",
+                "value": "",
+                "type": "query",
+                "description": "True to force the browser to download the file, false to inline the content"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a pre-signed S3 URL with a redirect status code (HTTP 302) to allow the client to download the file directly from S3."
+        },
+        {
+          "info": {
+            "name": "Rename a file (implemented for Salesforce only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.skedulo.com/auth/attachment/:fileId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the file to rename"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "The new name of the file"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Rename a file (implemented for Salesforce only)"
+        },
+        {
+          "info": {
+            "name": "Delete the attachment with the given identifier",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.skedulo.com/auth/attachment/:fileId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the attachment to delete"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete the attachment with the given identifier"
+        },
+        {
+          "info": {
+            "name": "Retrieve metadata for an attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/attachment/:fileId/metadata",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the file to retrieve metadata for"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns metadata for the attachment. Currently includes EXIF data for image and video formats that carry EXIF (JPEG, TIFF, WebP, HEIC/HEIF, PNG, QuickTime, MP4, AVI, M4V). The exif section is empty for supported formats that contain no EXIF data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

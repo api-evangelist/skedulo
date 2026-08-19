@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Batch API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Batch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get batch schedules by ids",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/batch/schedule",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "Coma separated schedule ids"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of batch schedules matching the provided comma-separated list of schedule IDs."
+        },
+        {
+          "info": {
+            "name": "Create a batch schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/batch/schedule",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new batch of scheduled runs to be optimized. These can be either one-off or recurring schedules."
+        },
+        {
+          "info": {
+            "name": "Get a batch schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/batch/schedule/:scheduleId",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the configuration and current status of a single batch schedule identified by its ID."
+        },
+        {
+          "info": {
+            "name": "Update a batch schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.skedulo.com/auth/batch/schedule/:scheduleId",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace the configuration of an existing batch schedule with the provided definition. This will affect all future runs triggered by this schedule."
+        },
+        {
+          "info": {
+            "name": "Delete a batch schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.skedulo.com/auth/batch/schedule/:scheduleId",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Permanently deletes a batch schedule by its ID. No further optimization runs will be triggered for this schedule after deletion."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

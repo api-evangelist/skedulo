@@ -1,0 +1,125 @@
+{
+  "item": [
+    {
+      "id": "1398355e-0d6b-4797-964f-f299a99f929e",
+      "name": "Geoservices",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8be576a5-9735-48fe-8b83-c2998e5b5537",
+          "name": "Determine travel time for many resources, across work or activities they have been assigned",
+          "request": {
+            "name": "Determine travel time for many resources, across work or activities they have been assigned",
+            "description": {
+              "content": "The Travel Time endpoint will approximate how long it takes for a resource to travel between destinations. It will filter down to relevant availability windows (ignoring destinations outside the resource's availability), order the work to be completed, and finally calculate the travel time between each destination. The result will contain only the node identifier and the relevant travel time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geoservices",
+                "travel-time"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resources\": [\n    {\n      \"id\": \"<string>\",\n      \"origin\": {\n        \"lat\": \"<number>\",\n        \"lng\": \"<number>\"\n      },\n      \"availabilities\": [\n        {\n          \"start\": \"<dateTime>\",\n          \"end\": \"<dateTime>\"\n        },\n        {\n          \"start\": \"<dateTime>\",\n          \"end\": \"<dateTime>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"origin\": {\n        \"lat\": \"<number>\",\n        \"lng\": \"<number>\"\n      },\n      \"availabilities\": [\n        {\n          \"start\": \"<dateTime>\",\n          \"end\": \"<dateTime>\"\n        },\n        {\n          \"start\": \"<dateTime>\",\n          \"end\": \"<dateTime>\"\n        }\n      ]\n    }\n  ],\n  \"nodes\": [\n    {\n      \"id\": \"<string>\",\n      \"resourceId\": \"<string>\",\n      \"start\": \"<dateTime>\",\n      \"end\": \"<dateTime>\",\n      \"lat\": \"<number>\",\n      \"lng\": \"<number>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"resourceId\": \"<string>\",\n      \"start\": \"<dateTime>\",\n      \"end\": \"<dateTime>\",\n      \"lat\": \"<number>\",\n      \"lng\": \"<number>\"\n    }\n  ],\n  \"schedulingOptions\": {\n    \"jobTimeAsTimeConstraint\": true,\n    \"preferJobTimeOverTimeConstraint\": true,\n    \"respectSchedule\": true,\n    \"ignoreTravelTimes\": false,\n    \"ignoreTravelTimeFirstJob\": false,\n    \"ignoreTravelTimeLastJob\": false,\n    \"assumeResourceCanTravelBeforeStart\": false,\n    \"assumeResourceCanTravelAfterEnd\": false,\n    \"padding\": 0,\n    \"snapUnit\": 0\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "619570d1-1483-4549-8b36-f1808cd25158",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geoservices",
+                    "travel-time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resources\": [\n    {\n      \"id\": \"<string>\",\n      \"origin\": {\n        \"lat\": \"<number>\",\n        \"lng\": \"<number>\"\n      },\n      \"availabilities\": [\n        {\n          \"start\": \"<dateTime>\",\n          \"end\": \"<dateTime>\"\n        },\n        {\n          \"start\": \"<dateTime>\",\n          \"end\": \"<dateTime>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"origin\": {\n        \"lat\": \"<number>\",\n        \"lng\": \"<number>\"\n      },\n      \"availabilities\": [\n        {\n          \"start\": \"<dateTime>\",\n          \"end\": \"<dateTime>\"\n        },\n        {\n          \"start\": \"<dateTime>\",\n          \"end\": \"<dateTime>\"\n        }\n      ]\n    }\n  ],\n  \"nodes\": [\n    {\n      \"id\": \"<string>\",\n      \"resourceId\": \"<string>\",\n      \"start\": \"<dateTime>\",\n      \"end\": \"<dateTime>\",\n      \"lat\": \"<number>\",\n      \"lng\": \"<number>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"resourceId\": \"<string>\",\n      \"start\": \"<dateTime>\",\n      \"end\": \"<dateTime>\",\n      \"lat\": \"<number>\",\n      \"lng\": \"<number>\"\n    }\n  ],\n  \"schedulingOptions\": {\n    \"jobTimeAsTimeConstraint\": true,\n    \"preferJobTimeOverTimeConstraint\": true,\n    \"respectSchedule\": true,\n    \"ignoreTravelTimes\": false,\n    \"ignoreTravelTimeFirstJob\": false,\n    \"ignoreTravelTimeLastJob\": false,\n    \"assumeResourceCanTravelBeforeStart\": false,\n    \"assumeResourceCanTravelAfterEnd\": false,\n    \"padding\": 0,\n    \"snapUnit\": 0\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2682eae8-0301-45e0-9b91-874a6b1cd933",
+    "name": "Authentication Admin Geoservices API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

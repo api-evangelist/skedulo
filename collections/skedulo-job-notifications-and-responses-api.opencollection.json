@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Job Notifications and Responses API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Job Notifications and Responses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Dispatch resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/dispatch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint will dispatch the resources and notify them."
+        },
+        {
+          "info": {
+            "name": "Notify resources about an allocated job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/notify",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Notify resources that they are allocated to a job. This can be used to send a reminder message after the initial job dispatch. Individual resources can be notified, or all resources allocated to the job."
+        },
+        {
+          "info": {
+            "name": "Notify resources of job cancellation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/notify_cancel",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Send a message to all resources allocated to the job advising that it has been cancelled."
+        },
+        {
+          "info": {
+            "name": "Send a message to a resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/oneoff",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Send a message to a resource via push notification or SMS."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

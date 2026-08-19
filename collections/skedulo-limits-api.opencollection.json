@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Limits API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Limits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the limits for the tenant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/limits"
+          },
+          "docs": "Returns the operational limits configured for the authenticated tenant, such as maximum number of jobs or resources that can be included in a single optimization run."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

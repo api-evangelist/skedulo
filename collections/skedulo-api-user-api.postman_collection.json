@@ -1,0 +1,645 @@
+{
+  "item": [
+    {
+      "id": "51fafcaa-84aa-40dc-bab6-49aa9a8b6f94",
+      "name": "Api User",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "67edb3eb-e5f8-4de4-800f-264137610981",
+          "name": "Set API User",
+          "request": {
+            "name": "Set API User",
+            "description": {
+              "content": "Sets a user as the API User for this tenant. The user assigning the API user must be an Administrator.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api_user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8ac53888-31c0-4fc8-827a-9dbbdec755e4",
+              "name": "The user was successfully setup as the API User.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api_user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"authEndpoint\": \"string\",\n    \"authBody\": {\n      \"grant_type\": \"client_credentials\",\n      \"client_id\": \"string\",\n      \"client_secret\": \"string\",\n      \"audience\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8151879f-e7d1-4856-9f96-2dbf95aa6903",
+              "name": "If the user does not have the required permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api_user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "103a3b56-0c21-4f58-9420-495b7296b86c",
+          "name": "Remove the API User for this tenant",
+          "request": {
+            "name": "Remove the API User for this tenant",
+            "description": {
+              "content": "Removes the API User for this tenant if they have one. If the tenant is on Standalone this will reset their API user to the system user. The caller must be an administrator.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api_user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d42aade3-48fa-4a85-82cf-978728c8ddcb",
+              "name": "successful result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api_user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "47337f9f-bfe1-4bee-a1bc-3a83dc895645",
+              "name": "If the user does not have the required permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api_user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c61264f8-7e0a-4b40-a216-f906e54e1c25",
+          "name": "Get client credentials information for the API user",
+          "request": {
+            "name": "Get client credentials information for the API user",
+            "description": {
+              "content": "The user requesting this information must be an Administrator for their organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api_user",
+                "client_credentials"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f7c26cf2-3cb4-45ad-9bf9-9c9d868a80b1",
+              "name": "Client credentials information of the API user",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api_user",
+                    "client_credentials"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"authEndpoint\": \"string\",\n    \"authBody\": {\n      \"grant_type\": \"client_credentials\",\n      \"client_id\": \"string\",\n      \"client_secret\": \"string\",\n      \"audience\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0e9ae06-271c-4aa7-9f86-47f19382007c",
+              "name": "User is not an administrator",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api_user",
+                    "client_credentials"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8d32e0bc-418a-4e44-bacf-b96d244e0aaf",
+              "name": "API user is not setup",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api_user",
+                    "client_credentials"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d2cba474-ebd8-4376-b543-96f9d6afe900",
+          "name": "List API user candidates",
+          "request": {
+            "name": "List API user candidates",
+            "description": {
+              "content": "List candidates that can be set as the API user and the current API user. Only users with role `administrator` are returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api_user",
+                "candidates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "09410071-bc1a-49e3-9c1f-632dace09623",
+              "name": "List of candidates that can be assigned as the API User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api_user",
+                    "candidates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"candidates\": [\n      {\n        \"userId\": \"string\",\n        \"vendorUserId\": \"string\",\n        \"lastName\": \"string\",\n        \"username\": \"string\",\n        \"roles\": [\n          \"scheduler\",\n          \"administrator\"\n        ],\n        \"email\": \"COa@TGptbstDODfGHfGQeKHEvElxX.vxv\",\n        \"emailVerified\": true,\n        \"firstName\": \"string\",\n        \"resourceId\": \"string\"\n      },\n      {\n        \"userId\": \"string\",\n        \"vendorUserId\": \"string\",\n        \"lastName\": \"string\",\n        \"username\": \"string\",\n        \"roles\": [\n          \"resource\",\n          \"scheduler\"\n        ],\n        \"email\": \"maib@UlLbAuRAVFoIiB.zr\",\n        \"emailVerified\": false,\n        \"firstName\": \"string\",\n        \"resourceId\": \"string\"\n      }\n    ],\n    \"currentApiUserId\": \"string\",\n    \"moreCandidatesExist\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7fb71861-6421-4f59-8b5f-9927b1667b0e",
+          "name": "Check if the API user is verified",
+          "request": {
+            "name": "Check if the API user is verified",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api_user",
+                "verify"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0500e52d-d783-475a-a8a5-4add48562eb8",
+              "name": "If the result contains success equal to true the API user is verified, otherwise it is not.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api_user",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"success\": true,\n    \"code\": \"string\",\n    \"message\": false,\n    \"extraFields\": {\n      \"key_0\": \"string\",\n      \"key_1\": true,\n      \"key_2\": true,\n      \"key_3\": true\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2165a34b-1a5e-4e0f-8a13-b4a1a5833261",
+    "name": "Authentication Admin Api User API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

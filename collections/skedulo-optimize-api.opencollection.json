@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Optimize API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Optimize",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Suggest times for a single job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/optimize/suggest",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Query the `/optimize/suggest` endpoint to find the best time to schedule a single job given a set of resources within a specific time range.\n\nFor example, if a job must be done on Thursday before noon you can specify the time window of 8AM to 12PM on Thursday and the resources that are available to find the best time to schedule the job that morning.\n"
+        },
+        {
+          "info": {
+            "name": "Suggest resources for a given job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/optimize/resource_suggestions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Find the best resources within a given time range, for a given job and resource availabilities.\n\nThis query provides the amount of time each resource has available during the time period to complete the task.\n\n* Resource availability is determined by working hours, holidays, existing jobs, shifts, and activities.\n* You can provide availability directly (via `resources`) or by referencing existing resources (via `resourceIds`).\n* Capacity fields (`currentCapacityInSeconds` and `newCapacityInSecon"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

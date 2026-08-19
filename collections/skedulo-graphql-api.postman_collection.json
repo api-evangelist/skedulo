@@ -1,0 +1,423 @@
+{
+  "item": [
+    {
+      "id": "c04d0e87-e6e6-4fcf-815b-342491b232bb",
+      "name": "Graphql",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3c27334d-4391-46cf-8a45-5326b2f86205",
+          "name": "GraphQL queries and mutations",
+          "request": {
+            "name": "GraphQL queries and mutations",
+            "description": {
+              "content": "Run queries and mutations against business data.\n\nQueries and mutations are `POST` operations with a GraphQL payload that defines the shape of the query or mutation to be made against the data schema, including custom objects and fields. A mutation with multiple operations is executed as an atomic transaction: either all operations succeed or none succeed.\n\nIf you perform large-scale data mutations (e.g., importing or updating thousands of jobs over a short period of time), you **must** set the `X-Skedulo-Bulk-Operation` HTTP header value to `true` to protect the system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "graphql"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "107ae627-dd93-4d88-a195-078b77c20748",
+              "name": "Query or Mutation result was returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": 8491,\n    \"key_2\": 6175.428028085669\n  },\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"location\": {\n        \"line\": \"string\",\n        \"column\": \"string\"\n      }\n    },\n    {\n      \"message\": \"string\",\n      \"location\": {\n        \"line\": \"string\",\n        \"column\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6621bdd0-af3b-40f6-8de8-c6cd3ae791a0",
+              "name": "Query or Mutation failed, an error is returned.  The `data` property will be null in this case.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"key_0\": false\n  },\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"location\": {\n        \"line\": \"string\",\n        \"column\": \"string\"\n      }\n    },\n    {\n      \"message\": \"string\",\n      \"location\": {\n        \"line\": \"string\",\n        \"column\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3018add3-f5ad-47bf-8c9d-c00926d4df03",
+              "name": "Authentication/Authorization failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"errorId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c00618f-7634-43c5-9327-73b3f954a829",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"errorId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ddd4d914-693f-4077-9475-20533d4ea5b6",
+          "name": "Make batch queries and mutations using GraphQL.",
+          "request": {
+            "name": "Make batch queries and mutations using GraphQL.",
+            "description": {
+              "content": "GraphQL batching involves sending multiple queries or mutations to the server in a single request. This reduces the number of server round trips to fetch data, which makes interaction more efficient. \n\nSee https://blog.apollographql.com/query-batching-in-apollo-63acfd859862 for more information",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "graphql",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6c19d3d0-491f-4b83-b6b1-446b637cc0e7",
+              "name": "An array of Query or Mutation results corresponding to the input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"data\": {\n      \"key_0\": false,\n      \"key_1\": 6374.227461236867\n    },\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"location\": {\n          \"line\": \"string\",\n          \"column\": \"string\"\n        }\n      },\n      {\n        \"message\": \"string\",\n        \"location\": {\n          \"line\": \"string\",\n          \"column\": \"string\"\n        }\n      }\n    ]\n  },\n  {\n    \"data\": {\n      \"key_0\": 2110,\n      \"key_1\": false,\n      \"key_2\": \"string\"\n    },\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"location\": {\n          \"line\": \"string\",\n          \"column\": \"string\"\n        }\n      },\n      {\n        \"message\": \"string\",\n        \"location\": {\n          \"line\": \"string\",\n          \"column\": \"string\"\n        }\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dcde0c1f-43ca-4844-8cb5-fc0aa6908a49",
+              "name": "Authentication/Authorization failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"errorId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7f33819-12ed-4725-af7d-20a8f7291315",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"errorId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "347f04f1-bcd4-4fbf-aeb5-e6641809d07e",
+    "name": "Authentication Admin Graphql API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

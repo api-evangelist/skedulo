@@ -1,0 +1,497 @@
+{
+  "item": [
+    {
+      "id": "1d8701e8-2489-4419-a739-15c3c51b6fe9",
+      "name": "SMS Messaging",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "10b4953b-74f9-4073-9399-b96ab48741cc",
+          "name": "Get metadata for sent SMS messages",
+          "request": {
+            "name": "Get metadata for sent SMS messages",
+            "description": {
+              "content": "Get metadata including phone number, job and resource IDs and delivery status for SMS messages that have been sent. The body of the message is not included. Messages are returned in pages of 250 items, sorted by creation time in descending order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Returns messages sent after the message with this cursor."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8204a783-6fb8-4e1d-8380-38cf12cb2bcf",
+              "name": "Result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"key\": {\n        \"vendor\": \"string\",\n        \"id\": \"string\"\n      },\n      \"to\": \"string\",\n      \"status\": \"string\",\n      \"created\": \"2024-03-18T22:51:27.481Z\",\n      \"updated\": \"1968-10-07T18:55:59.884Z\",\n      \"cursor\": \"string\",\n      \"resourceId\": \"string\",\n      \"jobId\": \"string\"\n    },\n    {\n      \"key\": {\n        \"vendor\": \"string\",\n        \"id\": \"string\"\n      },\n      \"to\": \"string\",\n      \"status\": \"string\",\n      \"created\": \"1966-09-11T07:27:30.369Z\",\n      \"updated\": \"1955-08-04T23:47:03.718Z\",\n      \"cursor\": \"string\",\n      \"resourceId\": \"string\",\n      \"jobId\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "abb4f24d-2cb5-4570-9ade-52fe2e35eca7",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2d148d30-325a-400c-abf0-0e2745c58e26",
+          "name": "Send an SMS to any phone number",
+          "request": {
+            "name": "Send an SMS to any phone number",
+            "description": {
+              "content": "Send an SMS message to any phone number, such as a customer.\n\nFor example 'Thanks for confirming your booking'. Replies from the recipient will not be tracked back to a job but can be used to trigger an 'inbound_sms' webhook.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phoneNumber\": \"<string>\",\n  \"countryCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"expectsReply\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5bcea76a-0bc9-465d-aea9-e9a0d5ce2d2b",
+              "name": "Result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"phoneNumber\": \"<string>\",\n  \"countryCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"expectsReply\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1911cb70-130e-4fea-aa41-68e8a3a37b56",
+              "name": "Phone number or country code was invalid, or message was too long.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"phoneNumber\": \"<string>\",\n  \"countryCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"expectsReply\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "250fba8f-75a4-4627-bae3-a1ffe4578d6c",
+          "name": "Request confirmation by SMS",
+          "request": {
+            "name": "Request confirmation by SMS",
+            "description": {
+              "content": "Send an SMS message to any phone number, such as a customer, to request confirmation that a job should proceed. This will set the job's confirmation status to `Pending`. Upon receiving a Y/YES or N/NO SMS message from the recipient, the job's confirmation status will be updated accordingly.\n\nNote that while a job's confirmation status is `Pending`, SMS confirmation requests cannot be sent to the recipient for that job.\n\nNote that a job's confirmation status is for use by custom workflows. It does not affect the normal workflow of the job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sms",
+                "confirmation_request"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phoneNumber\": \"<string>\",\n  \"countryCode\": \"<string>\",\n  \"jobId\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3c1034e1-fabb-4310-96d6-372fa7c6400b",
+              "name": "Result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sms",
+                    "confirmation_request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"phoneNumber\": \"<string>\",\n  \"countryCode\": \"<string>\",\n  \"jobId\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d29cbcff-75a3-42eb-ad21-8cb66393fcea",
+              "name": "Phone number or country code was invalid, message was too long, phone number already has a request outstanding, job has been completed or cancelled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sms",
+                    "confirmation_request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"phoneNumber\": \"<string>\",\n  \"countryCode\": \"<string>\",\n  \"jobId\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b68416fd-9ee7-4fb3-ab46-b3c22aae0fd3",
+    "name": "Authentication Admin SMS Messaging API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

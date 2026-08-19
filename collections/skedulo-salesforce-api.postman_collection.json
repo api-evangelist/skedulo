@@ -1,0 +1,92 @@
+{
+  "item": [
+    {
+      "id": "c8cafefe-67fb-48b0-b5cf-4b25014269e9",
+      "name": "Salesforce",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ab64e607-da06-4055-a64c-ab299974f379",
+          "name": "initialize Tenant Salesforce",
+          "request": {
+            "name": "initialize Tenant Salesforce",
+            "description": {
+              "content": "Installs package and sets up salesforce connection for a tenant when the user first logs in.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "salesforce",
+                "initialize_tenant"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7a8e0d61-8a61-4363-877f-d7b06fef6c28",
+              "name": "Tenant initialized succesfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesforce",
+                    "initialize_tenant"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a654bb61-5b65-4a64-a234-1f31169831ac",
+    "name": "Authentication Admin Salesforce API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

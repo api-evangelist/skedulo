@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Schedule summaries API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Schedule summaries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Recurring schedules summaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/schedules",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to fetch. Defaults to 1 if not provided."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to fetch per page. Defaults to 20 if not provided. Maximum allowed is 50."
+              }
+            ]
+          },
+          "docs": "Get a list of recurring schedules summaries"
+        },
+        {
+          "info": {
+            "name": "Summary of a recurring schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/schedules/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get summary of a recurring schedule"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

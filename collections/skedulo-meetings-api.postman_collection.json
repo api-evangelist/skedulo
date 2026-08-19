@@ -1,0 +1,421 @@
+{
+  "item": [
+    {
+      "id": "aa65fd74-58c5-49a3-93b2-a09be67d192a",
+      "name": "Meetings",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2c1b662a-8c58-463c-be51-68d182638ccc",
+          "name": "Create a virtual meeting hosted by a resource",
+          "request": {
+            "name": "Create a virtual meeting hosted by a resource",
+            "description": {},
+            "url": {
+              "path": [
+                "meetings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agenda\": \"<string>\",\n  \"duration\": \"<integer>\",\n  \"hostResourceId\": \"<string>\",\n  \"startTime\": \"<dateTime>\",\n  \"topic\": \"<string>\",\n  \"password\": \"<string>\",\n  \"zoom\": \"<object>\",\n  \"teams\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2f370eeb-df87-4433-bda6-0a83bfb536cf",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meetings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agenda\": \"<string>\",\n  \"duration\": \"<integer>\",\n  \"hostResourceId\": \"<string>\",\n  \"startTime\": \"<dateTime>\",\n  \"topic\": \"<string>\",\n  \"password\": \"<string>\",\n  \"zoom\": \"<object>\",\n  \"teams\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"hostUrl\": \"http://Po.wlyrNLCZVyHq+Hbz5--ceFux2RmG9whkfuvoPM\",\n    \"inviteeUrl\": \"http://bHsRhYAMFPzBPCJuajVCkgJX.mcpWsi0zTSETP0OzvTCwfgsVaJP9IxxQ+EiYDyTXUUJhQT-tSLuipktc\",\n    \"id\": \"string\",\n    \"password\": \"string\",\n    \"zoom\": {},\n    \"teams\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "721b8db9-44ea-4e1f-93d7-e640fa23b2a2",
+              "name": "The hosting resource has no email specified",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meetings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agenda\": \"<string>\",\n  \"duration\": \"<integer>\",\n  \"hostResourceId\": \"<string>\",\n  \"startTime\": \"<dateTime>\",\n  \"topic\": \"<string>\",\n  \"password\": \"<string>\",\n  \"zoom\": \"<object>\",\n  \"teams\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "edcac52a-69c6-4a28-beb3-093a631393b0",
+          "name": "Fetch information of the virtual meeting specified by the id",
+          "request": {
+            "name": "Fetch information of the virtual meeting specified by the id",
+            "description": {},
+            "url": {
+              "path": [
+                "meetings",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "70ec7156-376c-44ae-8c97-742d77a435ac",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meetings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"hostUrl\": \"http://Po.wlyrNLCZVyHq+Hbz5--ceFux2RmG9whkfuvoPM\",\n    \"inviteeUrl\": \"http://bHsRhYAMFPzBPCJuajVCkgJX.mcpWsi0zTSETP0OzvTCwfgsVaJP9IxxQ+EiYDyTXUUJhQT-tSLuipktc\",\n    \"id\": \"string\",\n    \"password\": \"string\",\n    \"zoom\": {},\n    \"teams\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "05029606-d135-4995-ab36-708281d5c565",
+          "name": "Update the virtual meeting specified by the id",
+          "request": {
+            "name": "Update the virtual meeting specified by the id",
+            "description": {},
+            "url": {
+              "path": [
+                "meetings",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"topic\": \"<string>\",\n  \"agenda\": \"<string>\",\n  \"startTime\": \"<dateTime>\",\n  \"duration\": \"<integer>\",\n  \"password\": \"<string>\",\n  \"zoom\": \"<object>\",\n  \"teams\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "01e96836-6bb0-4246-93d1-08ab2581fc62",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meetings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"topic\": \"<string>\",\n  \"agenda\": \"<string>\",\n  \"startTime\": \"<dateTime>\",\n  \"duration\": \"<integer>\",\n  \"password\": \"<string>\",\n  \"zoom\": \"<object>\",\n  \"teams\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"hostUrl\": \"http://Po.wlyrNLCZVyHq+Hbz5--ceFux2RmG9whkfuvoPM\",\n    \"inviteeUrl\": \"http://bHsRhYAMFPzBPCJuajVCkgJX.mcpWsi0zTSETP0OzvTCwfgsVaJP9IxxQ+EiYDyTXUUJhQT-tSLuipktc\",\n    \"id\": \"string\",\n    \"password\": \"string\",\n    \"zoom\": {},\n    \"teams\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86f33d06-fd96-4970-858c-053f20f31660",
+          "name": "Delete the virtual meeting specified by the id",
+          "request": {
+            "name": "Delete the virtual meeting specified by the id",
+            "description": {},
+            "url": {
+              "path": [
+                "meetings",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4f6550cb-8f0f-498a-8aff-633dbb7eef76",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meetings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b80da2ba-229e-4a4d-842c-1b9f121dbc96",
+    "name": "Authentication Admin Meetings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

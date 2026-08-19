@@ -1,0 +1,147 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Provision API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Provision",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create users in a Skedulo Platform tenant",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/provision/standalone/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create Skedulo Platform users and their associated resources and user regions.\n\nEach new user created can be automatically sent an invitation email, which contains a link allowing them to set a password."
+        },
+        {
+          "info": {
+            "name": "Update Skedulo Pulse users and resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.skedulo.com/auth/provision/standalone/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update details for users and resources on a Skedulo Pulse tenant."
+        },
+        {
+          "info": {
+            "name": "Create a large number of users (and their associated resource)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/provision/standalone/users/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint is deprecated, use the Data Loader in the Skedulo web app instead.\n\nThis is run as a background task. \n\nEach new user created can be sent an invitation email right after they are created, which contains a link allowing them to set a password."
+        },
+        {
+          "info": {
+            "name": "Import users from a CSV or JSON file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/provision/standalone/users/file",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint is deprecated, use the Data Loader in the Skedulo web app instead.\n\nImport CSV or JSON data that is embedded in a multipart/form-data document. Accepts one file at a time."
+        },
+        {
+          "info": {
+            "name": "Add users for access via SSO only.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/provision/standalone/users/local",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates users (and their associated resources) in the tenant database but does not create corresponding Auth0 user accounts.\n\nThis allows the users to log in using linked SSO accounts with the corresponding email addresses. The email addresses can be used in multiple tenants when logging in with SSO."
+        },
+        {
+          "info": {
+            "name": "Add users from a file for access via SSO only.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/provision/standalone/users/local/file",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "See /provision/standalone/users/local. Imports CSV or JSON data that is embedded in a multipart/form-data document. Accepts one file at a time. Import is run as a background task."
+        },
+        {
+          "info": {
+            "name": "Query status of onboarding task",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/provision/standalone/users/bulk/:taskId",
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the background task to be queried."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint is deprecated, use the Data Loader in the Skedulo web app instead.\n\nAllows a Skedulo Platform Administrator to query the status of a background task that has been submitted earlier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,205 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Run API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Run",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/run",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Run id"
+              },
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "Coma separated run ids"
+              },
+              {
+                "name": "schedule_id",
+                "value": "",
+                "type": "query",
+                "description": "Schedule id"
+              },
+              {
+                "name": "schedule_ids",
+                "value": "",
+                "type": "query",
+                "description": "Coma separated run schedule ids"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "User id"
+              },
+              {
+                "name": "user_ids",
+                "value": "",
+                "type": "query",
+                "description": "Coma separated user ids"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Run type"
+              },
+              {
+                "name": "types",
+                "value": "",
+                "type": "query",
+                "description": "Coma separated types"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to skip"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Return results after this cursor value"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of feature model optimization runs for the authenticated tenant. Results can be filtered by run ID, schedule ID, user, and run type, and support limit/offset pagination."
+        },
+        {
+          "info": {
+            "name": "Get a run by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/run/:runId",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the details of a single feature model optimization run identified by its run ID, including its status, type, schedule association, and timing information."
+        },
+        {
+          "info": {
+            "name": "Get the diff of the run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/run/:runId/diff",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the allocation diff produced by an optimization run, showing for each allocation which resource was deallocated and which resource was allocated, along with any change in scheduled time."
+        },
+        {
+          "info": {
+            "name": "Get results of an optimization run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/run/:runId/results",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the feature-model-level optimization results for a completed run. For ARCShift (shift scheduling) runs this shows which allocations were assigned to resources and which were left unscheduled. For CorePVRP (route optimization) runs this additionally includes the scheduled start times and per-allocation infeasibility reasons explaining why each resource could not be used for each unscheduled allocation."
+        },
+        {
+          "info": {
+            "name": "Get the model for the run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/run/:runId/model",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the feature model used for the run. This is a fully anonymized version of the problem that is solved in the optimization run"
+        },
+        {
+          "info": {
+            "name": "Get the remodel of the run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/run/:runId/remodel",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the final model of the run. This is similar to the result of the GET /run/{runId}/model endpoint, but with the model populated with the scheduled allocations from the optimization run."
+        },
+        {
+          "info": {
+            "name": "Get the metadata for a run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/run/:runId/meta",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns arbitrary key-value metadata associated with an optimization run. Returns null if no metadata has been recorded for the run."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1672 @@
+{
+  "item": [
+    {
+      "id": "78ef2960-305c-49d2-9b43-5fa45343cbc9",
+      "name": "Schedule",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1e36ffb5-2065-439e-8308-307f05d15240",
+          "name": "Start an one-off optimization run",
+          "request": {
+            "name": "Start an one-off optimization run",
+            "description": {
+              "content": "This will begin a new one-off optimization run that will start as soon as possible for the requested input.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plan\": {\n    \"jobIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"resourceIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"scheduleWindow\": {\n      \"start\": \"<dateTime>\",\n      \"end\": \"<dateTime>\"\n    },\n    \"timezone\": \"<string>\",\n    \"regionId\": \"<string>\",\n    \"schedulingOptions\": {\n      \"full\": \"<boolean>\",\n      \"ignoreTravelTime\": \"<boolean>\",\n      \"ignoreTravelTimeFirstJob\": \"<boolean>\",\n      \"ignoreTravelTimeLastJob\": \"<boolean>\",\n      \"minimizeResources\": \"<boolean>\",\n      \"maxDailyTravelTimeInMinutes\": \"<long>\",\n      \"maxTravelTimeBetweenLocations\": \"<long>\",\n      \"respectAllocationTimes\": \"<boolean>\",\n      \"respectAllocationTimesOverTimeConstraints\": \"<boolean>\",\n      \"balanceAbsoluteWorkload\": \"<boolean>\",\n      \"snapUnit\": \"<integer>\",\n      \"padding\": \"<integer>\",\n      \"objectiveWeights\": {\n        \"minimizeDisruption\": \"<integer>\",\n        \"balanceAbsoluteWorkload\": \"<integer>\",\n        \"travelTime\": \"<integer>\",\n        \"minimizeResources\": \"<integer>\",\n        \"softSkills\": \"<integer>\",\n        \"jobsPriority\": \"<integer>\",\n        \"resourceRating\": \"<integer>\",\n        \"scheduleImmediacy\": \"<integer>\",\n        \"urgency\": \"<integer>\",\n        \"overtime\": \"<integer>\"\n      },\n      \"objectiveWeightModifiers\": {\n        \"minimizeDisruption\": \"<number>\",\n        \"balanceAbsoluteWorkload\": \"<number>\",\n        \"travelTime\": \"<number>\",\n        \"minimizeResources\": \"<number>\",\n        \"softSkills\": \"<number>\",\n        \"jobsPriority\": \"<number>\",\n        \"resourceRating\": \"<number>\",\n        \"scheduleImmediacy\": \"<number>\",\n        \"urgency\": \"<number>\",\n        \"overtime\": \"<number>\"\n      },\n      \"temporalAffinityStrength\": \"<integer>\",\n      \"respectSchedule\": \"<boolean>\",\n      \"recipeId\": \"<string>\",\n      \"enablePartiallyAllocatedGroups\": \"<boolean>\",\n      \"enablePartiallyAllocatedAllocationDependencies\": \"<boolean>\",\n      \"enforceCompatibility\": \"<boolean>\",\n      \"onJobRemoval\": [\n        \"<string>\"\n      ],\n      \"rollingScheduleWindowInterval\": {}\n    }\n  },\n  \"persistenceStrategy\": \"<string>\",\n  \"optimizationType\": \"<string>\",\n  \"label\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c4cb1095-5edb-46a7-bd61-9844ab95efe9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"label-1\",\n  \"persistenceStrategy\": \"optimize\",\n  \"optimizationType\": \"pvrp\",\n  \"plan\": {\n    \"regionId\": \"region-1\",\n    \"resourceIds\": [\n      \"6fecdd33-378a-40dc-9348-e3e8265b5d06\",\n      \"a4c55101-c50d-4515-b999-244f26acc5d8\"\n    ],\n    \"jobIds\": [\n      \"dfde31dd-1dc8-4c8c-87fa-c7fff6e8c81b\",\n      \"ca950065-f414-4440-bc91-77c74798ef27\"\n    ],\n    \"scheduleWindow\": {\n      \"start\": \"2022-09-01T00:00:01Z\",\n      \"end\": \"2022-09-03T23:59:59Z\"\n    },\n    \"timezone\": \"UTC\",\n    \"schedulingOptions\": {\n      \"full\": false,\n      \"ignoreTravelTime\": false,\n      \"ignoreTravelTimeFirstJob\": false,\n      \"ignoreTravelTimeLastJob\": false,\n      \"minimizeResources\": false,\n      \"respectAllocationTimes\": false,\n      \"respectAllocationTimesOverTimeConstraints\": false,\n      \"balanceAbsoluteWorkload\": false,\n      \"enablePartiallyAllocatedGroups\": true,\n      \"enablePartiallyAllocatedAllocationDependencies\": true,\n      \"removeLockedJobsFromShifts\": true,\n      \"respectSchedule\": false,\n      \"transformers\": [],\n      \"ignoreResourceOverrideLocations\": false\n    }\n  },\n  \"config\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "506a8596-d2b5-45d1-822b-d08233e4f822",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"label-1\",\n  \"persistenceStrategy\": \"optimize\",\n  \"optimizationType\": \"pvrp\",\n  \"plan\": {\n    \"regionId\": \"region-1\",\n    \"resourceIds\": [\n      \"6fecdd33-378a-40dc-9348-e3e8265b5d06\",\n      \"a4c55101-c50d-4515-b999-244f26acc5d8\"\n    ],\n    \"jobIds\": [\n      \"dfde31dd-1dc8-4c8c-87fa-c7fff6e8c81b\",\n      \"ca950065-f414-4440-bc91-77c74798ef27\"\n    ],\n    \"scheduleWindow\": {\n      \"start\": \"2022-09-01T00:00:01Z\",\n      \"end\": \"2022-09-03T23:59:59Z\"\n    },\n    \"timezone\": \"UTC\",\n    \"schedulingOptions\": {\n      \"full\": false,\n      \"ignoreTravelTime\": false,\n      \"ignoreTravelTimeFirstJob\": false,\n      \"ignoreTravelTimeLastJob\": false,\n      \"minimizeResources\": false,\n      \"respectAllocationTimes\": false,\n      \"respectAllocationTimesOverTimeConstraints\": false,\n      \"balanceAbsoluteWorkload\": false,\n      \"enablePartiallyAllocatedGroups\": true,\n      \"enablePartiallyAllocatedAllocationDependencies\": true,\n      \"removeLockedJobsFromShifts\": true,\n      \"respectSchedule\": false,\n      \"transformers\": [],\n      \"ignoreResourceOverrideLocations\": false\n    }\n  },\n  \"config\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f7975b6-c169-4914-95c7-128a373b7c65",
+          "name": "Get a list of schedule runs",
+          "request": {
+            "name": "Get a list of schedule runs",
+            "description": {
+              "content": "Returns a paginated list of schedule runs for the authenticated tenant. Schedule runs are product-level optimization runs initiated via the schedule endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule",
+                "run"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "bc5f599b-c730-4417-8a82-533b781eb57a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    "run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paging\": {\n    \"limit\": 10,\n    \"total\": 2\n  },\n  \"result\": [\n    {\n      \"autoSaved\": false,\n      \"savedByUserId\": \"user-1\",\n      \"savedByDate\": \"2022-02-15T19:03:00Z\",\n      \"saveState\": \"saved\",\n      \"start\": \"2022-08-18T19:00:00Z\",\n      \"operation\": \"optimize\",\n      \"optimizationType\": \"pvrp\",\n      \"status\": \"complete\",\n      \"scheduleId\": \"a15c285f-2c69-4a3c-9b9b-c9a8c5252db6\",\n      \"createdByUserId\": \"user-1\",\n      \"label\": \"label-1\",\n      \"completedAt\": \"2022-02-15T19:02:00Z\",\n      \"summary\": {\n        \"totalPlannedJobs\": 3,\n        \"totalScheduledJobs\": 3,\n        \"requestedJobs\": 2,\n        \"requestedJobsScheduled\": 2\n      },\n      \"window\": {\n        \"start\": \"2022-07-05T09:00:00Z\",\n        \"end\": \"2022-08-05T23:59:59Z\"\n      },\n      \"id\": \"20ecb249-8331-491f-9049-565a2252df76\"\n    },\n    {\n      \"autoSaved\": false,\n      \"saveState\": \"error\",\n      \"errors\": [\n        {\n          \"message\": \"error-1\"\n        }\n      ],\n      \"start\": \"2022-08-18T19:00:00Z\",\n      \"operation\": \"optimize\",\n      \"optimizationType\": \"pvrp\",\n      \"status\": \"failed\",\n      \"scheduleId\": \"a15c285f-2c69-4a3c-9b9b-c9a8c5252db6\",\n      \"createdByUserId\": \"user-1\",\n      \"label\": \"label-1\",\n      \"completedAt\": \"2022-02-15T19:02:00Z\",\n      \"summary\": {\n        \"totalPlannedJobs\": 3,\n        \"totalScheduledJobs\": 3,\n        \"requestedJobs\": 2,\n        \"requestedJobsScheduled\": 2\n      },\n      \"window\": {\n        \"start\": \"2022-07-05T09:00:00Z\",\n        \"end\": \"2022-08-05T23:59:59Z\"\n      },\n      \"id\": \"20ecb249-8331-491f-9049-565a2252df76\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71a4d4de-7870-41fd-8ddd-4f8fbb433fc0",
+          "name": "Get a schedule run by id",
+          "request": {
+            "name": "Get a schedule run by id",
+            "description": {
+              "content": "Returns the details of a single schedule run identified by its run ID, including its current status, configuration, and timing information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule",
+                "run",
+                ":runId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "858b7e2d-a158-4721-9168-6fd773e5dfa7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    "run",
+                    ":runId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"autoSaved\": false,\n    \"savedByUserId\": \"user-1\",\n    \"savedByDate\": \"2022-02-15T19:03:00Z\",\n    \"saveState\": \"saved\",\n    \"start\": \"2022-08-18T19:00:00Z\",\n    \"operation\": \"optimize\",\n    \"optimizationType\": \"pvrp\",\n    \"status\": \"complete\",\n    \"scheduleId\": \"a15c285f-2c69-4a3c-9b9b-c9a8c5252db6\",\n    \"createdByUserId\": \"user-1\",\n    \"label\": \"label-1\",\n    \"completedAt\": \"2022-02-15T19:02:00Z\",\n    \"summary\": {\n      \"totalPlannedJobs\": 3,\n      \"totalScheduledJobs\": 3,\n      \"requestedJobs\": 2,\n      \"requestedJobsScheduled\": 2\n    },\n    \"window\": {\n      \"start\": \"2022-07-05T09:00:00Z\",\n      \"end\": \"2022-08-05T23:59:59Z\"\n    },\n    \"id\": \"20ecb249-8331-491f-9049-565a2252df76\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "555a93f7-804e-4021-b9f4-f425c9737b34",
+          "name": "Get the routes for a schedule run",
+          "request": {
+            "name": "Get the routes for a schedule run",
+            "description": {
+              "content": "Returns the planned travel routes for all resources in a completed schedule run, including the ordered sequence of locations visited, travel times and distances between stops, and per-day breakdowns.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule",
+                "run",
+                ":runId",
+                "routes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userResult",
+                  "value": "<boolean>",
+                  "description": "if `true`, response is wrapped into `result` field. Default `false`"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "091ecc6b-fdee-41e1-8d98-d01cbad40101",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    "run",
+                    ":runId",
+                    "routes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userResult",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"type\": \"pvrp\",\n    \"resources\": [\n      {\n        \"UID\": \"2e46e9f9-e8f2-49c9-9699-9ef013a5f692\",\n        \"GeoLatitude\": 51.509763,\n        \"GeoLongitude\": -0.118102,\n        \"HomeAddress\": \"London, Some Street 1\",\n        \"ResourceTags\": [],\n        \"Locations\": [\n          {\n            \"type\": \"home\",\n            \"arrivalTime\": \"2022-01-05T11:00:00Z\",\n            \"departureTime\": \"2022-01-05T11:30:00Z\",\n            \"travelTimeToNext\": 40,\n            \"distanceToNext\": 3000,\n            \"lat\": 51.509865,\n            \"lng\": -0.118092\n          }\n        ],\n        \"Days\": [],\n        \"TravelTime\": 10,\n        \"ScheduledTime\": 15,\n        \"TravelDistance\": 3000\n      }\n    ],\n    \"totalPlannedJobs\": 3,\n    \"totalScheduledJobs\": 3,\n    \"totalTravelTime\": 10,\n    \"totalScheduledTime\": 15,\n    \"totalTravelDistance\": 3000,\n    \"scheduleId\": \"f1f559bd-1e62-4743-aea9-48c76f045d1a\",\n    \"label\": \"Label1\",\n    \"runDate\": \"2022-01-05T10:00:00Z\",\n    \"start\": \"2022-01-05T10:00:00Z\",\n    \"end\": \"2022-01-05T23:00:00Z\",\n    \"windowStart\": \"2022-01-05T10:00:00Z\",\n    \"windowEnd\": \"2022-01-05T23:00:00Z\",\n    \"timeZone\": \"UTC\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8bec794d-689a-44dc-abad-3c84f533f7fc",
+              "name": "Invalid value for: query parameter userResult",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    "run",
+                    ":runId",
+                    "routes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userResult",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc7396f6-e950-4d2a-ae68-b00bc3b32737",
+          "name": "Get results of a schedule run",
+          "request": {
+            "name": "Get results of a schedule run",
+            "description": {
+              "content": "Returns the optimization results for a completed schedule run, including which jobs were scheduled (with their assigned resources and start times), which jobs could not be scheduled and the reasons why, any excluded jobs, and aggregate totals for the run.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule",
+                "run",
+                ":runId",
+                "results"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "e0398793-c0cf-4378-9657-6ea1642d9f6b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    "run",
+                    ":runId",
+                    "results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"optimizationType\": \"pvrp\",\n    \"scheduled\": {\n      \"job-1\": {\n        \"resourceRequirements\": {\n          \"rr-1\": {\n            \"resourceIds\": [\n              \"res-1\",\n              \"res-2\"\n            ],\n            \"requiredAllocationCount\": 3\n          },\n          \"rr-2\": {\n            \"resourceIds\": [\n              \"res-3\",\n              \"res-4\"\n            ],\n            \"requiredAllocationCount\": 2\n          }\n        },\n        \"start\": \"2022-01-26T23:00:00Z\",\n        \"resourceIds\": [\n          \"res-1\",\n          \"res-2\"\n        ],\n        \"excluded\": false,\n        \"requiredAllocationCount\": 2,\n        \"reasons\": []\n      }\n    },\n    \"unscheduled\": {\n      \"job-1\": {\n        \"missingAllocationCount\": 2,\n        \"reasons\": [\n          {\n            \"exclusionReason\": \"notInRequestedJobs\",\n            \"type\": \"job_excluded\"\n          },\n          {\n            \"resourceId\": \"res-3\",\n            \"type\": \"resource_exhausted_availability\"\n          }\n        ]\n      }\n    },\n    \"excluded\": {\n      \"job-1\": [\n        \"notInRequestedJobs\"\n      ]\n    },\n    \"activities\": {\n      \"act-1\": [\n        \"res-1\"\n      ]\n    },\n    \"totals\": {\n      \"scoped\": {\n        \"planned\": 2,\n        \"scheduled\": 3\n      },\n      \"requested\": {\n        \"planned\": 3,\n        \"scheduled\": 3\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7bc28206-610f-465a-b9c7-6c52cb51220f",
+          "name": "Get parameters for a schedule run",
+          "request": {
+            "name": "Get parameters for a schedule run",
+            "description": {
+              "content": "Returns the input parameters used to configure a schedule run, including the set of jobs and resources, the schedule window, timezone, and any recipe or scheduling goal overrides.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule",
+                "run",
+                ":runId",
+                "params"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "ed19246a-c3ea-432a-8011-c856cd62599e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    "run",
+                    ":runId",
+                    "params"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"resourceIds\": [\n      \"f67950ad-5dce-478d-bb22-565e0b072f65\",\n      \"06988f48-aeb3-422a-bb0c-1d925dd2f47e\"\n    ],\n    \"jobIds\": [\n      \"e223ee46-ff38-4bcf-b93d-9dff6aa35f67\",\n      \"6dba1ab7-0dfa-4ce3-a510-bcdbabd806e9\"\n    ],\n    \"regionId\": \"015d3e00-7564-4f18-8226-da1d2b136612\",\n    \"scheduleBounds\": {\n      \"from\": \"2022-07-05T09:00:00Z\",\n      \"to\": \"2022-08-06T00:00:00Z\"\n    },\n    \"scheduleWindow\": {\n      \"from\": \"2022-07-05T09:00:00Z\",\n      \"to\": \"2022-08-06T00:00:00Z\"\n    },\n    \"timezone\": \"UTC\",\n    \"options\": {\n      \"respectSchedule\": false,\n      \"recipeId\": \"62cb6c6c-c210-4aa5-92a6-9dccfc327b59\",\n      \"full\": false,\n      \"ignoreTravelTime\": false,\n      \"ignoreTravelTimeFirstJob\": false,\n      \"ignoreTravelTimeLastJob\": false,\n      \"minimizeResources\": false,\n      \"respectAllocationTimes\": false,\n      \"respectAllocationTimesOverTimeConstraints\": false,\n      \"balanceAbsoluteWorkload\": false,\n      \"objectiveWeights\": {\n        \"balanceAbsoluteWorkload\": 10\n      },\n      \"enablePartiallyAllocatedGroups\": true,\n      \"enablePartiallyAllocatedAllocationDependencies\": true,\n      \"removeLockedJobsFromShifts\": true\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55f679de-fd82-4cdc-9800-1091187cc2cc",
+          "name": "Get the save status of a schedule run",
+          "request": {
+            "name": "Get the save status of a schedule run",
+            "description": {
+              "content": "Returns the current save status of a completed schedule run.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule",
+                "run",
+                ":runId",
+                "save"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "8c0bf3b4-c7d2-4521-a7d6-8b968f821494",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    "run",
+                    ":runId",
+                    "save"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"state\": \"saved\",\n    \"change\": {\n      \"deleteAllocationsIds\": [\n        \"alloc-1\",\n        \"alloc-2\"\n      ],\n      \"insertAllocations\": [\n        {\n          \"resourceId\": \"res-1\",\n          \"jobId\": \"job-1\",\n          \"resourceRequirementId\": \"rr-1\"\n        },\n        {\n          \"resourceId\": \"res-2\",\n          \"jobId\": \"job-2\"\n        }\n      ],\n      \"updateJobs\": [\n        {\n          \"jobId\": \"uid-1\",\n          \"start\": \"2022-01-26T23:00:00Z\",\n          \"end\": \"2022-01-26T23:01:00Z\"\n        }\n      ]\n    },\n    \"runId\": \"3be4d28e-7c65-4581-89b0-80264a3e93e8\",\n    \"meta\": {\n      \"userId\": \"uid-1\",\n      \"date\": \"2024-01-26T23:00:00Z\"\n    },\n    \"autoApplied\": true,\n    \"autoSaved\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2eb50397-c285-4dc3-a155-6ebfe50f7c73",
+          "name": "Save a completed schedule run",
+          "request": {
+            "name": "Save a completed schedule run",
+            "description": {
+              "content": "Persist the results of a completed optimization run, applying the scheduled allocations to the system. Once saved the run results are committed and cannot be rolled back through this API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule",
+                "run",
+                ":runId",
+                "save"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST"
+          },
+          "response": [
+            {
+              "id": "c2829c3d-4e8f-469d-a656-d02383aebffc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    "run",
+                    ":runId",
+                    "save"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"state\": \"saved\",\n    \"change\": {\n      \"deleteAllocationsIds\": [\n        \"alloc-1\",\n        \"alloc-2\"\n      ],\n      \"insertAllocations\": [\n        {\n          \"resourceId\": \"res-1\",\n          \"jobId\": \"job-1\",\n          \"resourceRequirementId\": \"rr-1\"\n        },\n        {\n          \"resourceId\": \"res-2\",\n          \"jobId\": \"job-2\"\n        }\n      ],\n      \"updateJobs\": [\n        {\n          \"jobId\": \"uid-1\",\n          \"start\": \"2022-01-26T23:00:00Z\",\n          \"end\": \"2022-01-26T23:01:00Z\"\n        }\n      ]\n    },\n    \"runId\": \"3be4d28e-7c65-4581-89b0-80264a3e93e8\",\n    \"meta\": {\n      \"userId\": \"uid-1\",\n      \"date\": \"2024-01-26T23:00:00Z\"\n    },\n    \"autoApplied\": true,\n    \"autoSaved\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d7bbb5b4-762d-4c5f-9b7b-4c4acbf0abbe",
+          "name": "Reject a schedule run save",
+          "request": {
+            "name": "Reject a schedule run save",
+            "description": {
+              "content": "Reject the pending save for a completed optimization run, discarding the scheduled allocations without applying them to the system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule",
+                "run",
+                ":runId",
+                "save",
+                "reject"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST"
+          },
+          "response": [
+            {
+              "id": "73bc6426-ce10-456d-aafe-27d486b046a1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    "run",
+                    ":runId",
+                    "save",
+                    "reject"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"state\": \"saved\",\n    \"change\": {\n      \"deleteAllocationsIds\": [\n        \"alloc-1\",\n        \"alloc-2\"\n      ],\n      \"insertAllocations\": [\n        {\n          \"resourceId\": \"res-1\",\n          \"jobId\": \"job-1\",\n          \"resourceRequirementId\": \"rr-1\"\n        },\n        {\n          \"resourceId\": \"res-2\",\n          \"jobId\": \"job-2\"\n        }\n      ],\n      \"updateJobs\": [\n        {\n          \"jobId\": \"uid-1\",\n          \"start\": \"2022-01-26T23:00:00Z\",\n          \"end\": \"2022-01-26T23:01:00Z\"\n        }\n      ]\n    },\n    \"runId\": \"3be4d28e-7c65-4581-89b0-80264a3e93e8\",\n    \"meta\": {\n      \"userId\": \"uid-1\",\n      \"date\": \"2024-01-26T23:00:00Z\"\n    },\n    \"autoApplied\": true,\n    \"autoSaved\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1f14f1d-b68b-4bc1-b1ff-61eea7d7171a",
+          "name": "Defer auto-save for a run",
+          "request": {
+            "name": "Defer auto-save for a run",
+            "description": {
+              "content": "Sets the run's persistence strategy to `Optimize`, preventing auto-save from occurring. Only valid for in-progress runs with no existing save record.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule",
+                "run",
+                ":runId",
+                "save",
+                "defer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "POST"
+          },
+          "response": [
+            {
+              "id": "e7b80c6b-fd06-4751-9796-c78d2d1964b3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    "run",
+                    ":runId",
+                    "save",
+                    "defer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "62e2fc7e-ac46-4b42-b264-3a4d7386b1d5",
+          "name": "Get the save mutations for a schedule run",
+          "request": {
+            "name": "Get the save mutations for a schedule run",
+            "description": {
+              "content": "Returns the set of data mutations that would be applied when saving a completed schedule run.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule",
+                "run",
+                ":runId",
+                "save",
+                "mutations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "5801694e-b4ad-4cb9-8808-31b52e655442",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    "run",
+                    ":runId",
+                    "save",
+                    "mutations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"deleteAllocationsIds\": [\n      \"alloc-1\",\n      \"alloc-2\"\n    ],\n    \"insertAllocations\": [\n      {\n        \"resourceId\": \"res-1\",\n        \"jobId\": \"job-1\",\n        \"resourceRequirementId\": \"rr-1\"\n      },\n      {\n        \"resourceId\": \"res-2\",\n        \"jobId\": \"job-2\"\n      }\n    ],\n    \"updateJobs\": [\n      {\n        \"jobId\": \"uid-1\",\n        \"start\": \"2022-01-26T23:00:00Z\",\n        \"end\": \"2022-01-26T23:01:00Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b7e44e8-fccd-44b1-8b94-c5c2066868fb",
+          "name": "Get the full schedule plan",
+          "request": {
+            "name": "Get the full schedule plan",
+            "description": {
+              "content": "This endpoint will return all the data necessary to run optimization. This includes any extra jobs or resources that need to be considered to avoid schedule clashes for the requested resources. The optimization run will not be started until the body of this request is POSTed to the /solve/planned endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule",
+                "plan"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jobIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"resourceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scheduleWindow\": {\n    \"start\": \"<dateTime>\",\n    \"end\": \"<dateTime>\"\n  },\n  \"timezone\": \"<string>\",\n  \"regionId\": \"<string>\",\n  \"schedulingOptions\": {\n    \"full\": \"<boolean>\",\n    \"ignoreTravelTime\": \"<boolean>\",\n    \"ignoreTravelTimeFirstJob\": \"<boolean>\",\n    \"ignoreTravelTimeLastJob\": \"<boolean>\",\n    \"minimizeResources\": \"<boolean>\",\n    \"maxDailyTravelTimeInMinutes\": \"<long>\",\n    \"maxTravelTimeBetweenLocations\": \"<long>\",\n    \"respectAllocationTimes\": \"<boolean>\",\n    \"respectAllocationTimesOverTimeConstraints\": \"<boolean>\",\n    \"balanceAbsoluteWorkload\": \"<boolean>\",\n    \"snapUnit\": \"<integer>\",\n    \"padding\": \"<integer>\",\n    \"objectiveWeights\": {\n      \"minimizeDisruption\": \"<integer>\",\n      \"balanceAbsoluteWorkload\": \"<integer>\",\n      \"travelTime\": \"<integer>\",\n      \"minimizeResources\": \"<integer>\",\n      \"softSkills\": \"<integer>\",\n      \"jobsPriority\": \"<integer>\",\n      \"resourceRating\": \"<integer>\",\n      \"scheduleImmediacy\": \"<integer>\",\n      \"urgency\": \"<integer>\",\n      \"overtime\": \"<integer>\"\n    },\n    \"objectiveWeightModifiers\": {\n      \"minimizeDisruption\": \"<number>\",\n      \"balanceAbsoluteWorkload\": \"<number>\",\n      \"travelTime\": \"<number>\",\n      \"minimizeResources\": \"<number>\",\n      \"softSkills\": \"<number>\",\n      \"jobsPriority\": \"<number>\",\n      \"resourceRating\": \"<number>\",\n      \"scheduleImmediacy\": \"<number>\",\n      \"urgency\": \"<number>\",\n      \"overtime\": \"<number>\"\n    },\n    \"temporalAffinityStrength\": \"<integer>\",\n    \"respectSchedule\": \"<boolean>\",\n    \"recipeId\": \"<string>\",\n    \"enablePartiallyAllocatedGroups\": \"<boolean>\",\n    \"enablePartiallyAllocatedAllocationDependencies\": \"<boolean>\",\n    \"enforceCompatibility\": \"<boolean>\",\n    \"onJobRemoval\": [\n      \"<string>\"\n    ],\n    \"rollingScheduleWindowInterval\": {}\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2e2e2c15-097d-4146-bf41-efe4d1ee678b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    "plan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"regionId\": \"region-1\",\n  \"resourceIds\": [\n    \"6fecdd33-378a-40dc-9348-e3e8265b5d06\",\n    \"a4c55101-c50d-4515-b999-244f26acc5d8\"\n  ],\n  \"jobIds\": [\n    \"dfde31dd-1dc8-4c8c-87fa-c7fff6e8c81b\",\n    \"ca950065-f414-4440-bc91-77c74798ef27\"\n  ],\n  \"scheduleWindow\": {\n    \"start\": \"2022-09-01T00:00:01Z\",\n    \"end\": \"2022-09-03T23:59:59Z\"\n  },\n  \"timezone\": \"UTC\",\n  \"schedulingOptions\": {\n    \"full\": false,\n    \"ignoreTravelTime\": false,\n    \"ignoreTravelTimeFirstJob\": false,\n    \"ignoreTravelTimeLastJob\": false,\n    \"minimizeResources\": false,\n    \"respectAllocationTimes\": false,\n    \"respectAllocationTimesOverTimeConstraints\": false,\n    \"balanceAbsoluteWorkload\": false,\n    \"enablePartiallyAllocatedGroups\": true,\n    \"enablePartiallyAllocatedAllocationDependencies\": true,\n    \"removeLockedJobsFromShifts\": true,\n    \"respectSchedule\": false,\n    \"transformers\": [],\n    \"ignoreResourceOverrideLocations\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"productData\": {\n      \"jobs\": [\n        {\n          \"UID\": \"job-1\",\n          \"Start\": \"2022-01-26T09:00:00Z\",\n          \"Duration\": 60,\n          \"JobStatus\": \"Ready\",\n          \"LocationId\": \"loc-1\",\n          \"GeoLatitude\": 53.4834,\n          \"GeoLongitude\": -2.2425,\n          \"Quantity\": 1,\n          \"JobAllocations\": [],\n          \"JobTags\": [],\n          \"ResourceRequirements\": [],\n          \"JobTimeConstraints\": [],\n          \"JobDependenciesFrom\": [],\n          \"JobDependenciesTo\": [],\n          \"Locked\": false,\n          \"RegionId\": \"region-1\",\n          \"Urgency\": \"Normal\"\n        }\n      ],\n      \"activities\": [\n        {\n          \"UID\": \"activity-1\",\n          \"Start\": \"2022-01-26T09:00:00Z\",\n          \"End\": \"2022-01-26T10:00:00Z\",\n          \"LocationId\": \"loc-1\",\n          \"GeoLatitude\": 53.4834,\n          \"GeoLongitude\": -2.2425,\n          \"ResourceId\": \"resource1\",\n          \"ActivityResources\": []\n        }\n      ],\n      \"resources\": [\n        {\n          \"UID\": \"resource1\",\n          \"GeoLatitude\": 1,\n          \"GeoLongitude\": 1,\n          \"ResourceTags\": [],\n          \"HomeAddress\": \"test home address\",\n          \"WorkingHoursTimePeriod\": \"Week\",\n          \"WorkingHoursStart\": \"2022-01-26\",\n          \"WorkingHoursMin\": 20,\n          \"WorkingHoursMax\": 40,\n          \"ResourceOverrides\": [],\n          \"PrimaryRegion\": {\n            \"Timezone\": \"UTC\"\n          }\n        }\n      ],\n      \"locationResourceScores\": [\n        {\n          \"LocationId\": \"loc-1\",\n          \"ResourceId\": \"resource1\",\n          \"Blacklisted\": false\n        }\n      ],\n      \"accountResourceScores\": [\n        {\n          \"AccountId\": \"account-1\",\n          \"ResourceId\": \"resource1\",\n          \"Blacklisted\": false\n        }\n      ],\n      \"availability\": {\n        \"2bd0af54-377e-4960-8d4b-ba5272070830\": {\n          \"available\": [\n            {\n              \"start\": \"2022-01-26T23:00:00Z\",\n              \"end\": \"2022-01-29T23:00:00Z\"\n            }\n          ],\n          \"regions\": [\n            {\n              \"start\": \"2022-01-26T23:00:00Z\",\n              \"end\": \"2022-01-29T23:00:00Z\",\n              \"regionIds\": [\n                \"region-1\"\n              ]\n            }\n          ]\n        }\n      },\n      \"start\": \"2022-01-26T09:00:00Z\",\n      \"end\": \"2022-01-30T23:00:00Z\",\n      \"timeZone\": \"UTC\",\n      \"region\": {\n        \"UID\": \"region-1\",\n        \"Timezone\": \"UTC\",\n        \"GeoLatitude\": 53.4834,\n        \"GeoLongitude\": -2.2425\n      }\n    },\n    \"featureModel\": {\n      \"allocations\": [\n        {\n          \"id\": \"alloc-1\",\n          \"groupId\": \"alloc-group-1\",\n          \"groupIds\": [\n            \"alloc-group-1\"\n          ],\n          \"start\": \"2022-01-26T09:00:00Z\",\n          \"duration\": 30,\n          \"resourceId\": \"res-1\",\n          \"locationId\": \"loc-1\",\n          \"priority\": 10,\n          \"locked\": true,\n          \"attributeRequirements\": [\n            {\n              \"id\": \"attr-1\"\n            },\n            {\n              \"id\": \"attr-2\",\n              \"weighting\": 10\n            }\n          ],\n          \"resourceConstraints\": {\n            \"type\": \"blocked\",\n            \"resources\": [\n              \"res-2\"\n            ]\n          },\n          \"scheduleConstraints\": [\n            {\n              \"windowStart\": \"2022-01-26T10:00:00Z\",\n              \"windowEnd\": \"2022-01-26T11:00:00Z\"\n            }\n          ],\n          \"resourceRatings\": [\n            {\n              \"resourceId\": \"res-1\",\n              \"rating\": 75\n            }\n          ],\n          \"urgency\": 20\n        }\n      ],\n      \"groups\": [\n        {\n          \"id\": \"gr-1\",\n          \"synchronizationMode\": \"start_time\",\n          \"locked\": true,\n          \"enablePartialAllocation\": false\n        }\n      ],\n      \"resources\": [\n        {\n          \"id\": \"res-1\",\n          \"attributes\": [\n            {\n              \"id\": \"attr-1\"\n            }\n          ],\n          \"locationId\": \"loc-1\",\n          \"availability\": [\n            {\n              \"from\": \"2022-01-26T09:00:00Z\",\n              \"to\": \"2022-01-30T23:00:00Z\",\n              \"attributes\": []\n            }\n          ],\n          \"maxDailyTravelTimeInMinutes\": 180,\n          \"maxTravelTimeBetweenLocations\": 60,\n          \"periodConstraints\": [\n            {\n              \"start\": \"2022-01-26T09:00:00Z\",\n              \"end\": \"2022-01-30T23:00:00Z\",\n              \"maxServiceTimeInMinutes\": 100,\n              \"minServiceTimeInMinutes\": 50,\n              \"groupConstraints\": [\n                {\n                  \"groupId\": \"group-1\",\n                  \"maxAllocations\": 5\n                }\n              ]\n            }\n          ],\n          \"breaks\": [\n            {\n              \"breakTimeInMinutes\": 30,\n              \"minStartTime\": \"2022-01-26T12:00:00Z\",\n              \"maxStartTime\": \"2022-01-26T13:00:00Z\"\n            },\n            {\n              \"startTime\": \"2022-01-26T15:00:00Z\",\n              \"endTime\": \"2022-01-26T15:30:00Z\",\n              \"locationId\": \"loc-1\"\n            }\n          ],\n          \"rating\": 80,\n          \"compatibleResources\": [\n            \"res-2\"\n          ]\n        }\n      ],\n      \"allocationDependencies\": [],\n      \"resourceDependencies\": [],\n      \"locations\": [\n        {\n          \"id\": \"loc-1\",\n          \"latitude\": 51.5072,\n          \"longitude\": 0.1276\n        }\n      ],\n      \"schedulingPeriod\": {\n        \"start\": \"2022-01-26T09:00:00Z\",\n        \"end\": \"2022-01-30T23:00:00Z\"\n      },\n      \"timezone\": \"UTC\",\n      \"meta\": {\n        \"key\": \"value\"\n      },\n      \"options\": {\n        \"full\": false,\n        \"ignoreTravelTime\": false,\n        \"ignoreTravelTimeFirstJob\": false,\n        \"ignoreTravelTimeLastJob\": false,\n        \"minimizeResources\": false,\n        \"respectAllocationTimes\": false,\n        \"respectAllocationTimesOverTimeConstraints\": false,\n        \"balanceAbsoluteWorkload\": false,\n        \"enablePartiallyAllocatedGroups\": true,\n        \"enablePartiallyAllocatedAllocationDependencies\": true,\n        \"removeLockedJobsFromShifts\": true\n      },\n      \"sharedGroupConstraints\": [\n        {\n          \"groupId\": \"group-1\",\n          \"resourceIds\": [\n            \"res-1\",\n            \"res-2\"\n          ],\n          \"maxAllocations\": 10,\n          \"start\": \"2022-01-26T09:00:00Z\",\n          \"end\": \"2022-01-30T23:00:00Z\"\n        }\n      ],\n      \"solver\": \"pvrp\"\n    },\n    \"options\": {\n      \"respectSchedule\": false,\n      \"recipeId\": \"9dc75e35-f1cd-4303-97f3-3f7a6047d698\"\n    },\n    \"ids\": {\n      \"resourceIds\": [\n        \"res-1\"\n      ],\n      \"jobIds\": [\n        \"job-1\"\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea2d3440-c80a-4595-b395-62f2409e808c",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    "plan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"regionId\": \"region-1\",\n  \"resourceIds\": [\n    \"6fecdd33-378a-40dc-9348-e3e8265b5d06\",\n    \"a4c55101-c50d-4515-b999-244f26acc5d8\"\n  ],\n  \"jobIds\": [\n    \"dfde31dd-1dc8-4c8c-87fa-c7fff6e8c81b\",\n    \"ca950065-f414-4440-bc91-77c74798ef27\"\n  ],\n  \"scheduleWindow\": {\n    \"start\": \"2022-09-01T00:00:01Z\",\n    \"end\": \"2022-09-03T23:59:59Z\"\n  },\n  \"timezone\": \"UTC\",\n  \"schedulingOptions\": {\n    \"full\": false,\n    \"ignoreTravelTime\": false,\n    \"ignoreTravelTimeFirstJob\": false,\n    \"ignoreTravelTimeLastJob\": false,\n    \"minimizeResources\": false,\n    \"respectAllocationTimes\": false,\n    \"respectAllocationTimesOverTimeConstraints\": false,\n    \"balanceAbsoluteWorkload\": false,\n    \"enablePartiallyAllocatedGroups\": true,\n    \"enablePartiallyAllocatedAllocationDependencies\": true,\n    \"removeLockedJobsFromShifts\": true,\n    \"respectSchedule\": false,\n    \"transformers\": [],\n    \"ignoreResourceOverrideLocations\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f0276da5-84df-4b56-b62c-d8c2b2be9a54",
+          "name": "Full scope of optimization",
+          "request": {
+            "name": "Full scope of optimization",
+            "description": {
+              "content": "The full scope required to optimize a set of jobs. This includes any extra jobs or resources that need to be considered to avoid schedule clashes for the requested resources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule",
+                "scope"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "includeIds",
+                  "value": "true",
+                  "description": "Include ids in the response"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jobs\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scheduleBounds\": {\n    \"start\": \"<date>\",\n    \"end\": \"<date>\"\n  },\n  \"recipeId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "78ebcf29-a832-458e-9e45-5d594dab2f7d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    "scope"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includeIds",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobs\": [\n    \"job-id\"\n  ],\n  \"scheduleBounds\": {\n    \"start\": \"2022-01-03\",\n    \"end\": \"2022-01-24\"\n  },\n  \"recipeId\": \"affd949e-da1e-4f92-b7e6-fc748fb08e65\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"type\": \"pvrp\",\n    \"schedulingRegions\": [\n      {\n        \"regionId\": \"region-id\",\n        \"timezone\": \"UTC\"\n      }\n    ],\n    \"schedulingRegion\": {\n      \"regionId\": \"region-id\",\n      \"timezone\": \"UTC\"\n    },\n    \"regions\": 1,\n    \"jobs\": {\n      \"scoped\": 1,\n      \"requested\": 1,\n      \"partiallyAllocated\": 1,\n      \"timeConstrained\": 1,\n      \"timeConstrainedOutsideScheduleWindow\": 0,\n      \"locked\": 0,\n      \"excludedInSchedule\": 0,\n      \"unscheduledExcluded\": 0\n    },\n    \"resources\": {\n      \"resource-id\": {\n        \"activities\": 0,\n        \"existingAllocations\": 0\n      }\n    },\n    \"scheduleBounds\": {\n      \"start\": \"2022-09-01T00:00:01Z\",\n      \"end\": \"2022-09-03T23:59:59Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2063938d-7bc4-4e78-b712-32097486a3bf",
+              "name": "Invalid value for: query parameter includeIds, Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    "scope"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includeIds",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobs\": [\n    \"job-id\"\n  ],\n  \"scheduleBounds\": {\n    \"start\": \"2022-01-03\",\n    \"end\": \"2022-01-24\"\n  },\n  \"recipeId\": \"affd949e-da1e-4f92-b7e6-fc748fb08e65\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8675537e-b39c-4ed0-a5b8-162632a5a03b",
+          "name": "Get the latest transformer state for a schedule run",
+          "request": {
+            "name": "Get the latest transformer state for a schedule run",
+            "description": {
+              "content": "Returns the most recent transformer state recorded for a given schedule run, including the log entry identifier and the transformer data payload.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule",
+                "run",
+                ":runId",
+                "transformer",
+                "state",
+                "latest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "14128571-e979-46fc-8145-7b84e69dc62b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    "run",
+                    ":runId",
+                    "transformer",
+                    "state",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"transformerLogId\": \"2fade4b8-531b-4847-9e37-1e65eb15363e\",\n    \"productData\": {\n      \"jobs\": [\n        {\n          \"UID\": \"job-1\",\n          \"Start\": \"2022-01-26T09:00:00Z\",\n          \"Duration\": 60,\n          \"JobStatus\": \"Ready\",\n          \"LocationId\": \"loc-1\",\n          \"GeoLatitude\": 53.4834,\n          \"GeoLongitude\": -2.2425,\n          \"Quantity\": 1,\n          \"JobAllocations\": [],\n          \"JobTags\": [],\n          \"ResourceRequirements\": [],\n          \"JobTimeConstraints\": [],\n          \"JobDependenciesFrom\": [],\n          \"JobDependenciesTo\": [],\n          \"Locked\": false,\n          \"RegionId\": \"region-1\",\n          \"Urgency\": \"Normal\"\n        }\n      ],\n      \"activities\": [\n        {\n          \"UID\": \"activity-1\",\n          \"Start\": \"2022-01-26T09:00:00Z\",\n          \"End\": \"2022-01-26T10:00:00Z\",\n          \"LocationId\": \"loc-1\",\n          \"GeoLatitude\": 53.4834,\n          \"GeoLongitude\": -2.2425,\n          \"ResourceId\": \"resource1\",\n          \"ActivityResources\": []\n        }\n      ],\n      \"resources\": [\n        {\n          \"UID\": \"resource1\",\n          \"GeoLatitude\": 1,\n          \"GeoLongitude\": 1,\n          \"ResourceTags\": [],\n          \"HomeAddress\": \"test home address\",\n          \"WorkingHoursTimePeriod\": \"Week\",\n          \"WorkingHoursStart\": \"2022-01-26\",\n          \"WorkingHoursMin\": 20,\n          \"WorkingHoursMax\": 40,\n          \"ResourceOverrides\": [],\n          \"PrimaryRegion\": {\n            \"Timezone\": \"UTC\"\n          }\n        }\n      ],\n      \"locationResourceScores\": [\n        {\n          \"LocationId\": \"loc-1\",\n          \"ResourceId\": \"resource1\",\n          \"Blacklisted\": false\n        }\n      ],\n      \"accountResourceScores\": [\n        {\n          \"AccountId\": \"account-1\",\n          \"ResourceId\": \"resource1\",\n          \"Blacklisted\": false\n        }\n      ],\n      \"availability\": {\n        \"2bd0af54-377e-4960-8d4b-ba5272070830\": {\n          \"available\": [\n            {\n              \"start\": \"2022-01-26T23:00:00Z\",\n              \"end\": \"2022-01-29T23:00:00Z\"\n            }\n          ],\n          \"regions\": [\n            {\n              \"start\": \"2022-01-26T23:00:00Z\",\n              \"end\": \"2022-01-29T23:00:00Z\",\n              \"regionIds\": [\n                \"region-1\"\n              ]\n            }\n          ]\n        }\n      },\n      \"start\": \"2022-01-26T09:00:00Z\",\n      \"end\": \"2022-01-30T23:00:00Z\",\n      \"timeZone\": \"UTC\",\n      \"region\": {\n        \"UID\": \"region-1\",\n        \"Timezone\": \"UTC\",\n        \"GeoLatitude\": 53.4834,\n        \"GeoLongitude\": -2.2425\n      }\n    },\n    \"featureModel\": {\n      \"allocations\": [\n        {\n          \"id\": \"alloc-1\",\n          \"groupId\": \"alloc-group-1\",\n          \"groupIds\": [\n            \"alloc-group-1\"\n          ],\n          \"start\": \"2022-01-26T09:00:00Z\",\n          \"duration\": 30,\n          \"resourceId\": \"res-1\",\n          \"locationId\": \"loc-1\",\n          \"priority\": 10,\n          \"locked\": true,\n          \"attributeRequirements\": [\n            {\n              \"id\": \"attr-1\"\n            },\n            {\n              \"id\": \"attr-2\",\n              \"weighting\": 10\n            }\n          ],\n          \"resourceConstraints\": {\n            \"type\": \"blocked\",\n            \"resources\": [\n              \"res-2\"\n            ]\n          },\n          \"scheduleConstraints\": [\n            {\n              \"windowStart\": \"2022-01-26T10:00:00Z\",\n              \"windowEnd\": \"2022-01-26T11:00:00Z\"\n            }\n          ],\n          \"resourceRatings\": [\n            {\n              \"resourceId\": \"res-1\",\n              \"rating\": 75\n            }\n          ],\n          \"urgency\": 20\n        }\n      ],\n      \"groups\": [\n        {\n          \"id\": \"gr-1\",\n          \"synchronizationMode\": \"start_time\",\n          \"locked\": true,\n          \"enablePartialAllocation\": false\n        }\n      ],\n      \"resources\": [\n        {\n          \"id\": \"res-1\",\n          \"attributes\": [\n            {\n              \"id\": \"attr-1\"\n            }\n          ],\n          \"locationId\": \"loc-1\",\n          \"availability\": [\n            {\n              \"from\": \"2022-01-26T09:00:00Z\",\n              \"to\": \"2022-01-30T23:00:00Z\",\n              \"attributes\": []\n            }\n          ],\n          \"maxDailyTravelTimeInMinutes\": 180,\n          \"maxTravelTimeBetweenLocations\": 60,\n          \"periodConstraints\": [\n            {\n              \"start\": \"2022-01-26T09:00:00Z\",\n              \"end\": \"2022-01-30T23:00:00Z\",\n              \"maxServiceTimeInMinutes\": 100,\n              \"minServiceTimeInMinutes\": 50,\n              \"groupConstraints\": [\n                {\n                  \"groupId\": \"group-1\",\n                  \"maxAllocations\": 5\n                }\n              ]\n            }\n          ],\n          \"breaks\": [\n            {\n              \"breakTimeInMinutes\": 30,\n              \"minStartTime\": \"2022-01-26T12:00:00Z\",\n              \"maxStartTime\": \"2022-01-26T13:00:00Z\"\n            },\n            {\n              \"startTime\": \"2022-01-26T15:00:00Z\",\n              \"endTime\": \"2022-01-26T15:30:00Z\",\n              \"locationId\": \"loc-1\"\n            }\n          ],\n          \"rating\": 80,\n          \"compatibleResources\": [\n            \"res-2\"\n          ]\n        }\n      ],\n      \"allocationDependencies\": [],\n      \"resourceDependencies\": [],\n      \"locations\": [\n        {\n          \"id\": \"loc-1\",\n          \"latitude\": 51.5072,\n          \"longitude\": 0.1276\n        }\n      ],\n      \"schedulingPeriod\": {\n        \"start\": \"2022-01-26T09:00:00Z\",\n        \"end\": \"2022-01-30T23:00:00Z\"\n      },\n      \"timezone\": \"UTC\",\n      \"meta\": {\n        \"key\": \"value\"\n      },\n      \"options\": {\n        \"full\": false,\n        \"ignoreTravelTime\": false,\n        \"ignoreTravelTimeFirstJob\": false,\n        \"ignoreTravelTimeLastJob\": false,\n        \"minimizeResources\": false,\n        \"respectAllocationTimes\": false,\n        \"respectAllocationTimesOverTimeConstraints\": false,\n        \"balanceAbsoluteWorkload\": false,\n        \"enablePartiallyAllocatedGroups\": true,\n        \"enablePartiallyAllocatedAllocationDependencies\": true,\n        \"removeLockedJobsFromShifts\": true\n      },\n      \"sharedGroupConstraints\": [\n        {\n          \"groupId\": \"group-1\",\n          \"resourceIds\": [\n            \"res-1\",\n            \"res-2\"\n          ],\n          \"maxAllocations\": 10,\n          \"start\": \"2022-01-26T09:00:00Z\",\n          \"end\": \"2022-01-30T23:00:00Z\"\n        }\n      ],\n      \"solver\": \"pvrp\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c6617e8-0a3c-4cff-b5fb-a5ba1adc3bb4",
+          "name": "Update the state of a transformer for a schedule run",
+          "request": {
+            "name": "Update the state of a transformer for a schedule run",
+            "description": {
+              "content": "Update the persistent state associated with a specific transformer for a given schedule run. Transformers use this state to carry information between successive optimization runs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule",
+                "run",
+                ":runId",
+                "transformer",
+                "state",
+                ":transformerId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transformerId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productData\": {\n    \"jobs\": [\n      {\n        \"UID\": \"<string>\",\n        \"Duration\": \"<integer>\",\n        \"JobStatus\": \"<string>\",\n        \"JobAllocations\": [\n          {\n            \"UID\": \"<string>\",\n            \"ResourceId\": \"<string>\",\n            \"Status\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ResourceRequirementId\": \"<string>\"\n          },\n          {\n            \"UID\": \"<string>\",\n            \"ResourceId\": \"<string>\",\n            \"Status\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ResourceRequirementId\": \"<string>\"\n          }\n        ],\n        \"JobTags\": [\n          {\n            \"Required\": \"<boolean>\",\n            \"Tag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"Weighting\": \"<integer>\"\n          },\n          {\n            \"Required\": \"<boolean>\",\n            \"Tag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"Weighting\": \"<integer>\"\n          }\n        ],\n        \"ResourceRequirements\": [\n          {\n            \"UID\": \"<string>\",\n            \"Quantity\": \"<integer>\",\n            \"Tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"UID\": \"<string>\",\n            \"Quantity\": \"<integer>\",\n            \"Tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"JobTimeConstraints\": [\n          {\n            \"Required\": \"<boolean>\",\n            \"StartAfter\": \"<dateTime>\",\n            \"StartBefore\": \"<dateTime>\",\n            \"EndBefore\": \"<dateTime>\"\n          },\n          {\n            \"Required\": \"<boolean>\",\n            \"StartAfter\": \"<dateTime>\",\n            \"StartBefore\": \"<dateTime>\",\n            \"EndBefore\": \"<dateTime>\"\n          }\n        ],\n        \"JobDependenciesFrom\": [\n          {\n            \"ToJobId\": \"<string>\",\n            \"FromAnchor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ToAnchor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ToAnchorMinOffsetMinutes\": \"<integer>\",\n            \"ToAnchorMaxOffsetMinutes\": \"<integer>\"\n          },\n          {\n            \"ToJobId\": \"<string>\",\n            \"FromAnchor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ToAnchor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ToAnchorMinOffsetMinutes\": \"<integer>\",\n            \"ToAnchorMaxOffsetMinutes\": \"<integer>\"\n          }\n        ],\n        \"JobDependenciesTo\": [\n          {\n            \"FromJobId\": \"<string>\"\n          },\n          {\n            \"FromJobId\": \"<string>\"\n          }\n        ],\n        \"Locked\": \"<boolean>\",\n        \"RegionId\": \"<string>\",\n        \"Start\": \"<dateTime>\",\n        \"AccountId\": \"<string>\",\n        \"LocationId\": \"<string>\",\n        \"GeoLatitude\": \"<double>\",\n        \"GeoLongitude\": \"<double>\",\n        \"Quantity\": \"<integer>\",\n        \"Urgency\": \"<string>\"\n      },\n      {\n        \"UID\": \"<string>\",\n        \"Duration\": \"<integer>\",\n        \"JobStatus\": \"<string>\",\n        \"JobAllocations\": [\n          {\n            \"UID\": \"<string>\",\n            \"ResourceId\": \"<string>\",\n            \"Status\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ResourceRequirementId\": \"<string>\"\n          },\n          {\n            \"UID\": \"<string>\",\n            \"ResourceId\": \"<string>\",\n            \"Status\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ResourceRequirementId\": \"<string>\"\n          }\n        ],\n        \"JobTags\": [\n          {\n            \"Required\": \"<boolean>\",\n            \"Tag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"Weighting\": \"<integer>\"\n          },\n          {\n            \"Required\": \"<boolean>\",\n            \"Tag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"Weighting\": \"<integer>\"\n          }\n        ],\n        \"ResourceRequirements\": [\n          {\n            \"UID\": \"<string>\",\n            \"Quantity\": \"<integer>\",\n            \"Tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"UID\": \"<string>\",\n            \"Quantity\": \"<integer>\",\n            \"Tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"JobTimeConstraints\": [\n          {\n            \"Required\": \"<boolean>\",\n            \"StartAfter\": \"<dateTime>\",\n            \"StartBefore\": \"<dateTime>\",\n            \"EndBefore\": \"<dateTime>\"\n          },\n          {\n            \"Required\": \"<boolean>\",\n            \"StartAfter\": \"<dateTime>\",\n            \"StartBefore\": \"<dateTime>\",\n            \"EndBefore\": \"<dateTime>\"\n          }\n        ],\n        \"JobDependenciesFrom\": [\n          {\n            \"ToJobId\": \"<string>\",\n            \"FromAnchor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ToAnchor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ToAnchorMinOffsetMinutes\": \"<integer>\",\n            \"ToAnchorMaxOffsetMinutes\": \"<integer>\"\n          },\n          {\n            \"ToJobId\": \"<string>\",\n            \"FromAnchor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ToAnchor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ToAnchorMinOffsetMinutes\": \"<integer>\",\n            \"ToAnchorMaxOffsetMinutes\": \"<integer>\"\n          }\n        ],\n        \"JobDependenciesTo\": [\n          {\n            \"FromJobId\": \"<string>\"\n          },\n          {\n            \"FromJobId\": \"<string>\"\n          }\n        ],\n        \"Locked\": \"<boolean>\",\n        \"RegionId\": \"<string>\",\n        \"Start\": \"<dateTime>\",\n        \"AccountId\": \"<string>\",\n        \"LocationId\": \"<string>\",\n        \"GeoLatitude\": \"<double>\",\n        \"GeoLongitude\": \"<double>\",\n        \"Quantity\": \"<integer>\",\n        \"Urgency\": \"<string>\"\n      }\n    ],\n    \"activities\": [\n      {\n        \"UID\": \"<string>\",\n        \"Start\": \"<dateTime>\",\n        \"End\": \"<dateTime>\",\n        \"ActivityResources\": [\n          {\n            \"resourceId\": \"<string>\"\n          },\n          {\n            \"resourceId\": \"<string>\"\n          }\n        ],\n        \"LocationId\": \"<string>\",\n        \"GeoLatitude\": \"<double>\",\n        \"GeoLongitude\": \"<double>\",\n        \"ResourceId\": \"<string>\"\n      },\n      {\n        \"UID\": \"<string>\",\n        \"Start\": \"<dateTime>\",\n        \"End\": \"<dateTime>\",\n        \"ActivityResources\": [\n          {\n            \"resourceId\": \"<string>\"\n          },\n          {\n            \"resourceId\": \"<string>\"\n          }\n        ],\n        \"LocationId\": \"<string>\",\n        \"GeoLatitude\": \"<double>\",\n        \"GeoLongitude\": \"<double>\",\n        \"ResourceId\": \"<string>\"\n      }\n    ],\n    \"resources\": [\n      {\n        \"UID\": \"<string>\",\n        \"ResourceTags\": [\n          {\n            \"Tag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ExpiryDate\": \"<dateTime>\"\n          },\n          {\n            \"Tag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ExpiryDate\": \"<dateTime>\"\n          }\n        ],\n        \"ResourceOverrides\": [\n          {\n            \"Start\": \"<dateTime>\",\n            \"End\": \"<dateTime>\",\n            \"GeoLatitude\": \"<double>\",\n            \"GeoLongitude\": \"<double>\"\n          },\n          {\n            \"Start\": \"<dateTime>\",\n            \"End\": \"<dateTime>\",\n            \"GeoLatitude\": \"<double>\",\n            \"GeoLongitude\": \"<double>\"\n          }\n        ],\n        \"GeoLatitude\": \"<double>\",\n        \"GeoLongitude\": \"<double>\",\n        \"HomeAddress\": \"<string>\",\n        \"WeeklyHours\": \"<number>\",\n        \"WorkingHoursTimePeriod\": \"<string>\",\n        \"WorkingHoursStart\": \"<date>\",\n        \"WorkingHoursMin\": \"<number>\",\n        \"WorkingHoursMax\": \"<number>\",\n        \"Rating\": \"<integer>\",\n        \"PrimaryRegion\": {\n          \"Timezone\": \"<string>\"\n        }\n      },\n      {\n        \"UID\": \"<string>\",\n        \"ResourceTags\": [\n          {\n            \"Tag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ExpiryDate\": \"<dateTime>\"\n          },\n          {\n            \"Tag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ExpiryDate\": \"<dateTime>\"\n          }\n        ],\n        \"ResourceOverrides\": [\n          {\n            \"Start\": \"<dateTime>\",\n            \"End\": \"<dateTime>\",\n            \"GeoLatitude\": \"<double>\",\n            \"GeoLongitude\": \"<double>\"\n          },\n          {\n            \"Start\": \"<dateTime>\",\n            \"End\": \"<dateTime>\",\n            \"GeoLatitude\": \"<double>\",\n            \"GeoLongitude\": \"<double>\"\n          }\n        ],\n        \"GeoLatitude\": \"<double>\",\n        \"GeoLongitude\": \"<double>\",\n        \"HomeAddress\": \"<string>\",\n        \"WeeklyHours\": \"<number>\",\n        \"WorkingHoursTimePeriod\": \"<string>\",\n        \"WorkingHoursStart\": \"<date>\",\n        \"WorkingHoursMin\": \"<number>\",\n        \"WorkingHoursMax\": \"<number>\",\n        \"Rating\": \"<integer>\",\n        \"PrimaryRegion\": {\n          \"Timezone\": \"<string>\"\n        }\n      }\n    ],\n    \"accountResourceScores\": [\n      {\n        \"AccountId\": \"<string>\",\n        \"ResourceId\": \"<string>\",\n        \"Blacklisted\": \"<boolean>\"\n      },\n      {\n        \"AccountId\": \"<string>\",\n        \"ResourceId\": \"<string>\",\n        \"Blacklisted\": \"<boolean>\"\n      }\n    ],\n    \"locationResourceScores\": [\n      {\n        \"LocationId\": \"<string>\",\n        \"ResourceId\": \"<string>\",\n        \"Blacklisted\": \"<boolean>\"\n      },\n      {\n        \"LocationId\": \"<string>\",\n        \"ResourceId\": \"<string>\",\n        \"Blacklisted\": \"<boolean>\"\n      }\n    ],\n    \"availability\": {\n      \"key_0\": {\n        \"available\": [\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"regions\": [\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"regionIds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"regionIds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"key_1\": {\n        \"available\": [\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"regions\": [\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"regionIds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"regionIds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      }\n    },\n    \"start\": \"<dateTime>\",\n    \"end\": \"<dateTime>\",\n    \"timezone\": \"<string>\",\n    \"rollingScheduleWindows\": [\n      {\n        \"start\": \"<dateTime>\",\n        \"end\": \"<dateTime>\"\n      },\n      {\n        \"start\": \"<dateTime>\",\n        \"end\": \"<dateTime>\"\n      }\n    ],\n    \"region\": {\n      \"UID\": \"<string>\",\n      \"Timezone\": \"<string>\",\n      \"GeoLatitude\": \"<double>\",\n      \"GeoLongitude\": \"<double>\"\n    },\n    \"regions\": [\n      {\n        \"UID\": \"<string>\",\n        \"Timezone\": \"<string>\",\n        \"GeoLatitude\": \"<double>\",\n        \"GeoLongitude\": \"<double>\"\n      },\n      {\n        \"UID\": \"<string>\",\n        \"Timezone\": \"<string>\",\n        \"GeoLatitude\": \"<double>\",\n        \"GeoLongitude\": \"<double>\"\n      }\n    ]\n  },\n  \"featureModel\": {\n    \"allocations\": [\n      {\n        \"id\": \"<string>\",\n        \"groupIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"duration\": \"<long>\",\n        \"locked\": \"<boolean>\",\n        \"attributeRequirements\": [\n          {\n            \"id\": \"<string>\",\n            \"weighting\": \"<integer>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"weighting\": \"<integer>\"\n          }\n        ],\n        \"scheduleConstraints\": [\n          {\n            \"windowStart\": \"<dateTime>\",\n            \"windowEnd\": \"<dateTime>\"\n          },\n          {\n            \"windowStart\": \"<dateTime>\",\n            \"windowEnd\": \"<dateTime>\"\n          }\n        ],\n        \"resourceRatings\": [\n          {\n            \"resourceId\": \"<string>\",\n            \"rating\": \"<integer>\"\n          },\n          {\n            \"resourceId\": \"<string>\",\n            \"rating\": \"<integer>\"\n          }\n        ],\n        \"groupId\": \"<string>\",\n        \"start\": \"<dateTime>\",\n        \"resourceId\": \"<string>\",\n        \"locationId\": \"<string>\",\n        \"resourceConstraints\": {\n          \"type\": \"<string>\",\n          \"resources\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        \"priority\": \"<integer>\",\n        \"urgency\": \"<integer>\",\n        \"phaseTags\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"id\": \"<string>\",\n        \"groupIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"duration\": \"<long>\",\n        \"locked\": \"<boolean>\",\n        \"attributeRequirements\": [\n          {\n            \"id\": \"<string>\",\n            \"weighting\": \"<integer>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"weighting\": \"<integer>\"\n          }\n        ],\n        \"scheduleConstraints\": [\n          {\n            \"windowStart\": \"<dateTime>\",\n            \"windowEnd\": \"<dateTime>\"\n          },\n          {\n            \"windowStart\": \"<dateTime>\",\n            \"windowEnd\": \"<dateTime>\"\n          }\n        ],\n        \"resourceRatings\": [\n          {\n            \"resourceId\": \"<string>\",\n            \"rating\": \"<integer>\"\n          },\n          {\n            \"resourceId\": \"<string>\",\n            \"rating\": \"<integer>\"\n          }\n        ],\n        \"groupId\": \"<string>\",\n        \"start\": \"<dateTime>\",\n        \"resourceId\": \"<string>\",\n        \"locationId\": \"<string>\",\n        \"resourceConstraints\": {\n          \"type\": \"<string>\",\n          \"resources\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        \"priority\": \"<integer>\",\n        \"urgency\": \"<integer>\",\n        \"phaseTags\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ],\n    \"groups\": [\n      {\n        \"id\": \"<string>\",\n        \"locked\": \"<boolean>\",\n        \"synchronizationMode\": \"no_synchronization\",\n        \"enablePartialAllocation\": false,\n        \"phaseTags\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"id\": \"<string>\",\n        \"locked\": \"<boolean>\",\n        \"synchronizationMode\": \"no_synchronization\",\n        \"enablePartialAllocation\": false,\n        \"phaseTags\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ],\n    \"resources\": [\n      {\n        \"id\": \"<string>\",\n        \"attributes\": [\n          {\n            \"id\": \"<string>\"\n          },\n          {\n            \"id\": \"<string>\"\n          }\n        ],\n        \"availability\": [\n          {\n            \"from\": \"<dateTime>\",\n            \"to\": \"<dateTime>\",\n            \"startLocationId\": \"<string>\",\n            \"endLocationId\": \"<string>\",\n            \"attributes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"phaseTags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"overtimeEnd\": \"<dateTime>\"\n          },\n          {\n            \"from\": \"<dateTime>\",\n            \"to\": \"<dateTime>\",\n            \"startLocationId\": \"<string>\",\n            \"endLocationId\": \"<string>\",\n            \"attributes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"phaseTags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"overtimeEnd\": \"<dateTime>\"\n          }\n        ],\n        \"periodConstraints\": [\n          {\n            \"start\": \"<dateTime>\",\n            \"end\": \"<dateTime>\",\n            \"maxServiceTimeInMinutes\": \"<long>\",\n            \"minServiceTimeInMinutes\": \"<long>\",\n            \"groupConstraints\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"start\": \"<dateTime>\",\n            \"end\": \"<dateTime>\",\n            \"maxServiceTimeInMinutes\": \"<long>\",\n            \"minServiceTimeInMinutes\": \"<long>\",\n            \"groupConstraints\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"breaks\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"locationId\": \"<string>\",\n        \"compatibleResources\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"maxDailyTravelTimeInMinutes\": \"<long>\",\n        \"maxTravelTimeBetweenLocations\": \"<long>\",\n        \"rating\": \"<integer>\",\n        \"phaseTags\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"id\": \"<string>\",\n        \"attributes\": [\n          {\n            \"id\": \"<string>\"\n          },\n          {\n            \"id\": \"<string>\"\n          }\n        ],\n        \"availability\": [\n          {\n            \"from\": \"<dateTime>\",\n            \"to\": \"<dateTime>\",\n            \"startLocationId\": \"<string>\",\n            \"endLocationId\": \"<string>\",\n            \"attributes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"phaseTags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"overtimeEnd\": \"<dateTime>\"\n          },\n          {\n            \"from\": \"<dateTime>\",\n            \"to\": \"<dateTime>\",\n            \"startLocationId\": \"<string>\",\n            \"endLocationId\": \"<string>\",\n            \"attributes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"phaseTags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"overtimeEnd\": \"<dateTime>\"\n          }\n        ],\n        \"periodConstraints\": [\n          {\n            \"start\": \"<dateTime>\",\n            \"end\": \"<dateTime>\",\n            \"maxServiceTimeInMinutes\": \"<long>\",\n            \"minServiceTimeInMinutes\": \"<long>\",\n            \"groupConstraints\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"start\": \"<dateTime>\",\n            \"end\": \"<dateTime>\",\n            \"maxServiceTimeInMinutes\": \"<long>\",\n            \"minServiceTimeInMinutes\": \"<long>\",\n            \"groupConstraints\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"breaks\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"locationId\": \"<string>\",\n        \"compatibleResources\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"maxDailyTravelTimeInMinutes\": \"<long>\",\n        \"maxTravelTimeBetweenLocations\": \"<long>\",\n        \"rating\": \"<integer>\",\n        \"phaseTags\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ],\n    \"allocationDependencies\": [\n      {\n        \"anchorAllocationId\": \"<string>\",\n        \"dependentAllocationId\": \"<string>\",\n        \"minTimeIntervalInMinutes\": \"<long>\",\n        \"maxTimeIntervalInMinutes\": \"<long>\",\n        \"enablePartialAllocation\": \"<boolean>\"\n      },\n      {\n        \"anchorAllocationId\": \"<string>\",\n        \"dependentAllocationId\": \"<string>\",\n        \"minTimeIntervalInMinutes\": \"<long>\",\n        \"maxTimeIntervalInMinutes\": \"<long>\",\n        \"enablePartialAllocation\": \"<boolean>\"\n      }\n    ],\n    \"resourceDependencies\": [\n      {\n        \"allocationIds\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"allocationIds\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ],\n    \"locations\": [\n      {\n        \"id\": \"<string>\",\n        \"latitude\": \"<double>\",\n        \"longitude\": \"<double>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"latitude\": \"<double>\",\n        \"longitude\": \"<double>\"\n      }\n    ],\n    \"schedulingPeriod\": {\n      \"start\": \"<dateTime>\",\n      \"end\": \"<dateTime>\"\n    },\n    \"rollingSchedulingPeriods\": [\n      {\n        \"start\": \"<dateTime>\",\n        \"end\": \"<dateTime>\"\n      },\n      {\n        \"start\": \"<dateTime>\",\n        \"end\": \"<dateTime>\"\n      }\n    ],\n    \"timezone\": \"<string>\",\n    \"options\": {\n      \"full\": \"<boolean>\",\n      \"ignoreTravelTime\": \"<boolean>\",\n      \"ignoreTravelTimeFirstJob\": \"<boolean>\",\n      \"ignoreTravelTimeLastJob\": \"<boolean>\",\n      \"minimizeResources\": \"<boolean>\",\n      \"maxDailyTravelTimeInMinutes\": \"<long>\",\n      \"maxTravelTimeBetweenLocations\": \"<long>\",\n      \"respectAllocationTimes\": \"<boolean>\",\n      \"respectAllocationTimesOverTimeConstraints\": \"<boolean>\",\n      \"balanceAbsoluteWorkload\": \"<boolean>\",\n      \"snapUnit\": \"<integer>\",\n      \"padding\": \"<integer>\",\n      \"objectiveWeights\": {\n        \"minimizeDisruption\": \"<integer>\",\n        \"balanceAbsoluteWorkload\": \"<integer>\",\n        \"travelTime\": \"<integer>\",\n        \"minimizeResources\": \"<integer>\",\n        \"softSkills\": \"<integer>\",\n        \"jobsPriority\": \"<integer>\",\n        \"resourceRating\": \"<integer>\",\n        \"scheduleImmediacy\": \"<integer>\",\n        \"urgency\": \"<integer>\",\n        \"overtime\": \"<integer>\"\n      },\n      \"objectiveWeightModifiers\": {\n        \"minimizeDisruption\": \"<number>\",\n        \"balanceAbsoluteWorkload\": \"<number>\",\n        \"travelTime\": \"<number>\",\n        \"minimizeResources\": \"<number>\",\n        \"softSkills\": \"<number>\",\n        \"jobsPriority\": \"<number>\",\n        \"resourceRating\": \"<number>\",\n        \"scheduleImmediacy\": \"<number>\",\n        \"urgency\": \"<number>\",\n        \"overtime\": \"<number>\"\n      },\n      \"temporalAffinityStrength\": \"<integer>\",\n      \"enablePartiallyAllocatedGroups\": \"<boolean>\",\n      \"enablePartiallyAllocatedAllocationDependencies\": \"<boolean>\"\n    },\n    \"solver\": \"<string>\",\n    \"sharedGroupConstraints\": [\n      {\n        \"groupId\": \"<string>\",\n        \"resourceIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"maxAllocations\": \"<integer>\",\n        \"start\": \"<dateTime>\",\n        \"end\": \"<dateTime>\"\n      },\n      {\n        \"groupId\": \"<string>\",\n        \"resourceIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"maxAllocations\": \"<integer>\",\n        \"start\": \"<dateTime>\",\n        \"end\": \"<dateTime>\"\n      }\n    ],\n    \"meta\": {\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {}\n    },\n    \"phases\": [\n      {\n        \"type\": \"<string>\",\n        \"filters\": [\n          {\n            \"objectType\": \"<string>\",\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"filterType\": \"<string>\"\n          },\n          {\n            \"objectType\": \"<string>\",\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"filterType\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"type\": \"<string>\",\n        \"filters\": [\n          {\n            \"objectType\": \"<string>\",\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"filterType\": \"<string>\"\n          },\n          {\n            \"objectType\": \"<string>\",\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"filterType\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eca00bd8-2f11-4c9a-b30f-5f3bebb0664c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    "run",
+                    ":runId",
+                    "transformer",
+                    "state",
+                    ":transformerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transformerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"productData\": {\n    \"jobs\": [\n      {\n        \"UID\": \"job-1\",\n        \"Start\": \"2022-01-26T09:00:00Z\",\n        \"Duration\": 60,\n        \"JobStatus\": \"Ready\",\n        \"LocationId\": \"loc-1\",\n        \"GeoLatitude\": 53.4834,\n        \"GeoLongitude\": -2.2425,\n        \"Quantity\": 1,\n        \"JobAllocations\": [],\n        \"JobTags\": [],\n        \"ResourceRequirements\": [],\n        \"JobTimeConstraints\": [],\n        \"JobDependenciesFrom\": [],\n        \"JobDependenciesTo\": [],\n        \"Locked\": false,\n        \"RegionId\": \"region-1\",\n        \"Urgency\": \"Normal\"\n      }\n    ],\n    \"activities\": [\n      {\n        \"UID\": \"activity-1\",\n        \"Start\": \"2022-01-26T09:00:00Z\",\n        \"End\": \"2022-01-26T10:00:00Z\",\n        \"LocationId\": \"loc-1\",\n        \"GeoLatitude\": 53.4834,\n        \"GeoLongitude\": -2.2425,\n        \"ResourceId\": \"resource1\",\n        \"ActivityResources\": []\n      }\n    ],\n    \"resources\": [\n      {\n        \"UID\": \"resource1\",\n        \"GeoLatitude\": 1,\n        \"GeoLongitude\": 1,\n        \"ResourceTags\": [],\n        \"HomeAddress\": \"test home address\",\n        \"WorkingHoursTimePeriod\": \"Week\",\n        \"WorkingHoursStart\": \"2022-01-26\",\n        \"WorkingHoursMin\": 20,\n        \"WorkingHoursMax\": 40,\n        \"ResourceOverrides\": [],\n        \"PrimaryRegion\": {\n          \"Timezone\": \"UTC\"\n        }\n      }\n    ],\n    \"locationResourceScores\": [\n      {\n        \"LocationId\": \"loc-1\",\n        \"ResourceId\": \"resource1\",\n        \"Blacklisted\": false\n      }\n    ],\n    \"accountResourceScores\": [\n      {\n        \"AccountId\": \"account-1\",\n        \"ResourceId\": \"resource1\",\n        \"Blacklisted\": false\n      }\n    ],\n    \"availability\": {\n      \"2bd0af54-377e-4960-8d4b-ba5272070830\": {\n        \"available\": [\n          {\n            \"start\": \"2022-01-26T23:00:00Z\",\n            \"end\": \"2022-01-29T23:00:00Z\"\n          }\n        ],\n        \"regions\": [\n          {\n            \"start\": \"2022-01-26T23:00:00Z\",\n            \"end\": \"2022-01-29T23:00:00Z\",\n            \"regionIds\": [\n              \"region-1\"\n            ]\n          }\n        ]\n      }\n    },\n    \"start\": \"2022-01-26T09:00:00Z\",\n    \"end\": \"2022-01-30T23:00:00Z\",\n    \"timeZone\": \"UTC\",\n    \"region\": {\n      \"UID\": \"region-1\",\n      \"Timezone\": \"UTC\",\n      \"GeoLatitude\": 53.4834,\n      \"GeoLongitude\": -2.2425\n    }\n  },\n  \"featureModel\": {\n    \"allocations\": [\n      {\n        \"id\": \"alloc-1\",\n        \"groupId\": \"alloc-group-1\",\n        \"groupIds\": [\n          \"alloc-group-1\"\n        ],\n        \"start\": \"2022-01-26T09:00:00Z\",\n        \"duration\": 30,\n        \"resourceId\": \"res-1\",\n        \"locationId\": \"loc-1\",\n        \"priority\": 10,\n        \"locked\": true,\n        \"attributeRequirements\": [\n          {\n            \"id\": \"attr-1\"\n          },\n          {\n            \"id\": \"attr-2\",\n            \"weighting\": 10\n          }\n        ],\n        \"resourceConstraints\": {\n          \"type\": \"blocked\",\n          \"resources\": [\n            \"res-2\"\n          ]\n        },\n        \"scheduleConstraints\": [\n          {\n            \"windowStart\": \"2022-01-26T10:00:00Z\",\n            \"windowEnd\": \"2022-01-26T11:00:00Z\"\n          }\n        ],\n        \"resourceRatings\": [\n          {\n            \"resourceId\": \"res-1\",\n            \"rating\": 75\n          }\n        ],\n        \"urgency\": 20\n      }\n    ],\n    \"groups\": [\n      {\n        \"id\": \"gr-1\",\n        \"synchronizationMode\": \"start_time\",\n        \"locked\": true,\n        \"enablePartialAllocation\": false\n      }\n    ],\n    \"resources\": [\n      {\n        \"id\": \"res-1\",\n        \"attributes\": [\n          {\n            \"id\": \"attr-1\"\n          }\n        ],\n        \"locationId\": \"loc-1\",\n        \"availability\": [\n          {\n            \"from\": \"2022-01-26T09:00:00Z\",\n            \"to\": \"2022-01-30T23:00:00Z\",\n            \"attributes\": []\n          }\n        ],\n        \"maxDailyTravelTimeInMinutes\": 180,\n        \"maxTravelTimeBetweenLocations\": 60,\n        \"periodConstraints\": [\n          {\n            \"start\": \"2022-01-26T09:00:00Z\",\n            \"end\": \"2022-01-30T23:00:00Z\",\n            \"maxServiceTimeInMinutes\": 100,\n            \"minServiceTimeInMinutes\": 50,\n            \"groupConstraints\": [\n              {\n                \"groupId\": \"group-1\",\n                \"maxAllocations\": 5\n              }\n            ]\n          }\n        ],\n        \"breaks\": [\n          {\n            \"breakTimeInMinutes\": 30,\n            \"minStartTime\": \"2022-01-26T12:00:00Z\",\n            \"maxStartTime\": \"2022-01-26T13:00:00Z\"\n          },\n          {\n            \"startTime\": \"2022-01-26T15:00:00Z\",\n            \"endTime\": \"2022-01-26T15:30:00Z\",\n            \"locationId\": \"loc-1\"\n          }\n        ],\n        \"rating\": 80,\n        \"compatibleResources\": [\n          \"res-2\"\n        ]\n      }\n    ],\n    \"allocationDependencies\": [],\n    \"resourceDependencies\": [],\n    \"locations\": [\n      {\n        \"id\": \"loc-1\",\n        \"latitude\": 51.5072,\n        \"longitude\": 0.1276\n      }\n    ],\n    \"schedulingPeriod\": {\n      \"start\": \"2022-01-26T09:00:00Z\",\n      \"end\": \"2022-01-30T23:00:00Z\"\n    },\n    \"timezone\": \"UTC\",\n    \"meta\": {\n      \"key\": \"value\"\n    },\n    \"options\": {\n      \"full\": false,\n      \"ignoreTravelTime\": false,\n      \"ignoreTravelTimeFirstJob\": false,\n      \"ignoreTravelTimeLastJob\": false,\n      \"minimizeResources\": false,\n      \"respectAllocationTimes\": false,\n      \"respectAllocationTimesOverTimeConstraints\": false,\n      \"balanceAbsoluteWorkload\": false,\n      \"enablePartiallyAllocatedGroups\": true,\n      \"enablePartiallyAllocatedAllocationDependencies\": true,\n      \"removeLockedJobsFromShifts\": true\n    },\n    \"sharedGroupConstraints\": [\n      {\n        \"groupId\": \"group-1\",\n        \"resourceIds\": [\n          \"res-1\",\n          \"res-2\"\n        ],\n        \"maxAllocations\": 10,\n        \"start\": \"2022-01-26T09:00:00Z\",\n        \"end\": \"2022-01-30T23:00:00Z\"\n      }\n    ],\n    \"solver\": \"pvrp\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": \"Transformer\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8178475-66d6-4335-a98c-35de2638113f",
+              "name": "Invalid value for: body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    "run",
+                    ":runId",
+                    "transformer",
+                    "state",
+                    ":transformerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transformerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"productData\": {\n    \"jobs\": [\n      {\n        \"UID\": \"job-1\",\n        \"Start\": \"2022-01-26T09:00:00Z\",\n        \"Duration\": 60,\n        \"JobStatus\": \"Ready\",\n        \"LocationId\": \"loc-1\",\n        \"GeoLatitude\": 53.4834,\n        \"GeoLongitude\": -2.2425,\n        \"Quantity\": 1,\n        \"JobAllocations\": [],\n        \"JobTags\": [],\n        \"ResourceRequirements\": [],\n        \"JobTimeConstraints\": [],\n        \"JobDependenciesFrom\": [],\n        \"JobDependenciesTo\": [],\n        \"Locked\": false,\n        \"RegionId\": \"region-1\",\n        \"Urgency\": \"Normal\"\n      }\n    ],\n    \"activities\": [\n      {\n        \"UID\": \"activity-1\",\n        \"Start\": \"2022-01-26T09:00:00Z\",\n        \"End\": \"2022-01-26T10:00:00Z\",\n        \"LocationId\": \"loc-1\",\n        \"GeoLatitude\": 53.4834,\n        \"GeoLongitude\": -2.2425,\n        \"ResourceId\": \"resource1\",\n        \"ActivityResources\": []\n      }\n    ],\n    \"resources\": [\n      {\n        \"UID\": \"resource1\",\n        \"GeoLatitude\": 1,\n        \"GeoLongitude\": 1,\n        \"ResourceTags\": [],\n        \"HomeAddress\": \"test home address\",\n        \"WorkingHoursTimePeriod\": \"Week\",\n        \"WorkingHoursStart\": \"2022-01-26\",\n        \"WorkingHoursMin\": 20,\n        \"WorkingHoursMax\": 40,\n        \"ResourceOverrides\": [],\n        \"PrimaryRegion\": {\n          \"Timezone\": \"UTC\"\n        }\n      }\n    ],\n    \"locationResourceScores\": [\n      {\n        \"LocationId\": \"loc-1\",\n        \"ResourceId\": \"resource1\",\n        \"Blacklisted\": false\n      }\n    ],\n    \"accountResourceScores\": [\n      {\n        \"AccountId\": \"account-1\",\n        \"ResourceId\": \"resource1\",\n        \"Blacklisted\": false\n      }\n    ],\n    \"availability\": {\n      \"2bd0af54-377e-4960-8d4b-ba5272070830\": {\n        \"available\": [\n          {\n            \"start\": \"2022-01-26T23:00:00Z\",\n            \"end\": \"2022-01-29T23:00:00Z\"\n          }\n        ],\n        \"regions\": [\n          {\n            \"start\": \"2022-01-26T23:00:00Z\",\n            \"end\": \"2022-01-29T23:00:00Z\",\n            \"regionIds\": [\n              \"region-1\"\n            ]\n          }\n        ]\n      }\n    },\n    \"start\": \"2022-01-26T09:00:00Z\",\n    \"end\": \"2022-01-30T23:00:00Z\",\n    \"timeZone\": \"UTC\",\n    \"region\": {\n      \"UID\": \"region-1\",\n      \"Timezone\": \"UTC\",\n      \"GeoLatitude\": 53.4834,\n      \"GeoLongitude\": -2.2425\n    }\n  },\n  \"featureModel\": {\n    \"allocations\": [\n      {\n        \"id\": \"alloc-1\",\n        \"groupId\": \"alloc-group-1\",\n        \"groupIds\": [\n          \"alloc-group-1\"\n        ],\n        \"start\": \"2022-01-26T09:00:00Z\",\n        \"duration\": 30,\n        \"resourceId\": \"res-1\",\n        \"locationId\": \"loc-1\",\n        \"priority\": 10,\n        \"locked\": true,\n        \"attributeRequirements\": [\n          {\n            \"id\": \"attr-1\"\n          },\n          {\n            \"id\": \"attr-2\",\n            \"weighting\": 10\n          }\n        ],\n        \"resourceConstraints\": {\n          \"type\": \"blocked\",\n          \"resources\": [\n            \"res-2\"\n          ]\n        },\n        \"scheduleConstraints\": [\n          {\n            \"windowStart\": \"2022-01-26T10:00:00Z\",\n            \"windowEnd\": \"2022-01-26T11:00:00Z\"\n          }\n        ],\n        \"resourceRatings\": [\n          {\n            \"resourceId\": \"res-1\",\n            \"rating\": 75\n          }\n        ],\n        \"urgency\": 20\n      }\n    ],\n    \"groups\": [\n      {\n        \"id\": \"gr-1\",\n        \"synchronizationMode\": \"start_time\",\n        \"locked\": true,\n        \"enablePartialAllocation\": false\n      }\n    ],\n    \"resources\": [\n      {\n        \"id\": \"res-1\",\n        \"attributes\": [\n          {\n            \"id\": \"attr-1\"\n          }\n        ],\n        \"locationId\": \"loc-1\",\n        \"availability\": [\n          {\n            \"from\": \"2022-01-26T09:00:00Z\",\n            \"to\": \"2022-01-30T23:00:00Z\",\n            \"attributes\": []\n          }\n        ],\n        \"maxDailyTravelTimeInMinutes\": 180,\n        \"maxTravelTimeBetweenLocations\": 60,\n        \"periodConstraints\": [\n          {\n            \"start\": \"2022-01-26T09:00:00Z\",\n            \"end\": \"2022-01-30T23:00:00Z\",\n            \"maxServiceTimeInMinutes\": 100,\n            \"minServiceTimeInMinutes\": 50,\n            \"groupConstraints\": [\n              {\n                \"groupId\": \"group-1\",\n                \"maxAllocations\": 5\n              }\n            ]\n          }\n        ],\n        \"breaks\": [\n          {\n            \"breakTimeInMinutes\": 30,\n            \"minStartTime\": \"2022-01-26T12:00:00Z\",\n            \"maxStartTime\": \"2022-01-26T13:00:00Z\"\n          },\n          {\n            \"startTime\": \"2022-01-26T15:00:00Z\",\n            \"endTime\": \"2022-01-26T15:30:00Z\",\n            \"locationId\": \"loc-1\"\n          }\n        ],\n        \"rating\": 80,\n        \"compatibleResources\": [\n          \"res-2\"\n        ]\n      }\n    ],\n    \"allocationDependencies\": [],\n    \"resourceDependencies\": [],\n    \"locations\": [\n      {\n        \"id\": \"loc-1\",\n        \"latitude\": 51.5072,\n        \"longitude\": 0.1276\n      }\n    ],\n    \"schedulingPeriod\": {\n      \"start\": \"2022-01-26T09:00:00Z\",\n      \"end\": \"2022-01-30T23:00:00Z\"\n    },\n    \"timezone\": \"UTC\",\n    \"meta\": {\n      \"key\": \"value\"\n    },\n    \"options\": {\n      \"full\": false,\n      \"ignoreTravelTime\": false,\n      \"ignoreTravelTimeFirstJob\": false,\n      \"ignoreTravelTimeLastJob\": false,\n      \"minimizeResources\": false,\n      \"respectAllocationTimes\": false,\n      \"respectAllocationTimesOverTimeConstraints\": false,\n      \"balanceAbsoluteWorkload\": false,\n      \"enablePartiallyAllocatedGroups\": true,\n      \"enablePartiallyAllocatedAllocationDependencies\": true,\n      \"removeLockedJobsFromShifts\": true\n    },\n    \"sharedGroupConstraints\": [\n      {\n        \"groupId\": \"group-1\",\n        \"resourceIds\": [\n          \"res-1\",\n          \"res-2\"\n        ],\n        \"maxAllocations\": 10,\n        \"start\": \"2022-01-26T09:00:00Z\",\n        \"end\": \"2022-01-30T23:00:00Z\"\n      }\n    ],\n    \"solver\": \"pvrp\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b8d9de83-b94b-44aa-9f77-039040ef60ef",
+    "name": "Authentication Admin Schedule API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

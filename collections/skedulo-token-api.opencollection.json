@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Token API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Token",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create or fetch an iCal token for the current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/token",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create or fetch an iCal token for the current user"
+        },
+        {
+          "info": {
+            "name": "Create API token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an API token with an optional expiry. This token can be used to authenticate as the same user that created it (with the same claims) for as long as the token is valid. Tokens may be revoked."
+        },
+        {
+          "info": {
+            "name": "Get an API token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/token/:jti",
+            "params": [
+              {
+                "name": "jti",
+                "value": "",
+                "type": "path",
+                "description": "The JWT Identifier for the API token"
+              }
+            ]
+          },
+          "docs": "Get metadata for an API token by specifying its JTI."
+        },
+        {
+          "info": {
+            "name": "Revoke an API token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/token/revoke",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Revoke an API token so it can no longer be used to authenticate API requests."
+        },
+        {
+          "info": {
+            "name": "Unrevoke an API token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/token/unrevoke",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Unrevoke an API token that has previously been revoked so it can be used again."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

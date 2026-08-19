@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Api User API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Api User",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Set API User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/api_user",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Sets a user as the API User for this tenant. The user assigning the API user must be an Administrator."
+        },
+        {
+          "info": {
+            "name": "Remove the API User for this tenant",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.skedulo.com/auth/api_user",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Removes the API User for this tenant if they have one. If the tenant is on Standalone this will reset their API user to the system user. The caller must be an administrator."
+        },
+        {
+          "info": {
+            "name": "Get client credentials information for the API user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/api_user/client_credentials",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "The user requesting this information must be an Administrator for their organization."
+        },
+        {
+          "info": {
+            "name": "List API user candidates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/api_user/candidates",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List candidates that can be set as the API user and the current API user. Only users with role `administrator` are returned."
+        },
+        {
+          "info": {
+            "name": "Check if the API user is verified",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/api_user/verify",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Check if the API user is verified"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

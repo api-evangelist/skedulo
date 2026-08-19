@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Graphql API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Graphql",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GraphQL queries and mutations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/graphql",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Run queries and mutations against business data.\n\nQueries and mutations are `POST` operations with a GraphQL payload that defines the shape of the query or mutation to be made against the data schema, including custom objects and fields. A mutation with multiple operations is executed as an atomic transaction: either all operations succeed or none succeed.\n\nIf you perform large-scale data mutations (e.g., importing or updating thousands of jobs over a short period of time), you **must** set the "
+        },
+        {
+          "info": {
+            "name": "Make batch queries and mutations using GraphQL.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/graphql/batch",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "GraphQL batching involves sending multiple queries or mutations to the server in a single request. This reduces the number of server round trips to fetch data, which makes interaction more efficient. \n\nSee https://blog.apollographql.com/query-batching-in-apollo-63acfd859862 for more information"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

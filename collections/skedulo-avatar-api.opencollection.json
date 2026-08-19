@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Avatar API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Avatar",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Return a map of (userId -> url) for the given userIds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/avatar",
+            "params": [
+              {
+                "name": "user_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated identifiers of the users to get the avatar urls for"
+              },
+              {
+                "name": "size_hint",
+                "value": "",
+                "type": "query",
+                "description": "Requested image size. Return thumbnail image for 'small' or 'thumbnail' input, full image otherwise"
+              }
+            ]
+          },
+          "docs": "Return a map of (userId -> url) for the given userIds"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

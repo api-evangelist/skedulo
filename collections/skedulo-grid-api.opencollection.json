@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Grid API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Grid",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Resource availability for a rolling timeframe",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/grid/schedule",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Splits a given time window into a sequence of slots at a specified interval of size \"gridSize\"; then aggregates resource availability into it, against the given job. Availability is determined by working hours, holidays, existing jobs and activities. Resource must be available for the entire duration of the slot to be returned in the list.\n\nUse the `/grid/schedule` endpoint to find all of the available time slots for a job to be completed during a specified time window. For example, if a job mus"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,148 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Standalone API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Standalone",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a custom object for a Skedulo Pulse Platform tenant (team)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/standalone/schemas",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a custom object for a Skedulo Pulse Platform tenant (team)"
+        },
+        {
+          "info": {
+            "name": "Remove a custom object",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.skedulo.com/auth/standalone/schema/:objectId",
+            "params": [
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the object to delete"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This will remove the object along with all data contained within it"
+        },
+        {
+          "info": {
+            "name": "Track a custom object",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/standalone/schema/:objectId/track",
+            "params": [
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the object to track"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Enable the tracking of row inserts, updates, and deletes. Changes are available via GraphQL subscriptions and webhooks."
+        },
+        {
+          "info": {
+            "name": "Disable tracking of a custom object",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.skedulo.com/auth/standalone/schema/:objectId/track",
+            "params": [
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the object to untrack"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Disable the tracking of row inserts, updates, and deletes for a custom object."
+        },
+        {
+          "info": {
+            "name": "Create a standalone custom field",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/standalone/fields",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a standalone custom field"
+        },
+        {
+          "info": {
+            "name": "Remove a custom field",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.skedulo.com/auth/standalone/field/:fieldId",
+            "params": [
+              {
+                "name": "fieldId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the field to delete"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This will remove the field along with any data it contains"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

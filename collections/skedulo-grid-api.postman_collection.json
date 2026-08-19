@@ -1,0 +1,125 @@
+{
+  "item": [
+    {
+      "id": "21d56f5b-5073-4ef9-86cb-f077264818ec",
+      "name": "Grid",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9ac9f256-a0a9-4220-bd32-477e4d9e6e8a",
+          "name": "Resource availability for a rolling timeframe",
+          "request": {
+            "name": "Resource availability for a rolling timeframe",
+            "description": {
+              "content": "Splits a given time window into a sequence of slots at a specified interval of size \"gridSize\"; then aggregates resource availability into it, against the given job. Availability is determined by working hours, holidays, existing jobs and activities. Resource must be available for the entire duration of the slot to be returned in the list.\n\nUse the `/grid/schedule` endpoint to find all of the available time slots for a job to be completed during a specified time window. For example, if a job must be completed by the close of business the following day, you can query the `/grid/schedule` endpoint to obtain an aggregate of resource availability between now and tomorrow afternoon at 5PM.\n\nThe query splits the time window into intervals to determine which resources are available at different times during the time window for the job.\n\n* Resource availability is determined by working hours, holidays, existing jobs, shifts, and activities.\n* Resources must be available for the entire duration of the job slot to be returned in the list.\n* You can further filter resource availability based on job attributes (such as job type, urgency, or custom fields) using the `availabilityFilterValues` parameter, which matches these attributes against resource availability preferences.\n\n**Availability Preferences**\n\nYou can filter resource availability based on preferences attached to a resource's availability pattern using one of two mutually exclusive options:\n\n* `availabilityFilterValues` — client-supplied filter definitions (attribute values to match against)\n* `availabilityFilterEntityIds` — entity IDs that the server uses to derive filter criteria automatically\n\nOnly one of these may be provided per request. If both are supplied, the request is rejected.\n\n**Option 1: `availabilityFilterValues` (client-supplied)**\n\nSpecify the `objectType` (typically \"Jobs\") and provide a dictionary of attributes in the `values` field that represent the job requirements. The API will filter available resources to only include those whose preferences match the specified values.\n\nExample:\n```json\n\"availabilityFilterValues\": [\n  {\n    \"objectType\": \"Jobs\",\n    \"values\": {\n      \"Type\": \"Maintenance\",\n      \"Urgency\": \"Critical\"\n    }\n  }\n]\n```\n\nIn this example, only resources who have preferences matching \"Maintenance\" jobs with \"Critical\" urgency will be included in the availability results.\n\nUsing `availabilityFilterValues`:\n- You can include multiple filters for different `objectType` values in one request.\n- Only the first filter for each `objectType` will be used; combine all criteria into a single filter for each type.\n- Extra fields in `values` are ignored if they are not referenced in any Availability Preference Filter Expression.\n- Multiple fields in `values` are combined with AND logic; array values act like OR conditions.\n- All `objectType` and field names must exist in your schema.\n\n**Option 2: `availabilityFilterEntityIds` (server-derived)**\n\nInstead of supplying filter values directly, provide a map of entity types to entity IDs. The server derives the appropriate filter criteria from the referenced entities (e.g., evaluating a Job's attributes against all relevant Record Filters).\n\nExample:\n```json\n\"availabilityFilterEntityIds\": {\n  \"Jobs\": [\"0014cac9-4ba2-4944-b7ca-b4d2c40b1403\"]\n}\n```\n\nIn this example, the server evaluates the specified job against available Record Filters and applies any matching filters to resource availability. The total number of entity IDs across all types cannot exceed 50.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "grid",
+                "schedule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a8722447-d0bf-406a-ba77-6044cfbaa447",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "grid",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"job\": {\n    \"location\": {\n      \"lat\": \"<number>\",\n      \"lng\": \"<number>\"\n    }\n  },\n  \"resourceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scheduleStart\": \"<dateTime>\",\n  \"scheduleEnd\": \"<dateTime>\",\n  \"gridSize\": \"<integer>\",\n  \"availabilityFilterValues\": [\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": \"<object>\"\n    },\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": \"<object>\"\n    }\n  ],\n  \"availabilityFilterEntityIds\": {\n    \"key_0\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"key_1\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"gridInterval\": \"<integer>\",\n  \"includeTravelTimeToAndFromHome\": false,\n  \"ignoreResourceOverrideLocations\": false,\n  \"maxTravelTimeInSeconds\": \"<integer>\",\n  \"regionId\": \"<string>\",\n  \"explain\": {\n    \"enabled\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"start\": \"2025-06-26T22:00:00Z\",\n      \"end\": \"2025-06-26T22:05:00Z\",\n      \"availableResources\": [\n        \"R1\",\n        \"R2\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f97b0633-9932-4749-9486-6686f0771d9a",
+    "name": "Authentication Admin Grid API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

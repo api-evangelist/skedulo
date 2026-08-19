@@ -1,0 +1,250 @@
+{
+  "item": [
+    {
+      "id": "118f4ce7-777e-47a0-ad93-7034528c697c",
+      "name": "Schedule summaries",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "633da041-b1eb-4d2c-84a3-3ee66d022f77",
+          "name": "Recurring schedules summaries",
+          "request": {
+            "name": "Recurring schedules summaries",
+            "description": {
+              "content": "Get a list of recurring schedules summaries",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<number>",
+                  "description": "Page number to fetch. Defaults to 1 if not provided."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<number>",
+                  "description": "Number of items to fetch per page. Defaults to 20 if not provided. Maximum allowed is 50."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4eb5e74d-e9c3-45d8-9917-745fe6075f4d",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"currentPage\": 1251.8872774313227,\n    \"numPages\": 4248.5828820659535,\n    \"totalCount\": 618.3845019695223,\n    \"scheduleSummaries\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"completedJobCount\": 6491.857896375054,\n        \"allJobCount\": 1259.8421326203725,\n        \"description\": \"string\",\n        \"summary\": \"string\",\n        \"accountId\": \"string\",\n        \"contactId\": \"string\",\n        \"start\": \"1987-05-23T03:00:49.086Z\",\n        \"end\": \"1994-03-03T16:26:44.961Z\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"completedJobCount\": 4139.652310560558,\n        \"allJobCount\": 5438.340046021258,\n        \"description\": \"string\",\n        \"summary\": \"string\",\n        \"accountId\": \"string\",\n        \"contactId\": \"string\",\n        \"start\": \"1957-10-05T00:57:24.744Z\",\n        \"end\": \"2005-06-29T16:42:57.015Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b791678-d787-44b2-bbf6-a6c542eb55fc",
+          "name": "Summary of a recurring schedule",
+          "request": {
+            "name": "Summary of a recurring schedule",
+            "description": {
+              "content": "Get summary of a recurring schedule",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedules",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "635bac56-fdbf-4c23-aadc-f86dc27b7276",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"allJobCount\": 520.1036611729759,\n    \"completedJobCount\": 487.53945535323305,\n    \"id\": \"string\",\n    \"jobs\": [\n      {\n        \"UID\": \"string\",\n        \"status\": \"On Site\",\n        \"region\": {\n          \"UID\": \"string\",\n          \"name\": \"string\"\n        },\n        \"start\": \"1997-05-06T07:24:59.632Z\",\n        \"end\": \"1987-12-26T06:37:49.076Z\",\n        \"account\": {\n          \"UID\": \"string\",\n          \"name\": \"string\"\n        },\n        \"contact\": {\n          \"UID\": \"string\",\n          \"fullName\": \"string\",\n          \"phone\": \"string\",\n          \"email\": \"string\"\n        }\n      },\n      {\n        \"UID\": \"string\",\n        \"status\": \"En Route\",\n        \"region\": {\n          \"UID\": \"string\",\n          \"name\": \"string\"\n        },\n        \"start\": \"1975-10-05T13:06:24.989Z\",\n        \"end\": \"1971-12-15T18:59:01.842Z\",\n        \"account\": {\n          \"UID\": \"string\",\n          \"name\": \"string\"\n        },\n        \"contact\": {\n          \"UID\": \"string\",\n          \"fullName\": \"string\",\n          \"phone\": \"string\",\n          \"email\": \"string\"\n        }\n      }\n    ],\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"summary\": \"string\",\n    \"accountId\": \"string\",\n    \"contactId\": \"string\",\n    \"start\": \"1982-07-27T01:42:56.241Z\",\n    \"end\": \"1955-11-10T13:05:01.821Z\",\n    \"nextJob\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41fdf1fd-bddf-479a-ba8a-c9c0039d4331",
+              "name": "Recurring schedule with given ID cannot be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "038aef12-edb8-417c-a201-5bab9a78ca68",
+    "name": "Authentication Admin Schedule summaries API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

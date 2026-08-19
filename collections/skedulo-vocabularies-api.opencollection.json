@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Vocabularies API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vocabularies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all vocabularies (picklist items)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/vocabularies",
+            "params": [
+              {
+                "name": "names",
+                "value": "",
+                "type": "query",
+                "description": "Names of objects to fetch vocabularies for in comma separated format. If not provided all vocabularies are returned."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "If set to true the cache is replaced with a new value. Has no effect if 'names' are provided as individual objects are not cached."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns all vocabularies (standard and custom) keyed on object name with values keyed on field name. If no object names are provided, vocabularies for all objects are returned."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

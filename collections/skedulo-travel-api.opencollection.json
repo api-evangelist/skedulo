@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Travel API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Travel",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve historical routes for one or more resources.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/travel/routes",
+            "params": [
+              {
+                "name": "resource_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated resource Id values"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End Time"
+              },
+              {
+                "name": "accuracy",
+                "value": "",
+                "type": "query",
+                "description": "All points returned will have an accuracy of at least the number given. If this parameter is not provided the default value is 100. To return all points use an empty string."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Output Format."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Given a comma-separated list of resource Ids and a start and end date, return the route taken by that resource between the start and end time.\n\nThe maximum amount of time supported is 24 hours.\n\nThe supported formats are\n* _polyline_ Uses the Google Maps Polyline encoding (default)\n* _wkt_ - Well Known Text Strings.  Either a LINESTRING or a POINT is returned\n* _geojson_ - GeoJSON format. Either a linestring or a point is returned\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

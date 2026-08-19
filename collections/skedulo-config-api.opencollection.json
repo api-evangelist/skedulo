@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Config API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Config",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Return mobile v3 authentication configuration for a team.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/config/team/mobile/v3",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Lookup a specific mobile v3 config for a team given its name"
+              }
+            ]
+          },
+          "docs": "Return mobile v3 authentication configuration for a team."
+        },
+        {
+          "info": {
+            "name": "Return web authentication configuration for the team the current user belongs to.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/config/team/web/user"
+          },
+          "docs": "Return web authentication configuration for the team the current user belongs to."
+        },
+        {
+          "info": {
+            "name": "Return mobile authentication configuration for the team the current user belongs to.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/config/team/mobile/user"
+          },
+          "docs": "Return mobile authentication configuration for the team the current user belongs to."
+        },
+        {
+          "info": {
+            "name": "Return mobile v3 authentication configuration for the team the current user belongs to.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/config/team/mobile/v3/user"
+          },
+          "docs": "Return mobile v3 authentication configuration for the team the current user belongs to."
+        },
+        {
+          "info": {
+            "name": "Default layout for an object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/config/layout/:object",
+            "params": [
+              {
+                "name": "object",
+                "value": "",
+                "type": "path",
+                "description": "the name of the object"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the default layout for the given object."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

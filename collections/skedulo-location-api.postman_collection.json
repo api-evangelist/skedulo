@@ -1,0 +1,823 @@
+{
+  "item": [
+    {
+      "id": "ee9f3fdb-eddf-4818-a0b6-6b0e217f4ef2",
+      "name": "Location",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e9529b5e-3fd6-45c1-9869-cdb93d3e6a65",
+          "name": "Latest locations",
+          "request": {
+            "name": "Latest locations",
+            "description": {
+              "content": "The latest locations endpoint returns information about the **resource's** latest location. It is a map from resourceId to latest location.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "location",
+                "latest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "resource_ids",
+                  "value": "<string>",
+                  "description": "(Required) Comma separated resourceIds"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6c3ad7b3-4680-4fda-a503-a3d0e42fe4ac",
+              "name": "A map from resourceId to Latest Location",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_ids",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"key_0\": {\n      \"time\": \"2018-05-26T07:23:26.396Z\",\n      \"lat\": 2313.8048978460292,\n      \"lng\": 800.1717477002934,\n      \"altitude\": 6323.861248416518,\n      \"heading\": 266.22867456171053,\n      \"speed\": 518.2852103708102,\n      \"accuracy\": 1288.8899940361453,\n      \"altAccuracy\": 3251.584665031094\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "926a3dc2-87bb-41cd-b8af-6852da787e30",
+              "name": "Bad request. eg. resourceId cannot be empty",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_ids",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f5544a6-a937-4349-950b-70e1b7d08153",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_ids",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9b8cf4b5-8608-4ffc-86c8-2ca7017bb2e4",
+          "name": "Location history",
+          "request": {
+            "name": "Location history",
+            "description": {
+              "content": "The Location history end point allows you to retrieve the location history for a resource.\nThe default limit is 100 results.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "location",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "resource_id",
+                  "value": "<string>",
+                  "description": "(Required) Identifier of a resource"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "(Required) Start time"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "(Required) End Time"
+                },
+                {
+                  "disabled": false,
+                  "key": "accuracy",
+                  "value": "<double>",
+                  "description": "All points returned will have an accuracy of at least the number given. If this parameter is not provided the default value is 100. To return all points use an empty string."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<long>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "316bc5f3-ba63-4701-a221-80b122a0fe0e",
+              "name": "Paged array of locations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "accuracy",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paging\": {\n    \"total\": 351.32741965990476,\n    \"offset\": 8567.964448767054,\n    \"limit\": 6098.428371291285\n  },\n  \"result\": [\n    {\n      \"time\": \"1966-11-29T12:47:43.021Z\",\n      \"lat\": 7751.2757220157655,\n      \"lng\": 742.8172813397671,\n      \"altitude\": 9830.533487318182,\n      \"heading\": 323.79415300188015,\n      \"speed\": 1709.3328521841645,\n      \"accuracy\": 4839.172415991237,\n      \"altAccuracy\": 3343.3365767772902\n    },\n    {\n      \"time\": \"1961-07-16T03:36:47.148Z\",\n      \"lat\": 628.4531931064574,\n      \"lng\": 4177.552825325333,\n      \"altitude\": 5087.36165381527,\n      \"heading\": 342.1617479483852,\n      \"speed\": 5545.4949991692,\n      \"accuracy\": 3234.7511176820167,\n      \"altAccuracy\": 7614.336467386505\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a956287-12d4-4403-8c98-56707429a4f2",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "accuracy",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "56fe884a-a137-4a13-abfa-30b7560b3d27",
+          "name": "Location Update",
+          "request": {
+            "name": "Location Update",
+            "description": {
+              "content": "The location update endpoint allows one or more position updates to be provided indicating a resource's location.\n\nThe resource is determined by the Java Web Token provided. It is not possible for users other than the logged in user to update a resources position.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "location",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"time\": \"<dateTime>\",\n    \"lat\": \"<double>\",\n    \"lng\": \"<double>\",\n    \"altitude\": \"<float>\",\n    \"heading\": \"<float>\",\n    \"speed\": \"<float>\",\n    \"accuracy\": \"<float>\",\n    \"altAccuracy\": \"<float>\"\n  },\n  {\n    \"time\": \"<dateTime>\",\n    \"lat\": \"<double>\",\n    \"lng\": \"<double>\",\n    \"altitude\": \"<float>\",\n    \"heading\": \"<float>\",\n    \"speed\": \"<float>\",\n    \"accuracy\": \"<float>\",\n    \"altAccuracy\": \"<float>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4a0f5002-4ce6-47e1-ac59-6d8437b2b14f",
+              "name": "Location update added",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"time\": \"<dateTime>\",\n    \"lat\": \"<double>\",\n    \"lng\": \"<double>\",\n    \"altitude\": \"<float>\",\n    \"heading\": \"<float>\",\n    \"speed\": \"<float>\",\n    \"accuracy\": \"<float>\",\n    \"altAccuracy\": \"<float>\"\n  },\n  {\n    \"time\": \"<dateTime>\",\n    \"lat\": \"<double>\",\n    \"lng\": \"<double>\",\n    \"altitude\": \"<float>\",\n    \"heading\": \"<float>\",\n    \"speed\": \"<float>\",\n    \"accuracy\": \"<float>\",\n    \"altAccuracy\": \"<float>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9e59fbe1-6d8e-4942-a564-ed5eae37e78c",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"time\": \"<dateTime>\",\n    \"lat\": \"<double>\",\n    \"lng\": \"<double>\",\n    \"altitude\": \"<float>\",\n    \"heading\": \"<float>\",\n    \"speed\": \"<float>\",\n    \"accuracy\": \"<float>\",\n    \"altAccuracy\": \"<float>\"\n  },\n  {\n    \"time\": \"<dateTime>\",\n    \"lat\": \"<double>\",\n    \"lng\": \"<double>\",\n    \"altitude\": \"<float>\",\n    \"heading\": \"<float>\",\n    \"speed\": \"<float>\",\n    \"accuracy\": \"<float>\",\n    \"altAccuracy\": \"<float>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "64920e09-654d-41b8-a38c-5c01174171f7",
+          "name": "Locate resources with a set distance",
+          "request": {
+            "name": "Locate resources with a set distance",
+            "description": {
+              "content": "Locate all resources within a set distance of a specified location.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "location",
+                "resources_within_distance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lat",
+                  "value": "<double>",
+                  "description": "(Required) The latitude (degrees).  This should be in decimal format, ie. \"DDD.DDDD\" not degrees and minutes.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "lng",
+                  "value": "<double>",
+                  "description": "(Required) The longitude of the position (degrees).  This should be in decimal format, ie. \"DDD.DDDD\" not degrees and minutes.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "distance",
+                  "value": "<double>",
+                  "description": "(Required) The distance (metres) to query for resources.  Note that the accuracy of the resources location is not considered when making this query."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "Only consider points after this time."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "Only consider points before this time."
+                },
+                {
+                  "disabled": false,
+                  "key": "accuracy",
+                  "value": "<double>",
+                  "description": "Ignores any points that have an accuracy greater than the number given. If this parameter is not provided the default value is 100. To return all points use an empty string."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "207101b8-0ddb-4717-8179-2c5540b77560",
+              "name": "Resources and their latest position that was within distance of the location.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    "resources_within_distance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "lng",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "distance",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "accuracy",
+                      "value": "<double>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"key_0\": {\n      \"time\": \"1987-07-18T18:38:35.537Z\",\n      \"lat\": 7228.753979400428,\n      \"lng\": 1845.1440199358772,\n      \"distance\": 8269.053062262992,\n      \"accuracy\": 1430.0113679631932\n    },\n    \"key_1\": {\n      \"time\": \"2001-01-21T10:18:39.416Z\",\n      \"lat\": 9835.54339277292,\n      \"lng\": 8780.2767275457,\n      \"distance\": 1850.5906644482438,\n      \"accuracy\": 1463.1933374183604\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ae6209a-867a-4d68-aaf9-259319c5ad7e",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    "resources_within_distance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "lng",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "distance",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "accuracy",
+                      "value": "<double>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5c387353-60ad-4128-b9ab-f5ebc8ef5400",
+    "name": "Authentication Admin Location API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,980 @@
+{
+  "item": [
+    {
+      "id": "460f5d57-d688-44e8-8997-ab02d6cdecea",
+      "name": "Standalone",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9b29c0ac-dfa5-4961-b45f-333cbdc6eab9",
+          "name": "Create a custom object for a Skedulo Pulse Platform tenant (team)",
+          "request": {
+            "name": "Create a custom object for a Skedulo Pulse Platform tenant (team)",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "standalone",
+                "schemas"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"label\": \"<string>\",\n  \"description\": \"<string>\",\n  \"fields\": [\n    {\n      \"name\": \"<string>\",\n      \"column\": {\n        \"type\": \"<string>\"\n      },\n      \"label\": \"<string>\",\n      \"description\": \"<string>\",\n      \"accessMode\": \"read_write\",\n      \"showIf\": \"<string>\",\n      \"isAlert\": false,\n      \"showDesktop\": true,\n      \"showMobile\": false,\n      \"editableOnMobile\": false,\n      \"requiredOnMobile\": false,\n      \"displayOrder\": \"<integer>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"column\": {\n        \"type\": \"<string>\"\n      },\n      \"label\": \"<string>\",\n      \"description\": \"<string>\",\n      \"accessMode\": \"read_write\",\n      \"showIf\": \"<string>\",\n      \"isAlert\": false,\n      \"showDesktop\": true,\n      \"showMobile\": false,\n      \"editableOnMobile\": false,\n      \"requiredOnMobile\": false,\n      \"displayOrder\": \"<integer>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0277411b-8744-4008-99c8-48d31d158d47",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "standalone",
+                    "schemas"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"label\": \"<string>\",\n  \"description\": \"<string>\",\n  \"fields\": [\n    {\n      \"name\": \"<string>\",\n      \"column\": {\n        \"type\": \"<string>\"\n      },\n      \"label\": \"<string>\",\n      \"description\": \"<string>\",\n      \"accessMode\": \"read_write\",\n      \"showIf\": \"<string>\",\n      \"isAlert\": false,\n      \"showDesktop\": true,\n      \"showMobile\": false,\n      \"editableOnMobile\": false,\n      \"requiredOnMobile\": false,\n      \"displayOrder\": \"<integer>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"column\": {\n        \"type\": \"<string>\"\n      },\n      \"label\": \"<string>\",\n      \"description\": \"<string>\",\n      \"accessMode\": \"read_write\",\n      \"showIf\": \"<string>\",\n      \"isAlert\": false,\n      \"showDesktop\": true,\n      \"showMobile\": false,\n      \"editableOnMobile\": false,\n      \"requiredOnMobile\": false,\n      \"displayOrder\": \"<integer>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"schema\": {\n      \"id\": \"6a718e86-b25d-7b99-3f7a-43d0de136963\",\n      \"name\": \"string\",\n      \"mapping\": \"string\",\n      \"label\": \"string\",\n      \"description\": \"string\"\n    },\n    \"fields\": [\n      {\n        \"id\": \"95bb7a50-742e-6253-a79c-0f2be80790f8\",\n        \"name\": \"string\",\n        \"schemaName\": \"string\",\n        \"fieldType\": \"url\",\n        \"mapping\": \"string\",\n        \"required\": true,\n        \"upsertKey\": false,\n        \"accessMode\": \"read_write\",\n        \"readOnly\": true,\n        \"isAlert\": false,\n        \"showDesktop\": false,\n        \"showMobile\": false,\n        \"editableOnMobile\": false,\n        \"requiredOnMobile\": true,\n        \"label\": \"string\",\n        \"description\": \"string\",\n        \"referenceSchemaName\": \"string\",\n        \"referenceSchemaFieldName\": \"string\",\n        \"maxLength\": 5480,\n        \"precision\": 7173,\n        \"scale\": 6969,\n        \"showIf\": \"string\",\n        \"displayOrder\": 1008\n      },\n      {\n        \"id\": \"f602f4c1-0bc0-5548-8bd0-a0e73df296aa\",\n        \"name\": \"string\",\n        \"schemaName\": \"string\",\n        \"fieldType\": \"multipicklist\",\n        \"mapping\": \"string\",\n        \"required\": false,\n        \"upsertKey\": true,\n        \"accessMode\": \"insert_only\",\n        \"readOnly\": false,\n        \"isAlert\": false,\n        \"showDesktop\": false,\n        \"showMobile\": false,\n        \"editableOnMobile\": false,\n        \"requiredOnMobile\": true,\n        \"label\": \"string\",\n        \"description\": \"string\",\n        \"referenceSchemaName\": \"string\",\n        \"referenceSchemaFieldName\": \"string\",\n        \"maxLength\": 156,\n        \"precision\": 4293,\n        \"scale\": 4480,\n        \"showIf\": \"string\",\n        \"displayOrder\": 3075\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69f9a499-6451-49af-ae74-52c2bd06112f",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "standalone",
+                    "schemas"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"label\": \"<string>\",\n  \"description\": \"<string>\",\n  \"fields\": [\n    {\n      \"name\": \"<string>\",\n      \"column\": {\n        \"type\": \"<string>\"\n      },\n      \"label\": \"<string>\",\n      \"description\": \"<string>\",\n      \"accessMode\": \"read_write\",\n      \"showIf\": \"<string>\",\n      \"isAlert\": false,\n      \"showDesktop\": true,\n      \"showMobile\": false,\n      \"editableOnMobile\": false,\n      \"requiredOnMobile\": false,\n      \"displayOrder\": \"<integer>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"column\": {\n        \"type\": \"<string>\"\n      },\n      \"label\": \"<string>\",\n      \"description\": \"<string>\",\n      \"accessMode\": \"read_write\",\n      \"showIf\": \"<string>\",\n      \"isAlert\": false,\n      \"showDesktop\": true,\n      \"showMobile\": false,\n      \"editableOnMobile\": false,\n      \"requiredOnMobile\": false,\n      \"displayOrder\": \"<integer>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "300604c6-f928-4df8-9bd3-cd69f8c3e91d",
+          "name": "Remove a custom object",
+          "request": {
+            "name": "Remove a custom object",
+            "description": {
+              "content": "This will remove the object along with all data contained within it",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "standalone",
+                "schema",
+                ":objectId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "objectId",
+                  "description": "(Required) Identifier of the object to delete"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "35b087f4-85d9-47d6-aa2a-20498c68e9c6",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "standalone",
+                    "schema",
+                    ":objectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "objectId",
+                      "description": "(Required) Identifier of the object to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9f6539c8-3fb2-4b44-be8b-7517e3e8ede9",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "standalone",
+                    "schema",
+                    ":objectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "objectId",
+                      "description": "(Required) Identifier of the object to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9646c920-d092-44ca-8966-85c693dc0ec6",
+          "name": "Track a custom object",
+          "request": {
+            "name": "Track a custom object",
+            "description": {
+              "content": "Enable the tracking of row inserts, updates, and deletes. Changes are available via GraphQL subscriptions and webhooks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "standalone",
+                "schema",
+                ":objectId",
+                "track"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "objectId",
+                  "description": "(Required) Identifier of the object to track"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "38081b5d-0df8-4d2d-9d19-20b02e3f39d8",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "standalone",
+                    "schema",
+                    ":objectId",
+                    "track"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "objectId",
+                      "description": "(Required) Identifier of the object to track"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cadf08b8-afca-4f96-8585-365ca46cf344",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "standalone",
+                    "schema",
+                    ":objectId",
+                    "track"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "objectId",
+                      "description": "(Required) Identifier of the object to track"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dbf8cf8b-b9e2-4b4c-a3bb-f0be31fc1789",
+          "name": "Disable tracking of a custom object",
+          "request": {
+            "name": "Disable tracking of a custom object",
+            "description": {
+              "content": "Disable the tracking of row inserts, updates, and deletes for a custom object.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "standalone",
+                "schema",
+                ":objectId",
+                "track"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "objectId",
+                  "description": "(Required) Identifier of the object to untrack"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "21907297-fb2e-44d1-93c9-d3bdf5b8e721",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "standalone",
+                    "schema",
+                    ":objectId",
+                    "track"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "objectId",
+                      "description": "(Required) Identifier of the object to untrack"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1a6d64d3-43c8-4f48-888a-030b10b9d8fd",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "standalone",
+                    "schema",
+                    ":objectId",
+                    "track"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "objectId",
+                      "description": "(Required) Identifier of the object to untrack"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f7eecc8e-6ee3-4219-ae53-e48c3ddd38ea",
+          "name": "Create a standalone custom field",
+          "request": {
+            "name": "Create a standalone custom field",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "standalone",
+                "fields"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"schemaName\": \"<string>\",\n  \"column\": {\n    \"type\": \"<string>\"\n  },\n  \"label\": \"<string>\",\n  \"description\": \"<string>\",\n  \"accessMode\": \"read_write\",\n  \"showIf\": \"<string>\",\n  \"isAlert\": false,\n  \"showDesktop\": true,\n  \"showMobile\": false,\n  \"editableOnMobile\": false,\n  \"requiredOnMobile\": false,\n  \"displayOrder\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e27469f4-b2c0-4c90-af5d-a68871ef34ba",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "standalone",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"schemaName\": \"<string>\",\n  \"column\": {\n    \"type\": \"<string>\"\n  },\n  \"label\": \"<string>\",\n  \"description\": \"<string>\",\n  \"accessMode\": \"read_write\",\n  \"showIf\": \"<string>\",\n  \"isAlert\": false,\n  \"showDesktop\": true,\n  \"showMobile\": false,\n  \"editableOnMobile\": false,\n  \"requiredOnMobile\": false,\n  \"displayOrder\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"id\": \"7899bc0c-badc-d728-08cb-618b442ea337\",\n    \"name\": \"string\",\n    \"schemaName\": \"string\",\n    \"fieldType\": \"htmltextarea\",\n    \"mapping\": \"string\",\n    \"required\": false,\n    \"upsertKey\": true,\n    \"accessMode\": \"read_write\",\n    \"readOnly\": true,\n    \"isAlert\": true,\n    \"showDesktop\": true,\n    \"showMobile\": false,\n    \"editableOnMobile\": true,\n    \"requiredOnMobile\": true,\n    \"label\": \"string\",\n    \"description\": \"string\",\n    \"referenceSchemaName\": \"string\",\n    \"referenceSchemaFieldName\": \"string\",\n    \"maxLength\": 6757,\n    \"precision\": 9884,\n    \"scale\": 2158,\n    \"showIf\": \"string\",\n    \"displayOrder\": 3512\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa51a761-64f2-4b07-a251-6ef3746f62b6",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "standalone",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"schemaName\": \"<string>\",\n  \"column\": {\n    \"type\": \"<string>\"\n  },\n  \"label\": \"<string>\",\n  \"description\": \"<string>\",\n  \"accessMode\": \"read_write\",\n  \"showIf\": \"<string>\",\n  \"isAlert\": false,\n  \"showDesktop\": true,\n  \"showMobile\": false,\n  \"editableOnMobile\": false,\n  \"requiredOnMobile\": false,\n  \"displayOrder\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dec42546-06a5-4897-80a6-6bb60efa2188",
+          "name": "Remove a custom field",
+          "request": {
+            "name": "Remove a custom field",
+            "description": {
+              "content": "This will remove the field along with any data it contains",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "standalone",
+                "field",
+                ":fieldId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "fieldId",
+                  "description": "(Required) Identifier of the field to delete"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1a06700b-29fe-4acd-a9c4-6989f26807c2",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "standalone",
+                    "field",
+                    ":fieldId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "fieldId",
+                      "description": "(Required) Identifier of the field to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b3d34f55-af60-469b-b7a1-d66ff3150231",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "standalone",
+                    "field",
+                    ":fieldId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "fieldId",
+                      "description": "(Required) Identifier of the field to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2363efc9-0197-4969-80ce-2f8d50df38f4",
+    "name": "Authentication Admin Standalone API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

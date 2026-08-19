@@ -1,0 +1,243 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Rule Violation Management API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rule Violation Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Insert or update a custom rule violation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.skedulo.com/auth/violation",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Insert or update a custom rule violation"
+        },
+        {
+          "info": {
+            "name": "Delete a custom rule violation by key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.skedulo.com/auth/violation",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a custom rule violation by key"
+        },
+        {
+          "info": {
+            "name": "Batch insert or update custom rule violations",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.skedulo.com/auth/violations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Batch insert or update custom rule violations"
+        },
+        {
+          "info": {
+            "name": "Delete custom rule violations by key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.skedulo.com/auth/violations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete custom rule violations by key"
+        },
+        {
+          "info": {
+            "name": "Reset the change event offset of all core (non-custom) violations for a tenant to 0 so event and batch processing can update them again. Internal use only.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/violations/:tenantId/resetOffsets",
+            "params": [
+              {
+                "name": "tenantId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Reset the change event offset of all core (non-custom) violations for a tenant to 0 so event and batch processing can update them again. Internal use only."
+        },
+        {
+          "info": {
+            "name": "Find core and custom violations by filter criteria",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/violations/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Find core and custom violations by filter criteria"
+        },
+        {
+          "info": {
+            "name": "Find core and custom violations affecting a list of target objects. Warning: This endpoint does not support pagination of the results and is therefore deprecated. Please use the '/violations/search' endpoint instead.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/violations/findByTargetIds",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Find core and custom violations affecting a list of target objects. Warning: This endpoint does not support pagination of the results and is therefore deprecated. Please use the '/violations/search' endpoint instead."
+        },
+        {
+          "info": {
+            "name": "Assign a user to a core or custom violation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/violations/assignUser",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assign a user to a core or custom violation"
+        },
+        {
+          "info": {
+            "name": "Assign a status to a core or custom violation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/violations/assignStatus",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assign a status to a core or custom violation"
+        },
+        {
+          "info": {
+            "name": "Find core and custom violations by violation id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/violations/:violationId",
+            "params": [
+              {
+                "name": "violationId",
+                "value": "2756",
+                "type": "path",
+                "description": "Rule violation ID"
+              }
+            ]
+          },
+          "docs": "Find core and custom violations by violation id"
+        },
+        {
+          "info": {
+            "name": "Get a list of the custom rules currently in use.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/custom"
+          },
+          "docs": "Get a list of the custom rules currently in use."
+        },
+        {
+          "info": {
+            "name": "Delete all custom rule violations for a specific object",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.skedulo.com/auth/violations/:targetId",
+            "params": [
+              {
+                "name": "targetId",
+                "value": "b055d7c1-ef2f-40e9-bcd2-634e9835e69b",
+                "type": "path",
+                "description": "Target ID"
+              }
+            ]
+          },
+          "docs": "Delete all custom rule violations for a specific object"
+        },
+        {
+          "info": {
+            "name": "Delete all custom rule violations for a given rule ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.skedulo.com/auth/violations/rule/:ruleId",
+            "params": [
+              {
+                "name": "ruleId",
+                "value": "unsafeArea",
+                "type": "path",
+                "description": "Rule ID"
+              }
+            ]
+          },
+          "docs": "Delete all custom rule violations for a given rule ID"
+        },
+        {
+          "info": {
+            "name": "Delete a custom rule violation by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.skedulo.com/auth/violation/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "2756",
+                "type": "path",
+                "description": "Rule violation ID"
+              }
+            ]
+          },
+          "docs": "Delete a custom rule violation by ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

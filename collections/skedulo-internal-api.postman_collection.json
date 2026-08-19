@@ -1,0 +1,153 @@
+{
+  "item": [
+    {
+      "id": "aecff975-77dd-4763-b16b-5871fd3e142f",
+      "name": "Internal",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3fd688e4-ea09-46ba-89b7-1cb42471d799",
+          "name": "internal Initialize Tenant",
+          "request": {
+            "name": "internal Initialize Tenant",
+            "description": {
+              "content": "Internal endpoint used to initialize a skedulo or salesforce tenant schema.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "internal",
+                "initialize_tenant"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tenantId\": \"<string>\",\n  \"vendor\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d5bae86e-00d5-4a2d-acd4-fea1749aeb7e",
+              "name": "Tenant initialized succesfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "internal",
+                    "initialize_tenant"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tenantId\": \"sk_ba70ac7072fd4df3a179cce2e2c4e483\",\n  \"vendor\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "87af4284-4a13-45f2-b035-4bf47f71f1fe",
+              "name": "Tenant initialization failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "internal",
+                    "initialize_tenant"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tenantId\": \"sk_ba70ac7072fd4df3a179cce2e2c4e483\",\n  \"vendor\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6558013b-6ead-477a-8a04-c0b707607cdc",
+    "name": "Authentication Admin Internal API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

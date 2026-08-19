@@ -1,0 +1,130 @@
+{
+  "item": [
+    {
+      "id": "02c03498-9dfa-4dc2-835a-ea46936c33b1",
+      "name": "Whoami",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9137da76-3b30-4471-b94f-5fe060ac99cc",
+          "name": "Whoami",
+          "request": {
+            "name": "Whoami",
+            "description": {
+              "content": "Return the current user's authentication information",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "whoami"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "access_token",
+                  "value": "<string>",
+                  "description": "Access token. This is an alternative to passing the Authorization: `Bearer` header"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "53722fe9-37b5-4518-8823-3165b1efa5b9",
+              "name": "The current users authentication information was returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "whoami"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "access_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"username\": \"string\",\n    \"userId\": \"string\",\n    \"tenantId\": \"string\",\n    \"roles\": [\n      \"scheduler\",\n      \"resource\"\n    ],\n    \"vendorInfo\": {\n      \"vendor\": \"salesforce\",\n      \"env\": \"salesforce\",\n      \"communityId\": \"string\",\n      \"vendorUserId\": \"string\"\n    },\n    \"resourceId\": \"string\",\n    \"permissions\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "bfefb196-7b9f-41e5-ba6e-4b608020ed6f",
+    "name": "Authentication Admin Whoami API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

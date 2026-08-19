@@ -1,0 +1,408 @@
+{
+  "item": [
+    {
+      "id": "ae2f5e6f-ae50-4a23-bd44-be48f7503b1f",
+      "name": "Job scheduling",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "27892d44-b37a-4c15-9d49-0ed94eae5a74",
+          "name": "Create recurring schedule from an existing job",
+          "request": {
+            "name": "Create recurring schedule from an existing job",
+            "description": {
+              "content": "Fields and Child relationships can be specified (e.g., giving created jobs the same job tags or allocations). By default, required Job fields like Region ID and duration will be propagated even if not specified.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedules",
+                "jobs",
+                "existing"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jobId\": \"<string>\",\n  \"pattern\": {\n    \"type\": \"<string>\",\n    \"step\": \"<number>\",\n    \"ackAllJobs\": \"<boolean>\",\n    \"endOn\": \"<date>\",\n    \"endAfterNumberOccurrences\": \"<number>\",\n    \"repeatMode\": \"<string>\",\n    \"skipOnWeekDays\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"repeatOnWeekDays\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"skipHolidays\": false,\n    \"excludeDates\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"includeDates\": [\n      \"<date>\",\n      \"<date>\"\n    ]\n  },\n  \"fieldsToPropagate\": {\n    \"fields\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"children\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/FieldSpec detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/FieldSpec detected>\"\n      }\n    ]\n  },\n  \"recurFrom\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bae3f236-44d1-4283-a423-c2eab0f6831e",
+              "name": "Recurring jobs created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    "jobs",
+                    "existing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobId\": \"<string>\",\n  \"pattern\": {\n    \"type\": \"<string>\",\n    \"step\": \"<number>\",\n    \"ackAllJobs\": \"<boolean>\",\n    \"endOn\": \"2020-05-13\",\n    \"endAfterNumberOccurrences\": 5,\n    \"repeatMode\": \"<string>\",\n    \"skipOnWeekDays\": [\n      \"mon\",\n      \"tue\"\n    ],\n    \"repeatOnWeekDays\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"skipHolidays\": false,\n    \"excludeDates\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"includeDates\": [\n      \"<date>\",\n      \"<date>\"\n    ]\n  },\n  \"fieldsToPropagate\": {\n    \"fields\": [\n      \"Description\",\n      \"RegionId\",\n      \"Duration\",\n      \"Address\",\n      \"AccountId\",\n      \"ContactId\",\n      \"CanBeDeclined\"\n    ],\n    \"children\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/FieldSpec detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/FieldSpec detected>\"\n      }\n    ]\n  },\n  \"recurFrom\": \"2017-05-17T03:30:00Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fef40c3c-5644-40b4-81cc-d6cc575e63a4",
+          "name": "Preview job recurring schedule",
+          "request": {
+            "name": "Preview job recurring schedule",
+            "description": {
+              "content": "Preview the intervals that will be generated for a given recurrence pattern and job details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedules",
+                "jobs",
+                "preview"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pattern\": {\n    \"type\": \"<string>\",\n    \"step\": \"<number>\",\n    \"ackAllJobs\": \"<boolean>\",\n    \"endOn\": \"<date>\",\n    \"endAfterNumberOccurrences\": \"<number>\",\n    \"repeatMode\": \"<string>\",\n    \"skipOnWeekDays\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"repeatOnWeekDays\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"skipHolidays\": false,\n    \"excludeDates\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"includeDates\": [\n      \"<date>\",\n      \"<date>\"\n    ]\n  },\n  \"baseJob\": {\n    \"Start\": \"<dateTime>\",\n    \"Duration\": \"<number>\",\n    \"RegionId\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1e3d1818-84f9-43ac-9da5-74c3e921834b",
+              "name": "Successful result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    "jobs",
+                    "preview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pattern\": {\n    \"type\": \"<string>\",\n    \"step\": \"<number>\",\n    \"ackAllJobs\": \"<boolean>\",\n    \"endOn\": \"2020-05-13\",\n    \"endAfterNumberOccurrences\": 5,\n    \"repeatMode\": \"<string>\",\n    \"skipOnWeekDays\": [\n      \"mon\",\n      \"tue\"\n    ],\n    \"repeatOnWeekDays\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"skipHolidays\": false,\n    \"excludeDates\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"includeDates\": [\n      \"<date>\",\n      \"<date>\"\n    ]\n  },\n  \"baseJob\": {\n    \"Start\": \"2017-12-23T00:00:00Z\",\n    \"RegionId\": \"a0J28000000TXd3EAG\",\n    \"Duration\": 30,\n    \"AccountId\": \"0051I000000hycRQAQ\",\n    \"Address\": \"170 Smith Road\",\n    \"CanBeDeclined\": true,\n    \"ContactId\": \"0051I000000hhcRQAQ\",\n    \"Description\": \"description of the job\",\n    \"GeoLatitude\": 100,\n    \"GeoLongitude\": 100,\n    \"LocationId\": \"0051I000000hycRQAQ\",\n    \"Locked\": false,\n    \"NotesComments\": \"a comment on the job\",\n    \"Type\": \"Installation\",\n    \"Urgency\": \"Urgent\",\n    \"Quantity\": 2,\n    \"MyCustomText\": \"hello world\",\n    \"JobTags\": [\n      {\n        \"TagId\": \"a0B0K00000XR5bPUAT\",\n        \"Required\": true\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"start\": \"2017-05-17T03:30:00Z\",\n      \"end\": \"2017-05-17T04:30:00Z\"\n    },\n    {\n      \"start\": \"2017-05-17T03:30:00Z\",\n      \"end\": \"2017-05-17T04:30:00Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e0559c8d-9651-4a1b-aeda-618286d0a614",
+          "name": "Create a recurring schedule",
+          "request": {
+            "name": "Create a recurring schedule",
+            "description": {
+              "content": "Create a recurring schedule from a base job and pattern",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedules",
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"baseJob\": {\n    \"Start\": \"<dateTime>\",\n    \"Duration\": \"<number>\",\n    \"RegionId\": \"<string>\"\n  },\n  \"pattern\": {\n    \"type\": \"<string>\",\n    \"step\": \"<number>\",\n    \"ackAllJobs\": \"<boolean>\",\n    \"endOn\": \"<date>\",\n    \"endAfterNumberOccurrences\": \"<number>\",\n    \"repeatMode\": \"<string>\",\n    \"skipOnWeekDays\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"repeatOnWeekDays\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"skipHolidays\": false,\n    \"excludeDates\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"includeDates\": [\n      \"<date>\",\n      \"<date>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b57f8aae-00b4-4d4e-973d-9f886c894bd1",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"baseJob\": {\n    \"Start\": \"2017-12-23T00:00:00Z\",\n    \"RegionId\": \"a0J28000000TXd3EAG\",\n    \"Duration\": 30,\n    \"AccountId\": \"0051I000000hycRQAQ\",\n    \"Address\": \"170 Smith Road\",\n    \"CanBeDeclined\": true,\n    \"ContactId\": \"0051I000000hhcRQAQ\",\n    \"Description\": \"description of the job\",\n    \"GeoLatitude\": 100,\n    \"GeoLongitude\": 100,\n    \"LocationId\": \"0051I000000hycRQAQ\",\n    \"Locked\": false,\n    \"NotesComments\": \"a comment on the job\",\n    \"Type\": \"Installation\",\n    \"Urgency\": \"Urgent\",\n    \"Quantity\": 2,\n    \"MyCustomText\": \"hello world\",\n    \"JobTags\": [\n      {\n        \"TagId\": \"a0B0K00000XR5bPUAT\",\n        \"Required\": true\n      }\n    ]\n  },\n  \"pattern\": {\n    \"type\": \"<string>\",\n    \"step\": \"<number>\",\n    \"ackAllJobs\": \"<boolean>\",\n    \"endOn\": \"2020-05-13\",\n    \"endAfterNumberOccurrences\": 5,\n    \"repeatMode\": \"<string>\",\n    \"skipOnWeekDays\": [\n      \"mon\",\n      \"tue\"\n    ],\n    \"repeatOnWeekDays\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"skipHolidays\": false,\n    \"excludeDates\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"includeDates\": [\n      \"<date>\",\n      \"<date>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3494c56-f0e3-4caa-8e8d-40945d287b9b",
+          "name": "Update jobs in a recurring schedule",
+          "request": {
+            "name": "Update jobs in a recurring schedule",
+            "description": {
+              "content": "Updates the fields and attached objects of jobs in a recurring schedule, where the jobs start at or after the provided timestamp. Arrays of attached 'HasMany' objects can be provided along with the fields to be updated. In this case, all existing attached objects of the same type on future jobs will be deleted and replaced with the provided objects. Job IDs may be explicitly excluded - this allows the caller to prevent modifying the job that they are currently displaying. Jobs that are Locked, In Progress, Completed or Cancelled will not be updated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedules",
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"recurringScheduleId\": \"<string>\",\n  \"from\": \"<dateTime>\",\n  \"jobFields\": {\n    \"key_0\": \"string\"\n  },\n  \"start\": \"<time>\",\n  \"excludeJobIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"duration\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "68a0a9e4-f6a1-4741-8104-a4699b73b86b",
+              "name": "jobs successfully updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recurringScheduleId\": \"<string>\",\n  \"from\": \"2017-05-17T03:30:00Z\",\n  \"jobFields\": {\n    \"Description\": \"new description\",\n    \"JobTasks\": [\n      {\n        \"Seq\": 1,\n        \"Name\": \"Task 1\",\n        \"Completed\": false\n      },\n      {\n        \"Seq\": 2,\n        \"Name\": \"Task 2\",\n        \"Completed\": false\n      }\n    ]\n  },\n  \"start\": \"<time>\",\n  \"excludeJobIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"duration\": 15\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": []\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "21724a9c-5471-4a50-8b83-d35fdbea089a",
+    "name": "Authentication Admin Job scheduling API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

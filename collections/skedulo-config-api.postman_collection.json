@@ -1,0 +1,728 @@
+{
+  "item": [
+    {
+      "id": "25d94d90-2e8c-4871-9f18-ae4d1b0a2d03",
+      "name": "Config",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4ea13f71-d8f9-4d44-ab8e-02e5c6675b90",
+          "name": "Return mobile v3 authentication configuration for a team.",
+          "request": {
+            "name": "Return mobile v3 authentication configuration for a team.",
+            "description": {},
+            "url": {
+              "path": [
+                "config",
+                "team",
+                "mobile",
+                "v3"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) Lookup a specific mobile v3 config for a team given its name"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "47472bf8-dd18-4612-a0c6-1e58f908e477",
+              "name": "Successful result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "team",
+                    "mobile",
+                    "v3"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"region\": \"string\",\n    \"team\": {\n      \"name\": \"string\",\n      \"tenantId\": \"string\"\n    },\n    \"auth0\": {\n      \"clientId\": \"string\",\n      \"audience\": \"string\",\n      \"domain\": \"string\",\n      \"lock\": {\n        \"allowedConnections\": [\n          \"string\",\n          \"string\"\n        ],\n        \"theme\": {\n          \"authButtons\": {\n            \"key_0\": {\n              \"displayName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        }\n      }\n    },\n    \"server\": {\n      \"api\": \"string\",\n      \"uiPlatform\": \"string\"\n    },\n    \"newCustomerModel\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d9e9459e-e4af-4f51-863d-d155eb05b9ce",
+              "name": "If no team with the given name exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "team",
+                    "mobile",
+                    "v3"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "01d1c90a-6e36-461d-b02d-cf675ca500ac",
+          "name": "Return web authentication configuration for the team the current user belongs to.",
+          "request": {
+            "name": "Return web authentication configuration for the team the current user belongs to.",
+            "description": {},
+            "url": {
+              "path": [
+                "config",
+                "team",
+                "web",
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a216de38-01ea-4514-9b52-94773ffcc1ed",
+              "name": "Successful result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "team",
+                    "web",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"region\": \"string\",\n    \"team\": {\n      \"name\": \"string\",\n      \"tenantId\": \"string\"\n    },\n    \"auth0\": {\n      \"clientId\": \"string\",\n      \"audience\": \"string\",\n      \"domain\": \"string\",\n      \"lock\": {\n        \"allowedConnections\": [\n          \"string\",\n          \"string\"\n        ],\n        \"theme\": {\n          \"authButtons\": {\n            \"key_0\": {\n              \"displayName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"key_1\": {\n              \"displayName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        }\n      }\n    },\n    \"server\": {\n      \"api\": \"string\",\n      \"uiPlatform\": \"string\"\n    },\n    \"newCustomerModel\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "33cdfc54-2e67-4b40-9be2-4adee843b1ff",
+              "name": "If the current user's token is not valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "team",
+                    "web",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5639d5a7-dea7-45a0-9a1e-4eeeaaf7bc1d",
+              "name": "If the current user does not belong to a team",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "team",
+                    "web",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Precondition Failed",
+              "code": 412,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8852ec09-ffb5-45bb-9112-36b43c12ad57",
+          "name": "Return mobile authentication configuration for the team the current user belongs to.",
+          "request": {
+            "name": "Return mobile authentication configuration for the team the current user belongs to.",
+            "description": {},
+            "url": {
+              "path": [
+                "config",
+                "team",
+                "mobile",
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "308bb427-ed8e-4832-bbd2-474ac281a697",
+              "name": "Successful result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "team",
+                    "mobile",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"region\": \"string\",\n    \"team\": {\n      \"name\": \"string\",\n      \"tenantId\": \"string\"\n    },\n    \"auth0\": {\n      \"clientId\": \"string\",\n      \"audience\": \"string\",\n      \"domain\": \"string\",\n      \"lock\": {\n        \"allowedConnections\": [\n          \"string\",\n          \"string\"\n        ],\n        \"theme\": {\n          \"authButtons\": {\n            \"key_0\": {\n              \"displayName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"key_1\": {\n              \"displayName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        }\n      }\n    },\n    \"server\": {\n      \"api\": \"string\",\n      \"uiPlatform\": \"string\"\n    },\n    \"newCustomerModel\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0042354-e9a3-4eb8-9425-d8fbcab51dbe",
+              "name": "If the current user's token is not valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "team",
+                    "mobile",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "99031252-c818-4359-b714-d18637a394b0",
+              "name": "If the current user does not belong to a team",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "team",
+                    "mobile",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Precondition Failed",
+              "code": 412,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "64ee872d-99bb-4307-916a-ec398c000c11",
+          "name": "Return mobile v3 authentication configuration for the team the current user belongs to.",
+          "request": {
+            "name": "Return mobile v3 authentication configuration for the team the current user belongs to.",
+            "description": {},
+            "url": {
+              "path": [
+                "config",
+                "team",
+                "mobile",
+                "v3",
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bd8f21e8-bf69-420c-9005-a9d7f1a55ba0",
+              "name": "Successful result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "team",
+                    "mobile",
+                    "v3",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"region\": \"string\",\n    \"team\": {\n      \"name\": \"string\",\n      \"tenantId\": \"string\"\n    },\n    \"auth0\": {\n      \"clientId\": \"string\",\n      \"audience\": \"string\",\n      \"domain\": \"string\",\n      \"lock\": {\n        \"allowedConnections\": [\n          \"string\",\n          \"string\"\n        ],\n        \"theme\": {\n          \"authButtons\": {\n            \"key_0\": {\n              \"displayName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"key_1\": {\n              \"displayName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        }\n      }\n    },\n    \"server\": {\n      \"api\": \"string\",\n      \"uiPlatform\": \"string\"\n    },\n    \"newCustomerModel\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53daecaf-a0d6-4b52-840b-aa3adde4d6f5",
+              "name": "If the current user's token is not valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "team",
+                    "mobile",
+                    "v3",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c7343064-96ee-4af9-8d4f-29cd50d6b5a7",
+              "name": "If the current user does not belong to a team",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "team",
+                    "mobile",
+                    "v3",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Precondition Failed",
+              "code": 412,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c4763032-150d-4fd9-b532-21d344de9f82",
+          "name": "Default layout for an object",
+          "request": {
+            "name": "Default layout for an object",
+            "description": {
+              "content": "Returns the default layout for the given object.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "layout",
+                ":object"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "object",
+                  "description": "(Required) the name of the object"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "85c9c000-0407-4d6f-b1e4-7edf61e74e45",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "layout",
+                    ":object"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object",
+                      "description": "(Required) the name of the object"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"object\": \"string\",\n    \"layout\": {\n      \"relatedData\": [\n        {\n          \"type\": \"relatedObjects\",\n          \"object\": \"string\",\n          \"reference\": \"string\",\n          \"label\": \"string\",\n          \"listFields\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"type\": \"relatedObjects\",\n          \"object\": \"string\",\n          \"reference\": \"string\",\n          \"label\": \"string\",\n          \"listFields\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fdca7ec8-7295-4de9-b253-4119dc4d99b6",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "layout",
+                    ":object"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object",
+                      "description": "(Required) the name of the object"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\",\n  \"errorId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "21621e4b-cb41-4d02-ba8d-4d168196ba88",
+    "name": "Authentication Admin Config API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

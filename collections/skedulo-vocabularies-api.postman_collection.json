@@ -1,0 +1,192 @@
+{
+  "item": [
+    {
+      "id": "83184afc-3283-4396-82dd-1ee03c79c54e",
+      "name": "Vocabularies",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5dff560a-6ce0-49dc-b291-d08f9d3f8835",
+          "name": "Get all vocabularies (picklist items)",
+          "request": {
+            "name": "Get all vocabularies (picklist items)",
+            "description": {
+              "content": "Returns all vocabularies (standard and custom) keyed on object name with values keyed on field name. If no object names are provided, vocabularies for all objects are returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vocabularies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "names",
+                  "value": "<string>",
+                  "description": "Names of objects to fetch vocabularies for in comma separated format. If not provided all vocabularies are returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "force",
+                  "value": "<boolean>",
+                  "description": "If set to true the cache is replaced with a new value. Has no effect if 'names' are provided as individual objects are not cached."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "842c5899-6578-4e5a-9f42-77639a6e2a90",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vocabularies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "force",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"key_0\": {\n      \"key_0\": [\n        {\n          \"value\": \"string\",\n          \"label\": \"string\",\n          \"active\": false,\n          \"defaultValue\": false,\n          \"validFor\": [\n            \"string\",\n            \"string\"\n          ],\n          \"controller\": \"string\",\n          \"controllingField\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"label\": \"string\",\n          \"active\": true,\n          \"defaultValue\": true,\n          \"validFor\": [\n            \"string\",\n            \"string\"\n          ],\n          \"controller\": \"string\",\n          \"controllingField\": \"string\"\n        }\n      ],\n      \"key_1\": [\n        {\n          \"value\": \"string\",\n          \"label\": \"string\",\n          \"active\": true,\n          \"defaultValue\": true,\n          \"validFor\": [\n            \"string\",\n            \"string\"\n          ],\n          \"controller\": \"string\",\n          \"controllingField\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"label\": \"string\",\n          \"active\": false,\n          \"defaultValue\": false,\n          \"validFor\": [\n            \"string\",\n            \"string\"\n          ],\n          \"controller\": \"string\",\n          \"controllingField\": \"string\"\n        }\n      ],\n      \"key_2\": [\n        {\n          \"value\": \"string\",\n          \"label\": \"string\",\n          \"active\": true,\n          \"defaultValue\": true,\n          \"validFor\": [\n            \"string\",\n            \"string\"\n          ],\n          \"controller\": \"string\",\n          \"controllingField\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"label\": \"string\",\n          \"active\": false,\n          \"defaultValue\": false,\n          \"validFor\": [\n            \"string\",\n            \"string\"\n          ],\n          \"controller\": \"string\",\n          \"controllingField\": \"string\"\n        }\n      ]\n    },\n    \"key_1\": {\n      \"key_0\": [\n        {\n          \"value\": \"string\",\n          \"label\": \"string\",\n          \"active\": false,\n          \"defaultValue\": false,\n          \"validFor\": [\n            \"string\",\n            \"string\"\n          ],\n          \"controller\": \"string\",\n          \"controllingField\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"label\": \"string\",\n          \"active\": false,\n          \"defaultValue\": true,\n          \"validFor\": [\n            \"string\",\n            \"string\"\n          ],\n          \"controller\": \"string\",\n          \"controllingField\": \"string\"\n        }\n      ],\n      \"key_1\": [\n        {\n          \"value\": \"string\",\n          \"label\": \"string\",\n          \"active\": true,\n          \"defaultValue\": false,\n          \"validFor\": [\n            \"string\",\n            \"string\"\n          ],\n          \"controller\": \"string\",\n          \"controllingField\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"label\": \"string\",\n          \"active\": true,\n          \"defaultValue\": false,\n          \"validFor\": [\n            \"string\",\n            \"string\"\n          ],\n          \"controller\": \"string\",\n          \"controllingField\": \"string\"\n        }\n      ],\n      \"key_2\": [\n        {\n          \"value\": \"string\",\n          \"label\": \"string\",\n          \"active\": true,\n          \"defaultValue\": false,\n          \"validFor\": [\n            \"string\",\n            \"string\"\n          ],\n          \"controller\": \"string\",\n          \"controllingField\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"label\": \"string\",\n          \"active\": false,\n          \"defaultValue\": false,\n          \"validFor\": [\n            \"string\",\n            \"string\"\n          ],\n          \"controller\": \"string\",\n          \"controllingField\": \"string\"\n        }\n      ]\n    },\n    \"key_2\": {\n      \"key_0\": [\n        {\n          \"value\": \"string\",\n          \"label\": \"string\",\n          \"active\": true,\n          \"defaultValue\": true,\n          \"validFor\": [\n            \"string\",\n            \"string\"\n          ],\n          \"controller\": \"string\",\n          \"controllingField\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"label\": \"string\",\n          \"active\": true,\n          \"defaultValue\": false,\n          \"validFor\": [\n            \"string\",\n            \"string\"\n          ],\n          \"controller\": \"string\",\n          \"controllingField\": \"string\"\n        }\n      ],\n      \"key_1\": [\n        {\n          \"value\": \"string\",\n          \"label\": \"string\",\n          \"active\": false,\n          \"defaultValue\": false,\n          \"validFor\": [\n            \"string\",\n            \"string\"\n          ],\n          \"controller\": \"string\",\n          \"controllingField\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"label\": \"string\",\n          \"active\": false,\n          \"defaultValue\": true,\n          \"validFor\": [\n            \"string\",\n            \"string\"\n          ],\n          \"controller\": \"string\",\n          \"controllingField\": \"string\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7916ea9-20d7-41a7-ae15-814f1a8e5b0d",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vocabularies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "force",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorType\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.skedulo.com/auth",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4f831684-36fb-49c2-9988-a9737aadeb04",
+    "name": "Authentication Admin Vocabularies API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Skedulo Authentication API",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authentication Admin Recipe API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Recipe",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of recipes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/recipe",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Match part of the recipe name"
+              },
+              {
+                "name": "description",
+                "value": "",
+                "type": "query",
+                "description": "Match part of the recipe description"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Recipe status: active, archived"
+              },
+              {
+                "name": "system",
+                "value": "",
+                "type": "query",
+                "description": "System flag: true/false"
+              },
+              {
+                "name": "createdByVendorUserId",
+                "value": "",
+                "type": "query",
+                "description": "Filter on the Vendor UserId of the Vendor User that created this Recipe. Accepts `null` to explicitly filter by empty value"
+              },
+              {
+                "name": "modifiedByVendorUserId",
+                "value": "",
+                "type": "query",
+                "description": "Filter on the Vendor UserId Of the Vendor User that last modified this Recipe. Accepts `null` to explicitly filter by empty value"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort in format column,direction. Valid columns: name, system, modifiedByVendorUserId, createdByVendorUserId. Valid directions: asc, desc. e.g. sort=name,desc"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of optimization recipes visible to the authenticated tenant. Recipes encapsulate optimizer configuration and can be filtered by name, description, status, system flag, and the user who created or last modified them."
+        },
+        {
+          "info": {
+            "name": "Create a new recipe",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.skedulo.com/auth/recipe",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new optimization recipe for the authenticated tenant. The recipe encapsulates optimizer settings such as objective weights and feature options that can be referenced when starting optimization runs."
+        },
+        {
+          "info": {
+            "name": "Get a recipe by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/recipe/:recipeId",
+            "params": [
+              {
+                "name": "recipeId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the full configuration of a single recipe identified by its ID, including its name, description, status, and optimizer settings."
+        },
+        {
+          "info": {
+            "name": "Update a recipe",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.skedulo.com/auth/recipe/:recipeId",
+            "params": [
+              {
+                "name": "recipeId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the configuration of an existing recipe identified by its ID. This will affect any future optimization runs that reference this recipe."
+        },
+        {
+          "info": {
+            "name": "Set the default recipe for a tenant",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.skedulo.com/auth/recipe/:recipeId/default",
+            "params": [
+              {
+                "name": "recipeId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Designates the specified recipe as the default for the authenticated tenant. When no explicit recipe is provided at the time of scheduling, this recipe's settings will be used."
+        },
+        {
+          "info": {
+            "name": "Get the default recipe of the tenant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.skedulo.com/auth/recipe/default"
+          },
+          "docs": "Returns the recipe currently set as the default for the authenticated tenant. Returns 204 No Content if no default recipe has been configured."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
