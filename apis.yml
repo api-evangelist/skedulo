@@ -38,6 +38,17 @@ tags:
 - Dispatch
 - Optimization
 - GraphQL
+- Webhook
+tags_raw:
+- Company
+- Enterprise
+- Scheduling
+- Field Service Management
+- Workforce Management
+- Deskless
+- Dispatch
+- Optimization
+- GraphQL
 - Webhooks
 apis:
 - aid: skedulo:skedulo-admin-api
@@ -66,6 +77,8 @@ apis:
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
   tags:
+  - API User
+  tags_raw:
   - Api User
   properties:
   - type: OpenAPI
@@ -208,6 +221,8 @@ apis:
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
   tags:
+  - GeoServices
+  tags_raw:
   - Geoservices
   properties:
   - type: OpenAPI
@@ -218,6 +233,8 @@ apis:
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
   tags:
+  - GraphQL
+  tags_raw:
   - Graphql
   properties:
   - type: OpenAPI
@@ -269,6 +286,8 @@ apis:
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
   tags:
+  - Job Scheduling
+  tags_raw:
   - Job scheduling
   properties:
   - type: OpenAPI
@@ -430,6 +449,8 @@ apis:
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
   tags:
+  - Resource Allocations
+  tags_raw:
   - Resource allocations
   properties:
   - type: OpenAPI
@@ -511,6 +532,8 @@ apis:
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
   tags:
+  - Scheduling
+  tags_raw:
   - scheduling
   properties:
   - type: OpenAPI
@@ -581,6 +604,8 @@ apis:
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
   tags:
+  - Subscription
+  tags_raw:
   - Subscriptions
   properties:
   - type: OpenAPI
@@ -701,6 +726,8 @@ apis:
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
