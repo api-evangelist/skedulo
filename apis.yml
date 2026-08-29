@@ -7,6 +7,18 @@ description: Skedulo is the Deskless Productivity Cloud, a field service and mob
   and triggered actions for real-time events, a `sked` CLI, first-party SDKs and UI components, and an
   MCP server. Authentication is via Bearer JWT API tokens, with regional API hosts for the US, AU, UK
   and CA. Backed by SoftBank Vision Fund.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
@@ -748,6 +760,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/skedulo-capability-edges.yml
+  name: Skedulo Business Capability Map
 - type: Overlay
   url: overlays/skedulo-authentication-overlay.yaml
 - type: Website
