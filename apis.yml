@@ -89,7 +89,7 @@ apis:
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
   tags:
-  - Api User
+  - API User
   tags_raw:
   - Api User
   properties:
@@ -233,7 +233,7 @@ apis:
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
   tags:
-  - Geoservices
+  - GeoServices
   tags_raw:
   - Geoservices
   properties:
@@ -298,7 +298,7 @@ apis:
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
   tags:
-  - Job scheduling
+  - Job Scheduling
   tags_raw:
   - Job scheduling
   properties:
@@ -461,7 +461,7 @@ apis:
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
   tags:
-  - Resource allocations
+  - Resource Allocations
   tags_raw:
   - Resource allocations
   properties:
@@ -544,7 +544,7 @@ apis:
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
   tags:
-  - scheduling
+  - Scheduling
   tags_raw:
   - scheduling
   properties:
