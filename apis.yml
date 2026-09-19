@@ -152,6 +152,8 @@ apis:
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
   tags:
+  - Avatars
+  tags_raw:
   - Avatar
   properties:
   - type: OpenAPI
@@ -627,6 +629,8 @@ apis:
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
   tags:
+  - Templates
+  tags_raw:
   - Template
   properties:
   - type: OpenAPI
@@ -667,6 +671,8 @@ apis:
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
   tags:
+  - Tokens
+  tags_raw:
   - Token
   properties:
   - type: OpenAPI
@@ -749,6 +755,8 @@ apis:
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
   tags:
+  - GraphQL
+  tags_raw:
   - Graph QL
   properties:
   - type: OpenAPI
