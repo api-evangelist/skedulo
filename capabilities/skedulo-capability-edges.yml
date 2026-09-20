@@ -1,0 +1,57 @@
+slug: skedulo
+provider: Skedulo
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Rules
+  spec_file: skedulo-rules-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: POST /rules/resolve  Resolve record access rules; GET /rules/user  Record access rules for
+    the current user; schema RecordAccessRule
+  reason: Despite the generic tag, the operations resolve record-level access rules for the authenticated
+    user — authorisation/access control, which sits under Identity & Access Management.
+- tag: Webhooks
+  spec_file: skedulo-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.72
+  evidence: '''Create a new webhook'', ''Delete a webhook'', ''Webhook GraphQL schema''; schemas ''NewWebhook'',
+    ''WebhookScheduled'', ''WebhookInboundSMS'''
+  reason: Operations manage the lifecycle of outbound webhook subscriptions and their event schemas for
+    platform consumers, which is exactly BC-4270.80. Confidence moderated because webhook registration
+    is also arguable generic integration plumbing.
+- tag: tenant-controller
+  spec_file: skedulo-tenant-controller-api-openapi.yml
+  capability_id: BC-4230.10
+  capability_id_l1: BC-4230
+  capability_name: Tenant Provisioning & Lifecycle
+  confidence: 0.72
+  evidence: '''Get tenant status'' and ''Delete all data for a tenant'' (GET/DELETE /admin/tenants/{tenantId});
+    schema ''TenantStatusResponse'''
+  reason: Administrative operations on tenants in the multi-tenant fleet, including tenant data deletion,
+    align with tenant provisioning and decommissioning. Confidence moderated because only two operations
+    are shown and data deletion could alternatively read as tenant backup/export (BC-4230.60).
+- tag: Internal
+  spec_file: skedulo-internal-api-openapi.yml
+  capability_id: BC-4230.10
+  capability_id_l1: BC-4230
+  capability_name: Tenant Provisioning & Lifecycle
+  confidence: 0.7
+  evidence: POST /internal/initialize_tenant  internalInitializeTenant
+  reason: Single internal operation that initialises a tenant (schema InitializeInput), matching tenant
+    provisioning/creation in a multi-tenant SaaS; context is thin (no description, one operation) so confidence
+    is moderate.
