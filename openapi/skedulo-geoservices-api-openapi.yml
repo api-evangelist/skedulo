@@ -1,20 +1,23 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Authentication Admin Geoservices API
-  description: Skedulo Authentication API
-  version: 1.0.0
+  title: Planr Geoservices API
+  version: v1
+  contact:
+    email: support@skedulo.com
 servers:
-- url: https://api.skedulo.com/auth
-- url: https://api.uk.skedulo.com/auth
-- url: https://api.ca.skedulo.com/auth
-- url: https://api.au.skedulo.com/auth
+- url: https://api.skedulo.com/planr
+- url: https://api.uk.skedulo.com/planr
+- url: https://api.ca.skedulo.com/planr
+- url: https://api.au.skedulo.com/planr
+security:
+- BearerAuth: []
 tags:
 - name: Geoservices
 paths:
   /geoservices/travel-time:
     post:
       operationId: /geoservices/travel-time
-      summary: Determine travel time for many resources, across work or activities they have been assigned
+      summary: Determine travel time for many resources, across work or activities they have…
       description: The Travel Time endpoint will approximate how long it takes for a resource to travel between destinations. It will filter down to relevant availability windows (ignoring destinations outside the resource's availability), order the work to be completed, and finally calculate the travel time between each destination. The result will contain only the node identifier and the relevant travel time.
       requestBody:
         required: true
@@ -33,6 +36,19 @@ paths:
       - Geoservices
 components:
   schemas:
+    Coordinates:
+      type: object
+      description: Geocoordinates of the activity/job/resource
+      properties:
+        lat:
+          type: number
+          description: Latitude
+        lng:
+          type: number
+          description: Longitude
+      required:
+      - lat
+      - lng
     TravelTimeResponse:
       type: object
       properties:
@@ -40,6 +56,27 @@ components:
           type: object
           description: The response will contain successful travel times grouped by the Nodes id
       example: "{\n  \"result\": {\n    \"0008dea1-7b0b-496c-8043-fb86ff6a73aa\": 204,\n    \"0008cb3c-e5d8-45e6-ba80-cc674aedbbbe\": 0,\n    \"001413ed-c6a5-495d-9fb9-a92503a250c1\": 340,\n    \"001442ff-27e7-40f3-80c8-016305b92230\": 344,\n    \"001484ec-5a47-48ae-bce8-0bf443fbf50c\": 163,\n    \"000555ac-24f1-43fe-b6c0-117c34bbc994\": 257\n  }\n}\n"
+    TravelTimeResource:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The identifier of the resource
+        origin:
+          $ref: '#/components/schemas/Coordinates'
+        availabilities:
+          type: array
+          description: The time windows when a resource is available
+          items:
+            type: object
+            properties:
+              start:
+                $ref: '#/components/schemas/TimeStamp'
+              end:
+                $ref: '#/components/schemas/TimeStamp'
+            required:
+            - start
+            - end
     TravelTimeNode:
       type: object
       properties:
@@ -64,6 +101,22 @@ components:
       - resourceId
       - start
       - end
+    TravelTimeBody:
+      type: object
+      properties:
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/TravelTimeResource'
+        nodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TravelTimeNode'
+        schedulingOptions:
+          $ref: '#/components/schemas/SchedulingOptions'
+      required:
+      - resources
+      - nodes
     SchedulingOptions:
       type: object
       properties:
@@ -108,62 +161,11 @@ components:
           default: 0
           minimum: 0
           description: Divide the given time frame into parts described by this value and allocate all jobs to the nearest part.
-    TravelTimeResource:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The identifier of the resource
-        origin:
-          $ref: '#/components/schemas/Coordinates'
-        availabilities:
-          type: array
-          description: The time windows when a resource is available
-          items:
-            type: object
-            properties:
-              start:
-                $ref: '#/components/schemas/TimeStamp'
-              end:
-                $ref: '#/components/schemas/TimeStamp'
-            required:
-            - start
-            - end
-    Coordinates:
-      type: object
-      description: Geocoordinates of the activity/job/resource
-      properties:
-        lat:
-          type: number
-          description: Latitude
-        lng:
-          type: number
-          description: Longitude
-      required:
-      - lat
-      - lng
-    TravelTimeBody:
-      type: object
-      properties:
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/TravelTimeResource'
-        nodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/TravelTimeNode'
-        schedulingOptions:
-          $ref: '#/components/schemas/SchedulingOptions'
-      required:
-      - resources
-      - nodes
     TimeStamp:
       type: string
       format: date-time
       description: Can be either ISO8601 date time string or Unix timestamp number ( in milliseconds ). Always returned in ISO8601 format.
   securitySchemes:
-    Authorization:
+    BearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: JWT

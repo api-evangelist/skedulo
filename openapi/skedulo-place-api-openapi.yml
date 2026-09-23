@@ -1,13 +1,12 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Authentication Admin Place API
-  description: Skedulo Authentication API
+  title: Geoservices Place API
   version: 1.0.0
 servers:
-- url: https://api.skedulo.com/auth
-- url: https://api.uk.skedulo.com/auth
-- url: https://api.ca.skedulo.com/auth
-- url: https://api.au.skedulo.com/auth
+- url: https://api.skedulo.com/geoservices
+- url: https://api.uk.skedulo.com/geoservices
+- url: https://api.ca.skedulo.com/geoservices
+- url: https://api.au.skedulo.com/geoservices
 tags:
 - name: Place
 paths:
@@ -44,61 +43,10 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
       - Place
+      operationId: postPlace
+      x-operation-id-source: derived
 components:
   schemas:
-    LatLng:
-      type: object
-      required:
-      - lat
-      - lng
-      properties:
-        lat:
-          description: -90 <= y <= 90
-          type: number
-        lng:
-          description: -180 <= x <= 180
-          type: number
-    PlaceDetailRequest:
-      type: object
-      required:
-      - placeId
-      - sessionId
-      properties:
-        placeId:
-          type: string
-          description: Unique id for a place in Google system, obtained from autocomplete endpoint.
-        sessionId:
-          type: string
-          format: uuid
-          description: A caller-generated uuid that may have been used in an autocomplete session.
-    PlaceDetailResponse:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/PlaceDetail'
-    PlaceDetail:
-      type: object
-      required:
-      - addressComponents
-      - formattedAddress
-      - geometry
-      properties:
-        addressComponents:
-          $ref: '#/components/schemas/AddressComponents'
-        formattedAddress:
-          type: string
-        geometry:
-          $ref: '#/components/schemas/LatLng'
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
     AddressComponents:
       type: object
       properties:
@@ -116,8 +64,61 @@ components:
           type: string
         postalCode:
           type: string
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+    LatLng:
+      type: object
+      required:
+      - lat
+      - lng
+      properties:
+        lat:
+          description: -90 <= y <= 90
+          type: number
+        lng:
+          description: -180 <= x <= 180
+          type: number
+    PlaceDetailResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PlaceDetail'
+    PlaceDetailRequest:
+      type: object
+      required:
+      - placeId
+      - sessionId
+      properties:
+        placeId:
+          type: string
+          description: Unique id for a place in Google system, obtained from autocomplete endpoint.
+        sessionId:
+          type: string
+          format: uuid
+          description: A caller-generated uuid that may have been used in an autocomplete session.
+    PlaceDetail:
+      type: object
+      required:
+      - addressComponents
+      - formattedAddress
+      - geometry
+      properties:
+        addressComponents:
+          $ref: '#/components/schemas/AddressComponents'
+        formattedAddress:
+          type: string
+        geometry:
+          $ref: '#/components/schemas/LatLng'
   securitySchemes:
     Authorization:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+      type: apiKey
+      in: header
+      name: Authorization

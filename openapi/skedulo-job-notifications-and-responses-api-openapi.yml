@@ -1,13 +1,13 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Authentication Admin Job Notifications and Responses API
-  description: Skedulo Authentication API
+  title: Job Notifications and Responses API
+  description: Skedulo Notification API
   version: 1.0.0
 servers:
-- url: https://api.skedulo.com/auth
-- url: https://api.uk.skedulo.com/auth
-- url: https://api.ca.skedulo.com/auth
-- url: https://api.au.skedulo.com/auth
+- url: https://api.skedulo.com/notifications
+- url: https://api.uk.skedulo.com/notifications
+- url: https://api.ca.skedulo.com/notifications
+- url: https://api.au.skedulo.com/notifications
 tags:
 - name: Job Notifications and Responses
 paths:
@@ -34,6 +34,8 @@ paths:
                 $ref: '#/components/schemas/Error'
       requestBody:
         $ref: '#/components/requestBodies/NotifyRequest'
+      operationId: postDispatch
+      x-operation-id-source: derived
   /notify:
     post:
       security:
@@ -57,6 +59,8 @@ paths:
                 $ref: '#/components/schemas/Error'
       requestBody:
         $ref: '#/components/requestBodies/NotifyRequest'
+      operationId: postNotify
+      x-operation-id-source: derived
   /notify_cancel:
     post:
       security:
@@ -84,6 +88,8 @@ paths:
             schema:
               $ref: '#/components/schemas/CancelRequest'
         required: true
+      operationId: postNotifyCancel
+      x-operation-id-source: derived
   /oneoff:
     post:
       security:
@@ -131,28 +137,10 @@ paths:
                   - push
                   - sms
         required: true
+      operationId: postOneoff
+      x-operation-id-source: derived
 components:
   schemas:
-    NotifyRequest:
-      type: object
-      required:
-      - jobId
-      properties:
-        jobId:
-          type: string
-        resourceId:
-          type: string
-        resourceIds:
-          type: array
-          items:
-            type: string
-    CancelRequest:
-      type: object
-      required:
-      - jobId
-      properties:
-        jobId:
-          type: string
     DispatchResponse:
       type: object
       properties:
@@ -178,6 +166,13 @@ components:
         error:
           description: null if the notification was sent successfully
           $ref: '#/components/schemas/Error'
+    CancelRequest:
+      type: object
+      required:
+      - jobId
+      properties:
+        jobId:
+          type: string
     Error:
       type: object
       required:
@@ -188,6 +183,19 @@ components:
           type: string
         message:
           type: string
+    NotifyRequest:
+      type: object
+      required:
+      - jobId
+      properties:
+        jobId:
+          type: string
+        resourceId:
+          type: string
+        resourceIds:
+          type: array
+          items:
+            type: string
   requestBodies:
     NotifyRequest:
       content:

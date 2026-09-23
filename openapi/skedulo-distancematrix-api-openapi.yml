@@ -1,13 +1,12 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Authentication Admin DistanceMatrix API
-  description: Skedulo Authentication API
+  title: Geoservices Distance Matrix API
   version: 1.0.0
 servers:
-- url: https://api.skedulo.com/auth
-- url: https://api.uk.skedulo.com/auth
-- url: https://api.ca.skedulo.com/auth
-- url: https://api.au.skedulo.com/auth
+- url: https://api.skedulo.com/geoservices
+- url: https://api.uk.skedulo.com/geoservices
+- url: https://api.ca.skedulo.com/geoservices
+- url: https://api.au.skedulo.com/geoservices
 tags:
 - name: DistanceMatrix
 paths:
@@ -27,7 +26,7 @@ paths:
         It should be noted that there are limits on the total number elements that can be requested and that large requests (where origins * destinations > 1000) may take several seconds to satisfy. These limits may vary depending on your underlying configuration.
 
 
-        Depending on your configuration, requesting travel times and distances for different times in the day (accounting for traffic conditions) is possible with the ''departureTime'' field.  The ''departureTime'' field is not timezone-aware and so the timezone offset needs to be applied in order to match the requested local time.'
+        Depending on your configuration, requesting travel times and distances for different times in the day (accounting for traffic conditions) is possible with the ''departureTime'' field. The ''departureTime'' field is not timezone-aware and so the timezone offset needs to be applied in order to match the requested local time.'
       responses:
         '200':
           description: successful operation
@@ -43,48 +42,10 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
       - DistanceMatrix
+      operationId: postDistanceMatrix
+      x-operation-id-source: derived
 components:
   schemas:
-    Avoid:
-      type: string
-      enum:
-      - ferry
-      - highway
-      - toll
-    MapVendor:
-      type: string
-      enum:
-      - GOOGLE
-      - GRAPHHOPPER
-      - LINEOFSIGHT
-    Distance:
-      type: object
-      required:
-      - distanceInMeters
-      properties:
-        distanceInMeters:
-          type: number
-    DistanceMatrixResponse:
-      type: object
-      required:
-      - matrix
-      - vendor
-      properties:
-        matrix:
-          type: array
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/TravelLegResult'
-        vendor:
-          $ref: '#/components/schemas/MapVendor'
-    Duration:
-      type: object
-      required:
-      - durationInSeconds
-      properties:
-        durationInSeconds:
-          type: number
     DistanceMatrixRequest:
       type: object
       required:
@@ -115,6 +76,49 @@ components:
         destinations:
         - lat: -27.457768
           lng: 153.03583
+    DistanceMatrixResponse:
+      type: object
+      required:
+      - matrix
+      - vendor
+      properties:
+        matrix:
+          type: array
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/TravelLegResult'
+        vendor:
+          $ref: '#/components/schemas/MapVendor'
+    Avoid:
+      type: string
+      enum:
+      - ferry
+      - highway
+      - toll
+    TravelLegResult:
+      type: object
+      required:
+      - status
+      discriminator:
+        propertyName: status
+      properties:
+        status:
+          type: string
+          enum:
+          - OK
+          - NO_ROUTE
+        duration:
+          $ref: '#/components/schemas/Duration'
+        distance:
+          $ref: '#/components/schemas/Distance'
+    Duration:
+      type: object
+      required:
+      - durationInSeconds
+      properties:
+        durationInSeconds:
+          type: number
     Error:
       type: object
       required:
@@ -137,24 +141,21 @@ components:
         lng:
           description: -180 <= x <= 180
           type: number
-    TravelLegResult:
+    MapVendor:
+      type: string
+      enum:
+      - GOOGLE
+      - GRAPHHOPPER
+      - LINEOFSIGHT
+    Distance:
       type: object
       required:
-      - status
-      discriminator:
-        propertyName: status
+      - distanceInMeters
       properties:
-        status:
-          type: string
-          enum:
-          - OK
-          - NO_ROUTE
-        duration:
-          $ref: '#/components/schemas/Duration'
-        distance:
-          $ref: '#/components/schemas/Distance'
+        distanceInMeters:
+          type: number
   securitySchemes:
     Authorization:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+      type: apiKey
+      in: header
+      name: Authorization

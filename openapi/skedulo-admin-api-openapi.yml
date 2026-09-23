@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   title: Authentication Admin API
   description: Skedulo Authentication API
@@ -187,6 +187,30 @@ paths:
       - Admin
 components:
   schemas:
+    AdminApiUser:
+      type: object
+      required:
+      - tenantId
+      - type
+      properties:
+        tenantId:
+          type: string
+          example: sk_e0bb1f8aa1924a00b77a9c1f43b09e41
+        type:
+          type: string
+          enum:
+          - api_user
+          - standalone_system_user
+          - legacy_user
+          - none
+          example: api_user
+        userId:
+          type: string
+          example: ipovey@skedulo.com
+    JwtClaims:
+      description: Selection of the user claims from the JWT
+      type: object
+      additionalProperties: true
     ApiTokenInfo:
       type: object
       required:
@@ -217,30 +241,6 @@ components:
         lastUpdated:
           type: string
           format: date-time
-    AdminApiUser:
-      type: object
-      required:
-      - tenantId
-      - type
-      properties:
-        tenantId:
-          type: string
-          example: sk_e0bb1f8aa1924a00b77a9c1f43b09e41
-        type:
-          type: string
-          enum:
-          - api_user
-          - standalone_system_user
-          - legacy_user
-          - none
-          example: api_user
-        userId:
-          type: string
-          example: ipovey@skedulo.com
-    JwtClaims:
-      description: Selection of the user claims from the JWT
-      type: object
-      additionalProperties: true
   securitySchemes:
     Authorization:
       type: http

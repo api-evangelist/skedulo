@@ -1,13 +1,13 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Authentication Admin Rule Management API
-  description: Skedulo Authentication API
-  version: 1.0.0
+  title: Auth Service Rule Management API
+  description: Auth Service API provides management of user roles and permissions.
+  version: '1.0'
 servers:
-- url: https://api.skedulo.com/auth
-- url: https://api.uk.skedulo.com/auth
-- url: https://api.ca.skedulo.com/auth
-- url: https://api.au.skedulo.com/auth
+- url: https://api.skedulo.com/authorization
+- url: https://api.uk.skedulo.com/authorization
+- url: https://api.ca.skedulo.com/authorization
+- url: https://api.au.skedulo.com/authorization
 tags:
 - name: Rule Management
 paths:
@@ -15,7 +15,7 @@ paths:
     get:
       tags:
       - Rule Management
-      summary: Get a rule by ID.
+      summary: Get a rule by ID
       operationId: getRuleById
       parameters:
       - name: id
@@ -50,7 +50,7 @@ paths:
     put:
       tags:
       - Rule Management
-      summary: Update an existing rule.
+      summary: Update an existing rule
       operationId: updateRule
       parameters:
       - name: id
@@ -91,7 +91,7 @@ paths:
     delete:
       tags:
       - Rule Management
-      summary: Delete a rule.
+      summary: Delete a rule
       operationId: deleteRule
       parameters:
       - name: id
@@ -127,7 +127,7 @@ paths:
     get:
       tags:
       - Rule Management
-      summary: Get multiple rules.
+      summary: Get multiple rules
       operationId: getRules
       parameters:
       - name: enabled
@@ -162,7 +162,7 @@ paths:
     post:
       tags:
       - Rule Management
-      summary: Create a new rule.
+      summary: Create a new rule
       operationId: createRule
       requestBody:
         content:
@@ -197,7 +197,7 @@ paths:
     get:
       tags:
       - Rule Management
-      summary: Get the resolved rules for the current user.
+      summary: Get the resolved rules for the current user
       operationId: getRulesForCurrentUser
       responses:
         '200':
@@ -237,6 +237,13 @@ components:
             type: object
     Unit:
       type: object
+    ApiResultRuleResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/RuleResult'
     UserRulesResult:
       required:
       - rules
@@ -255,13 +262,6 @@ components:
       properties:
         result:
           $ref: '#/components/schemas/UserRulesResult'
-    ApiResultUnit:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/Unit'
     ApiResultListRuleResult:
       required:
       - result
@@ -271,6 +271,64 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RuleResult'
+    ApiResultUnit:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Unit'
+    RuleResult:
+      required:
+      - accessType
+      - description
+      - filter
+      - id
+      - objectType
+      - permissionsExcluded
+      - policyId
+      - rolesExcluded
+      type: object
+      properties:
+        id:
+          type: string
+          description: Uniquely identifies the rule. This ID can be used for updating or deleting the rule.
+          format: uuid
+        policyId:
+          type: string
+          description: ID of the parent policy.
+          format: uuid
+        description:
+          maxLength: 250
+          minLength: 0
+          type: string
+          description: Describes the purpose of the rule.
+        objectType:
+          type: string
+          description: The object type (schema) that the rule applies to. This may be a custom object.
+        filter:
+          type: string
+          description: A filter expressed in the Skedulo Elastic Query Language (EQL), possibly with placeholders. This filter must be valid with respect to the object type and the custom data model.
+        accessType:
+          type: string
+          description: Specifies whether the filter allows or denies access. All Deny rules will be applied with the AND operator and then all Allow filters will be applied with the OR operator.
+          enum:
+          - deny
+          - allow
+        permissionsExcluded:
+          type: array
+          description: An optional set of permission keys for which this rule should be ignored. If the user has any of these permissions, the rule will not be applied.
+          items:
+            type: string
+            description: An optional set of permission keys for which this rule should be ignored. If the user has any of these permissions, the rule will not be applied.
+        rolesExcluded:
+          type: array
+          description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
+          items:
+            type: string
+            description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
+            format: uuid
+      description: A record access rule that controls access to data.
     ResolvedRuleResult:
       required:
       - accessType
@@ -336,66 +394,9 @@ components:
             type: string
             description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
             format: uuid
-    ApiResultRuleResult:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/RuleResult'
-    RuleResult:
-      required:
-      - accessType
-      - description
-      - filter
-      - id
-      - objectType
-      - permissionsExcluded
-      - policyId
-      - rolesExcluded
-      type: object
-      properties:
-        id:
-          type: string
-          description: Uniquely identifies the rule. This ID can be used for updating or deleting the rule.
-          format: uuid
-        policyId:
-          type: string
-          description: ID of the parent policy.
-          format: uuid
-        description:
-          maxLength: 250
-          minLength: 0
-          type: string
-          description: Describes the purpose of the rule.
-        objectType:
-          type: string
-          description: The object type (schema) that the rule applies to. This may be a custom object.
-        filter:
-          type: string
-          description: A filter expressed in the Skedulo Elastic Query Language (EQL), possibly with placeholders. This filter must be valid with respect to the object type and the custom data model.
-        accessType:
-          type: string
-          description: Specifies whether the filter allows or denies access. All Deny rules will be applied with the AND operator and then all Allow filters will be applied with the OR operator.
-          enum:
-          - deny
-          - allow
-        permissionsExcluded:
-          type: array
-          description: An optional set of permission keys for which this rule should be ignored. If the user has any of these permissions, the rule will not be applied.
-          items:
-            type: string
-            description: An optional set of permission keys for which this rule should be ignored. If the user has any of these permissions, the rule will not be applied.
-        rolesExcluded:
-          type: array
-          description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
-          items:
-            type: string
-            description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
-            format: uuid
-      description: A record access rule that controls access to data.
   securitySchemes:
-    Authorization:
+    ApiKeyAuth:
       type: http
+      name: bearerAuth
       scheme: bearer
       bearerFormat: JWT

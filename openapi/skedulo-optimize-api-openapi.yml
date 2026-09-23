@@ -1,13 +1,16 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Authentication Admin Optimize API
-  description: Skedulo Authentication API
-  version: 1.0.0
+  title: Planr Optimize API
+  version: v1
+  contact:
+    email: support@skedulo.com
 servers:
-- url: https://api.skedulo.com/auth
-- url: https://api.uk.skedulo.com/auth
-- url: https://api.ca.skedulo.com/auth
-- url: https://api.au.skedulo.com/auth
+- url: https://api.skedulo.com/planr
+- url: https://api.uk.skedulo.com/planr
+- url: https://api.ca.skedulo.com/planr
+- url: https://api.au.skedulo.com/planr
+security:
+- BearerAuth: []
 tags:
 - name: Optimize
 paths:
@@ -18,9 +21,7 @@ paths:
       description: 'Query the `/optimize/suggest` endpoint to find the best time to schedule a single job given a set of resources within a specific time range.
 
 
-        For example, if a job must be done on Thursday before noon you can specify the time window of 8AM to 12PM on Thursday and the resources that are available to find the best time to schedule the job that morning.
-
-        '
+        For example, if a job must be done on Thursday before noon you can specify the time window of 8AM to 12PM on Thursday and the resources that are available to find the best time to schedule the job that morning.'
       requestBody:
         required: true
         content:
@@ -92,9 +93,7 @@ paths:
 
         Planr does not re-query the Availability engine, and useAvailabilityPreferences is ignored.
 
-        Preference evaluation is only applied for the `resourceIds` request shape.
-
-        '
+        Preference evaluation is only applied for the `resourceIds` request shape.'
       requestBody:
         required: true
         content:
@@ -257,247 +256,6 @@ paths:
       - Optimize
 components:
   schemas:
-    SchedulingOptions:
-      type: object
-      properties:
-        jobTimeAsTimeConstraint:
-          type: boolean
-          default: true
-          description: When a job has a time set, consider it to be a time constraint and never re-schedule to another time slot.
-        preferJobTimeOverTimeConstraint:
-          type: boolean
-          default: true
-          description: When a job with a JobTimeConstraint also has a time set, consider the job time as the authoritative constraint and ignore the JobTimeConstraint.
-        respectSchedule:
-          type: boolean
-          default: true
-          description: For a job that is allocated and in "Pending Dispatch" status, do not move the job to a different time.
-        ignoreTravelTimes:
-          type: boolean
-          default: false
-          description: Ignore all travel times between resources and jobs.
-        ignoreTravelTimeFirstJob:
-          type: boolean
-          default: false
-          description: Ignore travel time from a resource' home location to the first job.
-        ignoreTravelTimeLastJob:
-          type: boolean
-          default: false
-          description: Ignore travel time to the resource' home location from the last job.
-        assumeResourceCanTravelBeforeStart:
-          type: boolean
-          default: false
-          description: Ignore travel time to first job when deriving its arrival time however include the travel time when considering overall travel time reduction.
-        assumeResourceCanTravelAfterEnd:
-          type: boolean
-          default: false
-          description: Assume that the resource can travel after their end time to get to their end location however include the travel time when considering overall travel time reduction.
-        padding:
-          type: integer
-          default: 0
-          description: A fixed interval of time between consecutive jobs.
-        snapUnit:
-          type: integer
-          default: 0
-          minimum: 0
-          description: Divide the given time frame into parts described by this value and allocate all jobs to the nearest part.
-    RecordFilter:
-      type: object
-      additionalProperties: false
-      properties:
-        uid:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        expression:
-          type: string
-        objectType:
-          type: string
-    SuggestBodyResourceIds:
-      type: object
-      properties:
-        suggestForNode:
-          type: string
-          description: ID of the job that you want the suggestion for.
-        resourceIds:
-          type: array
-          items:
-            type: string
-        scheduleStart:
-          $ref: '#/components/schemas/TimeStamp'
-        scheduleEnd:
-          $ref: '#/components/schemas/TimeStamp'
-        schedulingOptions:
-          $ref: '#/components/schemas/SchedulingOptions'
-        accountResourceScores:
-          type: array
-          description: An array of accounts and resources to blacklist
-          items:
-            $ref: '#/components/schemas/AccountResourceScores'
-        regionId:
-          type: string
-          description: 'Resource availability will be based on when resources are available in the region specified.  Availability depends
-
-            on the primary region of the resource or whether the resource has Temporary or Secondary regions assigned.
-
-            '
-      required:
-      - suggestForNode
-      - resourceIds
-      - scheduleStart
-      - scheduleEnd
-    ResourceSuggestionResponse:
-      type: object
-      example: "{\n  \"result\": {\n    \"0005ea18-61c1-49d9-9b50-d16a31a21c20\": {\n      \"resourceId\": \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n      \"jobId\": \"0014cac9-4ba2-4944-b7ca-b4d2c40b1403\",\n      \"start\": \"2018-09-03T23:21:00.000Z\",\n      \"duration\": 30,\n      \"travelTime\": 17,\n      \"currentCapacityInSeconds\": 86400,\n      \"newCapacityInSeconds\": 83580\n    }\n  }\n}\n"
-      properties:
-        result:
-          type: object
-          additionalProperties:
-            type: object
-            properties:
-              resourceId:
-                type: string
-                description: UID of the resource.
-              jobId:
-                type: string
-                description: UID of the current job.
-              start:
-                type: string
-                format: date-time
-                description: Suggested start time of the job as an ISO8601 Date Time string.
-              duration:
-                type: integer
-                description: Duration (in minutes) of the current job.
-              travelTime:
-                type: integer
-                description: Travel time (in minutes) from the previous location (resource home or previous job) to the current job.
-              currentCapacityInSeconds:
-                type: integer
-                description: Available capacity for the resource based on currently scheduled jobs.
-              newCapacityInSeconds:
-                type: integer
-                description: Updated capacity for the resource once this job has been scheduled to the resource.
-              infeasibleDueToAvailabilityPreferences:
-                type: boolean
-                description: 'True when this resource is infeasible because its availability preferences do not match the job. Only set when `useAvailabilityPreferences` is true.
-
-                  '
-              availabilityPreferenceExplanation:
-                type: object
-                nullable: true
-                description: 'Explanation of how availability preferences were applied to this resource. Present only when `useAvailabilityPreferences` is true and preferences were evaluated for this resource.
-
-                  '
-                properties:
-                  preferenceFiltered:
-                    type: boolean
-                    description: 'Indicates whether the resource was filtered by availability preferences.
-
-                      '
-                  matchingRecordFilterIds:
-                    type: array
-                    items:
-                      type: string
-                    description: IDs of record filters that matched this job for this resource.
-                  mismatchedRecordFilterIds:
-                    type: array
-                    items:
-                      type: string
-                    description: IDs of record filters that did not match for this job/resource.
-                  recordFiltersById:
-                    type: object
-                    description: 'Map of record filter IDs used in `matchingRecordFilterIds` and `mismatchedRecordFilterIds` to their definitions.
-
-                      '
-                    additionalProperties:
-                      $ref: '#/components/schemas/RecordFilter'
-    ResourceSuggestionBodyResourceIds:
-      type: object
-      properties:
-        jobId:
-          type: string
-          description: UID of the job that you want the suggestion for.
-        resourceIds:
-          type: array
-          items:
-            type: string
-        scheduleStart:
-          $ref: '#/components/schemas/TimeStamp'
-        scheduleEnd:
-          $ref: '#/components/schemas/TimeStamp'
-        schedulingOptions:
-          $ref: '#/components/schemas/SchedulingOptions'
-        accountResourceScores:
-          type: array
-          description: An array of accounts and resources to blacklist
-          items:
-            $ref: '#/components/schemas/AccountResourceScores'
-        regionId:
-          type: string
-          description: 'Resource availability will be based on when resources are available in the region specified. Availability depends
-
-            on the primary region of the resource or whether the resource has Temporary or Secondary regions assigned.
-
-            '
-        useAvailabilityPreferences:
-          type: boolean
-          default: false
-          description: 'When true, derive and apply availability preferences for the given job using Jobs Availability Preferences.
-
-            Only resources whose availability matches the derived preferences are considered when suggesting resources.
-
-            If omitted or false, resource suggestions do not consider availability preferences.
-
-            If no relevant preferences are found for the job, this flag has no effect.
-
-            '
-      required:
-      - jobId
-      - resourceIds
-      - scheduleStart
-      - scheduleEnd
-    SuggestBodyResources:
-      type: object
-      properties:
-        suggestForNode:
-          type: string
-          description: ID of the job that you want the suggestion for.
-        resources:
-          description: A map of availability windows for each resource.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              properties:
-                start:
-                  $ref: '#/components/schemas/TimeStamp'
-                end:
-                  $ref: '#/components/schemas/TimeStamp'
-        scheduleStart:
-          $ref: '#/components/schemas/TimeStamp'
-        scheduleEnd:
-          $ref: '#/components/schemas/TimeStamp'
-        schedulingOptions:
-          $ref: '#/components/schemas/SchedulingOptions'
-        accountResourceScores:
-          type: array
-          description: An array of accounts and resources to blacklist
-          items:
-            $ref: '#/components/schemas/AccountResourceScores'
-        regionId:
-          type: string
-          description: 'Resource availability will be based on when resources are available in the region specified.  Availability depends
-
-            on the primary region of the resource or whether the resource has Temporary or Secondary regions assigned.
-
-            '
-      required:
-      - suggestForNode
-      - resources
-      - scheduleStart
-      - scheduleEnd
     ResourceSuggestionBodyResources:
       type: object
       properties:
@@ -552,10 +310,98 @@ components:
       - resources
       - scheduleStart
       - scheduleEnd
-    TimeStamp:
-      type: string
-      format: date-time
-      description: Can be either ISO8601 date time string or Unix timestamp number ( in milliseconds ). Always returned in ISO8601 format.
+    SuggestBodyResourceIds:
+      type: object
+      properties:
+        suggestForNode:
+          type: string
+          description: ID of the job that you want the suggestion for.
+        resourceIds:
+          type: array
+          items:
+            type: string
+        scheduleStart:
+          $ref: '#/components/schemas/TimeStamp'
+        scheduleEnd:
+          $ref: '#/components/schemas/TimeStamp'
+        schedulingOptions:
+          $ref: '#/components/schemas/SchedulingOptions'
+        accountResourceScores:
+          type: array
+          description: An array of accounts and resources to blacklist
+          items:
+            $ref: '#/components/schemas/AccountResourceScores'
+        regionId:
+          type: string
+          description: 'Resource availability will be based on when resources are available in the region specified.  Availability depends
+
+            on the primary region of the resource or whether the resource has Temporary or Secondary regions assigned.
+
+            '
+      required:
+      - suggestForNode
+      - resourceIds
+      - scheduleStart
+      - scheduleEnd
+    ResourceSuggestionBodyResourceIds:
+      type: object
+      properties:
+        jobId:
+          type: string
+          description: UID of the job that you want the suggestion for.
+        resourceIds:
+          type: array
+          items:
+            type: string
+        scheduleStart:
+          $ref: '#/components/schemas/TimeStamp'
+        scheduleEnd:
+          $ref: '#/components/schemas/TimeStamp'
+        schedulingOptions:
+          $ref: '#/components/schemas/SchedulingOptions'
+        accountResourceScores:
+          type: array
+          description: An array of accounts and resources to blacklist
+          items:
+            $ref: '#/components/schemas/AccountResourceScores'
+        regionId:
+          type: string
+          description: 'Resource availability will be based on when resources are available in the region specified. Availability depends
+
+            on the primary region of the resource or whether the resource has Temporary or Secondary regions assigned.
+
+            '
+        useAvailabilityPreferences:
+          type: boolean
+          default: false
+          description: 'When true, derive and apply availability preferences for the given job using Jobs Availability Preferences.
+
+            Only resources whose availability matches the derived preferences are considered when suggesting resources.
+
+            If omitted or false, resource suggestions do not consider availability preferences.
+
+            If no relevant preferences are found for the job, this flag has no effect.
+
+            '
+      required:
+      - jobId
+      - resourceIds
+      - scheduleStart
+      - scheduleEnd
+    RecordFilter:
+      type: object
+      additionalProperties: false
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        expression:
+          type: string
+        objectType:
+          type: string
     SuggestResponse:
       type: object
       example: "{\n  \"result\": {\n    \"routes\": {\n      \"0005ea18-61c1-49d9-9b50-d16a31a21c20\": {\n        \"resourceId\": \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n        \"route\": {\n          \"jobId\": \"0014cac9-4ba2-4944-b7ca-b4d2c40b1403\",\n          \"jobName\": \"JOB-0225\",\n          \"start\": \"2018-09-03T23:21:00.000Z\",\n          \"duration\": 40,\n          \"travelTime\": 21,\n          \"type\": \"job\"\n        },\n        \"gapList\": [\n          {\n            \"fromPrev\": {\n              \"travelTime\": 21\n            },\n            \"interval\": {\n              \"start\": \"2018-09-03T23:21:00.000Z\",\n              \"end\": \"2018-09-04T00:01:00.000Z\"\n            },\n            \"toNext\": {\n              \"travelTime\": 0\n            }\n          }\n        ],\n        \"isAllocated\": false\n      }\n    }\n  }\n}\n"
@@ -595,6 +441,46 @@ components:
                         description: Travel time ( in minutes ) from the previous location ( resource home or previous job ) to the current job.
                       type:
                         type: string
+    SuggestBodyResources:
+      type: object
+      properties:
+        suggestForNode:
+          type: string
+          description: ID of the job that you want the suggestion for.
+        resources:
+          description: A map of availability windows for each resource.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              properties:
+                start:
+                  $ref: '#/components/schemas/TimeStamp'
+                end:
+                  $ref: '#/components/schemas/TimeStamp'
+        scheduleStart:
+          $ref: '#/components/schemas/TimeStamp'
+        scheduleEnd:
+          $ref: '#/components/schemas/TimeStamp'
+        schedulingOptions:
+          $ref: '#/components/schemas/SchedulingOptions'
+        accountResourceScores:
+          type: array
+          description: An array of accounts and resources to blacklist
+          items:
+            $ref: '#/components/schemas/AccountResourceScores'
+        regionId:
+          type: string
+          description: 'Resource availability will be based on when resources are available in the region specified.  Availability depends
+
+            on the primary region of the resource or whether the resource has Temporary or Secondary regions assigned.
+
+            '
+      required:
+      - suggestForNode
+      - resources
+      - scheduleStart
+      - scheduleEnd
     AccountResourceScores:
       type: object
       properties:
@@ -615,8 +501,121 @@ components:
       - accountId
       - whitelist
       - blacklist
+    SchedulingOptions:
+      type: object
+      properties:
+        jobTimeAsTimeConstraint:
+          type: boolean
+          default: true
+          description: When a job has a time set, consider it to be a time constraint and never re-schedule to another time slot.
+        preferJobTimeOverTimeConstraint:
+          type: boolean
+          default: true
+          description: When a job with a JobTimeConstraint also has a time set, consider the job time as the authoritative constraint and ignore the JobTimeConstraint.
+        respectSchedule:
+          type: boolean
+          default: true
+          description: For a job that is allocated and in "Pending Dispatch" status, do not move the job to a different time.
+        ignoreTravelTimes:
+          type: boolean
+          default: false
+          description: Ignore all travel times between resources and jobs.
+        ignoreTravelTimeFirstJob:
+          type: boolean
+          default: false
+          description: Ignore travel time from a resource' home location to the first job.
+        ignoreTravelTimeLastJob:
+          type: boolean
+          default: false
+          description: Ignore travel time to the resource' home location from the last job.
+        assumeResourceCanTravelBeforeStart:
+          type: boolean
+          default: false
+          description: Ignore travel time to first job when deriving its arrival time however include the travel time when considering overall travel time reduction.
+        assumeResourceCanTravelAfterEnd:
+          type: boolean
+          default: false
+          description: Assume that the resource can travel after their end time to get to their end location however include the travel time when considering overall travel time reduction.
+        padding:
+          type: integer
+          default: 0
+          description: A fixed interval of time between consecutive jobs.
+        snapUnit:
+          type: integer
+          default: 0
+          minimum: 0
+          description: Divide the given time frame into parts described by this value and allocate all jobs to the nearest part.
+    ResourceSuggestionResponse:
+      type: object
+      example: "{\n  \"result\": {\n    \"0005ea18-61c1-49d9-9b50-d16a31a21c20\": {\n      \"resourceId\": \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n      \"jobId\": \"0014cac9-4ba2-4944-b7ca-b4d2c40b1403\",\n      \"start\": \"2018-09-03T23:21:00.000Z\",\n      \"duration\": 30,\n      \"travelTime\": 17,\n      \"currentCapacityInSeconds\": 86400,\n      \"newCapacityInSeconds\": 83580\n    }\n  }\n}\n"
+      properties:
+        result:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              resourceId:
+                type: string
+                description: UID of the resource.
+              jobId:
+                type: string
+                description: UID of the current job.
+              start:
+                type: string
+                format: date-time
+                description: Suggested start time of the job as an ISO8601 Date Time string.
+              duration:
+                type: integer
+                description: Duration (in minutes) of the current job.
+              travelTime:
+                type: integer
+                description: Travel time (in minutes) from the previous location (resource home or previous job) to the current job.
+              currentCapacityInSeconds:
+                type: integer
+                description: Available capacity for the resource based on currently scheduled jobs.
+              newCapacityInSeconds:
+                type: integer
+                description: Updated capacity for the resource once this job has been scheduled to the resource.
+              infeasibleDueToAvailabilityPreferences:
+                type: boolean
+                description: 'True when this resource is infeasible because its availability preferences do not match the job. Only set when `useAvailabilityPreferences` is true.
+
+                  '
+              availabilityPreferenceExplanation:
+                type:
+                - object
+                - 'null'
+                description: 'Explanation of how availability preferences were applied to this resource. Present only when `useAvailabilityPreferences` is true and preferences were evaluated for this resource.
+
+                  '
+                properties:
+                  preferenceFiltered:
+                    type: boolean
+                    description: 'Indicates whether the resource was filtered by availability preferences.
+
+                      '
+                  matchingRecordFilterIds:
+                    type: array
+                    items:
+                      type: string
+                    description: IDs of record filters that matched this job for this resource.
+                  mismatchedRecordFilterIds:
+                    type: array
+                    items:
+                      type: string
+                    description: IDs of record filters that did not match for this job/resource.
+                  recordFiltersById:
+                    type: object
+                    description: 'Map of record filter IDs used in `matchingRecordFilterIds` and `mismatchedRecordFilterIds` to their definitions.
+
+                      '
+                    additionalProperties:
+                      $ref: '#/components/schemas/RecordFilter'
+    TimeStamp:
+      type: string
+      format: date-time
+      description: Can be either ISO8601 date time string or Unix timestamp number ( in milliseconds ). Always returned in ISO8601 format.
   securitySchemes:
-    Authorization:
+    BearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: JWT

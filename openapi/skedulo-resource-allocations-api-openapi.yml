@@ -1,22 +1,23 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Authentication Admin Resource allocations API
-  description: Skedulo Authentication API
+  title: Recurring Schedules Resource allocations API
   version: 1.0.0
 servers:
-- url: https://api.skedulo.com/auth
-- url: https://api.uk.skedulo.com/auth
-- url: https://api.ca.skedulo.com/auth
-- url: https://api.au.skedulo.com/auth
+- url: https://api.skedulo.com/recurring
+- url: https://api.uk.skedulo.com/recurring
+- url: https://api.ca.skedulo.com/recurring
+- url: https://api.au.skedulo.com/recurring
+security:
+- Authorization: []
 tags:
-- name: Resource allocations
+- name: Resource Allocations
 paths:
   /schedules/job_allocations:
     post:
       summary: Create/update job allocations for resources
       description: Create or update job allocations for certain resources
       tags:
-      - Resource allocations
+      - Resource Allocations
       operationId: upsertJobAllocations
       responses:
         '200':
@@ -86,7 +87,7 @@ paths:
       summary: Delete job allocation
       description: Delete job allocations for certain resources
       tags:
-      - Resource allocations
+      - Resource Allocations
       operationId: deleteJobAllocations
       responses:
         '200':

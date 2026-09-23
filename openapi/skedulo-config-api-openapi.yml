@@ -1,19 +1,23 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Authentication Admin Config API
-  description: Skedulo Authentication API
+  title: Skedulo Config API
   version: 1.0.0
+  description: 'Operations tagged Config across 2 of this provider''s published API definitions: skedulo-authentication-openapi.yml, skedulo-configurations-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.skedulo.com/auth
 - url: https://api.uk.skedulo.com/auth
 - url: https://api.ca.skedulo.com/auth
 - url: https://api.au.skedulo.com/auth
+- url: https://api.skedulo.com/config
+- url: https://api.uk.skedulo.com/config
+- url: https://api.ca.skedulo.com/config
+- url: https://api.au.skedulo.com/config
 tags:
 - name: Config
 paths:
   /config/team/mobile/v3:
     get:
-      summary: Return mobile v3 authentication configuration for a team.
+      summary: Return mobile v3 authentication configuration for a team
       operationId: configTeamMobileV3
       parameters:
       - name: name
@@ -33,9 +37,14 @@ paths:
           description: If no team with the given name exists
       tags:
       - Config
+    servers:
+    - url: https://api.skedulo.com/auth
+    - url: https://api.uk.skedulo.com/auth
+    - url: https://api.ca.skedulo.com/auth
+    - url: https://api.au.skedulo.com/auth
   /config/team/web/user:
     get:
-      summary: Return web authentication configuration for the team the current user belongs to.
+      summary: Return web authentication configuration for the team the current user belongs to
       operationId: configTeamWebUser
       responses:
         '200':
@@ -50,9 +59,14 @@ paths:
           description: If the current user does not belong to a team
       tags:
       - Config
+    servers:
+    - url: https://api.skedulo.com/auth
+    - url: https://api.uk.skedulo.com/auth
+    - url: https://api.ca.skedulo.com/auth
+    - url: https://api.au.skedulo.com/auth
   /config/team/mobile/user:
     get:
-      summary: Return mobile authentication configuration for the team the current user belongs to.
+      summary: Return mobile authentication configuration for the team the current user…
       operationId: configTeamMobileUser
       responses:
         '200':
@@ -67,9 +81,14 @@ paths:
           description: If the current user does not belong to a team
       tags:
       - Config
+    servers:
+    - url: https://api.skedulo.com/auth
+    - url: https://api.uk.skedulo.com/auth
+    - url: https://api.ca.skedulo.com/auth
+    - url: https://api.au.skedulo.com/auth
   /config/team/mobile/v3/user:
     get:
-      summary: Return mobile v3 authentication configuration for the team the current user belongs to.
+      summary: Return mobile v3 authentication configuration for the team the current user…
       operationId: configTeamMobileV3User
       responses:
         '200':
@@ -84,6 +103,11 @@ paths:
           description: If the current user does not belong to a team
       tags:
       - Config
+    servers:
+    - url: https://api.skedulo.com/auth
+    - url: https://api.uk.skedulo.com/auth
+    - url: https://api.ca.skedulo.com/auth
+    - url: https://api.au.skedulo.com/auth
   /config/layout/{object}:
     get:
       security:
@@ -126,50 +150,34 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
       - Config
+    servers:
+    - url: https://api.skedulo.com/config
+    - url: https://api.uk.skedulo.com/config
+    - url: https://api.ca.skedulo.com/config
+    - url: https://api.au.skedulo.com/config
 components:
   schemas:
-    LayoutRelatedDataRelatedObjectField:
-      required:
-      - fieldName
-      properties:
-        fieldName:
-          type: string
-    TeamConfigAuth0Lock:
-      type: object
-      required:
-      - allowedConnections
-      - theme
-      properties:
-        allowedConnections:
-          type: array
-          items:
-            type: string
-        theme:
-          type: object
-          required:
-          - authButtons
-          properties:
-            authButtons:
-              type: object
-              additionalProperties:
-                type: object
-                required:
-                - authButtons
-                properties:
-                  displayName:
-                    type: string
     ResultOKTeamConfig:
       type: object
       properties:
         result:
           $ref: '#/components/schemas/TeamConfig'
-    LayoutRelatedData:
-      oneOf:
-      - $ref: '#/components/schemas/LayoutRelatedDataRelatedObject'
-      discriminator:
-        propertyName: type
-        mapping:
-          relatedObjects: '#/components/schemas/LayoutRelatedDataRelatedObject'
+    TeamConfigAuth0:
+      type: object
+      required:
+      - clientId
+      - audience
+      - domain
+      - lock
+      properties:
+        clientId:
+          type: string
+        audience:
+          type: string
+        domain:
+          type: string
+        lock:
+          $ref: '#/components/schemas/TeamConfigAuth0Lock'
     TeamConfig:
       type: object
       required:
@@ -205,31 +213,30 @@ components:
               type: string
         newCustomerModel:
           type: boolean
-    TeamConfigAuth0:
+    TeamConfigAuth0Lock:
       type: object
       required:
-      - clientId
-      - audience
-      - domain
-      - lock
+      - allowedConnections
+      - theme
       properties:
-        clientId:
-          type: string
-        audience:
-          type: string
-        domain:
-          type: string
-        lock:
-          $ref: '#/components/schemas/TeamConfigAuth0Lock'
-    Layout:
-      type: object
-      required:
-      - relatedData
-      properties:
-        relatedData:
+        allowedConnections:
           type: array
           items:
-            $ref: '#/components/schemas/LayoutRelatedData'
+            type: string
+        theme:
+          type: object
+          required:
+          - authButtons
+          properties:
+            authButtons:
+              type: object
+              additionalProperties:
+                type: object
+                required:
+                - authButtons
+                properties:
+                  displayName:
+                    type: string
     LayoutRelatedDataRelatedObject:
       required:
       - type
@@ -249,6 +256,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LayoutRelatedDataRelatedObjectField'
+    Layout:
+      type: object
+      required:
+      - relatedData
+      properties:
+        relatedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/LayoutRelatedData'
     Error:
       type: object
       required:
@@ -261,8 +277,24 @@ components:
           type: string
         errorId:
           type: string
+    LayoutRelatedData:
+      oneOf:
+      - $ref: '#/components/schemas/LayoutRelatedDataRelatedObject'
+      discriminator:
+        propertyName: type
+        mapping:
+          relatedObjects: '#/components/schemas/LayoutRelatedDataRelatedObject'
+    LayoutRelatedDataRelatedObjectField:
+      required:
+      - fieldName
+      properties:
+        fieldName:
+          type: string
   securitySchemes:
     Authorization:
       type: http
       scheme: bearer
       bearerFormat: JWT
+x-refined-from:
+- skedulo-authentication-openapi.yml
+- skedulo-configurations-openapi.yml

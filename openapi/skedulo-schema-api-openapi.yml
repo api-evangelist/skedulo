@@ -1,13 +1,13 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Authentication Admin Schema API
-  description: Skedulo Authentication API
+  title: GraphQL Schema API
+  description: GraphQL endpoints
   version: 1.0.0
 servers:
-- url: https://api.skedulo.com/auth
-- url: https://api.uk.skedulo.com/auth
-- url: https://api.ca.skedulo.com/auth
-- url: https://api.au.skedulo.com/auth
+- url: https://api.skedulo.com/graphql
+- url: https://api.uk.skedulo.com/graphql
+- url: https://api.ca.skedulo.com/graphql
+- url: https://api.au.skedulo.com/graphql
 tags:
 - name: Schema
 paths:
@@ -16,7 +16,7 @@ paths:
       security:
       - Authorization: []
       summary: Skedulo GraphQL schema
-      description: 'Retrieve the Skedulo GraphQL schema. '
+      description: Retrieve the Skedulo GraphQL schema.
       operationId: graphqlSchema
       responses:
         '200':

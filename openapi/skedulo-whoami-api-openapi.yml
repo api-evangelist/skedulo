@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Authentication Admin Whoami API
+  title: Authentication Whoami API
   description: Skedulo Authentication API
   version: 1.0.0
 servers:
@@ -42,6 +42,42 @@ components:
       items:
         description: Permission keys assigned to the user
         type: string
+    ResultOKUserInfo:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/UserInfo'
+    UserInfo:
+      type: object
+      required:
+      - username
+      - userId
+      - tenantId
+      - roles
+      - vendorInfo
+      properties:
+        username:
+          type: string
+        userId:
+          type: string
+        tenantId:
+          type: string
+        roles:
+          $ref: '#/components/schemas/Roles'
+        resourceId:
+          type: string
+        vendorInfo:
+          $ref: '#/components/schemas/VendorInfo'
+        permissions:
+          $ref: '#/components/schemas/Permissions'
+    Roles:
+      type: array
+      items:
+        type: string
+        enum:
+        - administrator
+        - scheduler
+        - resource
     VendorInfo:
       oneOf:
       - type: object
@@ -73,42 +109,6 @@ components:
           vendorUserId:
             type: string
             description: Skedulo user ID of this user
-    ResultOKUserInfo:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/UserInfo'
-    Roles:
-      type: array
-      items:
-        type: string
-        enum:
-        - administrator
-        - scheduler
-        - resource
-    UserInfo:
-      type: object
-      required:
-      - username
-      - userId
-      - tenantId
-      - roles
-      - vendorInfo
-      properties:
-        username:
-          type: string
-        userId:
-          type: string
-        tenantId:
-          type: string
-        roles:
-          $ref: '#/components/schemas/Roles'
-        resourceId:
-          type: string
-        vendorInfo:
-          $ref: '#/components/schemas/VendorInfo'
-        permissions:
-          $ref: '#/components/schemas/Permissions'
   securitySchemes:
     Authorization:
       type: http

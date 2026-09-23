@@ -1,15 +1,16 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Authentication Admin scheduling API
-  description: Skedulo Authentication API
+  title: Schedule Management Scheduling API
   version: 1.0.0
 servers:
-- url: https://api.skedulo.com/auth
-- url: https://api.uk.skedulo.com/auth
-- url: https://api.ca.skedulo.com/auth
-- url: https://api.au.skedulo.com/auth
+- url: https://api.skedulo.com/schedule
+- url: https://api.uk.skedulo.com/schedule
+- url: https://api.ca.skedulo.com/schedule
+- url: https://api.au.skedulo.com/schedule
+security:
+- Authorization: []
 tags:
-- name: scheduling
+- name: Scheduling
 paths:
   /async/copy:
     post:
@@ -20,7 +21,7 @@ paths:
 
         Jobs, shifts and activities can be copied with their attached allocations/resources and other attachments (e.g. tags). EQL filters must be provided to specify the jobs, shifts and/or activities to be copied. The start and end times of the copied work items will be offset (incremented or decremented) by the provided number of days. Executed in the background as an asynchronous task.'
       tags:
-      - scheduling
+      - Scheduling
       operationId: copyScheduleAsync
       responses:
         '200':
@@ -47,7 +48,7 @@ paths:
       summary: Make a copy of scheduled work
       description: Jobs, shifts and activities can be copied with their attached allocations/resources and other attachments (e.g., tags). EQL filters must be provided to specify the jobs, shifts and/or activities to be copied. If a work item has a start and end time, the copied work item will be offset (incremented or decremented) by the provided number of days. Executed in the background as an asynchronous task.
       tags:
-      - scheduling
+      - Scheduling
       operationId: copySchedule
       responses:
         '200':
@@ -72,13 +73,13 @@ paths:
   /async/copy/{taskId}:
     get:
       deprecated: true
-      summary: Retrieve the status and results of an asynchronous copy schedule task.
+      summary: Retrieve the status and results of an asynchronous copy schedule task
       description: 'This endpoint is deprecated, use `/schedule/copy/{taskId}` instead.
 
 
         This endpoint can be polled to get the status of the task and the results of the operation, if any.'
       tags:
-      - scheduling
+      - Scheduling
       operationId: copyScheduleAsyncResults
       parameters:
       - name: taskId
@@ -103,10 +104,10 @@ paths:
           description: The task was not found.
   /copy/{taskId}:
     get:
-      summary: Retrieve the status of an asynchronous copy schedule task.
+      summary: Retrieve the status of an asynchronous copy schedule task
       description: This endpoint can be polled to get the status of the task and the results of the operation, if any.
       tags:
-      - scheduling
+      - Scheduling
       operationId: copyScheduleResults
       parameters:
       - name: taskId
@@ -134,7 +135,7 @@ paths:
       summary: Dispatch allocated work
       description: Multiple jobs and shifts can be dispatched/published in one request. EQL filters must be provided to specify the jobs and shifts to be dispatched. Summary notifications can optionally be sent to each resource. Individual notifications will not be sent for each job/shift.
       tags:
-      - scheduling
+      - Scheduling
       operationId: dispatchSchedule
       responses:
         '200':
@@ -163,10 +164,10 @@ paths:
                   description: If set to true, a notification will be sent to each resource summarizing the number of jobs and/or shifts that were dispatched.
   /template/apply:
     post:
-      summary: Apply a template at a point in time.
+      summary: Apply a template at a point in time
       description: A schedule template is converted to real jobs, shifts and activities, starting at the given date. Executed in the background as an asynchronous task.
       tags:
-      - scheduling
+      - Scheduling
       operationId: applyScheduleTemplate
       responses:
         '200':
@@ -192,10 +193,10 @@ paths:
               $ref: '#/components/schemas/ApplyTemplateRequest'
   /template/apply/{taskId}:
     get:
-      summary: Retrieve the status and results of an asynchronous 'apply template' task.
+      summary: Retrieve the status and results of an asynchronous 'apply template' task
       description: This endpoint can be polled to get the status of the task and the results of the operation, if any.
       tags:
-      - scheduling
+      - Scheduling
       operationId: applyScheduleTemplateResults
       parameters:
       - name: taskId
@@ -220,70 +221,6 @@ paths:
           description: The task was not found.
 components:
   schemas:
-    ActivityCopyRequest:
-      oneOf:
-      - required:
-        - filter
-        - copyAllocations
-        properties:
-          filter:
-            type: string
-            description: An EQL filter for the relevant schema that defines the activities to be copied. To copy specific activities by UID, use a filter like "UID IN ['UID1', 'UID2']".
-          copyAllocations:
-            type: boolean
-            description: 'Enables copying of resource related fields on each activity. Deprecated: use copyOptions.copyAllocations instead.'
-            default: true
-            deprecated: true
-      - required:
-        - filter
-        - copyOptions
-        properties:
-          filter:
-            type: string
-            description: An EQL filter for the relevant schema that defines the activities to be copied. To copy specific activities by UID, use a filter like "UID IN ['UID1', 'UID2']".
-          copyOptions:
-            type: object
-            properties:
-              copyAllocations:
-                type: boolean
-                description: Enables copying of resource related fields on each activity.
-                default: true
-    DispatchErrorDetails:
-      description: Details of an error that occurred when trying to update a work item for dispatch.
-      required:
-      - errorType
-      - message
-      properties:
-        jobId:
-          type: string
-          description: The ID of the job that could not be updated.
-        shiftId:
-          type: string
-          description: The ID of the shift that could not be updated.
-        errorType:
-          type: string
-          format: uuid
-          description: Identifies the type of error that occurred.
-        message:
-          type: string
-          format: uuid
-          description: A description of the error.
-    NotificationErrorDetails:
-      description: Details of an error that occurred when trying to notify a resource about a dispatched schedule of work items.
-      required:
-      - resourceId
-      - errorType
-      - message
-      properties:
-        resourceId:
-          type: string
-          description: The ID of the resource that could not be notified.
-        errorType:
-          type: string
-          description: Identifies the type of error that occurred.
-        message:
-          type: string
-          description: A description of the error.
     ApplyTemplateStatus:
       type: object
       description: The status of the asynchronous 'apply template' task and optionally the IDs of work items that have been created.
@@ -389,6 +326,36 @@ components:
           items:
             description: An error message
             type: string
+    NotificationErrorDetails:
+      description: Details of an error that occurred when trying to notify a resource about a dispatched schedule of work items.
+      required:
+      - resourceId
+      - errorType
+      - message
+      properties:
+        resourceId:
+          type: string
+          description: The ID of the resource that could not be notified.
+        errorType:
+          type: string
+          description: Identifies the type of error that occurred.
+        message:
+          type: string
+          description: A description of the error.
+    WorkIdPairs:
+      type: array
+      items:
+        type: object
+        required:
+        - original
+        - copy
+        properties:
+          original:
+            type: string
+            description: The ID of the original work item.
+          copy:
+            type: string
+            description: The ID of the copied work item.
     ApplyTemplateResponse:
       type: object
       required:
@@ -409,6 +376,20 @@ components:
         totalActivities:
           type: integer
           description: The number of activities that will be created.
+    ScheduleCopyRequest:
+      description: Parameters required for copying a schedule of work and offsetting by a number of days.
+      required:
+      - offsetDays
+      properties:
+        jobs:
+          $ref: '#/components/schemas/JobCopyRequest'
+        shifts:
+          $ref: '#/components/schemas/ShiftCopyRequest'
+        activities:
+          $ref: '#/components/schemas/ActivityCopyRequest'
+        offsetDays:
+          type: integer
+          description: The number of days to offset the start and end times of work items and associated objects. The offset can be positive, zero or negative. If any work item would be offset to start in the past, the request will fail. If the offset is non-zero, all work items must have a start time.
     ShiftCopyRequest:
       oneOf:
       - required:
@@ -437,20 +418,6 @@ components:
                 type: boolean
                 description: Enables copying of resource related fields on each shift.
                 default: true
-    WorkIdPairs:
-      type: array
-      items:
-        type: object
-        required:
-        - original
-        - copy
-        properties:
-          original:
-            type: string
-            description: The ID of the original work item.
-          copy:
-            type: string
-            description: The ID of the copied work item.
     ScheduleCopyStatus:
       type: object
       description: The status of the asynchronous copy operation and optionally the IDs and counts of work items that have been created.
@@ -477,6 +444,26 @@ components:
           $ref: '#/components/schemas/WorkIdPairs'
         errors:
           $ref: '#/components/schemas/BulkModifyError'
+    DispatchErrorDetails:
+      description: Details of an error that occurred when trying to update a work item for dispatch.
+      required:
+      - errorType
+      - message
+      properties:
+        jobId:
+          type: string
+          description: The ID of the job that could not be updated.
+        shiftId:
+          type: string
+          description: The ID of the shift that could not be updated.
+        errorType:
+          type: string
+          format: uuid
+          description: Identifies the type of error that occurred.
+        message:
+          type: string
+          format: uuid
+          description: A description of the error.
     ScheduleCopyResponse:
       type: object
       required:
@@ -497,20 +484,6 @@ components:
         totalActivities:
           type: integer
           description: The number of activities that will be created.
-    ApplyTemplateRequest:
-      description: Parameters required for applying a schedule template.
-      required:
-      - templateId
-      - startDate
-      properties:
-        templateId:
-          description: The ID of the schedule template to be applied.
-          type: string
-        startDate:
-          description: The date from which the template should be applied.
-          format: date
-          type: string
-          example: '2020-06-14'
     DispatchResult:
       description: A summary of the operations that were executed and any errors that apply to specific work items or resources.
       type: object
@@ -557,20 +530,6 @@ components:
               description: Details of any errors that occurred when notifying resources about dispatched work items.
               items:
                 $ref: '#/components/schemas/NotificationErrorDetails'
-    ScheduleCopyRequest:
-      description: Parameters required for copying a schedule of work and offsetting by a number of days.
-      required:
-      - offsetDays
-      properties:
-        jobs:
-          $ref: '#/components/schemas/JobCopyRequest'
-        shifts:
-          $ref: '#/components/schemas/ShiftCopyRequest'
-        activities:
-          $ref: '#/components/schemas/ActivityCopyRequest'
-        offsetDays:
-          type: integer
-          description: The number of days to offset the start and end times of work items and associated objects. The offset can be positive, zero or negative. If any work item would be offset to start in the past, the request will fail. If the offset is non-zero, all work items must have a start time.
     JobCopyRequest:
       oneOf:
       - required:
@@ -643,6 +602,48 @@ components:
         copyOptions:
           copyAttachments: false
           duplicateCount: 10
+    ApplyTemplateRequest:
+      description: Parameters required for applying a schedule template.
+      required:
+      - templateId
+      - startDate
+      properties:
+        templateId:
+          description: The ID of the schedule template to be applied.
+          type: string
+        startDate:
+          description: The date from which the template should be applied.
+          format: date
+          type: string
+          example: '2020-06-14'
+    ActivityCopyRequest:
+      oneOf:
+      - required:
+        - filter
+        - copyAllocations
+        properties:
+          filter:
+            type: string
+            description: An EQL filter for the relevant schema that defines the activities to be copied. To copy specific activities by UID, use a filter like "UID IN ['UID1', 'UID2']".
+          copyAllocations:
+            type: boolean
+            description: 'Enables copying of resource related fields on each activity. Deprecated: use copyOptions.copyAllocations instead.'
+            default: true
+            deprecated: true
+      - required:
+        - filter
+        - copyOptions
+        properties:
+          filter:
+            type: string
+            description: An EQL filter for the relevant schema that defines the activities to be copied. To copy specific activities by UID, use a filter like "UID IN ['UID1', 'UID2']".
+          copyOptions:
+            type: object
+            properties:
+              copyAllocations:
+                type: boolean
+                description: Enables copying of resource related fields on each activity.
+                default: true
   securitySchemes:
     Authorization:
       type: http

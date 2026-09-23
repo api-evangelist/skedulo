@@ -1,13 +1,13 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Authentication Admin Travel API
-  description: Skedulo Authentication API
+  title: Resource Tracking Travel API
+  description: Skedulo Resource Tracking API
   version: 1.0.0
 servers:
-- url: https://api.skedulo.com/auth
-- url: https://api.uk.skedulo.com/auth
-- url: https://api.ca.skedulo.com/auth
-- url: https://api.au.skedulo.com/auth
+- url: https://api.skedulo.com/resource_tracking
+- url: https://api.uk.skedulo.com/resource_tracking
+- url: https://api.ca.skedulo.com/resource_tracking
+- url: https://api.au.skedulo.com/resource_tracking
 tags:
 - name: Travel
 paths:
@@ -16,7 +16,7 @@ paths:
       security:
       - Authorization: []
       operationId: travelRoutes
-      summary: Retrieve historical routes for one or more resources.
+      summary: Retrieve historical routes for one or more resources
       description: 'Given a comma-separated list of resource Ids and a start and end date, return the route taken by that resource between the start and end time.
 
 
@@ -27,11 +27,9 @@ paths:
 
         * _polyline_ Uses the Google Maps Polyline encoding (default)
 
-        * _wkt_ - Well Known Text Strings.  Either a LINESTRING or a POINT is returned
+        * _wkt_ - Well Known Text Strings. Either a LINESTRING or a POINT is returned
 
-        * _geojson_ - GeoJSON format. Either a linestring or a point is returned
-
-        '
+        * _geojson_ - GeoJSON format. Either a linestring or a point is returned'
       parameters:
       - name: resource_ids
         in: query
@@ -135,11 +133,6 @@ paths:
       - Travel
 components:
   schemas:
-    RouteForResource:
-      type: object
-      description: Map resource ids to route information
-      additionalProperties:
-        $ref: '#/components/schemas/Route'
     Error:
       type: object
       properties:
@@ -147,6 +140,19 @@ components:
           type: string
         message:
           type: string
+    RouteForResource:
+      type: object
+      description: Map resource ids to route information
+      additionalProperties:
+        $ref: '#/components/schemas/Route'
+    RouteResult:
+      type: object
+      description: Map resource ids to routes with start and end times
+      required:
+      - result
+      properties:
+        result:
+          $ref: '#/components/schemas/RouteForResource'
     Route:
       type: object
       description: Route Information for a given resource.  One of polyline, wkt, or geoJson should be present
@@ -174,16 +180,8 @@ components:
           type: object
           format: GeoJson
           description: GeoJSON encoded point or linestring
-    RouteResult:
-      type: object
-      description: Map resource ids to routes with start and end times
-      required:
-      - result
-      properties:
-        result:
-          $ref: '#/components/schemas/RouteForResource'
   securitySchemes:
     Authorization:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+      type: apiKey
+      in: header
+      name: Authorization

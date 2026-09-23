@@ -1,13 +1,13 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Authentication Admin Location API
-  description: Skedulo Authentication API
+  title: Resource Tracking Location API
+  description: Skedulo Resource Tracking API
   version: 1.0.0
 servers:
-- url: https://api.skedulo.com/auth
-- url: https://api.uk.skedulo.com/auth
-- url: https://api.ca.skedulo.com/auth
-- url: https://api.au.skedulo.com/auth
+- url: https://api.skedulo.com/resource_tracking
+- url: https://api.uk.skedulo.com/resource_tracking
+- url: https://api.ca.skedulo.com/resource_tracking
+- url: https://api.au.skedulo.com/resource_tracking
 tags:
 - name: Location
 paths:
@@ -17,9 +17,7 @@ paths:
       - Authorization: []
       operationId: locationLatest
       summary: Latest locations
-      description: 'The latest locations endpoint returns information about the **resource''s** latest location. It is a map from resourceId to latest location.
-
-        '
+      description: The latest locations endpoint returns information about the **resource's** latest location. It is a map from resourceId to latest location.
       parameters:
       - name: resource_ids
         in: query
@@ -71,9 +69,7 @@ paths:
       summary: Location history
       description: 'The Location history end point allows you to retrieve the location history for a resource.
 
-        The default limit is 100 results.
-
-        '
+        The default limit is 100 results.'
       parameters:
       - name: resource_id
         in: query
@@ -138,9 +134,7 @@ paths:
       description: 'The location update endpoint allows one or more position updates to be provided indicating a resource''s location.
 
 
-        The resource is determined by the Java Web Token provided. It is not possible for users other than the logged in user to update a resources position.
-
-        '
+        The resource is determined by the Java Web Token provided. It is not possible for users other than the logged in user to update a resources position.'
       requestBody:
         content:
           application/json:
@@ -265,6 +259,22 @@ components:
           type: number
           format: double
           description: Accuracy of the position
+    Paging:
+      type: object
+      required:
+      - total
+      - offset
+      - limit
+      properties:
+        total:
+          type: number
+          format: int64
+        offset:
+          type: number
+          format: int64
+        limit:
+          type: number
+          format: int64
     Location:
       type: object
       required:
@@ -319,22 +329,6 @@ components:
           description: 'Vertical position accuracy (m).
 
             '
-    Paging:
-      type: object
-      required:
-      - total
-      - offset
-      - limit
-      properties:
-        total:
-          type: number
-          format: int64
-        offset:
-          type: number
-          format: int64
-        limit:
-          type: number
-          format: int64
     PagedResultLocationHistory:
       type: object
       required:
@@ -345,18 +339,14 @@ components:
           $ref: '#/components/schemas/Paging'
         result:
           $ref: '#/components/schemas/LocationHistory'
-    LocationHistory:
-      type: array
-      items:
-        $ref: '#/components/schemas/Location'
     ResourceDistanceFromLocationResult:
       type: object
       description: Map resource ids to their distance from a location
       additionalProperties:
         $ref: '#/components/schemas/DistanceFromLocation'
-    LatestLocationResult:
-      type: object
-      additionalProperties:
+    LocationHistory:
+      type: array
+      items:
         $ref: '#/components/schemas/Location'
     Error:
       type: object
@@ -365,8 +355,12 @@ components:
           type: string
         message:
           type: string
+    LatestLocationResult:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Location'
   securitySchemes:
     Authorization:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+      type: apiKey
+      in: header
+      name: Authorization

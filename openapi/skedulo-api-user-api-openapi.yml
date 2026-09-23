@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Authentication Admin Api User API
+  title: Authentication Api User API
   description: Skedulo Authentication API
   version: 1.0.0
 servers:
@@ -9,7 +9,7 @@ servers:
 - url: https://api.ca.skedulo.com/auth
 - url: https://api.au.skedulo.com/auth
 tags:
-- name: Api User
+- name: API User
 paths:
   /api_user:
     post:
@@ -40,7 +40,7 @@ paths:
                   description: Skedulo User ID of the user to be setup as the API User
         required: true
       tags:
-      - Api User
+      - API User
     delete:
       security:
       - Authorization: []
@@ -53,7 +53,7 @@ paths:
         '403':
           description: If the user does not have the required permissions
       tags:
-      - Api User
+      - API User
   /api_user/client_credentials:
     get:
       security:
@@ -73,7 +73,7 @@ paths:
         '404':
           description: API user is not setup
       tags:
-      - Api User
+      - API User
   /api_user/candidates:
     get:
       security:
@@ -135,7 +135,7 @@ paths:
                             emailVerified:
                               type: boolean
       tags:
-      - Api User
+      - API User
   /api_user/verify:
     get:
       security:
@@ -169,9 +169,17 @@ paths:
                         description: Additional information about the error
                         additionalProperties: true
       tags:
-      - Api User
+      - API User
 components:
   schemas:
+    Roles:
+      type: array
+      items:
+        type: string
+        enum:
+        - administrator
+        - scheduler
+        - resource
     ClientCredentialsInstructions:
       type: object
       required:
@@ -204,14 +212,6 @@ components:
                   type: string
                 audience:
                   type: string
-    Roles:
-      type: array
-      items:
-        type: string
-        enum:
-        - administrator
-        - scheduler
-        - resource
   securitySchemes:
     Authorization:
       type: http

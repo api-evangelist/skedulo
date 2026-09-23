@@ -1,13 +1,12 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Authentication Admin Directions API
-  description: Skedulo Authentication API
+  title: Geoservices Directions API
   version: 1.0.0
 servers:
-- url: https://api.skedulo.com/auth
-- url: https://api.uk.skedulo.com/auth
-- url: https://api.ca.skedulo.com/auth
-- url: https://api.au.skedulo.com/auth
+- url: https://api.skedulo.com/geoservices
+- url: https://api.uk.skedulo.com/geoservices
+- url: https://api.ca.skedulo.com/geoservices
+- url: https://api.au.skedulo.com/geoservices
 tags:
 - name: Directions
 paths:
@@ -38,14 +37,24 @@ paths:
                 $ref: '#/components/schemas/Error'
       tags:
       - Directions
+      operationId: postDirections
+      x-operation-id-source: derived
 components:
   schemas:
-    Avoid:
-      type: string
-      enum:
-      - ferry
-      - highway
-      - toll
+    Route:
+      type: object
+      required:
+      - origin
+      - destination
+      properties:
+        origin:
+          $ref: '#/components/schemas/LatLng'
+        destination:
+          $ref: '#/components/schemas/LatLng'
+        waypoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/LatLng'
     DirectionsResponse:
       type: object
       required:
@@ -57,6 +66,12 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/TravelRoute'
+    Avoid:
+      type: string
+      enum:
+      - ferry
+      - highway
+      - toll
     TravelRoute:
       type: object
       required:
@@ -82,34 +97,22 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Avoid'
-    Distance:
+    TravelLegResult:
       type: object
       required:
-      - distanceInMeters
+      - status
+      discriminator:
+        propertyName: status
       properties:
-        distanceInMeters:
-          type: number
-    Duration:
-      type: object
-      required:
-      - durationInSeconds
-      properties:
-        durationInSeconds:
-          type: number
-    Route:
-      type: object
-      required:
-      - origin
-      - destination
-      properties:
-        origin:
-          $ref: '#/components/schemas/LatLng'
-        destination:
-          $ref: '#/components/schemas/LatLng'
-        waypoints:
-          type: array
-          items:
-            $ref: '#/components/schemas/LatLng'
+        status:
+          type: string
+          enum:
+          - OK
+          - NO_ROUTE
+        duration:
+          $ref: '#/components/schemas/Duration'
+        distance:
+          $ref: '#/components/schemas/Distance'
     DirectionsRequest:
       type: object
       required:
@@ -123,6 +126,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Avoid'
+    Duration:
+      type: object
+      required:
+      - durationInSeconds
+      properties:
+        durationInSeconds:
+          type: number
     Error:
       type: object
       required:
@@ -145,24 +155,15 @@ components:
         lng:
           description: -180 <= x <= 180
           type: number
-    TravelLegResult:
+    Distance:
       type: object
       required:
-      - status
-      discriminator:
-        propertyName: status
+      - distanceInMeters
       properties:
-        status:
-          type: string
-          enum:
-          - OK
-          - NO_ROUTE
-        duration:
-          $ref: '#/components/schemas/Duration'
-        distance:
-          $ref: '#/components/schemas/Distance'
+        distanceInMeters:
+          type: number
   securitySchemes:
     Authorization:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+      type: apiKey
+      in: header
+      name: Authorization

@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Authentication Admin Rules API
+  title: Authentication Rules API
   description: Skedulo Authentication API
   version: 1.0.0
 servers:
@@ -58,6 +58,25 @@ paths:
       - Rules
 components:
   schemas:
+    ResolvedAccessRule:
+      type: object
+      required:
+      - objectType
+      - filter
+      properties:
+        objectType:
+          description: The type of object that the rule applies to
+          type: string
+        filter:
+          description: EQL filter that is applied when accessing records of the object type
+          type: string
+    ResultOKAccessRules:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResolvedAccessRule'
     ResolvedAccessRuleError:
       description: Error details when resolving access rules for an object type
       type: object
@@ -70,34 +89,6 @@ components:
           type: string
         message:
           description: The error message
-          type: string
-    ResultOKResolvedAccessRules:
-      type: object
-      properties:
-        valid:
-          description: Whether all of the supplied rules resolved successfully (i.e. are valid)
-          type: boolean
-        accessRules:
-          description: The resolved access rules (one for each object type)
-          type: array
-          items:
-            $ref: '#/components/schemas/ResolvedAccessRule'
-        errors:
-          description: Any errors for rules that couldn't be resolved
-          type: array
-          items:
-            $ref: '#/components/schemas/ResolvedAccessRuleError'
-    ResolvedAccessRule:
-      type: object
-      required:
-      - objectType
-      - filter
-      properties:
-        objectType:
-          description: The type of object that the rule applies to
-          type: string
-        filter:
-          description: EQL filter that is applied when accessing records of the object type
           type: string
     RecordAccessRule:
       type: object
@@ -118,13 +109,22 @@ components:
           enum:
           - allow
           - deny
-    ResultOKAccessRules:
+    ResultOKResolvedAccessRules:
       type: object
       properties:
-        result:
+        valid:
+          description: Whether all of the supplied rules resolved successfully (i.e. are valid)
+          type: boolean
+        accessRules:
+          description: The resolved access rules (one for each object type)
           type: array
           items:
             $ref: '#/components/schemas/ResolvedAccessRule'
+        errors:
+          description: Any errors for rules that couldn't be resolved
+          type: array
+          items:
+            $ref: '#/components/schemas/ResolvedAccessRuleError'
   securitySchemes:
     Authorization:
       type: http

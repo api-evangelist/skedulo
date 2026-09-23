@@ -1,13 +1,13 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Authentication Admin Attachment API
-  description: Skedulo Authentication API
+  title: Files Attachment API
+  description: Skedulo Files API
   version: 1.0.0
 servers:
-- url: https://api.skedulo.com/auth
-- url: https://api.uk.skedulo.com/auth
-- url: https://api.ca.skedulo.com/auth
-- url: https://api.au.skedulo.com/auth
+- url: https://api.skedulo.com/files
+- url: https://api.uk.skedulo.com/files
+- url: https://api.ca.skedulo.com/files
+- url: https://api.au.skedulo.com/files
 tags:
 - name: Attachment
 paths:
@@ -137,16 +137,6 @@ paths:
       - Attachment
 components:
   schemas:
-    FileSaveResult:
-      type: object
-      required:
-      - id
-      - success
-      properties:
-        id:
-          type: string
-        success:
-          type: boolean
     AttachmentMetadata:
       type: object
       description: General metadata for an attachment.
@@ -219,6 +209,21 @@ components:
         ResolutionUnit:
           type: string
           description: Unit for XResolution (e.g. Inch)
+    ApiResultAttachmentMetadata:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/AttachmentMetadata'
+    FileSaveResult:
+      type: object
+      required:
+      - id
+      - success
+      properties:
+        id:
+          type: string
+        success:
+          type: boolean
     DeletedApiResult:
       type: object
       required:
@@ -226,11 +231,6 @@ components:
       properties:
         deleted:
           type: string
-    ApiResultAttachmentMetadata:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/AttachmentMetadata'
   securitySchemes:
     Authorization:
       type: http
