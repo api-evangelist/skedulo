@@ -70,26 +70,6 @@ components:
         filter:
           description: EQL filter that is applied when accessing records of the object type
           type: string
-    ResultOKAccessRules:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResolvedAccessRule'
-    ResolvedAccessRuleError:
-      description: Error details when resolving access rules for an object type
-      type: object
-      required:
-      - objectType
-      - message
-      properties:
-        objectType:
-          description: The object type of the rule in error
-          type: string
-        message:
-          description: The error message
-          type: string
     RecordAccessRule:
       type: object
       required:
@@ -125,6 +105,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ResolvedAccessRuleError'
+    ResolvedAccessRuleError:
+      description: Error details when resolving access rules for an object type
+      type: object
+      required:
+      - objectType
+      - message
+      properties:
+        objectType:
+          description: The object type of the rule in error
+          type: string
+        message:
+          description: The error message
+          type: string
+    ResultOKAccessRules:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResolvedAccessRule'
   securitySchemes:
     Authorization:
       type: http

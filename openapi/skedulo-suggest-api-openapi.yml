@@ -68,7 +68,7 @@ paths:
     get:
       summary: Get suggestions for a completed suggest run
       description: Returns the scheduling suggestions produced by a previously completed suggest run.
-      operationId: Get Suggestions
+      operationId: GetSuggestions
       parameters:
       - name: runId
         in: path
@@ -100,11 +100,13 @@ paths:
       - httpAuth: []
       tags:
       - Suggest
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Suggestions
   /suggest/feature/{runId}:
     get:
       summary: Get raw feature model suggestions for a run
       description: Returns the raw CorePVRP feature model suggestions produced by a previously completed suggest run.
-      operationId: Get Feature Suggestions
+      operationId: GetFeatureSuggestions
       parameters:
       - name: runId
         in: path
@@ -137,17 +139,10 @@ paths:
       - httpAuth: []
       tags:
       - Suggest
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Feature Suggestions
 components:
   schemas:
-    FeatureSuggestResponseShape:
-      required:
-      - suggestions
-      type: object
-      properties:
-        suggestions:
-          type: array
-          items:
-            $ref: '#/components/schemas/CorePVRPSuggestionShape'
     SuggestResponseShape:
       required:
       - suggestions
@@ -160,23 +155,33 @@ components:
             $ref: '#/components/schemas/SuggestionShape'
         runId:
           type: string
-    CorePVRPSuggestionShape:
+    SuggestRequestShape:
       required:
-      - resourceId
-      - allocationId
-      - suggestedStart
-      - score
+      - jobId
+      - resourceIds
+      - suggestWindow
+      - timezone
       type: object
       properties:
-        resourceId:
+        jobId:
           type: string
-        allocationId:
+        resourceRequirementId:
           type: string
-        suggestedStart:
+        resourceIds:
+          type: array
+          items:
+            type: string
+        recipeId:
           type: string
-          format: date-time
-        score:
-          $ref: '#/components/schemas/ScoreShape'
+        suggestWindow:
+          $ref: '#/components/schemas/BoundedIntervalInstantShape'
+        timezone:
+          type: string
+        persistenceStrategy:
+          type: string
+          enum:
+          - save
+          - optimize
     BoundedIntervalInstantShape:
       required:
       - start
@@ -210,33 +215,23 @@ components:
         suggestedStartTime:
           type: string
           format: date-time
-    SuggestRequestShape:
+    CorePVRPSuggestionShape:
       required:
-      - jobId
-      - resourceIds
-      - suggestWindow
-      - timezone
+      - resourceId
+      - allocationId
+      - suggestedStart
+      - score
       type: object
       properties:
-        jobId:
+        resourceId:
           type: string
-        resourceRequirementId:
+        allocationId:
           type: string
-        resourceIds:
-          type: array
-          items:
-            type: string
-        recipeId:
+        suggestedStart:
           type: string
-        suggestWindow:
-          $ref: '#/components/schemas/BoundedIntervalInstantShape'
-        timezone:
-          type: string
-        persistenceStrategy:
-          type: string
-          enum:
-          - save
-          - optimize
+          format: date-time
+        score:
+          $ref: '#/components/schemas/ScoreShape'
     ScoreShape:
       required:
       - hard
@@ -254,6 +249,15 @@ components:
           type: number
           format: double
       description: Raw solver penalty breakdown; lower is better, 0 is ideal.
+    FeatureSuggestResponseShape:
+      required:
+      - suggestions
+      type: object
+      properties:
+        suggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CorePVRPSuggestionShape'
   securitySchemes:
     httpAuth:
       type: http

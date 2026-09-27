@@ -42,28 +42,6 @@ paths:
       - Templates
 components:
   schemas:
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
-        errorId:
-          type: string
-    ResultOKTemplates:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Template'
-    TemplateId:
-      type: string
-      format: uuid
     Template:
       type: object
       required:
@@ -76,6 +54,28 @@ components:
         name:
           type: string
         schemaName:
+          type: string
+    TemplateId:
+      type: string
+      format: uuid
+    ResultOKTemplates:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Template'
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+        errorId:
           type: string
   securitySchemes:
     Authorization:

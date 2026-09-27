@@ -157,27 +157,6 @@ paths:
     - url: https://api.au.skedulo.com/config
 components:
   schemas:
-    ResultOKTeamConfig:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/TeamConfig'
-    TeamConfigAuth0:
-      type: object
-      required:
-      - clientId
-      - audience
-      - domain
-      - lock
-      properties:
-        clientId:
-          type: string
-        audience:
-          type: string
-        domain:
-          type: string
-        lock:
-          $ref: '#/components/schemas/TeamConfigAuth0Lock'
     TeamConfig:
       type: object
       required:
@@ -237,6 +216,55 @@ components:
                 properties:
                   displayName:
                     type: string
+    TeamConfigAuth0:
+      type: object
+      required:
+      - clientId
+      - audience
+      - domain
+      - lock
+      properties:
+        clientId:
+          type: string
+        audience:
+          type: string
+        domain:
+          type: string
+        lock:
+          $ref: '#/components/schemas/TeamConfigAuth0Lock'
+    ResultOKTeamConfig:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/TeamConfig'
+    Layout:
+      type: object
+      required:
+      - relatedData
+      properties:
+        relatedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/LayoutRelatedData'
+    LayoutRelatedData:
+      oneOf:
+      - $ref: '#/components/schemas/LayoutRelatedDataRelatedObject'
+      discriminator:
+        propertyName: type
+        mapping:
+          relatedObjects: '#/components/schemas/LayoutRelatedDataRelatedObject'
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+        errorId:
+          type: string
     LayoutRelatedDataRelatedObject:
       required:
       - type
@@ -256,34 +284,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LayoutRelatedDataRelatedObjectField'
-    Layout:
-      type: object
-      required:
-      - relatedData
-      properties:
-        relatedData:
-          type: array
-          items:
-            $ref: '#/components/schemas/LayoutRelatedData'
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
-        errorId:
-          type: string
-    LayoutRelatedData:
-      oneOf:
-      - $ref: '#/components/schemas/LayoutRelatedDataRelatedObject'
-      discriminator:
-        propertyName: type
-        mapping:
-          relatedObjects: '#/components/schemas/LayoutRelatedDataRelatedObject'
     LayoutRelatedDataRelatedObjectField:
       required:
       - fieldName

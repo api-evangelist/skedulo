@@ -75,7 +75,7 @@ apis:
   - type: OpenAPI
     url: openapi/skedulo-admin-api-openapi.yml
 - aid: skedulo:skedulo-api-controller-api
-  name: Skedulo api-controller API
+  name: Skedulo API Controller API
   description: The api-controller API from Skedulo — 5 operation(s) for api-controller.
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
@@ -530,7 +530,7 @@ apis:
   - type: OpenAPI
     url: openapi/skedulo-schedule-summaries-api-openapi.yml
 - aid: skedulo:skedulo-scheduling-api
-  name: Skedulo scheduling API
+  name: Skedulo Scheduling API
   description: The scheduling API from Skedulo — 7 operation(s) for scheduling.
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
@@ -646,7 +646,7 @@ apis:
   - type: OpenAPI
     url: openapi/skedulo-templates-api-openapi.yml
 - aid: skedulo:skedulo-tenant-controller-api
-  name: Skedulo tenant-controller API
+  name: Skedulo Tenant Controller API
   description: The tenant-controller API from Skedulo — 1 operation(s) for tenant-controller.
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
@@ -755,8 +755,6 @@ apis:
   humanURL: https://developer.skedulo.com/skedulo-api/scheduling/availability/
   baseURL: https://api.skedulo.com
   tags:
-  - GraphQL
-  tags_raw:
   - Graph QL
   properties:
   - type: OpenAPI

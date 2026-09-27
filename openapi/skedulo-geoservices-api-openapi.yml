@@ -56,51 +56,10 @@ components:
           type: object
           description: The response will contain successful travel times grouped by the Nodes id
       example: "{\n  \"result\": {\n    \"0008dea1-7b0b-496c-8043-fb86ff6a73aa\": 204,\n    \"0008cb3c-e5d8-45e6-ba80-cc674aedbbbe\": 0,\n    \"001413ed-c6a5-495d-9fb9-a92503a250c1\": 340,\n    \"001442ff-27e7-40f3-80c8-016305b92230\": 344,\n    \"001484ec-5a47-48ae-bce8-0bf443fbf50c\": 163,\n    \"000555ac-24f1-43fe-b6c0-117c34bbc994\": 257\n  }\n}\n"
-    TravelTimeResource:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The identifier of the resource
-        origin:
-          $ref: '#/components/schemas/Coordinates'
-        availabilities:
-          type: array
-          description: The time windows when a resource is available
-          items:
-            type: object
-            properties:
-              start:
-                $ref: '#/components/schemas/TimeStamp'
-              end:
-                $ref: '#/components/schemas/TimeStamp'
-            required:
-            - start
-            - end
-    TravelTimeNode:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The requesting system's identifier that needs travel time
-        resourceId:
-          type: string
-          description: The identifier of the resource to determine routes and waypoints
-        start:
-          $ref: '#/components/schemas/TimeStamp'
-        end:
-          $ref: '#/components/schemas/TimeStamp'
-        lat:
-          type: number
-          description: Latitude
-        lng:
-          type: number
-          description: Longitude
-      required:
-      - id
-      - resourceId
-      - start
-      - end
+    TimeStamp:
+      type: string
+      format: date-time
+      description: Can be either ISO8601 date time string or Unix timestamp number ( in milliseconds ). Always returned in ISO8601 format.
     TravelTimeBody:
       type: object
       properties:
@@ -161,10 +120,51 @@ components:
           default: 0
           minimum: 0
           description: Divide the given time frame into parts described by this value and allocate all jobs to the nearest part.
-    TimeStamp:
-      type: string
-      format: date-time
-      description: Can be either ISO8601 date time string or Unix timestamp number ( in milliseconds ). Always returned in ISO8601 format.
+    TravelTimeResource:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The identifier of the resource
+        origin:
+          $ref: '#/components/schemas/Coordinates'
+        availabilities:
+          type: array
+          description: The time windows when a resource is available
+          items:
+            type: object
+            properties:
+              start:
+                $ref: '#/components/schemas/TimeStamp'
+              end:
+                $ref: '#/components/schemas/TimeStamp'
+            required:
+            - start
+            - end
+    TravelTimeNode:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The requesting system's identifier that needs travel time
+        resourceId:
+          type: string
+          description: The identifier of the resource to determine routes and waypoints
+        start:
+          $ref: '#/components/schemas/TimeStamp'
+        end:
+          $ref: '#/components/schemas/TimeStamp'
+        lat:
+          type: number
+          description: Latitude
+        lng:
+          type: number
+          description: Longitude
+      required:
+      - id
+      - resourceId
+      - start
+      - end
   securitySchemes:
     BearerAuth:
       type: http

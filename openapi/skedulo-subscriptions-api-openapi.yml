@@ -41,18 +41,6 @@ paths:
       - Subscriptions
 components:
   schemas:
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
-        errorId:
-          type: string
     GraphQLError:
       type: object
       description: errors
@@ -80,6 +68,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GraphQLError'
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+        errorId:
+          type: string
   securitySchemes:
     Authorization:
       type: http

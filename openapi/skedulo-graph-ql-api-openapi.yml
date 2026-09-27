@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Graphql API
+  title: GraphQL API
   description: GraphQL endpoints
   version: 1.0.0
 servers:
@@ -86,18 +86,6 @@ paths:
       - Graph QL
 components:
   schemas:
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
-        errorId:
-          type: string
     GraphQLError:
       type: object
       description: errors
@@ -125,6 +113,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GraphQLError'
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+        errorId:
+          type: string
   securitySchemes:
     Authorization:
       type: http

@@ -407,6 +407,9 @@ components:
               type: number
             geoLatitude:
               type: number
+    RegionsField:
+      description: A set of region UIDs that should be associated with the user.
+      type: string
     BulkUserResult:
       type: object
       required:
@@ -419,15 +422,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StandaloneUserLog'
-    RegionsField:
-      description: A set of region UIDs that should be associated with the user.
-      type: string
-    WorkingHourType:
-      type: string
-      description: Working hour type of this resource.
-      enum:
-      - Availability
-      - Shift
     AsyncTaskResult:
       type: object
       required:
@@ -453,16 +447,12 @@ components:
           type: boolean
         errorMsg:
           type: string
-    StandaloneUserResultError:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-        message:
-          type: string
+    NotificationType:
+      type: string
+      description: Default notification method of this resource.
+      enum:
+      - sms
+      - push
     StandaloneUserResult:
       type: object
       required:
@@ -481,12 +471,37 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/StandaloneUserResultError'
-    NotificationType:
+    StandaloneUserResultError:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    WorkingHourType:
       type: string
-      description: Default notification method of this resource.
+      description: Working hour type of this resource.
       enum:
-      - sms
-      - push
+      - Availability
+      - Shift
+    CountryCode:
+      description: The correct country code must be set for each resource so that they can receive SMS.
+      type: string
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+        errorId:
+          type: string
     StandaloneUserLog:
       type: object
       required:
@@ -508,21 +523,6 @@ components:
           type: boolean
         errorMsg:
           type: string
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
-        errorId:
-          type: string
-    CountryCode:
-      description: The correct country code must be set for each resource so that they can receive SMS.
-      type: string
     RolesField:
       description: A role to assign to the user.
       type: string

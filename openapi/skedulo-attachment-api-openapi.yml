@@ -137,17 +137,18 @@ paths:
       - Attachment
 components:
   schemas:
-    AttachmentMetadata:
+    ApiResultAttachmentMetadata:
       type: object
-      description: General metadata for an attachment.
-      required:
-      - exifSupported
       properties:
-        exifSupported:
-          type: boolean
-          description: Whether the file format supports EXIF metadata. When false, the exif object will be empty.
-        exif:
-          $ref: '#/components/schemas/ExifData'
+        result:
+          $ref: '#/components/schemas/AttachmentMetadata'
+    DeletedApiResult:
+      type: object
+      required:
+      - deleted
+      properties:
+        deleted:
+          type: string
     ExifData:
       type: object
       description: EXIF metadata extracted from an image or video file. All fields are optional — present only when the file contains the corresponding tag.
@@ -209,11 +210,17 @@ components:
         ResolutionUnit:
           type: string
           description: Unit for XResolution (e.g. Inch)
-    ApiResultAttachmentMetadata:
+    AttachmentMetadata:
       type: object
+      description: General metadata for an attachment.
+      required:
+      - exifSupported
       properties:
-        result:
-          $ref: '#/components/schemas/AttachmentMetadata'
+        exifSupported:
+          type: boolean
+          description: Whether the file format supports EXIF metadata. When false, the exif object will be empty.
+        exif:
+          $ref: '#/components/schemas/ExifData'
     FileSaveResult:
       type: object
       required:
@@ -224,13 +231,6 @@ components:
           type: string
         success:
           type: boolean
-    DeletedApiResult:
-      type: object
-      required:
-      - deleted
-      properties:
-        deleted:
-          type: string
   securitySchemes:
     Authorization:
       type: http

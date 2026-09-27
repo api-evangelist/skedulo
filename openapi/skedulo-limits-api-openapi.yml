@@ -14,7 +14,7 @@ paths:
     get:
       summary: Get the limits for the tenant
       description: Returns the operational limits configured for the authenticated tenant, such as maximum number of jobs or resources that can be included in a single optimization run.
-      operationId: Get Limits
+      operationId: GetLimits
       responses:
         '200':
           description: ''
@@ -31,6 +31,8 @@ paths:
       - httpAuth: []
       tags:
       - Limits
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Limits
 components:
   schemas:
     LimitsDto:

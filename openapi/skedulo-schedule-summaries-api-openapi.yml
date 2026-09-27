@@ -91,6 +91,20 @@ paths:
           description: Recurring schedule with given ID cannot be found
 components:
   schemas:
+    DetailedRecurringSchedulesSummary:
+      description: Detailed summary of a recurring schedule, containing information about the jobs in this schedule. Cancelled job are excluded.
+      allOf:
+      - $ref: '#/components/schemas/RecurringScheduleSummary'
+      - properties:
+          jobs:
+            type: array
+            items:
+              $ref: '#/components/schemas/DetailedJob'
+          nextJob:
+            type: string
+            description: ID of the next job
+        required:
+        - jobs
     RecurringScheduleSummary:
       type: object
       required:
@@ -188,20 +202,6 @@ components:
       - UID
       - status
       - region
-    DetailedRecurringSchedulesSummary:
-      description: Detailed summary of a recurring schedule, containing information about the jobs in this schedule. Cancelled job are excluded.
-      allOf:
-      - $ref: '#/components/schemas/RecurringScheduleSummary'
-      - properties:
-          jobs:
-            type: array
-            items:
-              $ref: '#/components/schemas/DetailedJob'
-          nextJob:
-            type: string
-            description: ID of the next job
-        required:
-        - jobs
   securitySchemes:
     Authorization:
       type: http

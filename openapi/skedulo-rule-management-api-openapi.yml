@@ -224,60 +224,8 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    ErrorDetails:
-      type: object
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
-        extraFields:
-          type: object
-          additionalProperties:
-            type: object
     Unit:
       type: object
-    ApiResultRuleResult:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/RuleResult'
-    UserRulesResult:
-      required:
-      - rules
-      type: object
-      properties:
-        rules:
-          type: array
-          description: The fully resolved set of rules for a user.
-          items:
-            $ref: '#/components/schemas/ResolvedRuleResult'
-      description: The record access rules for a user.
-    ApiResultUserRulesResult:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/UserRulesResult'
-    ApiResultListRuleResult:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleResult'
-    ApiResultUnit:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/Unit'
     RuleResult:
       required:
       - accessType
@@ -329,26 +277,35 @@ components:
             description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
             format: uuid
       description: A record access rule that controls access to data.
-    ResolvedRuleResult:
-      required:
-      - accessType
-      - filter
-      - objectType
+    ErrorDetails:
       type: object
       properties:
-        objectType:
+        errorType:
           type: string
-          description: The Skedulo data model object type (schema) that the rule applies to.
-        filter:
+        message:
           type: string
-          description: A valid, fully resolved EQL filter that can be applied to the object Type.
-        accessType:
-          type: string
-          description: Specifies whether the filter allows or denies access.
-          enum:
-          - deny
-          - allow
-      description: A record access rule that is enabled for the current user and has had placeholders resolved.
+        extraFields:
+          type: object
+          additionalProperties:
+            type: object
+    ApiResultRuleResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/RuleResult'
+    UserRulesResult:
+      required:
+      - rules
+      type: object
+      properties:
+        rules:
+          type: array
+          description: The fully resolved set of rules for a user.
+          items:
+            $ref: '#/components/schemas/ResolvedRuleResult'
+      description: The record access rules for a user.
     RuleInput:
       required:
       - accessType
@@ -394,6 +351,49 @@ components:
             type: string
             description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
             format: uuid
+    ResolvedRuleResult:
+      required:
+      - accessType
+      - filter
+      - objectType
+      type: object
+      properties:
+        objectType:
+          type: string
+          description: The Skedulo data model object type (schema) that the rule applies to.
+        filter:
+          type: string
+          description: A valid, fully resolved EQL filter that can be applied to the object Type.
+        accessType:
+          type: string
+          description: Specifies whether the filter allows or denies access.
+          enum:
+          - deny
+          - allow
+      description: A record access rule that is enabled for the current user and has had placeholders resolved.
+    ApiResultUserRulesResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/UserRulesResult'
+    ApiResultUnit:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Unit'
+    ApiResultListRuleResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleResult'
   securitySchemes:
     ApiKeyAuth:
       type: http

@@ -14,7 +14,7 @@ paths:
     post:
       summary: Start an one-off optimization run
       description: This will begin a new one-off optimization run that will start as soon as possible for the requested input.
-      operationId: Schedule Run
+      operationId: ScheduleRun
       requestBody:
         content:
           application/json:
@@ -75,11 +75,13 @@ paths:
       - httpAuth: []
       tags:
       - Schedule
+      x-operation-id-source: normalized
+      x-operation-id-original: Schedule Run
   /schedule/run:
     get:
       summary: Get a list of schedule runs
       description: Returns a paginated list of schedule runs for the authenticated tenant. Schedule runs are product-level optimization runs initiated via the schedule endpoint.
-      operationId: Get Schedule Runs
+      operationId: GetScheduleRuns
       responses:
         '200':
           description: ''
@@ -148,11 +150,13 @@ paths:
       - httpAuth: []
       tags:
       - Schedule
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Schedule Runs
   /schedule/run/{runId}:
     get:
       summary: Get a schedule run by id
       description: Returns the details of a single schedule run identified by its run ID, including its current status, configuration, and timing information.
-      operationId: Get Schedule Run By Id
+      operationId: GetScheduleRunById
       parameters:
       - name: runId
         in: path
@@ -224,11 +228,13 @@ paths:
       - httpAuth: []
       tags:
       - Schedule
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Schedule Run By Id
   /schedule/run/{runId}/routes:
     get:
       summary: Get the routes for a schedule run
       description: Returns the planned travel routes for all resources in a completed schedule run, including the ordered sequence of locations visited, travel times and distances between stops, and per-day breakdowns.
-      operationId: Get Schedule Run Routes
+      operationId: GetScheduleRunRoutes
       parameters:
       - name: runId
         in: path
@@ -297,11 +303,13 @@ paths:
       - httpAuth: []
       tags:
       - Schedule
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Schedule Run Routes
   /schedule/run/{runId}/results:
     get:
       summary: Get results of a schedule run
       description: Returns the optimization results for a completed schedule run, including which jobs were scheduled (with their assigned resources and start times), which jobs could not be scheduled and the reasons why, any excluded jobs, and aggregate totals for the run.
-      operationId: Get Schedule Run Results
+      operationId: GetScheduleRunResults
       parameters:
       - name: runId
         in: path
@@ -368,11 +376,13 @@ paths:
       - httpAuth: []
       tags:
       - Schedule
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Schedule Run Results
   /schedule/run/{runId}/params:
     get:
       summary: Get parameters for a schedule run
       description: Returns the input parameters used to configure a schedule run, including the set of jobs and resources, the schedule window, timezone, and any recipe or scheduling goal overrides.
-      operationId: Get Schedule Run Params
+      operationId: GetScheduleRunParams
       parameters:
       - name: runId
         in: path
@@ -459,11 +469,13 @@ paths:
       - httpAuth: []
       tags:
       - Schedule
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Schedule Run Params
   /schedule/run/{runId}/save:
     get:
       summary: Get the save status of a schedule run
       description: Returns the current save status of a completed schedule run.
-      operationId: Get Schedule Run Save
+      operationId: GetScheduleRunSave
       parameters:
       - name: runId
         in: path
@@ -532,10 +544,12 @@ paths:
       - httpAuth: []
       tags:
       - Schedule
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Schedule Run Save
     post:
       summary: Save a completed schedule run
       description: Persist the results of a completed optimization run, applying the scheduled allocations to the system. Once saved the run results are committed and cannot be rolled back through this API.
-      operationId: Schedule Run Save
+      operationId: ScheduleRunSave
       parameters:
       - name: runId
         in: path
@@ -604,11 +618,13 @@ paths:
       - httpAuth: []
       tags:
       - Schedule
+      x-operation-id-source: normalized
+      x-operation-id-original: Schedule Run Save
   /schedule/run/{runId}/save/reject:
     post:
       summary: Reject a schedule run save
       description: Reject the pending save for a completed optimization run, discarding the scheduled allocations without applying them to the system.
-      operationId: Reject Schedule Run Save
+      operationId: RejectScheduleRunSave
       parameters:
       - name: runId
         in: path
@@ -677,11 +693,13 @@ paths:
       - httpAuth: []
       tags:
       - Schedule
+      x-operation-id-source: normalized
+      x-operation-id-original: Reject Schedule Run Save
   /schedule/run/{runId}/save/defer:
     post:
       summary: Defer auto-save for a run
       description: Sets the run's persistence strategy to `Optimize`, preventing auto-save from occurring. Only valid for in-progress runs with no existing save record.
-      operationId: Defer Schedule Run Auto-Save
+      operationId: DeferScheduleRunAuto-Save
       parameters:
       - name: runId
         in: path
@@ -695,11 +713,13 @@ paths:
       - httpAuth: []
       tags:
       - Schedule
+      x-operation-id-source: normalized
+      x-operation-id-original: Defer Schedule Run Auto-Save
   /schedule/run/{runId}/save/mutations:
     get:
       summary: Get the save mutations for a schedule run
       description: Returns the set of data mutations that would be applied when saving a completed schedule run.
-      operationId: Get Schedule Run Save Mutations
+      operationId: GetScheduleRunSaveMutations
       parameters:
       - name: runId
         in: path
@@ -737,11 +757,13 @@ paths:
       - httpAuth: []
       tags:
       - Schedule
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Schedule Run Save Mutations
   /schedule/plan:
     post:
       summary: Get the full schedule plan
       description: This endpoint will return all the data necessary to run optimization. This includes any extra jobs or resources that need to be considered to avoid schedule clashes for the requested resources. The optimization run will not be started until the body of this request is POSTed to the /solve/planned endpoint.
-      operationId: Schedule Run Plan
+      operationId: ScheduleRunPlan
       requestBody:
         content:
           application/json:
@@ -968,11 +990,13 @@ paths:
       - httpAuth: []
       tags:
       - Schedule
+      x-operation-id-source: normalized
+      x-operation-id-original: Schedule Run Plan
   /schedule/scope:
     post:
       summary: Full scope of optimization
       description: The full scope required to optimize a set of jobs. This includes any extra jobs or resources that need to be considered to avoid schedule clashes for the requested resources.
-      operationId: Prepare Scope
+      operationId: PrepareScope
       parameters:
       - name: includeIds
         in: query
@@ -1042,11 +1066,13 @@ paths:
       - httpAuth: []
       tags:
       - Schedule
+      x-operation-id-source: normalized
+      x-operation-id-original: Prepare Scope
   /schedule/run/{runId}/transformer/state/latest:
     get:
       summary: Get the latest transformer state for a schedule run
       description: Returns the most recent transformer state recorded for a given schedule run, including the log entry identifier and the transformer data payload.
-      operationId: Get Schedule Run Transformer Latest State
+      operationId: GetScheduleRunTransformerLatestState
       parameters:
       - name: runId
         in: path
@@ -1233,11 +1259,13 @@ paths:
       - httpAuth: []
       tags:
       - Schedule
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Schedule Run Transformer Latest State
   /schedule/run/{runId}/transformer/state/{transformerId}:
     post:
       summary: Update the state of a transformer for a schedule run
       description: Update the persistent state associated with a specific transformer for a given schedule run. Transformers use this state to carry information between successive optimization runs.
-      operationId: Schedule Run Transformer Update State
+      operationId: ScheduleRunTransformerUpdateState
       parameters:
       - name: runId
         in: path
@@ -1441,277 +1469,17 @@ paths:
       - httpAuth: []
       tags:
       - Schedule
+      x-operation-id-source: normalized
+      x-operation-id-original: Schedule Run Transformer Update State
 components:
   schemas:
-    GraphQLJobDependencyFrom:
+    GraphQLActivityResource:
       required:
-      - ToJobId
+      - resourceId
       type: object
       properties:
-        ToJobId:
+        resourceId:
           type: string
-        FromAnchor:
-          $ref: '#/components/schemas/JobDependencyAnchor'
-        ToAnchor:
-          $ref: '#/components/schemas/JobDependencyAnchor'
-        ToAnchorMinOffsetMinutes:
-          type: integer
-          format: int32
-        ToAnchorMaxOffsetMinutes:
-          type: integer
-          format: int32
-    ResourceAvailabilityAttributeShape:
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          type: string
-          description: The attribute identifier active during this availability window
-    AllocationResourceConstraintShape:
-      required:
-      - type
-      - resources
-      type: object
-      properties:
-        type:
-          type: string
-          description: Whether the resources list is a blocked (excluded) or allowed (included) list
-          enum:
-          - blocked
-          - allowed
-        resources:
-          type: array
-          items:
-            type: string
-          description: The resources to which this constraint applies
-      description: Restricts which resources may be assigned to this allocation (blocked or allowed list)
-    FixedTimeBreakShape:
-      required:
-      - startTime
-      - endTime
-      type: object
-      properties:
-        startTime:
-          type: string
-          description: The fixed start time of the break
-          format: date-time
-        endTime:
-          type: string
-          description: The fixed end time of the break
-          format: date-time
-        locationId:
-          type: string
-          description: Optional location where the resource will be during this break; affects travel time calculations for surrounding allocations
-    Map_List_FrozenJobReason:
-      type: object
-      description: Jobs excluded from optimization before it began (frozen jobs), keyed by job ID with the reasons for exclusion
-      additionalProperties:
-        type: array
-        items:
-          $ref: '#/components/schemas/FrozenJobReason'
-    ScheduleResult:
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          type: string
-    TimeConstraintBeforePeriod:
-      required:
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          description: '`job_time_constraint_early`'
-          enum:
-          - job_time_constraint_early
-      description: All of the job's schedule time constraints fall entirely before the scheduling period
-    HasJobDependenciesNotInScope:
-      type: object
-    Deprecated:
-      required:
-      - reason
-      type: object
-      properties:
-        reason:
-          type: string
-    SchedulePlanShape:
-      required:
-      - productData
-      - featureModel
-      - ids
-      - options
-      type: object
-      properties:
-        productData:
-          $ref: '#/components/schemas/APIProductData'
-        featureModel:
-          $ref: '#/components/schemas/CorePVRPFeatureModelShape'
-        ids:
-          $ref: '#/components/schemas/APIIdInput'
-        options:
-          $ref: '#/components/schemas/SchedulePlanOptionsShape'
-    FrozenJobReason:
-      description: The specific reason why this job was excluded from the optimization scope
-      oneOf:
-      - $ref: '#/components/schemas/Deprecated'
-      - $ref: '#/components/schemas/HasJobDependenciesNotInScope'
-      - $ref: '#/components/schemas/NotInRequestedJobs'
-      - $ref: '#/components/schemas/OutsideOfRegion'
-    ResultTotals:
-      required:
-      - scoped
-      - requested
-      type: object
-      properties:
-        scoped:
-          $ref: '#/components/schemas/ComparisonTotal'
-        requested:
-          $ref: '#/components/schemas/ComparisonTotal'
-      description: Aggregate counts of scheduled and unscheduled jobs for the run
-    UnscheduledReason:
-      oneOf:
-      - $ref: '#/components/schemas/ExhaustedAvailability'
-      - $ref: '#/components/schemas/ExtraneousResource'
-      - $ref: '#/components/schemas/JobCannotBeFullyAllocated'
-      - $ref: '#/components/schemas/JobExcluded'
-      - $ref: '#/components/schemas/JobLocked'
-      - $ref: '#/components/schemas/RequiredCustomAttributes'
-      - $ref: '#/components/schemas/RequiredTags'
-      - $ref: '#/components/schemas/ResourceAccountRestricted'
-      - $ref: '#/components/schemas/ResourceCustomConstraintPeriod'
-      - $ref: '#/components/schemas/ResourceExceedsMaximumHours'
-      - $ref: '#/components/schemas/ResourceLocationRestricted'
-      - $ref: '#/components/schemas/ResourceNoAvailabilityOverlapWithTimeConstraints'
-      - $ref: '#/components/schemas/ResourceNoFeasibleWindow'
-      - $ref: '#/components/schemas/ResourceNoReasonFound'
-      - $ref: '#/components/schemas/ResourceRestricted'
-      - $ref: '#/components/schemas/TimeConstraintAfterPeriod'
-      - $ref: '#/components/schemas/TimeConstraintBeforePeriod'
-      - $ref: '#/components/schemas/TimeConstraintNoOverlap'
-    GraphQLResourceOverride:
-      required:
-      - Start
-      - End
-      type: object
-      properties:
-        Start:
-          type: string
-          format: date-time
-        End:
-          type: string
-          format: date-time
-        GeoLatitude:
-          type: number
-          format: double
-        GeoLongitude:
-          type: number
-          format: double
-    GraphQLResource:
-      required:
-      - UID
-      - ResourceTags
-      - ResourceOverrides
-      type: object
-      properties:
-        UID:
-          type: string
-        GeoLatitude:
-          type: number
-          format: double
-        GeoLongitude:
-          type: number
-          format: double
-        ResourceTags:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLResourceTag'
-        HomeAddress:
-          type: string
-        WeeklyHours:
-          type: number
-        WorkingHoursTimePeriod:
-          type: string
-          enum:
-          - Day
-          - Week
-          - TwoWeeks
-          - FourWeeks
-        WorkingHoursStart:
-          type: string
-          format: date
-        WorkingHoursMin:
-          type: number
-        WorkingHoursMax:
-          type: number
-        ResourceOverrides:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLResourceOverride'
-        Rating:
-          type: integer
-          format: int32
-        PrimaryRegion:
-          $ref: '#/components/schemas/GraphQLResourcePrimaryRegion'
-    ResourceShape1:
-      required:
-      - id
-      - attributes
-      - availability
-      - periodConstraints
-      - breaks
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for this resource
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceAttributeShape'
-          description: Skills and qualifications held by this resource
-        locationId:
-          type: string
-          description: The home/base location of this resource, used as the default start and end point for route calculations
-        availability:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceAvailabilityShape1'
-          description: Time windows during which this resource is available for allocation, with optional start and end locations for each window
-        compatibleResources:
-          type: array
-          items:
-            type: string
-          description: List of resource IDs that this resource is compatible with; used to constrain which resources can share work within a locked group
-        maxDailyTravelTimeInMinutes:
-          type: integer
-          description: Maximum total travel time allowed per day for this resource, in minutes; overrides the global option if set
-          format: int64
-        maxTravelTimeBetweenLocations:
-          type: integer
-          description: Maximum travel time allowed between any two consecutive allocation locations for this resource, in minutes; overrides the global option if set
-          format: int64
-        periodConstraints:
-          type: array
-          items:
-            $ref: '#/components/schemas/PeriodConstraintsShape1'
-          description: Allows a resource to be given minimum and maximum service times for different periods
-        breaks:
-          type: array
-          items:
-            $ref: '#/components/schemas/BreakShape'
-          description: Scheduled breaks that must be incorporated into the resource's route
-        rating:
-          type: integer
-          description: The rating of the resource, can be an integer between 1 and 100
-          format: int32
-        phaseTags:
-          type: array
-          items:
-            type: string
-          description: Phase tags that restrict this resource to specific phases. If absent or empty, the resource is included in all phases.
     PhaseObjectFilterShape:
       required:
       - objectType
@@ -1741,362 +1509,32 @@ components:
           - permitIncludeUnset
           - restrict
           - restrictExcludeUnset
-    ScopeRequest:
+    GraphQLJobTimeConstraint:
       required:
-      - jobs
-      - scheduleBounds
-      - recipeId
+      - Required
       type: object
       properties:
-        jobs:
-          type: array
-          items:
-            type: string
-        scheduleBounds:
-          $ref: '#/components/schemas/LocalDateBounds'
-        recipeId:
+        StartAfter:
           type: string
-    Nil:
-      type: object
-    WindowedBreakShape:
-      required:
-      - breakTimeInMinutes
-      - minStartTime
-      - maxStartTime
-      type: object
-      properties:
-        breakTimeInMinutes:
-          type: integer
-          description: Duration of the break in minutes
-          format: int64
-        minStartTime:
-          type: string
-          description: Earliest time at which the break may start
           format: date-time
-        maxStartTime:
+        StartBefore:
           type: string
-          description: Latest time at which the break may start
           format: date-time
-    Resource:
-      required:
-      - UID
-      - Locations
-      - Days
-      - TravelTime
-      - ScheduledTime
-      - TravelDistance
-      type: object
-      properties:
-        UID:
+        EndBefore:
           type: string
-        GeoLatitude:
-          type: number
-          format: double
-        GeoLongitude:
-          type: number
-          format: double
-        HomeAddress:
-          type: string
-        Locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Location'
-        Days:
-          type: array
-          items:
-            $ref: '#/components/schemas/Day'
-        TravelTime:
-          type: integer
-          format: int64
-        ScheduledTime:
-          type: integer
-          format: int64
-        TravelDistance:
-          type: integer
-          format: int64
-    JobStatus:
-      type: string
-      enum:
-      - Cancelled
-      - Complete
-      - Dispatched
-      - En Route
-      - In Progress
-      - On Site
-      - Pending Allocation
-      - Pending Dispatch
-      - Queued
-      - Ready
-    RequiredCustomAttributes:
-      required:
-      - type
-      - resourceId
-      - customAttributes
-      type: object
-      properties:
-        type:
-          type: string
-          description: '`resource_missing_required_custom_attributes`'
-          enum:
-          - resource_missing_required_custom_attributes
-        resourceId:
-          type: string
-          description: The resource that is missing one or more required custom attributes
-        customAttributes:
-          type: array
-          items:
-            type: string
-          description: The custom attributes that the resource is missing
-      description: The resource is missing one or more custom attributes that are required by this job
-    ObjectiveWeightsShape:
-      type: object
-      properties:
-        minimizeDisruption:
-          type: integer
-        balanceAbsoluteWorkload:
-          type: integer
-        travelTime:
-          type: integer
-        minimizeResources:
-          type: integer
-        softSkills:
-          type: integer
-        jobsPriority:
-          type: integer
-        resourceRating:
-          type: integer
-        scheduleImmediacy:
-          type: integer
-        urgency:
-          type: integer
-        overtime:
-          type: integer
-    ResourceAccountRestricted:
-      required:
-      - type
-      - resourceId
-      - accountId
-      - restrictionType
-      type: object
-      properties:
-        type:
-          type: string
-          description: '`resource_account_restricted`'
-          enum:
-          - resource_account_restricted
-        resourceId:
-          type: string
-          description: The resource that is restricted by an account-level list
-        accountId:
-          type: string
-          description: The account associated with the restriction
-        restrictionType:
-          type: string
-          description: Whether the resource is on an exclude list (blacklist) or not on a required include list (whitelist)
-          enum:
-          - blacklist
-          - whitelist
-      description: The resource is restricted from being assigned to this job due to an account-level include or exclude list
-    ResourceNoReasonFound:
-      required:
-      - type
-      - resourceId
-      type: object
-      properties:
-        type:
-          type: string
-          description: '`resource_no_reason_found`'
-          enum:
-          - resource_no_reason_found
-        resourceId:
-          type: string
-          description: The resource was a candidate for this job but no specific unscheduled reason could be determined
-      description: The resource was a candidate for this job but no specific unscheduled reason could be determined
-    ScopeRegion:
-      required:
-      - regionId
-      - timezone
-      type: object
-      properties:
-        regionId:
-          type: string
-        timezone:
-          type: string
-    ScheduledResourceRequirement:
-      required:
-      - resourceIds
-      - requiredAllocationCount
-      type: object
-      properties:
-        resourceIds:
-          type: array
-          items:
-            type: string
-          description: Resource IDs assigned to satisfy this resource requirement
-        requiredAllocationCount:
-          type: integer
-          description: Number of resource allocations required to fully satisfy this resource requirement
-          format: int32
-    ComparisonTotal:
-      required:
-      - planned
-      - scheduled
-      type: object
-      properties:
-        planned:
-          type: integer
-          format: int32
-        scheduled:
-          type: integer
-          format: int32
-    Map_ScheduledResourceRequirement:
-      type: object
-      description: Resource requirements for this job, keyed by resource requirement ID
-      additionalProperties:
-        $ref: '#/components/schemas/ScheduledResourceRequirement'
-    TransformerDataResponseShape:
-      required:
-      - transformerLogId
-      - productData
-      - featureModel
-      type: object
-      properties:
-        transformerLogId:
-          type: string
-        productData:
-          $ref: '#/components/schemas/APIProductData'
-        featureModel:
-          $ref: '#/components/schemas/CorePVRPFeatureModelShape'
-    BreakShape:
-      oneOf:
-      - $ref: '#/components/schemas/FixedTimeBreakShape'
-      - $ref: '#/components/schemas/WindowedBreakShape'
-    PVRPProductOptionsShape:
-      type: object
-      properties:
-        full:
-          type: boolean
-        ignoreTravelTime:
-          type: boolean
-        ignoreTravelTimeFirstJob:
-          type: boolean
-        ignoreTravelTimeLastJob:
-          type: boolean
-        minimizeResources:
-          type: boolean
-        maxDailyTravelTimeInMinutes:
-          type: integer
-          format: int64
-        maxTravelTimeBetweenLocations:
-          type: integer
-          format: int64
-        respectAllocationTimes:
-          type: boolean
-        respectAllocationTimesOverTimeConstraints:
-          type: boolean
-        balanceAbsoluteWorkload:
-          type: boolean
-        snapUnit:
-          type: integer
-          format: int32
-        padding:
-          type: integer
-          format: int32
-        objectiveWeights:
-          $ref: '#/components/schemas/ObjectiveWeightsShape'
-        objectiveWeightModifiers:
-          $ref: '#/components/schemas/ObjectiveWeightModifiersShape'
-        temporalAffinityStrength:
-          type: integer
-          format: int32
-        respectSchedule:
-          type: boolean
-        recipeId:
-          type: string
-          description: The recipe id to use for the optimization run, this will override any scheduling options in the request and is the preferred way of controlling the optimization run
-        enablePartiallyAllocatedGroups:
-          type: boolean
-        enablePartiallyAllocatedAllocationDependencies:
-          type: boolean
-        enforceCompatibility:
-          type: boolean
-        onJobRemoval:
-          type: array
-          items:
-            type: string
-            enum:
-            - clearJobTimes
-            - deallocateResources
-          minItems: 1
-        rollingScheduleWindowInterval:
-          description: The interval used to split the schedule window into rolling sub-windows. Accepts "monthly", "quarterly", or a positive integer representing a fixed number of days.
-    ScheduledJob:
-      required:
-      - start
-      - resourceRequirements
-      - excluded
-      - requiredAllocationCount
-      - resourceIds
-      - reasons
-      type: object
-      properties:
-        start:
-          type: string
-          description: The scheduled start time of the job
           format: date-time
-        resourceRequirements:
-          $ref: '#/components/schemas/Map_ScheduledResourceRequirement'
-        excluded:
+        Required:
           type: boolean
-          description: If true, this job was only partially allocated — some resource requirements could not be fulfilled
-        requiredAllocationCount:
-          type: integer
-          description: Total number of resource allocations required for this job to be fully scheduled
-          format: int32
-        resourceIds:
-          type: array
-          items:
-            type: string
-          description: Resource IDs assigned to this job
-        reasons:
-          type: array
-          items:
-            $ref: '#/components/schemas/UnscheduledReason'
-          description: Reasons why some allocations could not be fulfilled; present when the job is only partially allocated
-    AllocationAttributeShape:
+    GraphQLResourceTag:
       required:
-      - id
+      - Tag
       type: object
       properties:
-        id:
+        Tag:
+          $ref: '#/components/schemas/GraphQLTag'
+        ExpiryDate:
           type: string
-          description: The attribute identifier
-        weighting:
-          type: integer
-          description: If present, this is a soft (preferred) requirement with the given weighting; if absent, this is a hard (required) attribute
-          format: int32
-    ResourceRestricted:
-      required:
-      - type
-      - resourceId
-      - restrictionType
-      type: object
-      properties:
-        type:
-          type: string
-          description: '`resource_restricted`'
-          enum:
-          - resource_restricted
-        resourceId:
-          type: string
-          description: The resource that is explicitly restricted for this job
-        restrictionType:
-          type: string
-          description: Whether the resource is on an exclude list (blacklist) or not on a required include list (whitelist)
-          enum:
-          - blacklist
-          - whitelist
-      description: The resource is explicitly restricted for this job via a resource-level include or exclude list and no more specific account or location reason could be identified
+          format: date-time
     APIProductData:
       required:
       - jobs
@@ -2151,28 +1589,300 @@ components:
           items:
             $ref: '#/components/schemas/GraphQLRegion'
       description: All the data retrieved from GraphQL to run the optimization
-    NotInRequestedJobs:
+    Paging:
+      required:
+      - limit
       type: object
-    ExhaustedAvailability:
+      properties:
+        limit:
+          type: integer
+          format: int32
+        nextCursor:
+          type: string
+        total:
+          type: integer
+          format: int32
+    TransformerDataResponseShape:
+      required:
+      - transformerLogId
+      - productData
+      - featureModel
+      type: object
+      properties:
+        transformerLogId:
+          type: string
+        productData:
+          $ref: '#/components/schemas/APIProductData'
+        featureModel:
+          $ref: '#/components/schemas/CorePVRPFeatureModelShape'
+    GraphQLJobDependencyTo:
+      required:
+      - FromJobId
+      type: object
+      properties:
+        FromJobId:
+          type: string
+    Rejected:
+      required:
+      - runId
+      - state
+      - autoSaved
+      type: object
+      properties:
+        runId:
+          type: string
+        state:
+          type: string
+          description: '`rejected`'
+        autoSaved:
+          type: boolean
+        meta:
+          $ref: '#/components/schemas/SaveMeta'
+    RollingScheduleWindow:
+      required:
+      - start
+      - end
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+    GraphQLResourceOverride:
+      required:
+      - Start
+      - End
+      type: object
+      properties:
+        Start:
+          type: string
+          format: date-time
+        End:
+          type: string
+          format: date-time
+        GeoLatitude:
+          type: number
+          format: double
+        GeoLongitude:
+          type: number
+          format: double
+    ResultTotals:
+      required:
+      - scoped
+      - requested
+      type: object
+      properties:
+        scoped:
+          $ref: '#/components/schemas/ComparisonTotal'
+        requested:
+          $ref: '#/components/schemas/ComparisonTotal'
+      description: Aggregate counts of scheduled and unscheduled jobs for the run
+    Plan:
+      required:
+      - jobIds
+      - resourceIds
+      - scheduleWindow
+      - timezone
+      type: object
+      properties:
+        jobIds:
+          type: array
+          items:
+            type: string
+        resourceIds:
+          type: array
+          items:
+            type: string
+        regionId:
+          type: string
+        scheduleWindow:
+          $ref: '#/components/schemas/ScheduleRunWindow'
+        timezone:
+          type: string
+        schedulingOptions:
+          $ref: '#/components/schemas/PVRPProductOptionsShape'
+    SchedulePlanOptionsShape:
+      required:
+      - respectSchedule
+      type: object
+      properties:
+        recipeId:
+          type: string
+        respectSchedule:
+          type: boolean
+        persistenceStrategy:
+          type: string
+          enum:
+          - save
+          - optimize
+        label:
+          type: string
+    Map_ScheduledJob:
+      type: object
+      description: Jobs that were successfully scheduled, keyed by job ID
+      additionalProperties:
+        $ref: '#/components/schemas/ScheduledJob'
+    GraphQLJobAllocation:
+      required:
+      - UID
+      - ResourceId
+      - Status
+      type: object
+      properties:
+        UID:
+          type: string
+        ResourceId:
+          type: string
+        ResourceRequirementId:
+          type: string
+        Status:
+          $ref: '#/components/schemas/JobAllocationStatus'
+    Map_ResourceId_ResourceAvailability:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/ResourceAvailability'
+    GraphQLJobTag:
+      required:
+      - Required
+      - Tag
+      type: object
+      properties:
+        Required:
+          type: boolean
+        Weighting:
+          type: integer
+          format: int32
+        Tag:
+          $ref: '#/components/schemas/GraphQLTag'
+    OutsideOfRegion:
+      type: object
+    GraphQLJobDependencyFrom:
+      required:
+      - ToJobId
+      type: object
+      properties:
+        ToJobId:
+          type: string
+        FromAnchor:
+          $ref: '#/components/schemas/JobDependencyAnchor'
+        ToAnchor:
+          $ref: '#/components/schemas/JobDependencyAnchor'
+        ToAnchorMinOffsetMinutes:
+          type: integer
+          format: int32
+        ToAnchorMaxOffsetMinutes:
+          type: integer
+          format: int32
+    Resource:
+      required:
+      - UID
+      - Locations
+      - Days
+      - TravelTime
+      - ScheduledTime
+      - TravelDistance
+      type: object
+      properties:
+        UID:
+          type: string
+        GeoLatitude:
+          type: number
+          format: double
+        GeoLongitude:
+          type: number
+          format: double
+        HomeAddress:
+          type: string
+        Locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+        Days:
+          type: array
+          items:
+            $ref: '#/components/schemas/Day'
+        TravelTime:
+          type: integer
+          format: int64
+        ScheduledTime:
+          type: integer
+          format: int64
+        TravelDistance:
+          type: integer
+          format: int64
+    GraphQLRegion:
+      required:
+      - UID
+      type: object
+      properties:
+        UID:
+          type: string
+        Timezone:
+          type: string
+        GeoLatitude:
+          type: number
+          format: double
+        GeoLongitude:
+          type: number
+          format: double
+    GraphQLTag:
+      required:
+      - UID
+      type: object
+      properties:
+        UID:
+          type: string
+    JobLocked:
       required:
       - type
-      - resourceId
       type: object
       properties:
         type:
           type: string
-          description: '`resource_exhausted_availability`'
+          description: '`job_locked`'
           enum:
-          - resource_exhausted_availability
-        resourceId:
-          type: string
-          description: The resource that has no remaining availability to accommodate this job
-      description: The resource has no remaining availability in the scheduling period that could accommodate this job
-    ResourceRequirementJob:
+          - job_locked
+      description: The job is locked to its current resource and time and cannot be reassigned by the optimizer
+    FrozenJobReason:
+      description: The specific reason why this job was excluded from the optimization scope
+      oneOf:
+      - $ref: '#/components/schemas/Deprecated'
+      - $ref: '#/components/schemas/HasJobDependenciesNotInScope'
+      - $ref: '#/components/schemas/NotInRequestedJobs'
+      - $ref: '#/components/schemas/OutsideOfRegion'
+    RequiredCustomAttributes:
       required:
       - type
-      - jobId
-      - resourceRequirementId
+      - resourceId
+      - customAttributes
+      type: object
+      properties:
+        type:
+          type: string
+          description: '`resource_missing_required_custom_attributes`'
+          enum:
+          - resource_missing_required_custom_attributes
+        resourceId:
+          type: string
+          description: The resource that is missing one or more required custom attributes
+        customAttributes:
+          type: array
+          items:
+            type: string
+          description: The custom attributes that the resource is missing
+      description: The resource is missing one or more custom attributes that are required by this job
+    List_StringifiedRunError:
+      oneOf:
+      - $ref: '#/components/schemas/Nil'
+      - type: array
+        items:
+          $ref: '#/components/schemas/StringifiedRunError'
+    Activity:
+      required:
+      - type
+      - activityId
       - duration
       - lat
       - lng
@@ -2180,12 +1890,10 @@ components:
       properties:
         type:
           type: string
-          description: '`resource_requirement`'
+          description: '`activity`'
           enum:
-          - resource_requirement
-        jobId:
-          type: string
-        resourceRequirementId:
+          - activity
+        activityId:
           type: string
         arrivalTime:
           type: string
@@ -2216,497 +1924,74 @@ components:
         id:
           type: string
           description: The attribute identifier
-    LocationShape2:
+    GraphQLAccountResourceScore:
       required:
-      - id
-      - latitude
-      - longitude
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for this location
-        latitude:
-          type: number
-          description: Geographic latitude coordinate
-          format: double
-        longitude:
-          type: number
-          description: Geographic longitude coordinate
-          format: double
-    GraphQLJob:
-      required:
-      - UID
-      - Duration
-      - JobStatus
-      - JobAllocations
-      - JobTags
-      - ResourceRequirements
-      - JobTimeConstraints
-      - JobDependenciesFrom
-      - JobDependenciesTo
-      - Locked
-      - RegionId
-      type: object
-      properties:
-        UID:
-          type: string
-        Start:
-          type: string
-          format: date-time
-        Duration:
-          type: integer
-        AccountId:
-          type: string
-        JobStatus:
-          $ref: '#/components/schemas/JobStatus'
-        LocationId:
-          type: string
-        GeoLatitude:
-          type: number
-          format: double
-        GeoLongitude:
-          type: number
-          format: double
-        Quantity:
-          type: integer
-          format: int32
-        JobAllocations:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLJobAllocation'
-        JobTags:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLJobTag'
-        ResourceRequirements:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLResourceRequirement'
-        JobTimeConstraints:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLJobTimeConstraint'
-        JobDependenciesFrom:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLJobDependencyFrom'
-        JobDependenciesTo:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLJobDependencyTo'
-        Locked:
-          type: boolean
-        RegionId:
-          type: string
-        Urgency:
-          $ref: '#/components/schemas/JobUrgency'
-    Plan:
-      required:
-      - jobIds
-      - resourceIds
-      - scheduleWindow
-      - timezone
-      type: object
-      properties:
-        jobIds:
-          type: array
-          items:
-            type: string
-        resourceIds:
-          type: array
-          items:
-            type: string
-        regionId:
-          type: string
-        scheduleWindow:
-          $ref: '#/components/schemas/ScheduleRunWindow'
-        timezone:
-          type: string
-        schedulingOptions:
-          $ref: '#/components/schemas/PVRPProductOptionsShape'
-    ResourceAvailabilityShape1:
-      required:
-      - from
-      - to
-      type: object
-      properties:
-        from:
-          type: string
-          description: Start of the availability window
-          format: date-time
-        to:
-          type: string
-          description: End of the availability window
-          format: date-time
-        startLocationId:
-          type: string
-          description: Location from which the resource departs at the start of this availability window; overrides the resource's home location
-        endLocationId:
-          type: string
-          description: Location at which the resource must finish at the end of this availability window; overrides the resource's home location
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceAvailabilityAttributeShape'
-          description: Attributes that are active for this resource during this availability window; overrides the resource-level attributes for allocations scheduled within this window
-        phaseTags:
-          type: array
-          items:
-            type: string
-          description: Phase tags that restrict this availability window to specific phases. If absent or empty, the availability window is included in all phases.
-        overtimeEnd:
-          type: string
-          description: Latest end the shift may extend to when working overtime; must be after the end of the availability window
-          format: date-time
-    AllocationDependencyShape:
-      required:
-      - anchorAllocationId
-      - dependentAllocationId
-      type: object
-      properties:
-        anchorAllocationId:
-          type: string
-          description: The allocation that represents the fixed point in time that the dependent allocation must be scheduled relative to
-        dependentAllocationId:
-          type: string
-          description: The allocation that must be scheduled relative to the anchor allocation
-        minTimeIntervalInMinutes:
-          type: integer
-          description: The offset that defines the start of the valid window of time relative to the anchor, if blank the dependent allocation has no earliest start time constraint, can be negative to represent a time before the anchor allocation
-          format: int64
-        maxTimeIntervalInMinutes:
-          type: integer
-          description: The offset that defines the end of the valid window of time for the dependent allocation to start relative to the anchor, if blank the dependent allocation has no latest start time constraint, can be negative to represent a time before the anchor allocation
-          format: int64
-        enablePartialAllocation:
-          type: boolean
-          description: Allows allocations in the allocation dependency to be partially allocated if they cannot be fully allocated. This will be overridden by the global setting options.enablePartiallyAllocatedAllocationDependencies if the global setting is true.
-    JobLocked:
-      required:
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          description: '`job_locked`'
-          enum:
-          - job_locked
-      description: The job is locked to its current resource and time and cannot be reassigned by the optimizer
-    JobCannotBeFullyAllocated:
-      required:
-      - type
-      - resourceId
-      type: object
-      properties:
-        type:
-          type: string
-          description: '`job_cannot_be_fully_allocated`'
-          enum:
-          - job_cannot_be_fully_allocated
-        resourceId:
-          type: string
-          description: The resource involved in the allocation that could not be fulfilled
-      description: The job requires multiple resource allocations but at least one allocation could not be fulfilled, resulting in partial or no scheduling
-    ResourceExceedsMaximumHours:
-      required:
-      - type
-      - resourceId
-      - start
-      - end
-      type: object
-      properties:
-        type:
-          type: string
-          description: '`resource_exceeds_maximum_hours`'
-          enum:
-          - resource_exceeds_maximum_hours
-        resourceId:
-          type: string
-          description: The resource that would exceed its maximum working hours
-        start:
-          type: string
-          description: Start of the period in which the resource would exceed its maximum working hours
-          format: date-time
-        end:
-          type: string
-          description: End of the period in which the resource would exceed its maximum working hours
-          format: date-time
-      description: Assigning this job to the resource would cause it to exceed its maximum working hours within the given period
-    APISaveResultsShape:
-      oneOf:
-      - $ref: '#/components/schemas/Error'
-      - $ref: '#/components/schemas/Pending'
-      - $ref: '#/components/schemas/Rejected'
-      - $ref: '#/components/schemas/Saved'
-    CorePVRPRunParamsShape:
-      required:
-      - options
-      - resourceIds
-      - jobIds
-      - scheduleWindow
-      - timezone
-      - respectSchedule
-      type: object
-      properties:
-        options:
-          $ref: '#/components/schemas/PVRPFeatureOptionsShape'
-        resourceIds:
-          type: array
-          items:
-            type: string
-        jobIds:
-          type: array
-          items:
-            type: string
-        regionId:
-          type: string
-        scheduleWindow:
-          $ref: '#/components/schemas/ScheduleRunWindow'
-        timezone:
-          type: string
-        respectSchedule:
-          type: boolean
-        recipeId:
-          type: string
-    GraphQLLocationResourceScore:
-      required:
-      - LocationId
+      - AccountId
       - ResourceId
       - Blacklisted
       type: object
       properties:
-        LocationId:
+        AccountId:
           type: string
         ResourceId:
           type: string
         Blacklisted:
           type: boolean
-    GraphQLJobTag:
+    TimeConstraintAfterPeriod:
       required:
-      - Required
-      - Tag
+      - type
       type: object
       properties:
-        Required:
-          type: boolean
-        Weighting:
-          type: integer
-          format: int32
-        Tag:
-          $ref: '#/components/schemas/GraphQLTag'
-    Paging:
-      required:
-      - limit
-      type: object
-      properties:
-        limit:
-          type: integer
-          format: int32
-        nextCursor:
+        type:
           type: string
-        total:
-          type: integer
-          format: int32
-    ScheduleRequestShape:
-      required:
-      - plan
-      - persistenceStrategy
-      - optimizationType
-      type: object
-      properties:
-        plan:
-          $ref: '#/components/schemas/Plan'
-        label:
-          type: string
-        persistenceStrategy:
-          type: string
+          description: '`job_time_constraint_late`'
           enum:
-          - save
-          - optimize
-        optimizationType:
-          type: string
-          enum:
-          - pvrp
-    Map_ResourceId_ResourceAvailability:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/ResourceAvailability'
-    GraphQLRegion:
+          - job_time_constraint_late
+      description: All of the job's schedule time constraints fall entirely after the scheduling period
+    GraphQLResourceRequirement:
       required:
       - UID
+      - Quantity
+      - Tags
       type: object
       properties:
         UID:
           type: string
-        Timezone:
-          type: string
-        GeoLatitude:
-          type: number
-          format: double
-        GeoLongitude:
-          type: number
-          format: double
-    RoutesShape:
-      required:
-      - type
-      - resources
-      - totalPlannedJobs
-      - totalScheduledJobs
-      - totalTravelTime
-      - totalScheduledTime
-      - totalTravelDistance
-      - label
-      - runDate
-      - windowStart
-      - windowEnd
-      - timeZone
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - pvrp
-        resources:
+        Quantity:
+          type: integer
+          format: int32
+        Tags:
           type: array
           items:
-            $ref: '#/components/schemas/Resource'
-        totalPlannedJobs:
-          type: integer
-          format: int32
-        totalScheduledJobs:
-          type: integer
-          format: int32
-        totalTravelTime:
-          type: integer
-          format: int64
-        totalScheduledTime:
-          type: integer
-          format: int64
-        totalTravelDistance:
-          type: integer
-          format: int64
-        scheduleId:
+            $ref: '#/components/schemas/GraphQLJobTag'
+    Deprecated:
+      required:
+      - reason
+      type: object
+      properties:
+        reason:
           type: string
-        label:
-          type: string
-        runDate:
-          type: string
-          format: date-time
-        windowStart:
-          type: string
-          format: date-time
-        windowEnd:
-          type: string
-          format: date-time
-        timeZone:
-          type: string
-    ResourceCustomConstraintPeriod:
+    RequiredTags:
       required:
       - type
       - resourceId
-      - start
-      - end
+      - tagIds
       type: object
       properties:
         type:
           type: string
-          description: '`resource_custom_constraint_period`'
+          description: '`resource_missing_required_tags`'
           enum:
-          - resource_custom_constraint_period
+          - resource_missing_required_tags
         resourceId:
           type: string
-          description: The resource with a period constraint that prevents scheduling this job
-        start:
-          type: string
-          description: Start of the custom constraint period
-          format: date-time
-        end:
-          type: string
-          description: End of the custom constraint period
-          format: date-time
-      description: The resource has a custom period constraint (e.g. a group allocation limit) that is exhausted in the given period, preventing assignment of this job
-    RunSummary:
-      required:
-      - totalPlannedJobs
-      - totalScheduledJobs
-      - requestedJobs
-      - requestedJobsScheduled
-      type: object
-      properties:
-        totalPlannedJobs:
-          type: integer
-          format: int32
-        totalScheduledJobs:
-          type: integer
-          format: int32
-        requestedJobs:
-          type: integer
-          format: int32
-        requestedJobsScheduled:
-          type: integer
-          format: int32
-    GraphQLResourceTag:
-      required:
-      - Tag
-      type: object
-      properties:
-        Tag:
-          $ref: '#/components/schemas/GraphQLTag'
-        ExpiryDate:
-          type: string
-          format: date-time
-    RollingScheduleWindow:
-      required:
-      - start
-      - end
-      type: object
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-    ResourceLocationRestricted:
-      required:
-      - type
-      - resourceId
-      - locationId
-      - restrictionType
-      type: object
-      properties:
-        type:
-          type: string
-          description: '`resource_location_restricted`'
-          enum:
-          - resource_location_restricted
-        resourceId:
-          type: string
-          description: The resource that is restricted by a location-level list
-        locationId:
-          type: string
-          description: The location associated with the restriction
-        restrictionType:
-          type: string
-          description: Whether the resource is on an exclude list (blacklist) or not on a required include list (whitelist)
-          enum:
-          - blacklist
-          - whitelist
-      description: The resource is restricted from being assigned to this job due to a location-level include or exclude list
-    UpdateJobs:
-      required:
-      - jobId
-      type: object
-      properties:
-        jobId:
-          type: string
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
+          description: The resource that is missing one or more required tags
+        tagIds:
+          type: array
+          items:
+            type: string
+          description: The tag IDs that the resource is missing
+      description: The resource is missing one or more tags that are required by this job
     CorePVRPFeatureModelShape:
       required:
       - allocations
@@ -2785,6 +2070,33 @@ components:
           items:
             $ref: '#/components/schemas/SharedGroupConstraintShape'
           description: Collective allocation limits shared across a filtered set of resources. Unlike per-resource groupConstraints, each entry caps the total allocations of a group across all listed resources combined (a shared pool), regardless of how they are distributed. Every resource in the pool shares the exact same period and limit.
+    PeriodConstraintsShape1:
+      required:
+      - start
+      - end
+      type: object
+      properties:
+        start:
+          type: string
+          description: Start of the constraint period; must be within the scheduling period
+          format: date-time
+        end:
+          type: string
+          description: End of the constraint period; must be within the scheduling period
+          format: date-time
+        maxServiceTimeInMinutes:
+          type: integer
+          description: Maximum total service (working) time for this resource within this period, in minutes
+          format: int64
+        minServiceTimeInMinutes:
+          type: integer
+          description: Minimum total service (working) time for this resource within this period, in minutes
+          format: int64
+        groupConstraints:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupConstraintsShape'
+          description: Defines the maximum number of allocations from specific groups that can be assigned to a resource during this period. Any group not listed has no limit.
     ResourceAvailability:
       required:
       - available
@@ -2799,56 +2111,148 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RegionAvailability'
-    List_StringifiedRunError:
-      oneOf:
-      - $ref: '#/components/schemas/Nil'
-      - type: array
-        items:
-          $ref: '#/components/schemas/StringifiedRunError'
-    ScopeJobs:
+    UpdateJobs:
       required:
-      - scoped
-      - requested
-      - partiallyAllocated
-      - locked
-      - timeConstrained
-      - timeConstrainedOutsideScheduleWindow
-      - excludedInSchedule
-      - unscheduledExcluded
+      - jobId
       type: object
       properties:
-        scoped:
+        jobId:
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+    ObjectiveWeightModifiersShape:
+      type: object
+      properties:
+        minimizeDisruption:
+          type: number
+        balanceAbsoluteWorkload:
+          type: number
+        travelTime:
+          type: number
+        minimizeResources:
+          type: number
+        softSkills:
+          type: number
+        jobsPriority:
+          type: number
+        resourceRating:
+          type: number
+        scheduleImmediacy:
+          type: number
+        urgency:
+          type: number
+        overtime:
+          type: number
+    ResourceLocationRestricted:
+      required:
+      - type
+      - resourceId
+      - locationId
+      - restrictionType
+      type: object
+      properties:
+        type:
+          type: string
+          description: '`resource_location_restricted`'
+          enum:
+          - resource_location_restricted
+        resourceId:
+          type: string
+          description: The resource that is restricted by a location-level list
+        locationId:
+          type: string
+          description: The location associated with the restriction
+        restrictionType:
+          type: string
+          description: Whether the resource is on an exclude list (blacklist) or not on a required include list (whitelist)
+          enum:
+          - blacklist
+          - whitelist
+      description: The resource is restricted from being assigned to this job due to a location-level include or exclude list
+    ScopeResource:
+      required:
+      - activities
+      - existingAllocations
+      type: object
+      properties:
+        activities:
           type: array
           items:
             type: string
-        requested:
+        existingAllocations:
           type: array
           items:
             type: string
-        partiallyAllocated:
+    ResourceNoReasonFound:
+      required:
+      - type
+      - resourceId
+      type: object
+      properties:
+        type:
+          type: string
+          description: '`resource_no_reason_found`'
+          enum:
+          - resource_no_reason_found
+        resourceId:
+          type: string
+          description: The resource was a candidate for this job but no specific unscheduled reason could be determined
+      description: The resource was a candidate for this job but no specific unscheduled reason could be determined
+    BreakShape:
+      oneOf:
+      - $ref: '#/components/schemas/FixedTimeBreakShape'
+      - $ref: '#/components/schemas/WindowedBreakShape'
+    Saved:
+      required:
+      - runId
+      - state
+      - autoSaved
+      - change
+      type: object
+      properties:
+        runId:
+          type: string
+        state:
+          type: string
+          description: '`saved`'
+        autoSaved:
+          type: boolean
+        change:
+          $ref: '#/components/schemas/Change'
+        meta:
+          $ref: '#/components/schemas/SaveMeta'
+    GraphQLResourcePrimaryRegion:
+      required:
+      - Timezone
+      type: object
+      properties:
+        Timezone:
+          type: string
+    APIIdInput:
+      required:
+      - resourceIds
+      - jobIds
+      type: object
+      properties:
+        resourceIds:
           type: array
           items:
             type: string
-        locked:
+        jobIds:
           type: array
           items:
             type: string
-        timeConstrained:
+        regionId:
+          type: string
+        regionIds:
           type: array
           items:
             type: string
-        timeConstrainedOutsideScheduleWindow:
-          type: array
-          items:
-            type: string
-        excludedInSchedule:
-          type: array
-          items:
-            type: string
-        unscheduledExcluded:
-          type: array
-          items:
-            type: string
+      description: The ids of entities requested in the optimization run
     Scope:
       required:
       - schedulingRegions
@@ -2872,50 +2276,62 @@ components:
           $ref: '#/components/schemas/Map_ResourceId_ScopeResource'
         scheduleBounds:
           $ref: '#/components/schemas/TimeBounds'
-    PhaseConfigurationShape:
+    TimeConstraintBeforePeriod:
       required:
       - type
       type: object
       properties:
         type:
           type: string
-          description: all = every object is active in this phase; filtered = apply object type filters
+          description: '`job_time_constraint_early`'
           enum:
-          - all
-          - filtered
-        filters:
+          - job_time_constraint_early
+      description: All of the job's schedule time constraints fall entirely before the scheduling period
+    ResourceAccountRestricted:
+      required:
+      - type
+      - resourceId
+      - accountId
+      - restrictionType
+      type: object
+      properties:
+        type:
+          type: string
+          description: '`resource_account_restricted`'
+          enum:
+          - resource_account_restricted
+        resourceId:
+          type: string
+          description: The resource that is restricted by an account-level list
+        accountId:
+          type: string
+          description: The account associated with the restriction
+        restrictionType:
+          type: string
+          description: Whether the resource is on an exclude list (blacklist) or not on a required include list (whitelist)
+          enum:
+          - blacklist
+          - whitelist
+      description: The resource is restricted from being assigned to this job due to an account-level include or exclude list
+    Change:
+      required:
+      - deleteAllocationsIds
+      - insertAllocations
+      - updateJobs
+      type: object
+      properties:
+        deleteAllocationsIds:
           type: array
           items:
-            $ref: '#/components/schemas/PhaseObjectFilterShape'
-          description: Filters controlling which objects are active in this phase; only present when type is filtered
-    GraphQLJobTimeConstraint:
-      required:
-      - Required
-      type: object
-      properties:
-        StartAfter:
-          type: string
-          format: date-time
-        StartBefore:
-          type: string
-          format: date-time
-        EndBefore:
-          type: string
-          format: date-time
-        Required:
-          type: boolean
-    Pending:
-      required:
-      - runId
-      - autoSaved
-      type: object
-      properties:
-        runId:
-          type: string
-        autoSaved:
-          type: boolean
-        meta:
-          $ref: '#/components/schemas/SaveMeta'
+            type: string
+        insertAllocations:
+          type: array
+          items:
+            $ref: '#/components/schemas/InsertJobAllocations'
+        updateJobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/UpdateJobs'
     Job:
       required:
       - type
@@ -2953,63 +2369,106 @@ components:
         lng:
           type: number
           format: double
-    JobAllocationStatus:
+    AllocationResourceRatingShape:
+      required:
+      - resourceId
+      - rating
+      type: object
+      properties:
+        resourceId:
+          type: string
+        rating:
+          type: integer
+          description: The rating of the resource, can be an integer between 1 and 100
+          format: int32
+    AllocationResourceConstraintShape:
+      required:
+      - type
+      - resources
+      type: object
+      properties:
+        type:
+          type: string
+          description: Whether the resources list is a blocked (excluded) or allowed (included) list
+          enum:
+          - blocked
+          - allowed
+        resources:
+          type: array
+          items:
+            type: string
+          description: The resources to which this constraint applies
+      description: Restricts which resources may be assigned to this allocation (blocked or allowed list)
+    SharedGroupConstraintShape:
+      required:
+      - groupId
+      - resourceIds
+      - maxAllocations
+      - start
+      - end
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The allocation group identifier the pooled limit applies to
+        resourceIds:
+          type: array
+          items:
+            type: string
+          description: The resources that share the pooled limit
+        maxAllocations:
+          type: integer
+          description: Maximum number of allocations from this group across all listed resources combined within the period
+          format: int32
+        start:
+          type: string
+          description: Start of the period the pooled limit applies to
+          format: date-time
+        end:
+          type: string
+          description: End of the period the pooled limit applies to
+          format: date-time
+    GraphQLActivity:
+      required:
+      - UID
+      - Start
+      - End
+      - ActivityResources
+      type: object
+      properties:
+        UID:
+          type: string
+        Start:
+          type: string
+          format: date-time
+        End:
+          type: string
+          format: date-time
+        LocationId:
+          type: string
+        GeoLatitude:
+          type: number
+          format: double
+        GeoLongitude:
+          type: number
+          format: double
+        ResourceId:
+          type: string
+        ActivityResources:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLActivityResource'
+    JobUrgency:
       type: string
       enum:
-      - Checked In
-      - Complete
-      - Confirmed
-      - Declined
-      - Deleted
-      - Dispatched
-      - En Route
-      - In Progress
-      - Pending Dispatch
-    Unknown:
-      required:
-      - type
-      - duration
-      - lat
-      - lng
+      - Critical
+      - Normal
+      - Urgent
+    Map_ScheduledResourceRequirement:
       type: object
-      properties:
-        type:
-          type: string
-        arrivalTime:
-          type: string
-          format: date-time
-        departureTime:
-          type: string
-          format: date-time
-        duration:
-          type: integer
-          format: int64
-        travelTimeToNext:
-          type: integer
-          format: int64
-        distanceToNext:
-          type: integer
-          format: int32
-        lat:
-          type: number
-          format: double
-        lng:
-          type: number
-          format: double
-    JobExcluded:
-      required:
-      - type
-      - exclusionReason
-      type: object
-      properties:
-        type:
-          type: string
-          description: '`job_excluded`'
-          enum:
-          - job_excluded
-        exclusionReason:
-          $ref: '#/components/schemas/FrozenJobReason'
-      description: The job was excluded from optimization before it began because it was identified as a frozen job not eligible for scheduling
+      description: Resource requirements for this job, keyed by resource requirement ID
+      additionalProperties:
+        $ref: '#/components/schemas/ScheduledResourceRequirement'
     AllocationShape1:
       required:
       - id
@@ -3079,177 +2538,19 @@ components:
           items:
             type: string
           description: Phase tags that restrict this allocation to specific phases. If absent or empty, the allocation is included in all phases.
-    Activity:
+    AllocationAttributeShape:
       required:
-      - type
-      - activityId
-      - duration
-      - lat
-      - lng
+      - id
       type: object
       properties:
-        type:
+        id:
           type: string
-          description: '`activity`'
-          enum:
-          - activity
-        activityId:
-          type: string
-        arrivalTime:
-          type: string
-          format: date-time
-        departureTime:
-          type: string
-          format: date-time
-        duration:
+          description: The attribute identifier
+        weighting:
           type: integer
-          format: int64
-        travelTimeToNext:
-          type: integer
-          format: int64
-        distanceToNext:
-          type: integer
+          description: If present, this is a soft (preferred) requirement with the given weighting; if absent, this is a hard (required) attribute
           format: int32
-        lat:
-          type: number
-          format: double
-        lng:
-          type: number
-          format: double
-    ResourceNoAvailabilityOverlapWithTimeConstraints:
-      required:
-      - type
-      - resourceId
-      type: object
-      properties:
-        type:
-          type: string
-          description: '`resource_no_availability_time_constraint`'
-          enum:
-          - resource_no_availability_time_constraint
-        resourceId:
-          type: string
-          description: The resource whose availability windows do not overlap with the job's schedule time constraints
-      description: The resource's availability windows do not overlap with any of the job's schedule time constraints
-    StringifiedRunError:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-    GraphQLTag:
-      required:
-      - UID
-      type: object
-      properties:
-        UID:
-          type: string
-    InsertJobAllocations:
-      required:
-      - resourceId
-      - jobId
-      type: object
-      properties:
-        resourceId:
-          type: string
-        jobId:
-          type: string
-        resourceRequirementId:
-          type: string
-    Home:
-      required:
-      - type
-      - lat
-      - lng
-      type: object
-      properties:
-        type:
-          type: string
-          description: '`home`'
-          enum:
-          - home
-        arrivalTime:
-          type: string
-          format: date-time
-        departureTime:
-          type: string
-          format: date-time
-        travelTimeToNext:
-          type: integer
-          format: int64
-        distanceToNext:
-          type: integer
-          format: int32
-        lat:
-          type: number
-          format: double
-        lng:
-          type: number
-          format: double
-    Map_ScheduledJob:
-      type: object
-      description: Jobs that were successfully scheduled, keyed by job ID
-      additionalProperties:
-        $ref: '#/components/schemas/ScheduledJob'
-    PVRPFeatureOptionsShape:
-      type: object
-      properties:
-        full:
-          type: boolean
-          description: If true, runs a full optimization pass; if false, only optimizes unscheduled allocations
-        ignoreTravelTime:
-          type: boolean
-          description: If true, travel time between locations is not considered when scoring the solution
-        ignoreTravelTimeFirstJob:
-          type: boolean
-          description: If true, travel time to a resource's first allocation of the day is not penalised
-        ignoreTravelTimeLastJob:
-          type: boolean
-          description: If true, travel time from a resource's last allocation of the day is not penalised
-        minimizeResources:
-          type: boolean
-          description: If true, the optimizer will attempt to use the minimum number of resources required to service all allocations
-        maxDailyTravelTimeInMinutes:
-          type: integer
-          description: Global maximum total travel time per resource per day in minutes; can be overridden per resource
-          format: int64
-        maxTravelTimeBetweenLocations:
-          type: integer
-          description: Global maximum travel time between any two consecutive allocation locations in minutes; can be overridden per resource
-          format: int64
-        respectAllocationTimes:
-          type: boolean
-          description: If true, currently scheduled start times are treated as soft constraints that the optimizer will try to preserve
-        respectAllocationTimesOverTimeConstraints:
-          type: boolean
-          description: If true, existing allocation start times take precedence over schedule time window constraints when the two conflict
-        balanceAbsoluteWorkload:
-          type: boolean
-          description: If true, the optimizer will try to balance the total absolute working time evenly across all resources
-        snapUnit:
-          type: integer
-          description: Snap allocation start times to multiples of this value in minutes; useful to avoid solutions with odd start times
-          format: int32
-        padding:
-          type: integer
-          description: Minimum gap in minutes that must be left between consecutive allocations for a resource, in addition to travel time
-          format: int32
-        objectiveWeights:
-          $ref: '#/components/schemas/ObjectiveWeightsShape'
-        objectiveWeightModifiers:
-          $ref: '#/components/schemas/ObjectiveWeightModifiersShape'
-        temporalAffinityStrength:
-          type: integer
-          description: Strength of the preference to schedule allocations close in time to their schedule time windows (1-100)
-          format: int32
-        enablePartiallyAllocatedGroups:
-          type: boolean
-          description: If true, allocation groups that cannot be fully assigned will be partially assigned rather than left unscheduled
-        enablePartiallyAllocatedAllocationDependencies:
-          type: boolean
-          description: If true, allocation dependencies that cannot be fully assigned will be partially assigned rather than left unscheduled
-    Availability:
+    ScheduleRunWindow:
       required:
       - start
       - end
@@ -3259,85 +2560,6 @@ components:
           type: string
           format: date-time
         end:
-          type: string
-          format: date-time
-    GraphQLActivity:
-      required:
-      - UID
-      - Start
-      - End
-      - ActivityResources
-      type: object
-      properties:
-        UID:
-          type: string
-        Start:
-          type: string
-          format: date-time
-        End:
-          type: string
-          format: date-time
-        LocationId:
-          type: string
-        GeoLatitude:
-          type: number
-          format: double
-        GeoLongitude:
-          type: number
-          format: double
-        ResourceId:
-          type: string
-        ActivityResources:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLActivityResource'
-    ScheduleTimeConstraintShape:
-      required:
-      - windowStart
-      - windowEnd
-      type: object
-      properties:
-        windowStart:
-          type: string
-          description: Start of the time window within which this allocation must be scheduled
-          format: date-time
-        windowEnd:
-          type: string
-          description: End of the time window within which this allocation must be scheduled
-          format: date-time
-    ResourceNoFeasibleWindow:
-      required:
-      - type
-      - resourceId
-      type: object
-      properties:
-        type:
-          type: string
-          description: '`resource_no_feasible_window`'
-          enum:
-          - resource_no_feasible_window
-        resourceId:
-          type: string
-          description: The resource for which no feasible start time window exists given all constraints
-      description: All of the resource's available time in the scheduling period is blocked by constraints, leaving no feasible window to schedule this job
-    ResourceDependencyShape:
-      required:
-      - allocationIds
-      type: object
-      properties:
-        allocationIds:
-          type: array
-          items:
-            type: string
-          description: The set of allocations that must all be assigned to the same resource
-    SaveMeta:
-      required:
-      - date
-      type: object
-      properties:
-        userId:
-          type: string
-        date:
           type: string
           format: date-time
     TransformerDataShape:
@@ -3350,6 +2572,233 @@ components:
           $ref: '#/components/schemas/APIProductData'
         featureModel:
           $ref: '#/components/schemas/CorePVRPFeatureModelShape'
+    ResourceDependencyShape:
+      required:
+      - allocationIds
+      type: object
+      properties:
+        allocationIds:
+          type: array
+          items:
+            type: string
+          description: The set of allocations that must all be assigned to the same resource
+    Pending:
+      required:
+      - runId
+      - autoSaved
+      type: object
+      properties:
+        runId:
+          type: string
+        autoSaved:
+          type: boolean
+        meta:
+          $ref: '#/components/schemas/SaveMeta'
+    ResourceAvailabilityAttributeShape:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: The attribute identifier active during this availability window
+    GraphQLLocationResourceScore:
+      required:
+      - LocationId
+      - ResourceId
+      - Blacklisted
+      type: object
+      properties:
+        LocationId:
+          type: string
+        ResourceId:
+          type: string
+        Blacklisted:
+          type: boolean
+    PhaseConfigurationShape:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: all = every object is active in this phase; filtered = apply object type filters
+          enum:
+          - all
+          - filtered
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhaseObjectFilterShape'
+          description: Filters controlling which objects are active in this phase; only present when type is filtered
+    JobAllocationStatus:
+      type: string
+      enum:
+      - Checked In
+      - Complete
+      - Confirmed
+      - Declined
+      - Deleted
+      - Dispatched
+      - En Route
+      - In Progress
+      - Pending Dispatch
+    StringifiedRunError:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+    Map_List_FrozenJobReason:
+      type: object
+      description: Jobs excluded from optimization before it began (frozen jobs), keyed by job ID with the reasons for exclusion
+      additionalProperties:
+        type: array
+        items:
+          $ref: '#/components/schemas/FrozenJobReason'
+    ScheduleResult:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+    ScheduledResourceRequirement:
+      required:
+      - resourceIds
+      - requiredAllocationCount
+      type: object
+      properties:
+        resourceIds:
+          type: array
+          items:
+            type: string
+          description: Resource IDs assigned to satisfy this resource requirement
+        requiredAllocationCount:
+          type: integer
+          description: Number of resource allocations required to fully satisfy this resource requirement
+          format: int32
+    RunSummary:
+      required:
+      - totalPlannedJobs
+      - totalScheduledJobs
+      - requestedJobs
+      - requestedJobsScheduled
+      type: object
+      properties:
+        totalPlannedJobs:
+          type: integer
+          format: int32
+        totalScheduledJobs:
+          type: integer
+          format: int32
+        requestedJobs:
+          type: integer
+          format: int32
+        requestedJobsScheduled:
+          type: integer
+          format: int32
+    Map_ResourceId_ScopeResource:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/ScopeResource'
+    ResourceCustomConstraintPeriod:
+      required:
+      - type
+      - resourceId
+      - start
+      - end
+      type: object
+      properties:
+        type:
+          type: string
+          description: '`resource_custom_constraint_period`'
+          enum:
+          - resource_custom_constraint_period
+        resourceId:
+          type: string
+          description: The resource with a period constraint that prevents scheduling this job
+        start:
+          type: string
+          description: Start of the custom constraint period
+          format: date-time
+        end:
+          type: string
+          description: End of the custom constraint period
+          format: date-time
+      description: The resource has a custom period constraint (e.g. a group allocation limit) that is exhausted in the given period, preventing assignment of this job
+    LocalDateBounds:
+      required:
+      - start
+      - end
+      type: object
+      properties:
+        start:
+          type: string
+          format: date
+        end:
+          type: string
+          format: date
+    PVRPProductOptionsShape:
+      type: object
+      properties:
+        full:
+          type: boolean
+        ignoreTravelTime:
+          type: boolean
+        ignoreTravelTimeFirstJob:
+          type: boolean
+        ignoreTravelTimeLastJob:
+          type: boolean
+        minimizeResources:
+          type: boolean
+        maxDailyTravelTimeInMinutes:
+          type: integer
+          format: int64
+        maxTravelTimeBetweenLocations:
+          type: integer
+          format: int64
+        respectAllocationTimes:
+          type: boolean
+        respectAllocationTimesOverTimeConstraints:
+          type: boolean
+        balanceAbsoluteWorkload:
+          type: boolean
+        snapUnit:
+          type: integer
+          format: int32
+        padding:
+          type: integer
+          format: int32
+        objectiveWeights:
+          $ref: '#/components/schemas/ObjectiveWeightsShape'
+        objectiveWeightModifiers:
+          $ref: '#/components/schemas/ObjectiveWeightModifiersShape'
+        temporalAffinityStrength:
+          type: integer
+          format: int32
+        respectSchedule:
+          type: boolean
+        recipeId:
+          type: string
+          description: The recipe id to use for the optimization run, this will override any scheduling options in the request and is the preferred way of controlling the optimization run
+        enablePartiallyAllocatedGroups:
+          type: boolean
+        enablePartiallyAllocatedAllocationDependencies:
+          type: boolean
+        enforceCompatibility:
+          type: boolean
+        onJobRemoval:
+          type: array
+          items:
+            type: string
+            enum:
+            - clearJobTimes
+            - deallocateResources
+          minItems: 1
+        rollingScheduleWindowInterval:
+          description: The interval used to split the schedule window into rolling sub-windows. Accepts "monthly", "quarterly", or a positive integer representing a fixed number of days.
     TimeConstraintNoOverlap:
       required:
       - type
@@ -3361,291 +2810,144 @@ components:
           enum:
           - job_time_constraint_no_overlap
       description: The job's schedule time constraints do not overlap with any resource's availability windows
-    GraphQLResourcePrimaryRegion:
+    ExhaustedAvailability:
       required:
-      - Timezone
+      - type
+      - resourceId
       type: object
       properties:
-        Timezone:
+        type:
           type: string
-    AllocationResourceRatingShape:
+          description: '`resource_exhausted_availability`'
+          enum:
+          - resource_exhausted_availability
+        resourceId:
+          type: string
+          description: The resource that has no remaining availability to accommodate this job
+      description: The resource has no remaining availability in the scheduling period that could accommodate this job
+    APISaveResultsShape:
+      oneOf:
+      - $ref: '#/components/schemas/Error'
+      - $ref: '#/components/schemas/Pending'
+      - $ref: '#/components/schemas/Rejected'
+      - $ref: '#/components/schemas/Saved'
+    Map_List_ResourceId:
+      type: object
+      description: Activity allocations from the result, keyed by activity ID and mapped to the assigned resource IDs
+      additionalProperties:
+        type: array
+        items:
+          type: string
+    ScheduleRequestShape:
+      required:
+      - plan
+      - persistenceStrategy
+      - optimizationType
+      type: object
+      properties:
+        plan:
+          $ref: '#/components/schemas/Plan'
+        label:
+          type: string
+        persistenceStrategy:
+          type: string
+          enum:
+          - save
+          - optimize
+        optimizationType:
+          type: string
+          enum:
+          - pvrp
+    FixedTimeBreakShape:
+      required:
+      - startTime
+      - endTime
+      type: object
+      properties:
+        startTime:
+          type: string
+          description: The fixed start time of the break
+          format: date-time
+        endTime:
+          type: string
+          description: The fixed end time of the break
+          format: date-time
+        locationId:
+          type: string
+          description: Optional location where the resource will be during this break; affects travel time calculations for surrounding allocations
+    InsertJobAllocations:
       required:
       - resourceId
-      - rating
+      - jobId
       type: object
       properties:
         resourceId:
           type: string
-        rating:
-          type: integer
-          description: The rating of the resource, can be an integer between 1 and 100
-          format: int32
-    Location:
-      oneOf:
-      - $ref: '#/components/schemas/Activity'
-      - $ref: '#/components/schemas/Home'
-      - $ref: '#/components/schemas/Job'
-      - $ref: '#/components/schemas/ResourceRequirementJob'
-      - $ref: '#/components/schemas/Unknown'
-    GraphQLResourceRequirement:
+        jobId:
+          type: string
+        resourceRequirementId:
+          type: string
+    GraphQLResource:
       required:
       - UID
-      - Quantity
-      - Tags
+      - ResourceTags
+      - ResourceOverrides
       type: object
       properties:
         UID:
           type: string
-        Quantity:
-          type: integer
-          format: int32
-        Tags:
+        GeoLatitude:
+          type: number
+          format: double
+        GeoLongitude:
+          type: number
+          format: double
+        ResourceTags:
           type: array
           items:
-            $ref: '#/components/schemas/GraphQLJobTag'
-    OutsideOfRegion:
-      type: object
-    AllocationGroupShape:
-      required:
-      - id
-      - locked
-      type: object
-      properties:
-        id:
+            $ref: '#/components/schemas/GraphQLResourceTag'
+        HomeAddress:
           type: string
-        synchronizationMode:
+        WeeklyHours:
+          type: number
+        WorkingHoursTimePeriod:
           type: string
-          description: The time that should be synchronised for each job in the group
-          default: no_synchronization
           enum:
-          - no_synchronization
-          - start_time
-          - end_time
-          - day
-        locked:
-          type: boolean
-          description: If the group is locked, all allocations in the group will be locked
-        enablePartialAllocation:
-          type: boolean
-          description: Allows allocations in the group to be partially allocated if they cannot be fully allocated. This will be overridden by the global setting options.enablePartiallyAllocatedGroups if the global setting is true.
-          default: false
-        phaseTags:
-          type: array
-          items:
-            type: string
-          description: Phase tags that restrict this group to specific phases. If absent or empty, the group is included in all phases.
-    GraphQLJobDependencyTo:
-      required:
-      - FromJobId
-      type: object
-      properties:
-        FromJobId:
+          - Day
+          - Week
+          - TwoWeeks
+          - FourWeeks
+        WorkingHoursStart:
           type: string
-    JobDependencyAnchor:
-      type: string
-      enum:
-      - End
-      - Start
-    UnscheduledJob:
-      required:
-      - reasons
-      - missingAllocationCount
-      type: object
-      properties:
-        reasons:
+          format: date
+        WorkingHoursMin:
+          type: number
+        WorkingHoursMax:
+          type: number
+        ResourceOverrides:
           type: array
           items:
-            $ref: '#/components/schemas/UnscheduledReason'
-          description: The reasons why this job could not be scheduled
-        missingAllocationCount:
+            $ref: '#/components/schemas/GraphQLResourceOverride'
+        Rating:
           type: integer
-          description: Number of resource allocations that could not be fulfilled for this job
           format: int32
-    GraphQLJobAllocation:
+        PrimaryRegion:
+          $ref: '#/components/schemas/GraphQLResourcePrimaryRegion'
+    ExtraneousResource:
       required:
-      - UID
-      - ResourceId
-      - Status
+      - type
+      - resourceId
       type: object
       properties:
-        UID:
+        type:
           type: string
-        ResourceId:
-          type: string
-        ResourceRequirementId:
-          type: string
-        Status:
-          $ref: '#/components/schemas/JobAllocationStatus'
-    SharedGroupConstraintShape:
-      required:
-      - groupId
-      - resourceIds
-      - maxAllocations
-      - start
-      - end
-      type: object
-      properties:
-        groupId:
-          type: string
-          description: The allocation group identifier the pooled limit applies to
-        resourceIds:
-          type: array
-          items:
-            type: string
-          description: The resources that share the pooled limit
-        maxAllocations:
-          type: integer
-          description: Maximum number of allocations from this group across all listed resources combined within the period
-          format: int32
-        start:
-          type: string
-          description: Start of the period the pooled limit applies to
-          format: date-time
-        end:
-          type: string
-          description: End of the period the pooled limit applies to
-          format: date-time
-    GroupConstraintsShape:
-      required:
-      - groupId
-      - maxAllocations
-      type: object
-      properties:
-        groupId:
-          type: string
-          description: The allocation group identifier
-        maxAllocations:
-          type: integer
-          description: Maximum number of allocations from this group that can be assigned to the resource in the period
-          format: int32
-    ObjectiveWeightModifiersShape:
-      type: object
-      properties:
-        minimizeDisruption:
-          type: number
-        balanceAbsoluteWorkload:
-          type: number
-        travelTime:
-          type: number
-        minimizeResources:
-          type: number
-        softSkills:
-          type: number
-        jobsPriority:
-          type: number
-        resourceRating:
-          type: number
-        scheduleImmediacy:
-          type: number
-        urgency:
-          type: number
-        overtime:
-          type: number
-    Change:
-      required:
-      - deleteAllocationsIds
-      - insertAllocations
-      - updateJobs
-      type: object
-      properties:
-        deleteAllocationsIds:
-          type: array
-          items:
-            type: string
-        insertAllocations:
-          type: array
-          items:
-            $ref: '#/components/schemas/InsertJobAllocations'
-        updateJobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/UpdateJobs'
-    Map_UnscheduledJob:
-      type: object
-      description: Jobs that could not be scheduled and the reasons why, keyed by job ID
-      additionalProperties:
-        $ref: '#/components/schemas/UnscheduledJob'
-    PeriodConstraintsShape1:
-      required:
-      - start
-      - end
-      type: object
-      properties:
-        start:
-          type: string
-          description: Start of the constraint period; must be within the scheduling period
-          format: date-time
-        end:
-          type: string
-          description: End of the constraint period; must be within the scheduling period
-          format: date-time
-        maxServiceTimeInMinutes:
-          type: integer
-          description: Maximum total service (working) time for this resource within this period, in minutes
-          format: int64
-        minServiceTimeInMinutes:
-          type: integer
-          description: Minimum total service (working) time for this resource within this period, in minutes
-          format: int64
-        groupConstraints:
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupConstraintsShape'
-          description: Defines the maximum number of allocations from specific groups that can be assigned to a resource during this period. Any group not listed has no limit.
-    ResultsShape:
-      required:
-      - optimizationType
-      - scheduled
-      - unscheduled
-      - excluded
-      - activities
-      - totals
-      type: object
-      properties:
-        optimizationType:
-          type: string
-          description: Identifies the solver type; always 'pvrp' for route optimization results
+          description: '`resource_extraneous`'
           enum:
-          - pvrp
-        scheduled:
-          $ref: '#/components/schemas/Map_ScheduledJob'
-        unscheduled:
-          $ref: '#/components/schemas/Map_UnscheduledJob'
-        excluded:
-          $ref: '#/components/schemas/Map_List_FrozenJobReason'
-        activities:
-          $ref: '#/components/schemas/Map_List_ResourceId'
-        totals:
-          $ref: '#/components/schemas/ResultTotals'
-    Rejected:
-      required:
-      - runId
-      - state
-      - autoSaved
-      type: object
-      properties:
-        runId:
+          - resource_extraneous
+        resourceId:
           type: string
-        state:
-          type: string
-          description: '`rejected`'
-        autoSaved:
-          type: boolean
-        meta:
-          $ref: '#/components/schemas/SaveMeta'
-    GraphQLAccountResourceScore:
-      required:
-      - AccountId
-      - ResourceId
-      - Blacklisted
-      type: object
-      properties:
-        AccountId:
-          type: string
-        ResourceId:
-          type: string
-        Blacklisted:
-          type: boolean
+          description: The resource that is outside the scope of this optimization run
+      description: The resource was not in the optimization request scope but was added to the model because it already had allocations; it cannot be assigned any new work
     APIProductRunDetailsShape:
       required:
       - id
@@ -3713,41 +3015,6 @@ components:
           $ref: '#/components/schemas/RunSummary'
         window:
           $ref: '#/components/schemas/ScheduleRunWindow'
-    RequiredTags:
-      required:
-      - type
-      - resourceId
-      - tagIds
-      type: object
-      properties:
-        type:
-          type: string
-          description: '`resource_missing_required_tags`'
-          enum:
-          - resource_missing_required_tags
-        resourceId:
-          type: string
-          description: The resource that is missing one or more required tags
-        tagIds:
-          type: array
-          items:
-            type: string
-          description: The tag IDs that the resource is missing
-      description: The resource is missing one or more tags that are required by this job
-    ScopeResource:
-      required:
-      - activities
-      - existingAllocations
-      type: object
-      properties:
-        activities:
-          type: array
-          items:
-            type: string
-        existingAllocations:
-          type: array
-          items:
-            type: string
     TimeBounds:
       required:
       - start
@@ -3761,49 +3028,309 @@ components:
           type: string
           format: date-time
       description: The time window within which the optimization occurs
-    Map_ResourceId_ScopeResource:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/ScopeResource'
-    APIIdInput:
+    ResultsShape:
       required:
-      - resourceIds
-      - jobIds
+      - optimizationType
+      - scheduled
+      - unscheduled
+      - excluded
+      - activities
+      - totals
       type: object
       properties:
-        resourceIds:
-          type: array
-          items:
-            type: string
-        jobIds:
-          type: array
-          items:
-            type: string
-        regionId:
+        optimizationType:
           type: string
-        regionIds:
-          type: array
-          items:
-            type: string
-      description: The ids of entities requested in the optimization run
-    TimeConstraintAfterPeriod:
+          description: Identifies the solver type; always 'pvrp' for route optimization results
+          enum:
+          - pvrp
+        scheduled:
+          $ref: '#/components/schemas/Map_ScheduledJob'
+        unscheduled:
+          $ref: '#/components/schemas/Map_UnscheduledJob'
+        excluded:
+          $ref: '#/components/schemas/Map_List_FrozenJobReason'
+        activities:
+          $ref: '#/components/schemas/Map_List_ResourceId'
+        totals:
+          $ref: '#/components/schemas/ResultTotals'
+    JobExcluded:
       required:
       - type
+      - exclusionReason
       type: object
       properties:
         type:
           type: string
-          description: '`job_time_constraint_late`'
+          description: '`job_excluded`'
           enum:
-          - job_time_constraint_late
-      description: All of the job's schedule time constraints fall entirely after the scheduling period
-    GraphQLActivityResource:
+          - job_excluded
+        exclusionReason:
+          $ref: '#/components/schemas/FrozenJobReason'
+      description: The job was excluded from optimization before it began because it was identified as a frozen job not eligible for scheduling
+    ResourceRequirementJob:
       required:
+      - type
+      - jobId
+      - resourceRequirementId
+      - duration
+      - lat
+      - lng
+      type: object
+      properties:
+        type:
+          type: string
+          description: '`resource_requirement`'
+          enum:
+          - resource_requirement
+        jobId:
+          type: string
+        resourceRequirementId:
+          type: string
+        arrivalTime:
+          type: string
+          format: date-time
+        departureTime:
+          type: string
+          format: date-time
+        duration:
+          type: integer
+          format: int64
+        travelTimeToNext:
+          type: integer
+          format: int64
+        distanceToNext:
+          type: integer
+          format: int32
+        lat:
+          type: number
+          format: double
+        lng:
+          type: number
+          format: double
+    ResourceShape1:
+      required:
+      - id
+      - attributes
+      - availability
+      - periodConstraints
+      - breaks
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this resource
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceAttributeShape'
+          description: Skills and qualifications held by this resource
+        locationId:
+          type: string
+          description: The home/base location of this resource, used as the default start and end point for route calculations
+        availability:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceAvailabilityShape1'
+          description: Time windows during which this resource is available for allocation, with optional start and end locations for each window
+        compatibleResources:
+          type: array
+          items:
+            type: string
+          description: List of resource IDs that this resource is compatible with; used to constrain which resources can share work within a locked group
+        maxDailyTravelTimeInMinutes:
+          type: integer
+          description: Maximum total travel time allowed per day for this resource, in minutes; overrides the global option if set
+          format: int64
+        maxTravelTimeBetweenLocations:
+          type: integer
+          description: Maximum travel time allowed between any two consecutive allocation locations for this resource, in minutes; overrides the global option if set
+          format: int64
+        periodConstraints:
+          type: array
+          items:
+            $ref: '#/components/schemas/PeriodConstraintsShape1'
+          description: Allows a resource to be given minimum and maximum service times for different periods
+        breaks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BreakShape'
+          description: Scheduled breaks that must be incorporated into the resource's route
+        rating:
+          type: integer
+          description: The rating of the resource, can be an integer between 1 and 100
+          format: int32
+        phaseTags:
+          type: array
+          items:
+            type: string
+          description: Phase tags that restrict this resource to specific phases. If absent or empty, the resource is included in all phases.
+    ResourceNoFeasibleWindow:
+      required:
+      - type
       - resourceId
       type: object
       properties:
+        type:
+          type: string
+          description: '`resource_no_feasible_window`'
+          enum:
+          - resource_no_feasible_window
         resourceId:
           type: string
+          description: The resource for which no feasible start time window exists given all constraints
+      description: All of the resource's available time in the scheduling period is blocked by constraints, leaving no feasible window to schedule this job
+    ResourceRestricted:
+      required:
+      - type
+      - resourceId
+      - restrictionType
+      type: object
+      properties:
+        type:
+          type: string
+          description: '`resource_restricted`'
+          enum:
+          - resource_restricted
+        resourceId:
+          type: string
+          description: The resource that is explicitly restricted for this job
+        restrictionType:
+          type: string
+          description: Whether the resource is on an exclude list (blacklist) or not on a required include list (whitelist)
+          enum:
+          - blacklist
+          - whitelist
+      description: The resource is explicitly restricted for this job via a resource-level include or exclude list and no more specific account or location reason could be identified
+    NotInRequestedJobs:
+      type: object
+    UnscheduledReason:
+      oneOf:
+      - $ref: '#/components/schemas/ExhaustedAvailability'
+      - $ref: '#/components/schemas/ExtraneousResource'
+      - $ref: '#/components/schemas/JobCannotBeFullyAllocated'
+      - $ref: '#/components/schemas/JobExcluded'
+      - $ref: '#/components/schemas/JobLocked'
+      - $ref: '#/components/schemas/RequiredCustomAttributes'
+      - $ref: '#/components/schemas/RequiredTags'
+      - $ref: '#/components/schemas/ResourceAccountRestricted'
+      - $ref: '#/components/schemas/ResourceCustomConstraintPeriod'
+      - $ref: '#/components/schemas/ResourceExceedsMaximumHours'
+      - $ref: '#/components/schemas/ResourceLocationRestricted'
+      - $ref: '#/components/schemas/ResourceNoAvailabilityOverlapWithTimeConstraints'
+      - $ref: '#/components/schemas/ResourceNoFeasibleWindow'
+      - $ref: '#/components/schemas/ResourceNoReasonFound'
+      - $ref: '#/components/schemas/ResourceRestricted'
+      - $ref: '#/components/schemas/TimeConstraintAfterPeriod'
+      - $ref: '#/components/schemas/TimeConstraintBeforePeriod'
+      - $ref: '#/components/schemas/TimeConstraintNoOverlap'
+    GroupConstraintsShape:
+      required:
+      - groupId
+      - maxAllocations
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The allocation group identifier
+        maxAllocations:
+          type: integer
+          description: Maximum number of allocations from this group that can be assigned to the resource in the period
+          format: int32
+    ScopeJobs:
+      required:
+      - scoped
+      - requested
+      - partiallyAllocated
+      - locked
+      - timeConstrained
+      - timeConstrainedOutsideScheduleWindow
+      - excludedInSchedule
+      - unscheduledExcluded
+      type: object
+      properties:
+        scoped:
+          type: array
+          items:
+            type: string
+        requested:
+          type: array
+          items:
+            type: string
+        partiallyAllocated:
+          type: array
+          items:
+            type: string
+        locked:
+          type: array
+          items:
+            type: string
+        timeConstrained:
+          type: array
+          items:
+            type: string
+        timeConstrainedOutsideScheduleWindow:
+          type: array
+          items:
+            type: string
+        excludedInSchedule:
+          type: array
+          items:
+            type: string
+        unscheduledExcluded:
+          type: array
+          items:
+            type: string
+    HasJobDependenciesNotInScope:
+      type: object
+    ResourceAvailabilityShape1:
+      required:
+      - from
+      - to
+      type: object
+      properties:
+        from:
+          type: string
+          description: Start of the availability window
+          format: date-time
+        to:
+          type: string
+          description: End of the availability window
+          format: date-time
+        startLocationId:
+          type: string
+          description: Location from which the resource departs at the start of this availability window; overrides the resource's home location
+        endLocationId:
+          type: string
+          description: Location at which the resource must finish at the end of this availability window; overrides the resource's home location
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceAvailabilityAttributeShape'
+          description: Attributes that are active for this resource during this availability window; overrides the resource-level attributes for allocations scheduled within this window
+        phaseTags:
+          type: array
+          items:
+            type: string
+          description: Phase tags that restrict this availability window to specific phases. If absent or empty, the availability window is included in all phases.
+        overtimeEnd:
+          type: string
+          description: Latest end the shift may extend to when working overtime; must be after the end of the availability window
+          format: date-time
+    JobCannotBeFullyAllocated:
+      required:
+      - type
+      - resourceId
+      type: object
+      properties:
+        type:
+          type: string
+          description: '`job_cannot_be_fully_allocated`'
+          enum:
+          - job_cannot_be_fully_allocated
+        resourceId:
+          type: string
+          description: The resource involved in the allocation that could not be fulfilled
+      description: The job requires multiple resource allocations but at least one allocation could not be fulfilled, resulting in partial or no scheduling
     Day:
       required:
       - Date
@@ -3825,6 +3352,564 @@ components:
         TravelDistance:
           type: integer
           format: int64
+    Nil:
+      type: object
+    AllocationGroupShape:
+      required:
+      - id
+      - locked
+      type: object
+      properties:
+        id:
+          type: string
+        synchronizationMode:
+          type: string
+          description: The time that should be synchronised for each job in the group
+          default: no_synchronization
+          enum:
+          - no_synchronization
+          - start_time
+          - end_time
+          - day
+        locked:
+          type: boolean
+          description: If the group is locked, all allocations in the group will be locked
+        enablePartialAllocation:
+          type: boolean
+          description: Allows allocations in the group to be partially allocated if they cannot be fully allocated. This will be overridden by the global setting options.enablePartiallyAllocatedGroups if the global setting is true.
+          default: false
+        phaseTags:
+          type: array
+          items:
+            type: string
+          description: Phase tags that restrict this group to specific phases. If absent or empty, the group is included in all phases.
+    ScheduleTimeConstraintShape:
+      required:
+      - windowStart
+      - windowEnd
+      type: object
+      properties:
+        windowStart:
+          type: string
+          description: Start of the time window within which this allocation must be scheduled
+          format: date-time
+        windowEnd:
+          type: string
+          description: End of the time window within which this allocation must be scheduled
+          format: date-time
+    ComparisonTotal:
+      required:
+      - planned
+      - scheduled
+      type: object
+      properties:
+        planned:
+          type: integer
+          format: int32
+        scheduled:
+          type: integer
+          format: int32
+    ResourceExceedsMaximumHours:
+      required:
+      - type
+      - resourceId
+      - start
+      - end
+      type: object
+      properties:
+        type:
+          type: string
+          description: '`resource_exceeds_maximum_hours`'
+          enum:
+          - resource_exceeds_maximum_hours
+        resourceId:
+          type: string
+          description: The resource that would exceed its maximum working hours
+        start:
+          type: string
+          description: Start of the period in which the resource would exceed its maximum working hours
+          format: date-time
+        end:
+          type: string
+          description: End of the period in which the resource would exceed its maximum working hours
+          format: date-time
+      description: Assigning this job to the resource would cause it to exceed its maximum working hours within the given period
+    AllocationDependencyShape:
+      required:
+      - anchorAllocationId
+      - dependentAllocationId
+      type: object
+      properties:
+        anchorAllocationId:
+          type: string
+          description: The allocation that represents the fixed point in time that the dependent allocation must be scheduled relative to
+        dependentAllocationId:
+          type: string
+          description: The allocation that must be scheduled relative to the anchor allocation
+        minTimeIntervalInMinutes:
+          type: integer
+          description: The offset that defines the start of the valid window of time relative to the anchor, if blank the dependent allocation has no earliest start time constraint, can be negative to represent a time before the anchor allocation
+          format: int64
+        maxTimeIntervalInMinutes:
+          type: integer
+          description: The offset that defines the end of the valid window of time for the dependent allocation to start relative to the anchor, if blank the dependent allocation has no latest start time constraint, can be negative to represent a time before the anchor allocation
+          format: int64
+        enablePartialAllocation:
+          type: boolean
+          description: Allows allocations in the allocation dependency to be partially allocated if they cannot be fully allocated. This will be overridden by the global setting options.enablePartiallyAllocatedAllocationDependencies if the global setting is true.
+    UnscheduledJob:
+      required:
+      - reasons
+      - missingAllocationCount
+      type: object
+      properties:
+        reasons:
+          type: array
+          items:
+            $ref: '#/components/schemas/UnscheduledReason'
+          description: The reasons why this job could not be scheduled
+        missingAllocationCount:
+          type: integer
+          description: Number of resource allocations that could not be fulfilled for this job
+          format: int32
+    ScopeRegion:
+      required:
+      - regionId
+      - timezone
+      type: object
+      properties:
+        regionId:
+          type: string
+        timezone:
+          type: string
+    Map_UnscheduledJob:
+      type: object
+      description: Jobs that could not be scheduled and the reasons why, keyed by job ID
+      additionalProperties:
+        $ref: '#/components/schemas/UnscheduledJob'
+    PVRPFeatureOptionsShape:
+      type: object
+      properties:
+        full:
+          type: boolean
+          description: If true, runs a full optimization pass; if false, only optimizes unscheduled allocations
+        ignoreTravelTime:
+          type: boolean
+          description: If true, travel time between locations is not considered when scoring the solution
+        ignoreTravelTimeFirstJob:
+          type: boolean
+          description: If true, travel time to a resource's first allocation of the day is not penalised
+        ignoreTravelTimeLastJob:
+          type: boolean
+          description: If true, travel time from a resource's last allocation of the day is not penalised
+        minimizeResources:
+          type: boolean
+          description: If true, the optimizer will attempt to use the minimum number of resources required to service all allocations
+        maxDailyTravelTimeInMinutes:
+          type: integer
+          description: Global maximum total travel time per resource per day in minutes; can be overridden per resource
+          format: int64
+        maxTravelTimeBetweenLocations:
+          type: integer
+          description: Global maximum travel time between any two consecutive allocation locations in minutes; can be overridden per resource
+          format: int64
+        respectAllocationTimes:
+          type: boolean
+          description: If true, currently scheduled start times are treated as soft constraints that the optimizer will try to preserve
+        respectAllocationTimesOverTimeConstraints:
+          type: boolean
+          description: If true, existing allocation start times take precedence over schedule time window constraints when the two conflict
+        balanceAbsoluteWorkload:
+          type: boolean
+          description: If true, the optimizer will try to balance the total absolute working time evenly across all resources
+        snapUnit:
+          type: integer
+          description: Snap allocation start times to multiples of this value in minutes; useful to avoid solutions with odd start times
+          format: int32
+        padding:
+          type: integer
+          description: Minimum gap in minutes that must be left between consecutive allocations for a resource, in addition to travel time
+          format: int32
+        objectiveWeights:
+          $ref: '#/components/schemas/ObjectiveWeightsShape'
+        objectiveWeightModifiers:
+          $ref: '#/components/schemas/ObjectiveWeightModifiersShape'
+        temporalAffinityStrength:
+          type: integer
+          description: Strength of the preference to schedule allocations close in time to their schedule time windows (1-100)
+          format: int32
+        enablePartiallyAllocatedGroups:
+          type: boolean
+          description: If true, allocation groups that cannot be fully assigned will be partially assigned rather than left unscheduled
+        enablePartiallyAllocatedAllocationDependencies:
+          type: boolean
+          description: If true, allocation dependencies that cannot be fully assigned will be partially assigned rather than left unscheduled
+    ObjectiveWeightsShape:
+      type: object
+      properties:
+        minimizeDisruption:
+          type: integer
+        balanceAbsoluteWorkload:
+          type: integer
+        travelTime:
+          type: integer
+        minimizeResources:
+          type: integer
+        softSkills:
+          type: integer
+        jobsPriority:
+          type: integer
+        resourceRating:
+          type: integer
+        scheduleImmediacy:
+          type: integer
+        urgency:
+          type: integer
+        overtime:
+          type: integer
+    JobStatus:
+      type: string
+      enum:
+      - Cancelled
+      - Complete
+      - Dispatched
+      - En Route
+      - In Progress
+      - On Site
+      - Pending Allocation
+      - Pending Dispatch
+      - Queued
+      - Ready
+    JobDependencyAnchor:
+      type: string
+      enum:
+      - End
+      - Start
+    RegionAvailability:
+      required:
+      - start
+      - end
+      - regionIds
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        regionIds:
+          type: array
+          items:
+            type: string
+    ResourceNoAvailabilityOverlapWithTimeConstraints:
+      required:
+      - type
+      - resourceId
+      type: object
+      properties:
+        type:
+          type: string
+          description: '`resource_no_availability_time_constraint`'
+          enum:
+          - resource_no_availability_time_constraint
+        resourceId:
+          type: string
+          description: The resource whose availability windows do not overlap with the job's schedule time constraints
+      description: The resource's availability windows do not overlap with any of the job's schedule time constraints
+    ScheduledJob:
+      required:
+      - start
+      - resourceRequirements
+      - excluded
+      - requiredAllocationCount
+      - resourceIds
+      - reasons
+      type: object
+      properties:
+        start:
+          type: string
+          description: The scheduled start time of the job
+          format: date-time
+        resourceRequirements:
+          $ref: '#/components/schemas/Map_ScheduledResourceRequirement'
+        excluded:
+          type: boolean
+          description: If true, this job was only partially allocated — some resource requirements could not be fulfilled
+        requiredAllocationCount:
+          type: integer
+          description: Total number of resource allocations required for this job to be fully scheduled
+          format: int32
+        resourceIds:
+          type: array
+          items:
+            type: string
+          description: Resource IDs assigned to this job
+        reasons:
+          type: array
+          items:
+            $ref: '#/components/schemas/UnscheduledReason'
+          description: Reasons why some allocations could not be fulfilled; present when the job is only partially allocated
+    Unknown:
+      required:
+      - type
+      - duration
+      - lat
+      - lng
+      type: object
+      properties:
+        type:
+          type: string
+        arrivalTime:
+          type: string
+          format: date-time
+        departureTime:
+          type: string
+          format: date-time
+        duration:
+          type: integer
+          format: int64
+        travelTimeToNext:
+          type: integer
+          format: int64
+        distanceToNext:
+          type: integer
+          format: int32
+        lat:
+          type: number
+          format: double
+        lng:
+          type: number
+          format: double
+    SchedulePlanShape:
+      required:
+      - productData
+      - featureModel
+      - ids
+      - options
+      type: object
+      properties:
+        productData:
+          $ref: '#/components/schemas/APIProductData'
+        featureModel:
+          $ref: '#/components/schemas/CorePVRPFeatureModelShape'
+        ids:
+          $ref: '#/components/schemas/APIIdInput'
+        options:
+          $ref: '#/components/schemas/SchedulePlanOptionsShape'
+    Availability:
+      required:
+      - start
+      - end
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+    GraphQLJob:
+      required:
+      - UID
+      - Duration
+      - JobStatus
+      - JobAllocations
+      - JobTags
+      - ResourceRequirements
+      - JobTimeConstraints
+      - JobDependenciesFrom
+      - JobDependenciesTo
+      - Locked
+      - RegionId
+      type: object
+      properties:
+        UID:
+          type: string
+        Start:
+          type: string
+          format: date-time
+        Duration:
+          type: integer
+        AccountId:
+          type: string
+        JobStatus:
+          $ref: '#/components/schemas/JobStatus'
+        LocationId:
+          type: string
+        GeoLatitude:
+          type: number
+          format: double
+        GeoLongitude:
+          type: number
+          format: double
+        Quantity:
+          type: integer
+          format: int32
+        JobAllocations:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLJobAllocation'
+        JobTags:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLJobTag'
+        ResourceRequirements:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLResourceRequirement'
+        JobTimeConstraints:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLJobTimeConstraint'
+        JobDependenciesFrom:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLJobDependencyFrom'
+        JobDependenciesTo:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLJobDependencyTo'
+        Locked:
+          type: boolean
+        RegionId:
+          type: string
+        Urgency:
+          $ref: '#/components/schemas/JobUrgency'
+    Location:
+      oneOf:
+      - $ref: '#/components/schemas/Activity'
+      - $ref: '#/components/schemas/Home'
+      - $ref: '#/components/schemas/Job'
+      - $ref: '#/components/schemas/ResourceRequirementJob'
+      - $ref: '#/components/schemas/Unknown'
+    ScopeRequest:
+      required:
+      - jobs
+      - scheduleBounds
+      - recipeId
+      type: object
+      properties:
+        jobs:
+          type: array
+          items:
+            type: string
+        scheduleBounds:
+          $ref: '#/components/schemas/LocalDateBounds'
+        recipeId:
+          type: string
+    LocationShape2:
+      required:
+      - id
+      - latitude
+      - longitude
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this location
+        latitude:
+          type: number
+          description: Geographic latitude coordinate
+          format: double
+        longitude:
+          type: number
+          description: Geographic longitude coordinate
+          format: double
+    Home:
+      required:
+      - type
+      - lat
+      - lng
+      type: object
+      properties:
+        type:
+          type: string
+          description: '`home`'
+          enum:
+          - home
+        arrivalTime:
+          type: string
+          format: date-time
+        departureTime:
+          type: string
+          format: date-time
+        travelTimeToNext:
+          type: integer
+          format: int64
+        distanceToNext:
+          type: integer
+          format: int32
+        lat:
+          type: number
+          format: double
+        lng:
+          type: number
+          format: double
+    RoutesShape:
+      required:
+      - type
+      - resources
+      - totalPlannedJobs
+      - totalScheduledJobs
+      - totalTravelTime
+      - totalScheduledTime
+      - totalTravelDistance
+      - label
+      - runDate
+      - windowStart
+      - windowEnd
+      - timeZone
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - pvrp
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        totalPlannedJobs:
+          type: integer
+          format: int32
+        totalScheduledJobs:
+          type: integer
+          format: int32
+        totalTravelTime:
+          type: integer
+          format: int64
+        totalScheduledTime:
+          type: integer
+          format: int64
+        totalTravelDistance:
+          type: integer
+          format: int64
+        scheduleId:
+          type: string
+        label:
+          type: string
+        runDate:
+          type: string
+          format: date-time
+        windowStart:
+          type: string
+          format: date-time
+        windowEnd:
+          type: string
+          format: date-time
+        timeZone:
+          type: string
+    SaveMeta:
+      required:
+      - date
+      type: object
+      properties:
+        userId:
+          type: string
+        date:
+          type: string
+          format: date-time
     Error:
       required:
       - runId
@@ -3844,110 +3929,55 @@ components:
           type: string
         meta:
           $ref: '#/components/schemas/SaveMeta'
-    Map_List_ResourceId:
-      type: object
-      description: Activity allocations from the result, keyed by activity ID and mapped to the assigned resource IDs
-      additionalProperties:
-        type: array
-        items:
-          type: string
-    JobUrgency:
-      type: string
-      enum:
-      - Critical
-      - Normal
-      - Urgent
-    Saved:
+    WindowedBreakShape:
       required:
-      - runId
-      - state
-      - autoSaved
-      - change
+      - breakTimeInMinutes
+      - minStartTime
+      - maxStartTime
       type: object
       properties:
-        runId:
+        breakTimeInMinutes:
+          type: integer
+          description: Duration of the break in minutes
+          format: int64
+        minStartTime:
           type: string
-        state:
+          description: Earliest time at which the break may start
+          format: date-time
+        maxStartTime:
           type: string
-          description: '`saved`'
-        autoSaved:
-          type: boolean
-        change:
-          $ref: '#/components/schemas/Change'
-        meta:
-          $ref: '#/components/schemas/SaveMeta'
-    ExtraneousResource:
+          description: Latest time at which the break may start
+          format: date-time
+    CorePVRPRunParamsShape:
       required:
-      - type
-      - resourceId
-      type: object
-      properties:
-        type:
-          type: string
-          description: '`resource_extraneous`'
-          enum:
-          - resource_extraneous
-        resourceId:
-          type: string
-          description: The resource that is outside the scope of this optimization run
-      description: The resource was not in the optimization request scope but was added to the model because it already had allocations; it cannot be assigned any new work
-    SchedulePlanOptionsShape:
-      required:
+      - options
+      - resourceIds
+      - jobIds
+      - scheduleWindow
+      - timezone
       - respectSchedule
       type: object
       properties:
-        recipeId:
-          type: string
-        respectSchedule:
-          type: boolean
-        persistenceStrategy:
-          type: string
-          enum:
-          - save
-          - optimize
-        label:
-          type: string
-    RegionAvailability:
-      required:
-      - start
-      - end
-      - regionIds
-      type: object
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-        regionIds:
+        options:
+          $ref: '#/components/schemas/PVRPFeatureOptionsShape'
+        resourceIds:
           type: array
           items:
             type: string
-    ScheduleRunWindow:
-      required:
-      - start
-      - end
-      type: object
-      properties:
-        start:
+        jobIds:
+          type: array
+          items:
+            type: string
+        regionId:
           type: string
-          format: date-time
-        end:
+        scheduleWindow:
+          $ref: '#/components/schemas/ScheduleRunWindow'
+        timezone:
           type: string
-          format: date-time
-    LocalDateBounds:
-      required:
-      - start
-      - end
-      type: object
-      properties:
-        start:
+        respectSchedule:
+          type: boolean
+        recipeId:
           type: string
-          format: date
-        end:
-          type: string
-          format: date
   securitySchemes:
     httpAuth:
       type: http

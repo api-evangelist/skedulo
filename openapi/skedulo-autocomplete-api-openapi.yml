@@ -41,39 +41,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    AutoCompleteResponse:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/AutoCompleteResult'
-    AutoCompletePrediction:
-      type: object
-      required:
-      - description
-      - placeId
-      properties:
-        description:
-          type: string
-        placeId:
-          type: string
-          description: Unique id for the suggested place, to be used with fetch place endpoint.
-    AutoCompleteResult:
-      type: object
-      required:
-      - predictions
-      - status
-      properties:
-        predictions:
-          type: array
-          items:
-            $ref: '#/components/schemas/AutoCompletePrediction'
-        status:
-          type: string
-          enum:
-          - OK
-          - ZERO_RESULTS
-        errorMessage:
-          type: string
     AutoCompleteRequest:
       type: object
       required:
@@ -94,6 +61,39 @@ components:
         country:
           type: string
           description: A two character, ISO 3166-1 Alpha-2 compatible country code
+    AutoCompletePrediction:
+      type: object
+      required:
+      - description
+      - placeId
+      properties:
+        description:
+          type: string
+        placeId:
+          type: string
+          description: Unique id for the suggested place, to be used with fetch place endpoint.
+    AutoCompleteResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/AutoCompleteResult'
+    AutoCompleteResult:
+      type: object
+      required:
+      - predictions
+      - status
+      properties:
+        predictions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutoCompletePrediction'
+        status:
+          type: string
+          enum:
+          - OK
+          - ZERO_RESULTS
+        errorMessage:
+          type: string
     Error:
       type: object
       required:

@@ -47,6 +47,19 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    PlaceDetail:
+      type: object
+      required:
+      - addressComponents
+      - formattedAddress
+      - geometry
+      properties:
+        addressComponents:
+          $ref: '#/components/schemas/AddressComponents'
+        formattedAddress:
+          type: string
+        geometry:
+          $ref: '#/components/schemas/LatLng'
     AddressComponents:
       type: object
       properties:
@@ -64,6 +77,11 @@ components:
           type: string
         postalCode:
           type: string
+    PlaceDetailResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PlaceDetail'
     Error:
       type: object
       required:
@@ -74,23 +92,6 @@ components:
           type: string
         message:
           type: string
-    LatLng:
-      type: object
-      required:
-      - lat
-      - lng
-      properties:
-        lat:
-          description: -90 <= y <= 90
-          type: number
-        lng:
-          description: -180 <= x <= 180
-          type: number
-    PlaceDetailResponse:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/PlaceDetail'
     PlaceDetailRequest:
       type: object
       required:
@@ -104,19 +105,18 @@ components:
           type: string
           format: uuid
           description: A caller-generated uuid that may have been used in an autocomplete session.
-    PlaceDetail:
+    LatLng:
       type: object
       required:
-      - addressComponents
-      - formattedAddress
-      - geometry
+      - lat
+      - lng
       properties:
-        addressComponents:
-          $ref: '#/components/schemas/AddressComponents'
-        formattedAddress:
-          type: string
-        geometry:
-          $ref: '#/components/schemas/LatLng'
+        lat:
+          description: -90 <= y <= 90
+          type: number
+        lng:
+          description: -180 <= x <= 180
+          type: number
   securitySchemes:
     Authorization:
       type: apiKey

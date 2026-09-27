@@ -150,12 +150,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Success:
-      type: object
-      properties:
-        success:
-          type: boolean
-          default: true
     SMSSentForTenant:
       type: object
       required:
@@ -211,6 +205,12 @@ components:
           type: string
         message:
           type: string
+    Success:
+      type: object
+      properties:
+        success:
+          type: boolean
+          default: true
   securitySchemes:
     Authorization:
       type: http

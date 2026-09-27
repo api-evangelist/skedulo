@@ -130,27 +130,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    TenantFeatureFlagsResultContainer:
-      description: Result wrapper for Tenant FeatureFlags.
-      type: object
-      required:
-      - result
-      properties:
-        result:
-          $ref: '#/components/schemas/TenantFeatureFlagsResult'
-    TenantsFeatureFlagsSuccesses:
-      description: A map of the tenantId to the Features flags for all tenants that feature flags were able to be obtained
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/FeatureFlags'
-    FeatureFlagsResult:
-      description: Result wrapper for FeatureFlags.
-      type: object
-      required:
-      - result
-      properties:
-        result:
-          $ref: '#/components/schemas/FeatureFlags'
     TenantsFeatureFlagsAndDescriptionsSuccesses:
       description: A map of the tenantId to the Features flags for all tenants that feature flags were able to be obtained
       type: object
@@ -169,14 +148,14 @@ components:
           $ref: '#/components/schemas/TenantsFeatureFlagsSuccesses'
         failures:
           $ref: '#/components/schemas/TenantsFeatureFlagsFailures'
-    TenantFeatureFlagsAndDescriptionsResultContainer:
-      description: Result wrapper for Tenant FeatureFlags with descriptions.
+    TenantsFeatureFlagsFailures:
+      description: A map of the tenantId to an error message for all tenants that feature flags were not able to be obtained.
       type: object
-      required:
-      - result
-      properties:
-        result:
-          $ref: '#/components/schemas/TenantFeatureFlagsAndDescriptionResult'
+      additionalProperties:
+        type: string
+      example:
+        sk_123oiusdf: Tenant sk_123oiusdf has not been initialized with this service. Please run the onboarding process for this tenant!
+        sk_3432423524: Tenant sk_3432423524 has not been initialized with this service. Please run the onboarding process for this tenant!
     FeatureFlags:
       description: Describes whether or not optional features are enabled. Also marks the presence of data model extensions in Salesforce tenants. Use the `/config/features/descriptions` endpoint to get a list of all feature flags with descriptions and other metadata. No assumptions should be made about specific keys appearing in the response. If a key is not returned its value should be assumed to be false.
       type: object
@@ -184,6 +163,11 @@ components:
         type: string
       example:
         useJobOffers: true
+    TenantIds:
+      description: Tenant Ids
+      type: array
+      items:
+        type: string
     FeatureFlagsWithDescriptions:
       description: A list of all Feature Flags with description, value and other metadata.
       type: array
@@ -226,11 +210,19 @@ components:
           value:
             type: boolean
             description: The current value of the flag.
-    TenantIds:
-      description: Tenant Ids
-      type: array
-      items:
-        type: string
+    TenantsFeatureFlagsSuccesses:
+      description: A map of the tenantId to the Features flags for all tenants that feature flags were able to be obtained
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/FeatureFlags'
+    TenantFeatureFlagsResultContainer:
+      description: Result wrapper for Tenant FeatureFlags.
+      type: object
+      required:
+      - result
+      properties:
+        result:
+          $ref: '#/components/schemas/TenantFeatureFlagsResult'
     TenantFeatureFlagsAndDescriptionResult:
       description: Result wrapper for Tenant FeatureFlags successes and failures.
       type: object
@@ -242,14 +234,22 @@ components:
           $ref: '#/components/schemas/TenantsFeatureFlagsAndDescriptionsSuccesses'
         failures:
           $ref: '#/components/schemas/TenantsFeatureFlagsFailures'
-    TenantsFeatureFlagsFailures:
-      description: A map of the tenantId to an error message for all tenants that feature flags were not able to be obtained.
+    TenantFeatureFlagsAndDescriptionsResultContainer:
+      description: Result wrapper for Tenant FeatureFlags with descriptions.
       type: object
-      additionalProperties:
-        type: string
-      example:
-        sk_123oiusdf: Tenant sk_123oiusdf has not been initialized with this service. Please run the onboarding process for this tenant!
-        sk_3432423524: Tenant sk_3432423524 has not been initialized with this service. Please run the onboarding process for this tenant!
+      required:
+      - result
+      properties:
+        result:
+          $ref: '#/components/schemas/TenantFeatureFlagsAndDescriptionResult'
+    FeatureFlagsResult:
+      description: Result wrapper for FeatureFlags.
+      type: object
+      required:
+      - result
+      properties:
+        result:
+          $ref: '#/components/schemas/FeatureFlags'
   securitySchemes:
     Authorization:
       type: http

@@ -50,15 +50,6 @@ paths:
       - Standard Fields
 components:
   schemas:
-    ResultOKStandardFields:
-      type: object
-      required:
-      - result
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/StandardField'
     SchemaNotFoundError:
       type: object
       required:
@@ -82,6 +73,15 @@ components:
         message:
           type: string
           example: This endpoint is only supported for Skedulo on Salesforce tenants
+    ResultOKStandardFields:
+      type: object
+      required:
+      - result
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/StandardField'
     StandardField:
       type: object
       required:

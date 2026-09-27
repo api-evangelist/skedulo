@@ -194,96 +194,6 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    ErrorDetails:
-      type: object
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
-        extraFields:
-          type: object
-          additionalProperties:
-            type: object
-    Unit:
-      type: object
-    PolicyResult:
-      required:
-      - description
-      - enabled
-      - id
-      - name
-      - rules
-      type: object
-      properties:
-        id:
-          type: string
-          description: Uniquely identifies the policy. This ID can be used for updating or deleting the policy.
-          format: uuid
-        name:
-          maxLength: 250
-          minLength: 0
-          type: string
-          description: Short name for the policy.
-        description:
-          maxLength: 1000
-          minLength: 0
-          type: string
-          description: Detailed description of the policy.
-        enabled:
-          type: boolean
-          description: Whether the policy is enabled.
-        rules:
-          maxItems: 20
-          minItems: 0
-          type: array
-          description: The rules that define the policy. Rules can also be added to the policy later. A maximum of 20 rules is allowed
-          items:
-            $ref: '#/components/schemas/RuleResult'
-        sourceTemplateId:
-          type: string
-          description: The ID of the template the policy was created from. null if the policy was not created from a template.
-          format: uuid
-      description: A group of record access rules that combine to achieve a desired outcome.
-    PolicyInput:
-      required:
-      - description
-      - enabled
-      - name
-      type: object
-      properties:
-        name:
-          maxLength: 250
-          minLength: 0
-          type: string
-          description: Short name for the policy.
-        description:
-          maxLength: 1000
-          minLength: 0
-          type: string
-          description: Detailed description of the policy.
-        enabled:
-          type: boolean
-          description: Whether the policy is enabled.
-        rules:
-          maxItems: 20
-          minItems: 0
-          type: array
-          description: The rules that define the policy. Rules can also be added to the policy later. A maximum of 20 rules is allowed
-          items:
-            $ref: '#/components/schemas/NewRuleInput'
-        sourceTemplateId:
-          type: string
-          description: The ID of the template the policy was created from. null if the policy was not created from a template.
-          format: uuid
-      description: A group of record access rules that combine to achieve a desired outcome and can be enabled as a group.
-    ApiResultPolicyResult:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/PolicyResult'
     NewRuleInput:
       required:
       - accessType
@@ -325,22 +235,8 @@ components:
             description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
             format: uuid
       description: The rules that define the policy. Rules can also be added to the policy later. A maximum of 20 rules is allowed
-    ApiResultUnit:
-      required:
-      - result
+    Unit:
       type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/Unit'
-    ApiResultListPolicyResult:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/PolicyResult'
     RuleResult:
       required:
       - accessType
@@ -392,6 +288,110 @@ components:
             description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
             format: uuid
       description: A record access rule that controls access to data.
+    ApiResultPolicyResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PolicyResult'
+    ErrorDetails:
+      type: object
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+        extraFields:
+          type: object
+          additionalProperties:
+            type: object
+    PolicyInput:
+      required:
+      - description
+      - enabled
+      - name
+      type: object
+      properties:
+        name:
+          maxLength: 250
+          minLength: 0
+          type: string
+          description: Short name for the policy.
+        description:
+          maxLength: 1000
+          minLength: 0
+          type: string
+          description: Detailed description of the policy.
+        enabled:
+          type: boolean
+          description: Whether the policy is enabled.
+        rules:
+          maxItems: 20
+          minItems: 0
+          type: array
+          description: The rules that define the policy. Rules can also be added to the policy later. A maximum of 20 rules is allowed
+          items:
+            $ref: '#/components/schemas/NewRuleInput'
+        sourceTemplateId:
+          type: string
+          description: The ID of the template the policy was created from. null if the policy was not created from a template.
+          format: uuid
+      description: A group of record access rules that combine to achieve a desired outcome and can be enabled as a group.
+    PolicyResult:
+      required:
+      - description
+      - enabled
+      - id
+      - name
+      - rules
+      type: object
+      properties:
+        id:
+          type: string
+          description: Uniquely identifies the policy. This ID can be used for updating or deleting the policy.
+          format: uuid
+        name:
+          maxLength: 250
+          minLength: 0
+          type: string
+          description: Short name for the policy.
+        description:
+          maxLength: 1000
+          minLength: 0
+          type: string
+          description: Detailed description of the policy.
+        enabled:
+          type: boolean
+          description: Whether the policy is enabled.
+        rules:
+          maxItems: 20
+          minItems: 0
+          type: array
+          description: The rules that define the policy. Rules can also be added to the policy later. A maximum of 20 rules is allowed
+          items:
+            $ref: '#/components/schemas/RuleResult'
+        sourceTemplateId:
+          type: string
+          description: The ID of the template the policy was created from. null if the policy was not created from a template.
+          format: uuid
+      description: A group of record access rules that combine to achieve a desired outcome.
+    ApiResultListPolicyResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyResult'
+    ApiResultUnit:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Unit'
   securitySchemes:
     ApiKeyAuth:
       type: http

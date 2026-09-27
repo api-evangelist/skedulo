@@ -254,18 +254,28 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    SuccessAndStatus:
+    NotifyResponse:
       type: object
       properties:
-        success:
-          type: boolean
-          default: true
-        status:
-          type: string
-          enum:
-          - Accepted
-          - Declined
-          - Allocated
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceResult'
+    CancelOfferResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          required:
+          - result
+          properties:
+            cancelledResourceJobOfferIds:
+              type: array
+              items:
+                type: string
+              example:
+              - 001449b0-1130-4e8c-9b8d-d30d812db84b
+              - 001334b0-1130-5e8c-9b8d-d30d812db84b
     NotifyResources:
       type: object
       properties:
@@ -273,6 +283,16 @@ components:
           type: array
           items:
             type: string
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
     AllocationActionTimestamp:
       type: object
       properties:
@@ -289,38 +309,18 @@ components:
         error:
           description: null if the notification was sent successfully
           $ref: '#/components/schemas/Error'
-    CancelOfferResponse:
+    SuccessAndStatus:
       type: object
       properties:
-        result:
-          type: object
-          required:
-          - result
-          properties:
-            cancelledResourceJobOfferIds:
-              type: array
-              items:
-                type: string
-              example:
-              - 001449b0-1130-4e8c-9b8d-d30d812db84b
-              - 001334b0-1130-5e8c-9b8d-d30d812db84b
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
+        success:
+          type: boolean
+          default: true
+        status:
           type: string
-        message:
-          type: string
-    NotifyResponse:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceResult'
+          enum:
+          - Accepted
+          - Declined
+          - Allocated
   securitySchemes:
     Authorization:
       type: http

@@ -46,6 +46,72 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Distance:
+      type: object
+      required:
+      - distanceInMeters
+      properties:
+        distanceInMeters:
+          type: number
+    MapVendor:
+      type: string
+      enum:
+      - GOOGLE
+      - GRAPHHOPPER
+      - LINEOFSIGHT
+    Duration:
+      type: object
+      required:
+      - durationInSeconds
+      properties:
+        durationInSeconds:
+          type: number
+    TravelLegResult:
+      type: object
+      required:
+      - status
+      discriminator:
+        propertyName: status
+      properties:
+        status:
+          type: string
+          enum:
+          - OK
+          - NO_ROUTE
+        duration:
+          $ref: '#/components/schemas/Duration'
+        distance:
+          $ref: '#/components/schemas/Distance'
+    DistanceMatrixResponse:
+      type: object
+      required:
+      - matrix
+      - vendor
+      properties:
+        matrix:
+          type: array
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/TravelLegResult'
+        vendor:
+          $ref: '#/components/schemas/MapVendor'
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+    Avoid:
+      type: string
+      enum:
+      - ferry
+      - highway
+      - toll
     DistanceMatrixRequest:
       type: object
       required:
@@ -76,59 +142,6 @@ components:
         destinations:
         - lat: -27.457768
           lng: 153.03583
-    DistanceMatrixResponse:
-      type: object
-      required:
-      - matrix
-      - vendor
-      properties:
-        matrix:
-          type: array
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/TravelLegResult'
-        vendor:
-          $ref: '#/components/schemas/MapVendor'
-    Avoid:
-      type: string
-      enum:
-      - ferry
-      - highway
-      - toll
-    TravelLegResult:
-      type: object
-      required:
-      - status
-      discriminator:
-        propertyName: status
-      properties:
-        status:
-          type: string
-          enum:
-          - OK
-          - NO_ROUTE
-        duration:
-          $ref: '#/components/schemas/Duration'
-        distance:
-          $ref: '#/components/schemas/Distance'
-    Duration:
-      type: object
-      required:
-      - durationInSeconds
-      properties:
-        durationInSeconds:
-          type: number
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
     LatLng:
       type: object
       required:
@@ -140,19 +153,6 @@ components:
           type: number
         lng:
           description: -180 <= x <= 180
-          type: number
-    MapVendor:
-      type: string
-      enum:
-      - GOOGLE
-      - GRAPHHOPPER
-      - LINEOFSIGHT
-    Distance:
-      type: object
-      required:
-      - distanceInMeters
-      properties:
-        distanceInMeters:
           type: number
   securitySchemes:
     Authorization:

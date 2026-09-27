@@ -53,16 +53,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
     TimezoneResponse:
       type: object
       properties:
@@ -79,6 +69,16 @@ components:
         dstOffset: 0
         rawOffset: 36000
         timeZoneId: Australia/Brisbane
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
   securitySchemes:
     Authorization:
       type: apiKey

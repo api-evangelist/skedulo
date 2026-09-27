@@ -299,47 +299,6 @@ components:
           type: boolean
         displayOrder:
           type: integer
-    NewStandaloneCustomFieldColumn:
-      type: object
-      required:
-      - type
-      discriminator:
-        propertyName: type
-      properties:
-        type:
-          type: string
-          enum:
-          - string
-          - textarea
-          - url
-          - picklist
-          - multipicklist
-          - int
-          - decimal
-          - boolean
-          - date
-          - datetime
-          - time
-          - reference
-    NewStandaloneCustomSchema:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Internal name
-        label:
-          type: string
-          description: Display name
-        description:
-          type: string
-          description: Description display only when modifying this field's definition
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/NewStandaloneCustomSchemaField'
-          description: Fields to create at the same time as the object. These fields are allowed to be required and have no default as there is no data in the object yet.
     NewStandaloneCustomField:
       type: object
       required:
@@ -388,16 +347,6 @@ components:
           default: false
         displayOrder:
           type: integer
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
     CustomSchema:
       type: object
       required:
@@ -420,6 +369,38 @@ components:
         mapping:
           type: string
           description: The name of the object in the remote system (e.g. 'order' for Skedulo platform or 'Order__c' for Salesforce)
+    NewStandaloneCustomFieldColumn:
+      type: object
+      required:
+      - type
+      discriminator:
+        propertyName: type
+      properties:
+        type:
+          type: string
+          enum:
+          - string
+          - textarea
+          - url
+          - picklist
+          - multipicklist
+          - int
+          - decimal
+          - boolean
+          - date
+          - datetime
+          - time
+          - reference
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
     NewStandaloneCustomSchemaField:
       type: object
       required:
@@ -464,6 +445,25 @@ components:
           default: false
         displayOrder:
           type: integer
+    NewStandaloneCustomSchema:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Internal name
+        label:
+          type: string
+          description: Display name
+        description:
+          type: string
+          description: Description display only when modifying this field's definition
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewStandaloneCustomSchemaField'
+          description: Fields to create at the same time as the object. These fields are allowed to be required and have no default as there is no data in the object yet.
   securitySchemes:
     Authorization:
       type: http

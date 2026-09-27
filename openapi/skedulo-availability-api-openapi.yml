@@ -420,134 +420,151 @@ paths:
       - Availability
 components:
   schemas:
-    PatternResourceNotFound:
-      description: When attempting to save and the pattern-resource relationship couldn't be found.
+    PatternResourceUpdateFailed:
+      description: Returned when updating a pattern resource details fails.
       type: object
       properties:
-        pattern-resource-not-found:
-          description: The UID of the pattern-resource relationship.
-          type: string
-    AvailabilityEntryChunkPattern:
-      allOf:
-      - $ref: '#/components/schemas/AvailabilityEntryChunk'
-      required:
-      - patternId
-      - patternResourceId
-      - name
-      - description
-      - patternType
-      properties:
-        patternId:
-          type: string
-        patternResourceId:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        patternType:
-          type: string
-          enum:
-          - custom
-          - weekly
-    AvailabilityEntryRecord:
+        insert-failed:
+          type: object
+          properties:
+            errors:
+              description: The lis of errors received when attempt to update pattern resources.
+              type: array
+              items:
+                type: string
+            UIDs:
+              description: A list of IDs for the related pattern resources.
+              type: array
+              items:
+                type: string
+            resources:
+              description: A list of resource IDs that were used during the update.
+              type: array
+              items:
+                type: string
+    AvailabilityResults:
       type: object
+      description: Key of resource ID to AvailabilityResult.
+      additionalProperties:
+        $ref: '#/components/schemas/AvailabilityResult'
+    SimpleHolidayAvailabilityEntry:
+      allOf:
+      - $ref: '#/components/schemas/SimpleAvailabilityEntryBase'
+      description: Availability entry describing a holiday entry.
       required:
-      - type
-      - start
-      - end
+      - id
       - name
-      discriminator:
-        propertyName: type
+      - global
       properties:
-        type:
+        id:
+          description: ID of the holiday entry. Holiday IDs are unique.
           type: string
-          enum:
-          - template
-          - pattern
-          - holiday
-          - custom
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
         name:
+          description: ''
           type: string
-    AvailabilityPatternDetailWeekly:
-      allOf:
-      - $ref: '#/components/schemas/AvailabilityPatternDetailBase'
-      description: Weekly patterns describe patterns that span a single calendar week (always from Monday to Sunday). Optionally, there can be any number of empty padding weeks (unavailable all week) after the first week, after which the pattern repeats from the first week.
-      required:
-      - repeatWeeks
-      - days
-      properties:
-        repeatWeeks:
-          description: The repeat frequency of a single week pattern, must be a positive integer. The single weekly pattern is applied from the start time (which can be a non-complete week if the start time doesn't fall on a Monday), followed by `repeatWeeks - 1` number of "empty padding weeks" (unavailable all week).
-          type: number
-          example: 3
-        days:
-          type: array
-          description: Weekdays that make up the pattern. Weekdays can be specified in any order. Not all weekdays must be specified (there can be holes in the pattern). Each weekday must appear only once in the pattern.
-          items:
-            type: object
-            properties:
-              weekday:
-                $ref: '#/components/schemas/AvailabilityWeekday'
-              intervals:
-                $ref: '#/components/schemas/AvailabilityPatternIntervals'
-    AvailabilityPatternDetailCustom:
-      allOf:
-      - $ref: '#/components/schemas/AvailabilityPatternDetailBase'
-      description: Custom patterns describe patterns that span N-number of days. Not all days have to be specified (there can be holes in the pattern). The pattern repeats after lengthDays number of days.
-      required:
-      - lengthDays
-      - days
-      properties:
-        lengthDays:
-          description: The length of the pattern in days, must be a positive integer.
-          type: number
-          example: 5
-        days:
-          type: array
-          description: Days that make up the pattern. Days can be specified in any order. A day with the same index cannot appear more than once. It is allowed to have holes in the pattern. The number of days specified must be less than or equal to the lengthDays property.
-          items:
-            type: object
-            properties:
-              day:
-                $ref: '#/components/schemas/AvailabilityDayWithIndex'
-              intervals:
-                $ref: '#/components/schemas/AvailabilityPatternIntervals'
-    AvailabilityEntryCustom:
-      allOf:
-      - $ref: '#/components/schemas/AvailabilityEntry'
-      required:
-      - start
-      - end
-      - notes
-      - createdDate
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-        notes:
-          type: string
-        status:
-          type: string
-        availabilityType:
-          type: string
-        createdDate:
-          type: string
-          format: date-time
+        global:
+          description: ''
+          type: boolean
     ResultOKAvailabilitySimple:
       type: object
       properties:
         result:
           $ref: '#/components/schemas/AvailabilityResultsSimple'
+    AvailabilityResultSimple:
+      description: Describes the availability information of a single resource. `mergedAvailabilities` is only returned when the mergedAvailabilities query parameter is set to `true`.
+      type: object
+      required:
+      - resourceId
+      - mergedAvailabilities
+      - entries
+      properties:
+        resourceId:
+          description: ID of the resource.
+          type: string
+        mergedAvailabilties:
+          description: A flattened list of intervals when the resource is available to work. These intervals are calculated by merging all availability entries together in the given time range according to the predefined precedence rules. This key only contains data if the `mergedAvailabilities` query string parameters was set to `true` in the request, otherwise it's set to null.
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TimeInterval'
+        entries:
+          description: The list of various availability entries in the given time interval applicable for the resource. Entries are sorted by the start time in ascending order.
+          type:
+          - array
+          - 'null'
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/SimpleTemplateAvailabilityEntry'
+            - $ref: '#/components/schemas/SimplePatternAvailabilityEntry'
+            - $ref: '#/components/schemas/SimpleHolidayAvailabilityEntry'
+            - $ref: '#/components/schemas/SimpleOverrideAvailabilityEntry'
+            discriminator:
+              propertyName: type
+              mapping:
+                template: '#/components/schemas/SimpleTemplateAvailabilityEntry'
+                pattern: '#/components/schemas/SimplePatternAvailabilityEntry'
+                holiday: '#/components/schemas/SimpleHolidayAvailabilityEntry'
+                override: '#/components/schemas/SimpleOverrideAvailabilityEntry'
+    PatternUpdateTooManyResults:
+      description: When updating a pattern, if more than one result is returned from salesforce or postgres, this error is returned.
+      type: object
+      properties:
+        too-many-update-results:
+          description: Contains the message of the error.
+          type: string
+    AvailabilityDayWithIndex:
+      description: The N-th number of day in the pattern. The index is 1-based (the first day of the pattern is day 1).
+      type: number
+      example: 1
+    AvailabilityWeekday:
+      description: The days of the week
+      type: string
+      enum:
+      - MON
+      - TUE
+      - WED
+      - THU
+      - FRI
+      - SAT
+      - SUN
+    AvailabilityEntryChunkHoliday:
+      allOf:
+      - $ref: '#/components/schemas/AvailabilityEntryChunk'
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    AvailabilityEntry:
+      type: object
+      required:
+      - name
+      properties:
+        description:
+          type: string
+        name:
+          type: string
+    AvailabilityPattern:
+      type: object
+      description: The pattern of availabilities to determine availability.
+      properties:
+        UID:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        pattern:
+          oneOf:
+          - $ref: '#/components/schemas/AvailabilityPatternDetailCustom'
+          - $ref: '#/components/schemas/AvailabilityPatternDetailWeekly'
+          discriminator:
+            propertyName: type
+            mapping:
+              custom: '#/components/schemas/AvailabilityPatternDetailCustom'
+              weekly: '#/components/schemas/AvailabilityPatternDetailWeekly'
     AvailabilityPatternResource:
       type: object
       description: A resource has times they will be made available. This contains the period that a resource will have the pattern applied.
@@ -569,9 +586,41 @@ components:
           description: The UTC datetime at which the pattern stops applying to the resource where the pattern stops before this UTC datetime. If not provided, the pattern applies indefinitely.
           type: string
           format: date-time
-    AvailabilityEntryRecordPattern:
+    AvailabilityResult:
+      description: '`availability` is only returned when the availability query parameter is set to `true` while `unavailability` is only returned when the unavailability query parameter is set to `true`.'
+      type: object
+      required:
+      - available
+      - unavailable
+      properties:
+        available:
+          description: A flattened list of intervals when the resource is available to work. This is the inverse of unavailable. This will be constructed from either shifts if they are enabled or availability if they are not.
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeInterval'
+        unavailable:
+          description: A flattened list of intervals when the resource is unavailable to work. This is the inverse of available.
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeInterval'
+        availability:
+          $ref: '#/components/schemas/AvailabilityEntries'
+        unavailability:
+          $ref: '#/components/schemas/UnavailabilityEntries'
+        shifts:
+          description: A list of shifts for the resource in the requested interval. Draft shifts are excluded.
+          type: array
+          items:
+            $ref: '#/components/schemas/Shift'
+        regions:
+          description: A list of the regions that the resource is available in in the request interval.
+          type: array
+          items:
+            $ref: '#/components/schemas/AvailableRegionEntry'
+    SimplePatternAvailabilityEntry:
       allOf:
-      - $ref: '#/components/schemas/AvailabilityEntryRecord'
+      - $ref: '#/components/schemas/SimpleAvailabilityEntryBase'
+      description: Availability entry describing an availability pattern entry.
       required:
       - patternId
       - patternResourceId
@@ -580,116 +629,48 @@ components:
       - patternType
       properties:
         patternId:
+          description: ID of the availability pattern this pattern entry is part of. Note that there can be multiple entries in the response belonging to the same pattern.
           type: string
         patternResourceId:
-          type: string
-        name:
+          description: ID of the availability pattern resource record (which associates a pattern with a given resource).
           type: string
         description:
+          description: Description of the pattern.
           type: string
         patternType:
+          description: Type of the pattern, valid values are `weekly` and `custom`.
           type: string
-          enum:
-          - custom
-          - weekly
-    AvailabilityEntryRecordTemplate:
-      allOf:
-      - $ref: '#/components/schemas/AvailabilityEntryRecord'
+    AvailabilityFilterEntityIds:
+      description: Map of object type to entity IDs used to resolve availability filter values. Instead of providing availabilityFilterValues directly, supply entity references by type and UID; the system fetches the entities, evaluates configured record filters, and derives the filter values automatically. Each entity's UID becomes the groupId in the resolved filter values. Cannot be combined with availabilityFilterValues.
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      example:
+        Jobs:
+        - 8ab1de64-ee5b-418f-b303-80bd3baec88f
+        - 3979c7a9-fc9a-48b0-aab1-8989a16c468d
+        Activities:
+        - ab1696b9-163b-4340-9473-8a0cff1e996e
+    AvailableRegionEntry:
+      type: object
       required:
-      - id
-      - entryId
-      properties:
-        id:
-          type: string
-        entryId:
-          type: string
-    AvailabilityEntryTemplate:
-      allOf:
-      - $ref: '#/components/schemas/AvailabilityEntry'
-      required:
-      - entries
+      - start
+      - end
+      - regionIds
       properties:
         start:
           type: string
-          format: date
+          format: date-time
         end:
           type: string
-          format: date
-        entries:
-          type: object
-          additionalProperties:
-            type: object
-            required:
-            - start
-            - end
-            properties:
-              start:
-                type: string
-                format: date-time
-              end:
-                type: string
-                format: date-time
-              weekday:
-                $ref: '#/components/schemas/AvailabilityWeekday'
-    AvailabilityEntryRecordCustom:
-      allOf:
-      - $ref: '#/components/schemas/AvailabilityEntryRecord'
-    AvailabilityPatternRequest:
-      description: The shape of the payload to successfully upsert a pattern.
-      type: object
-      properties:
-        pattern:
-          $ref: '#/components/schemas/AvailabilityPattern'
-        resources:
+          format: date-time
+        regionIds:
           type: array
           items:
-            $ref: '#/components/schemas/AvailabilityPatternResource'
-    SimpleOverrideAvailabilityEntry:
-      allOf:
-      - $ref: '#/components/schemas/SimpleAvailabilityEntryBase'
-      description: Availability entry describing an availability override.
-      required:
-      - id
-      - overrideType
-      - notes
-      - status
-      properties:
-        id:
-          description: ID of the availability override. Override IDs are unique.
-          type: string
-        overrideType:
-          description: Type of the override (e.g. `Leave`, `Occupied`, `Overtime`, `Sick`, etc.)
-          type: string
-        notes:
-          description: User defined notes for this override.
-          type: string
-        status:
-          description: Status of the override, valid values are `Approved`, `Declined` and `Pending`.
-          type: string
-    PatternResourceInsertError:
-      description: When an insert has failed with DB/Salesforce errors.
-      type: object
-      properties:
-        insert-failed:
-          type: object
-          properties:
-            errors:
-              description: A list of errors.
-              type: array
-              items:
-                $ref: '#/components/schemas/PatternErrors'
-            resources:
-              description: The list or resource UIDs the errors relate to.
-              type: array
-              items:
-                type: string
-    PatternUpdateTooManyResults:
-      description: When updating a pattern, if more than one result is returned from salesforce or postgres, this error is returned.
-      type: object
-      properties:
-        too-many-update-results:
-          description: Contains the message of the error.
-          type: string
+            description: Region ID
+            type: string
     SimpleAvailabilityParams:
       required:
       - resourceIds
@@ -721,63 +702,161 @@ components:
           $ref: '#/components/schemas/AvailabilityFilterValues'
         availabilityFilterEntityIds:
           $ref: '#/components/schemas/AvailabilityFilterEntityIds'
-    ParseErrorAvailabilityPatternResult:
-      description: A pattern's error will contain the error type, brief message and further details.
-      type: array
-      items:
-        type: object
-        properties:
-          errorType:
-            description: A consistent string that contains the type of error.
-            type: string
-            example: pattern_error
-          message:
-            description: Further details about the error that occurred.
-            type: string
-            example: "Invalid availability pattern JSON:\n  - Monday: Intervals must be provided."
-          path:
-            description: When the error is with the parsing the JSON, path is returned with the errored path.
-            type: string
-            example: .pattern
-    AvailabilityEntryChunkTemplate:
-      allOf:
-      - $ref: '#/components/schemas/AvailabilityEntryChunk'
-      required:
-      - id
-      - entryId
-      - name
-      properties:
-        id:
-          type: string
-        entryId:
-          type: string
-        name:
-          type: string
-    SimpleHolidayAvailabilityEntry:
-      allOf:
-      - $ref: '#/components/schemas/SimpleAvailabilityEntryBase'
-      description: Availability entry describing a holiday entry.
-      required:
-      - id
-      - name
-      - global
-      properties:
-        id:
-          description: ID of the holiday entry. Holiday IDs are unique.
-          type: string
-        name:
-          description: ''
-          type: string
-        global:
-          description: ''
-          type: boolean
-    ResultCreatedAvailabilityPatternResult:
-      description: The UID of the new pattern created.
+    PatternResourceNotFound:
+      description: When attempting to save and the pattern-resource relationship couldn't be found.
       type: object
       properties:
-        created:
+        pattern-resource-not-found:
+          description: The UID of the pattern-resource relationship.
           type: string
-          format: uuid
+    PatternInsertError:
+      description: When an insert has failed with DB/Salesforce errors.
+      type: object
+      properties:
+        insert-failed:
+          description: A list of errors
+          type: array
+          items:
+            $ref: '#/components/schemas/PatternErrors'
+    ResultOKAvailability:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/AvailabilityResults'
+    Shift:
+      type: object
+      required:
+      - UID
+      - start
+      - end
+      properties:
+        UID:
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        locationId:
+          type: string
+        regionId:
+          type: string
+        displayName:
+          type: string
+    AvailabilityEntryRecord:
+      type: object
+      required:
+      - type
+      - start
+      - end
+      - name
+      discriminator:
+        propertyName: type
+      properties:
+        type:
+          type: string
+          enum:
+          - template
+          - pattern
+          - holiday
+          - custom
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        name:
+          type: string
+    AvailabilityEntryChunk:
+      type: object
+      required:
+      - type
+      - start
+      - end
+      properties:
+        type:
+          type: string
+          enum:
+          - template
+          - pattern
+          - holiday
+          - custom
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+    AvailabilityParams:
+      required:
+      - resourceIds
+      - start
+      - end
+      properties:
+        resourceIds:
+          description: Non-empty array of resource IDs. There is a maximum limit of 200.
+          type: array
+          items:
+            type: string
+        start:
+          description: Instant to fetch from.
+          type: string
+          format: date-time
+        end:
+          description: Instant to fetch to, must be after start and within 375 days of it.
+          type: string
+          format: date-time
+        availability:
+          description: Should availability be returned.
+          type: boolean
+          default: false
+        unavailability:
+          description: Should unavailability be returned.
+          type: boolean
+          default: false
+        availabilityFilterValues:
+          $ref: '#/components/schemas/AvailabilityFilterValues'
+        availabilityFilterEntityIds:
+          $ref: '#/components/schemas/AvailabilityFilterEntityIds'
+    SimpleOverrideAvailabilityEntry:
+      allOf:
+      - $ref: '#/components/schemas/SimpleAvailabilityEntryBase'
+      description: Availability entry describing an availability override.
+      required:
+      - id
+      - overrideType
+      - notes
+      - status
+      properties:
+        id:
+          description: ID of the availability override. Override IDs are unique.
+          type: string
+        overrideType:
+          description: Type of the override (e.g. `Leave`, `Occupied`, `Overtime`, `Sick`, etc.)
+          type: string
+        notes:
+          description: User defined notes for this override.
+          type: string
+        status:
+          description: Status of the override, valid values are `Approved`, `Declined` and `Pending`.
+          type: string
+    PatternUpdateInvalid:
+      description: Returned when we encounter a DB/Salesforce update error.
+      type: object
+      properties:
+        update-failed:
+          type: object
+          properties:
+            errors:
+              description: A list of errors encountered when updating.
+              type: array
+              items:
+                $ref: '#/components/schemas/PatternErrors'
+            UID:
+              description: The UID of the pattern.
+              type: string
     AvailabilityCriteria:
       description: Criteria by which available resources should be determined. Must specify at least one of resourceIds or regionIds.
       required:
@@ -818,6 +897,40 @@ components:
           $ref: '#/components/schemas/AvailabilityFilterValues'
         availabilityFilterEntityIds:
           $ref: '#/components/schemas/AvailabilityFilterEntityIds'
+    ResultCreatedAvailabilityPatternResult:
+      description: The UID of the new pattern created.
+      type: object
+      properties:
+        created:
+          type: string
+          format: uuid
+    AvailabilityPatternRequest:
+      description: The shape of the payload to successfully upsert a pattern.
+      type: object
+      properties:
+        pattern:
+          $ref: '#/components/schemas/AvailabilityPattern'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/AvailabilityPatternResource'
+    AvailabilityEntryRecordHoliday:
+      allOf:
+      - $ref: '#/components/schemas/AvailabilityEntryRecord'
+    AvailabilityEntryChunkTemplate:
+      allOf:
+      - $ref: '#/components/schemas/AvailabilityEntryChunk'
+      required:
+      - id
+      - entryId
+      - name
+      properties:
+        id:
+          type: string
+        entryId:
+          type: string
+        name:
+          type: string
     AvailabilityPatternDetailBase:
       type: object
       description: The shape of the availability patterns that determine a resource's availability.
@@ -829,19 +942,180 @@ components:
           enum:
           - custom
           - weekly
-    PatternErrors:
-      description: The list of DB/Salesforce errors.
+    TimeInterval:
       type: object
       required:
-      - code
-      - message
+      - start
+      - end
       properties:
-        code:
-          description: The error code.
+        start:
           type: string
-        message:
-          description: The error message.
+          format: date-time
+        end:
           type: string
+          format: date-time
+    AvailabilityEntryRecordCustom:
+      allOf:
+      - $ref: '#/components/schemas/AvailabilityEntryRecord'
+    PatternNotFound:
+      description: When a pattern is being updated but does not exist, this error is returned.
+      type: object
+      properties:
+        pattern-not-found:
+          description: The UID of the missing pattern.
+          type: string
+    AvailabilityEntryHoliday:
+      allOf:
+      - $ref: '#/components/schemas/AvailabilityEntry'
+      required:
+      - start
+      - end
+      - name
+      - global
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        name:
+          type: string
+        global:
+          type: boolean
+    AvailabilityEntryRecordPattern:
+      allOf:
+      - $ref: '#/components/schemas/AvailabilityEntryRecord'
+      required:
+      - patternId
+      - patternResourceId
+      - name
+      - description
+      - patternType
+      properties:
+        patternId:
+          type: string
+        patternResourceId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        patternType:
+          type: string
+          enum:
+          - custom
+          - weekly
+    AvailabilityEntryRecordTemplate:
+      allOf:
+      - $ref: '#/components/schemas/AvailabilityEntryRecord'
+      required:
+      - id
+      - entryId
+      properties:
+        id:
+          type: string
+        entryId:
+          type: string
+    AvailabilityPatternDetailCustom:
+      allOf:
+      - $ref: '#/components/schemas/AvailabilityPatternDetailBase'
+      description: Custom patterns describe patterns that span N-number of days. Not all days have to be specified (there can be holes in the pattern). The pattern repeats after lengthDays number of days.
+      required:
+      - lengthDays
+      - days
+      properties:
+        lengthDays:
+          description: The length of the pattern in days, must be a positive integer.
+          type: number
+          example: 5
+        days:
+          type: array
+          description: Days that make up the pattern. Days can be specified in any order. A day with the same index cannot appear more than once. It is allowed to have holes in the pattern. The number of days specified must be less than or equal to the lengthDays property.
+          items:
+            type: object
+            properties:
+              day:
+                $ref: '#/components/schemas/AvailabilityDayWithIndex'
+              intervals:
+                $ref: '#/components/schemas/AvailabilityPatternIntervals'
+    ResultOkAvailabilityPatternResult:
+      description: The UID of the successfully updated pattern.
+      type: object
+      properties:
+        result:
+          type: string
+          format: uuid
+    AvailabilityPatternIntervals:
+      type: array
+      description: A list of time intervals that determine when a resource is available on the day. At least one time interval must be specified for a day; if more intervals are specified, they must be non-overlapping. Intervals are half-open (the start time is included in the interval but the end time is excluded).
+      items:
+        type: object
+        required:
+        - startTime
+        - endTime
+        properties:
+          startTime:
+            type: string
+            description: Start time of the interval in local time (24-hour ISO format).
+            format: HH:mm
+            example: 08:10
+          endTime:
+            type: string
+            description: End time of the interval in local time (24-hour ISO format). Start time must be before end time, except for full days are which are represented as 00:00-00:00, and intervals that extend until the end of the day (e.g. 13:00-00:00).
+            format: HH:mm
+            example: '15:00'
+          recordFilters:
+            type: array
+            description: Optional list of record filter UIDs that define availability preferences for this interval. Each referenced filter represents a condition (for example, job type or urgency) that is evaluated during an availability request and must match the request’s availabilityFilterValues for the interval to apply. Omit or leave empty for unconditional availability.
+            items:
+              type: string
+            uniqueItems: true
+            example:
+            - 3b6a27bc-3e0f-4e3d-8d9e-5f8b3b2c9f10
+            - 0a1b2c3d-4e5f-6789-abcd-ef0123456789
+    SimpleTemplateAvailabilityEntry:
+      allOf:
+      - $ref: '#/components/schemas/SimpleAvailabilityEntryBase'
+      description: Availability entry describing an availability template entry.
+      required:
+      - templateId
+      - templateEntryId
+      - name
+      properties:
+        templateId:
+          description: ID of the availability template this template entry is part of. Note that there can be multiple entries in the response belonging to the same template.
+          type: string
+        templateEntryId:
+          description: ID of the availability template entry. Template entry IDs are unique.
+          type: string
+        name:
+          description: Name of the availability template entry.
+          type: string
+    AvailabilityEntryCustom:
+      allOf:
+      - $ref: '#/components/schemas/AvailabilityEntry'
+      required:
+      - start
+      - end
+      - notes
+      - createdDate
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        notes:
+          type: string
+        status:
+          type: string
+        availabilityType:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
     UnavailabilityEntries:
       type: object
       required:
@@ -916,112 +1190,37 @@ components:
               type: object
               additionalProperties:
                 $ref: '#/components/schemas/AvailabilityEntryCustom'
-    AvailabilityFilterEntityIds:
-      description: Map of object type to entity IDs used to resolve availability filter values. Instead of providing availabilityFilterValues directly, supply entity references by type and UID; the system fetches the entities, evaluates configured record filters, and derives the filter values automatically. Each entity's UID becomes the groupId in the resolved filter values. Cannot be combined with availabilityFilterValues.
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      example:
-        Jobs:
-        - 8ab1de64-ee5b-418f-b303-80bd3baec88f
-        - 3979c7a9-fc9a-48b0-aab1-8989a16c468d
-        Activities:
-        - ab1696b9-163b-4340-9473-8a0cff1e996e
-    AvailabilityResult:
-      description: '`availability` is only returned when the availability query parameter is set to `true` while `unavailability` is only returned when the unavailability query parameter is set to `true`.'
-      type: object
-      required:
-      - available
-      - unavailable
-      properties:
-        available:
-          description: A flattened list of intervals when the resource is available to work. This is the inverse of unavailable. This will be constructed from either shifts if they are enabled or availability if they are not.
-          type: array
-          items:
-            $ref: '#/components/schemas/TimeInterval'
-        unavailable:
-          description: A flattened list of intervals when the resource is unavailable to work. This is the inverse of available.
-          type: array
-          items:
-            $ref: '#/components/schemas/TimeInterval'
-        availability:
-          $ref: '#/components/schemas/AvailabilityEntries'
-        unavailability:
-          $ref: '#/components/schemas/UnavailabilityEntries'
-        shifts:
-          description: A list of shifts for the resource in the requested interval. Draft shifts are excluded.
-          type: array
-          items:
-            $ref: '#/components/schemas/Shift'
-        regions:
-          description: A list of the regions that the resource is available in in the request interval.
-          type: array
-          items:
-            $ref: '#/components/schemas/AvailableRegionEntry'
-    AvailabilityEntryPattern:
-      allOf:
-      - $ref: '#/components/schemas/AvailabilityEntry'
-      required:
-      - patternId
-      - patternResourceId
-      - patternType
-      properties:
-        patternId:
-          type: string
-        patternResourceId:
-          type: string
-        patternType:
-          type: string
-          enum:
-          - custom
-          - weekly
-    PatternResourceUpdateFailed:
-      description: Returned when updating a pattern resource details fails.
-      type: object
-      properties:
-        insert-failed:
-          type: object
-          properties:
-            errors:
-              description: The lis of errors received when attempt to update pattern resources.
+    AvailabilityFilterValues:
+      description: Array of availability preference groups used to filter availability based on resource preferences. Each group targets a single objectType (for example, Jobs) and contains an attribute-to-values map. There can be at most 50 groups per request, and each group's values object may contain up to 100 total values (sum of all attribute array lengths).
+      type: array
+      maxItems: 50
+      items:
+        type: object
+        required:
+        - objectType
+        - values
+        properties:
+          objectType:
+            type: string
+            description: Object type to filter on (for example, Jobs).
+            example: Jobs
+          values:
+            type: object
+            description: Map of attribute names to non-empty arrays of values. Each key must be a valid field for the objectType. Each value is an array of one or more strings; the total number of values across all attributes in a group must not exceed 100.
+            additionalProperties:
               type: array
               items:
                 type: string
-            UIDs:
-              description: A list of IDs for the related pattern resources.
-              type: array
-              items:
-                type: string
-            resources:
-              description: A list of resource IDs that were used during the update.
-              type: array
-              items:
-                type: string
-    SimpleAvailabilityEntryBase:
-      type: object
-      description: Availability entry object that deterimnes the resources's availability.
-      required:
-      - type
-      - start
-      - end
-      - available
-      properties:
-        type:
-          description: The type of the availability entry. Valid values are `template`, `pattern`, `override`, and `holiday`.
-          type: string
-        start:
-          description: The UTC datetime at which the availability entry beings applying to the resource (this exact point in time included).
-          type: string
-          format: date-time
-        end:
-          description: The UTC datetime at which the availability entry stops applying to the resource (this exact point in time excluded).
-          type: string
-          format: date-time
-        available:
-          description: Flag indicating whether this is an availability or unavailability entry.
-          type: boolean
+            example:
+              Type:
+              - Maintenance
+              - Installation
+              - Virtual
+              Urgency:
+              - Critical
+          groupId:
+            type: string
+            description: Optional logical group identifier. When provided, must be non-blank and unique per objectType within a single request.
     AvailabilityEntries:
       type: object
       required:
@@ -1069,120 +1268,6 @@ components:
               type: object
               additionalProperties:
                 $ref: '#/components/schemas/AvailabilityEntryCustom'
-    AvailabilityEntryHoliday:
-      allOf:
-      - $ref: '#/components/schemas/AvailabilityEntry'
-      required:
-      - start
-      - end
-      - name
-      - global
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-        name:
-          type: string
-        global:
-          type: boolean
-    SimpleTemplateAvailabilityEntry:
-      allOf:
-      - $ref: '#/components/schemas/SimpleAvailabilityEntryBase'
-      description: Availability entry describing an availability template entry.
-      required:
-      - templateId
-      - templateEntryId
-      - name
-      properties:
-        templateId:
-          description: ID of the availability template this template entry is part of. Note that there can be multiple entries in the response belonging to the same template.
-          type: string
-        templateEntryId:
-          description: ID of the availability template entry. Template entry IDs are unique.
-          type: string
-        name:
-          description: Name of the availability template entry.
-          type: string
-    AvailableRegionEntry:
-      type: object
-      required:
-      - start
-      - end
-      - regionIds
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-        regionIds:
-          type: array
-          items:
-            description: Region ID
-            type: string
-    AvailabilityResultsSimple:
-      type: array
-      description: Array of AvailabilityResultSimple objects, each object corresponds to the availability information of a single resource.
-      items:
-        $ref: '#/components/schemas/AvailabilityResultSimple'
-    AvailabilityWeekday:
-      description: The days of the week
-      type: string
-      enum:
-      - MON
-      - TUE
-      - WED
-      - THU
-      - FRI
-      - SAT
-      - SUN
-    AvailabilityEntry:
-      type: object
-      required:
-      - name
-      properties:
-        description:
-          type: string
-        name:
-          type: string
-    AvailabilityEntryRecordHoliday:
-      allOf:
-      - $ref: '#/components/schemas/AvailabilityEntryRecord'
-    AvailabilityParams:
-      required:
-      - resourceIds
-      - start
-      - end
-      properties:
-        resourceIds:
-          description: Non-empty array of resource IDs. There is a maximum limit of 200.
-          type: array
-          items:
-            type: string
-        start:
-          description: Instant to fetch from.
-          type: string
-          format: date-time
-        end:
-          description: Instant to fetch to, must be after start and within 375 days of it.
-          type: string
-          format: date-time
-        availability:
-          description: Should availability be returned.
-          type: boolean
-          default: false
-        unavailability:
-          description: Should unavailability be returned.
-          type: boolean
-          default: false
-        availabilityFilterValues:
-          $ref: '#/components/schemas/AvailabilityFilterValues'
-        availabilityFilterEntityIds:
-          $ref: '#/components/schemas/AvailabilityFilterEntityIds'
     AvailabilityEntryChunkCustom:
       allOf:
       - $ref: '#/components/schemas/AvailabilityEntryCustom'
@@ -1191,31 +1276,128 @@ components:
       properties:
         id:
           type: string
-    Shift:
+    PatternErrors:
+      description: The list of DB/Salesforce errors.
       type: object
       required:
-      - UID
+      - code
+      - message
+      properties:
+        code:
+          description: The error code.
+          type: string
+        message:
+          description: The error message.
+          type: string
+    SimpleAvailabilityEntryBase:
+      type: object
+      description: Availability entry object that deterimnes the resources's availability.
+      required:
+      - type
       - start
       - end
+      - available
       properties:
-        UID:
+        type:
+          description: The type of the availability entry. Valid values are `template`, `pattern`, `override`, and `holiday`.
           type: string
         start:
+          description: The UTC datetime at which the availability entry beings applying to the resource (this exact point in time included).
           type: string
           format: date-time
         end:
+          description: The UTC datetime at which the availability entry stops applying to the resource (this exact point in time excluded).
           type: string
           format: date-time
-        locationId:
+        available:
+          description: Flag indicating whether this is an availability or unavailability entry.
+          type: boolean
+    ParseErrorAvailabilityPatternResult:
+      description: A pattern's error will contain the error type, brief message and further details.
+      type: array
+      items:
+        type: object
+        properties:
+          errorType:
+            description: A consistent string that contains the type of error.
+            type: string
+            example: pattern_error
+          message:
+            description: Further details about the error that occurred.
+            type: string
+            example: "Invalid availability pattern JSON:\n  - Monday: Intervals must be provided."
+          path:
+            description: When the error is with the parsing the JSON, path is returned with the errored path.
+            type: string
+            example: .pattern
+    AvailabilityEntryPattern:
+      allOf:
+      - $ref: '#/components/schemas/AvailabilityEntry'
+      required:
+      - patternId
+      - patternResourceId
+      - patternType
+      properties:
+        patternId:
           type: string
-        regionId:
+        patternResourceId:
           type: string
-        displayName:
+        patternType:
           type: string
-    AvailabilityDayWithIndex:
-      description: The N-th number of day in the pattern. The index is 1-based (the first day of the pattern is day 1).
-      type: number
-      example: 1
+          enum:
+          - custom
+          - weekly
+    AvailabilityEntryTemplate:
+      allOf:
+      - $ref: '#/components/schemas/AvailabilityEntry'
+      required:
+      - entries
+      properties:
+        start:
+          type: string
+          format: date
+        end:
+          type: string
+          format: date
+        entries:
+          type: object
+          additionalProperties:
+            type: object
+            required:
+            - start
+            - end
+            properties:
+              start:
+                type: string
+                format: date-time
+              end:
+                type: string
+                format: date-time
+              weekday:
+                $ref: '#/components/schemas/AvailabilityWeekday'
+    AvailabilityEntryChunkPattern:
+      allOf:
+      - $ref: '#/components/schemas/AvailabilityEntryChunk'
+      required:
+      - patternId
+      - patternResourceId
+      - name
+      - description
+      - patternType
+      properties:
+        patternId:
+          type: string
+        patternResourceId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        patternType:
+          type: string
+          enum:
+          - custom
+          - weekly
     Error:
       type: object
       required:
@@ -1226,66 +1408,50 @@ components:
           type: string
         message:
           type: string
-    AvailabilityPattern:
-      type: object
-      description: The pattern of availabilities to determine availability.
-      properties:
-        UID:
-          type: string
-          format: uuid
-        name:
-          type: string
-        description:
-          type: string
-        pattern:
-          oneOf:
-          - $ref: '#/components/schemas/AvailabilityPatternDetailCustom'
-          - $ref: '#/components/schemas/AvailabilityPatternDetailWeekly'
-          discriminator:
-            propertyName: type
-            mapping:
-              custom: '#/components/schemas/AvailabilityPatternDetailCustom'
-              weekly: '#/components/schemas/AvailabilityPatternDetailWeekly'
-    ResultOKAvailability:
+    AvailabilityResultsSimple:
+      type: array
+      description: Array of AvailabilityResultSimple objects, each object corresponds to the availability information of a single resource.
+      items:
+        $ref: '#/components/schemas/AvailabilityResultSimple'
+    PatternResourceInsertError:
+      description: When an insert has failed with DB/Salesforce errors.
       type: object
       properties:
-        result:
-          $ref: '#/components/schemas/AvailabilityResults'
-    PatternUpdateInvalid:
-      description: Returned when we encounter a DB/Salesforce update error.
-      type: object
-      properties:
-        update-failed:
+        insert-failed:
           type: object
           properties:
             errors:
-              description: A list of errors encountered when updating.
+              description: A list of errors.
               type: array
               items:
                 $ref: '#/components/schemas/PatternErrors'
-            UID:
-              description: The UID of the pattern.
-              type: string
-    TimeInterval:
-      type: object
-      required:
-      - start
-      - end
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-    AvailabilityEntryChunkHoliday:
+            resources:
+              description: The list or resource UIDs the errors relate to.
+              type: array
+              items:
+                type: string
+    AvailabilityPatternDetailWeekly:
       allOf:
-      - $ref: '#/components/schemas/AvailabilityEntryChunk'
+      - $ref: '#/components/schemas/AvailabilityPatternDetailBase'
+      description: Weekly patterns describe patterns that span a single calendar week (always from Monday to Sunday). Optionally, there can be any number of empty padding weeks (unavailable all week) after the first week, after which the pattern repeats from the first week.
       required:
-      - id
+      - repeatWeeks
+      - days
       properties:
-        id:
-          type: string
+        repeatWeeks:
+          description: The repeat frequency of a single week pattern, must be a positive integer. The single weekly pattern is applied from the start time (which can be a non-complete week if the start time doesn't fall on a Monday), followed by `repeatWeeks - 1` number of "empty padding weeks" (unavailable all week).
+          type: number
+          example: 3
+        days:
+          type: array
+          description: Weekdays that make up the pattern. Weekdays can be specified in any order. Not all weekdays must be specified (there can be holes in the pattern). Each weekday must appear only once in the pattern.
+          items:
+            type: object
+            properties:
+              weekday:
+                $ref: '#/components/schemas/AvailabilityWeekday'
+              intervals:
+                $ref: '#/components/schemas/AvailabilityPatternIntervals'
     PatternRequestError:
       description: If a pattern fails to upsert we will receive this error.
       type: object
@@ -1316,172 +1482,6 @@ components:
             - $ref: '#/components/schemas/PatternResourceInsertError'
             - $ref: '#/components/schemas/PatternUpdateInvalid'
             - $ref: '#/components/schemas/PatternResourceUpdateFailed'
-    PatternNotFound:
-      description: When a pattern is being updated but does not exist, this error is returned.
-      type: object
-      properties:
-        pattern-not-found:
-          description: The UID of the missing pattern.
-          type: string
-    AvailabilityEntryChunk:
-      type: object
-      required:
-      - type
-      - start
-      - end
-      properties:
-        type:
-          type: string
-          enum:
-          - template
-          - pattern
-          - holiday
-          - custom
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-    AvailabilityPatternIntervals:
-      type: array
-      description: A list of time intervals that determine when a resource is available on the day. At least one time interval must be specified for a day; if more intervals are specified, they must be non-overlapping. Intervals are half-open (the start time is included in the interval but the end time is excluded).
-      items:
-        type: object
-        required:
-        - startTime
-        - endTime
-        properties:
-          startTime:
-            type: string
-            description: Start time of the interval in local time (24-hour ISO format).
-            format: HH:mm
-            example: 08:10
-          endTime:
-            type: string
-            description: End time of the interval in local time (24-hour ISO format). Start time must be before end time, except for full days are which are represented as 00:00-00:00, and intervals that extend until the end of the day (e.g. 13:00-00:00).
-            format: HH:mm
-            example: '15:00'
-          recordFilters:
-            type: array
-            description: Optional list of record filter UIDs that define availability preferences for this interval. Each referenced filter represents a condition (for example, job type or urgency) that is evaluated during an availability request and must match the request’s availabilityFilterValues for the interval to apply. Omit or leave empty for unconditional availability.
-            items:
-              type: string
-            uniqueItems: true
-            example:
-            - 3b6a27bc-3e0f-4e3d-8d9e-5f8b3b2c9f10
-            - 0a1b2c3d-4e5f-6789-abcd-ef0123456789
-    SimplePatternAvailabilityEntry:
-      allOf:
-      - $ref: '#/components/schemas/SimpleAvailabilityEntryBase'
-      description: Availability entry describing an availability pattern entry.
-      required:
-      - patternId
-      - patternResourceId
-      - name
-      - description
-      - patternType
-      properties:
-        patternId:
-          description: ID of the availability pattern this pattern entry is part of. Note that there can be multiple entries in the response belonging to the same pattern.
-          type: string
-        patternResourceId:
-          description: ID of the availability pattern resource record (which associates a pattern with a given resource).
-          type: string
-        description:
-          description: Description of the pattern.
-          type: string
-        patternType:
-          description: Type of the pattern, valid values are `weekly` and `custom`.
-          type: string
-    PatternInsertError:
-      description: When an insert has failed with DB/Salesforce errors.
-      type: object
-      properties:
-        insert-failed:
-          description: A list of errors
-          type: array
-          items:
-            $ref: '#/components/schemas/PatternErrors'
-    AvailabilityResults:
-      type: object
-      description: Key of resource ID to AvailabilityResult.
-      additionalProperties:
-        $ref: '#/components/schemas/AvailabilityResult'
-    ResultOkAvailabilityPatternResult:
-      description: The UID of the successfully updated pattern.
-      type: object
-      properties:
-        result:
-          type: string
-          format: uuid
-    AvailabilityResultSimple:
-      description: Describes the availability information of a single resource. `mergedAvailabilities` is only returned when the mergedAvailabilities query parameter is set to `true`.
-      type: object
-      required:
-      - resourceId
-      - mergedAvailabilities
-      - entries
-      properties:
-        resourceId:
-          description: ID of the resource.
-          type: string
-        mergedAvailabilties:
-          description: A flattened list of intervals when the resource is available to work. These intervals are calculated by merging all availability entries together in the given time range according to the predefined precedence rules. This key only contains data if the `mergedAvailabilities` query string parameters was set to `true` in the request, otherwise it's set to null.
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/TimeInterval'
-        entries:
-          description: The list of various availability entries in the given time interval applicable for the resource. Entries are sorted by the start time in ascending order.
-          type:
-          - array
-          - 'null'
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/SimpleTemplateAvailabilityEntry'
-            - $ref: '#/components/schemas/SimplePatternAvailabilityEntry'
-            - $ref: '#/components/schemas/SimpleHolidayAvailabilityEntry'
-            - $ref: '#/components/schemas/SimpleOverrideAvailabilityEntry'
-            discriminator:
-              propertyName: type
-              mapping:
-                template: '#/components/schemas/SimpleTemplateAvailabilityEntry'
-                pattern: '#/components/schemas/SimplePatternAvailabilityEntry'
-                holiday: '#/components/schemas/SimpleHolidayAvailabilityEntry'
-                override: '#/components/schemas/SimpleOverrideAvailabilityEntry'
-    AvailabilityFilterValues:
-      description: Array of availability preference groups used to filter availability based on resource preferences. Each group targets a single objectType (for example, Jobs) and contains an attribute-to-values map. There can be at most 50 groups per request, and each group's values object may contain up to 100 total values (sum of all attribute array lengths).
-      type: array
-      maxItems: 50
-      items:
-        type: object
-        required:
-        - objectType
-        - values
-        properties:
-          objectType:
-            type: string
-            description: Object type to filter on (for example, Jobs).
-            example: Jobs
-          values:
-            type: object
-            description: Map of attribute names to non-empty arrays of values. Each key must be a valid field for the objectType. Each value is an array of one or more strings; the total number of values across all attributes in a group must not exceed 100.
-            additionalProperties:
-              type: array
-              items:
-                type: string
-            example:
-              Type:
-              - Maintenance
-              - Installation
-              - Virtual
-              Urgency:
-              - Critical
-          groupId:
-            type: string
-            description: Optional logical group identifier. When provided, must be non-blank and unique per objectType within a single request.
   securitySchemes:
     Authorization:
       type: http

@@ -210,14 +210,6 @@ paths:
       - Grid
 components:
   schemas:
-    SchedulingGridExplain:
-      type: object
-      additionalProperties: false
-      properties:
-        enabled:
-          type: boolean
-          default: false
-      description: When enabled, the response contains per-slot references and a registry of explanations for available windows only.
     RecordFilter:
       type: object
       additionalProperties: false
@@ -232,20 +224,6 @@ components:
           type: string
         objectType:
           type: string
-    GridWindowExplanation:
-      type: object
-      additionalProperties: false
-      properties:
-        matchedGroups:
-          type: array
-          description: Matched groups from overlapping contributors, deduplicated.
-          items:
-            $ref: '#/components/schemas/MatchedGroup'
-        contributors:
-          type: array
-          description: Contributors are returned in the upstream order.
-          items:
-            $ref: '#/components/schemas/ReasonContributor'
     ReasonContributor:
       type: object
       additionalProperties: false
@@ -424,79 +402,6 @@ components:
       - scheduleStart
       - scheduleEnd
       - gridSize
-    SchedulingGridResponse:
-      type: object
-      example: "{\n  \"result\": [\n    {\n      \"start\": \"2018-11-22T22:00:00.000Z\",\n      \"end\": \"2018-11-22T22:30:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-22T22:30:00.000Z\",\n      \"end\": \"2018-11-22T23:00:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-22T23:00:00.000Z\",\n      \"end\": \"2018-11-22T23:30:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-22T23:30:00.000Z\",\n      \"end\": \"2018-11-23T00:00:00.000Z\",\n      \"availableResources\": [\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-23T00:00:00.000Z\",\n      \"end\": \"2018-11-23T00:30:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-23T00:30:00.000Z\",\n      \"end\": \"2018-11-23T01:00:00.000Z\",\n      \"availableResources\": [\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    }\n  ]\n}\n"
-      properties:
-        result:
-          type: array
-          items:
-            type: object
-            properties:
-              start:
-                $ref: '#/components/schemas/TimeStamp'
-              end:
-                $ref: '#/components/schemas/TimeStamp'
-              availableResources:
-                type: array
-                description: Resource ids of available resources.
-                items:
-                  type: string
-                  description: List of the resources that are available.
-              explainRef:
-                type: object
-                description: Present only when request.explain.enabled=true. Maps resourceId -> explanationId. If no resource has an explanation in the slot, this object will be empty. Resources without contributors or matched groups for a slot will not appear in this map (it may omit some available resources).
-                additionalProperties:
-                  type: string
-            required:
-            - start
-            - end
-            - availableResources
-        metadata:
-          type: object
-          additionalProperties: false
-          properties:
-            preferences:
-              type: object
-              additionalProperties: false
-              description: Present only when any matchedRecordFilterIds appear in explanations. Contains only used IDs.
-              properties:
-                recordFiltersById:
-                  type: object
-                  additionalProperties:
-                    $ref: '#/components/schemas/RecordFilter'
-            explanationsById:
-              type: object
-              description: Registry of unique explanations when explain is enabled. IDs are response-local and not stable across requests; do not store or assume global uniqueness. Deduplicated within a single response (per resource).
-              additionalProperties:
-                $ref: '#/components/schemas/GridWindowExplanation'
-    MatchedGroup:
-      type: object
-      additionalProperties: false
-      properties:
-        objectType:
-          type: string
-        groupId:
-          type: string
-        matched:
-          type: array
-          items:
-            type: object
-            additionalProperties: false
-            properties:
-              attr:
-                type: string
-              expected:
-                type: array
-                items:
-                  type: string
-        matchedRecordFilterIds:
-          type: array
-          items:
-            type: string
-      required:
-      - objectType
-      - groupId
     SchedulingGridBodyResourceIds:
       type: object
       example: "{\n  \"resourceIds\": [\n    \"0005ade1-2a42-431f-a468-594ec4cb3261\",\n    \"0005ea18-61c1-49d9-9b50-d16a31a21c20\"\n  ],\n  \"job\": {\n    \"location\": {\n      \"lat\": -27.457865,\n      \"lng\": 153.037271\n    }\n  },\n  \"gridSize\": 1800,\n  \"scheduleStart\": \"2018-11-22T22:00:00.000Z\",\n  \"scheduleEnd\": \"2018-11-23T01:00:00.000Z\",\n  \"maxTravelTimeInSeconds\": 600,\n  \"includeTravelTimeToAndFromHome\": true,\n  \"regionId\": \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n  \"availabilityFilterValues\": [\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": {\n        \"Type\": \"Maintenance\",\n        \"Urgency\": \"Critical\"\n      }\n    }\n  ]\n}\n"
@@ -617,6 +522,101 @@ components:
       type: string
       format: date-time
       description: Can be either ISO8601 date time string or Unix timestamp number ( in milliseconds ). Always returned in ISO8601 format.
+    SchedulingGridResponse:
+      type: object
+      example: "{\n  \"result\": [\n    {\n      \"start\": \"2018-11-22T22:00:00.000Z\",\n      \"end\": \"2018-11-22T22:30:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-22T22:30:00.000Z\",\n      \"end\": \"2018-11-22T23:00:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-22T23:00:00.000Z\",\n      \"end\": \"2018-11-22T23:30:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-22T23:30:00.000Z\",\n      \"end\": \"2018-11-23T00:00:00.000Z\",\n      \"availableResources\": [\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-23T00:00:00.000Z\",\n      \"end\": \"2018-11-23T00:30:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-23T00:30:00.000Z\",\n      \"end\": \"2018-11-23T01:00:00.000Z\",\n      \"availableResources\": [\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    }\n  ]\n}\n"
+      properties:
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              start:
+                $ref: '#/components/schemas/TimeStamp'
+              end:
+                $ref: '#/components/schemas/TimeStamp'
+              availableResources:
+                type: array
+                description: Resource ids of available resources.
+                items:
+                  type: string
+                  description: List of the resources that are available.
+              explainRef:
+                type: object
+                description: Present only when request.explain.enabled=true. Maps resourceId -> explanationId. If no resource has an explanation in the slot, this object will be empty. Resources without contributors or matched groups for a slot will not appear in this map (it may omit some available resources).
+                additionalProperties:
+                  type: string
+            required:
+            - start
+            - end
+            - availableResources
+        metadata:
+          type: object
+          additionalProperties: false
+          properties:
+            preferences:
+              type: object
+              additionalProperties: false
+              description: Present only when any matchedRecordFilterIds appear in explanations. Contains only used IDs.
+              properties:
+                recordFiltersById:
+                  type: object
+                  additionalProperties:
+                    $ref: '#/components/schemas/RecordFilter'
+            explanationsById:
+              type: object
+              description: Registry of unique explanations when explain is enabled. IDs are response-local and not stable across requests; do not store or assume global uniqueness. Deduplicated within a single response (per resource).
+              additionalProperties:
+                $ref: '#/components/schemas/GridWindowExplanation'
+    GridWindowExplanation:
+      type: object
+      additionalProperties: false
+      properties:
+        matchedGroups:
+          type: array
+          description: Matched groups from overlapping contributors, deduplicated.
+          items:
+            $ref: '#/components/schemas/MatchedGroup'
+        contributors:
+          type: array
+          description: Contributors are returned in the upstream order.
+          items:
+            $ref: '#/components/schemas/ReasonContributor'
+    MatchedGroup:
+      type: object
+      additionalProperties: false
+      properties:
+        objectType:
+          type: string
+        groupId:
+          type: string
+        matched:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              attr:
+                type: string
+              expected:
+                type: array
+                items:
+                  type: string
+        matchedRecordFilterIds:
+          type: array
+          items:
+            type: string
+      required:
+      - objectType
+      - groupId
+    SchedulingGridExplain:
+      type: object
+      additionalProperties: false
+      properties:
+        enabled:
+          type: boolean
+          default: false
+      description: When enabled, the response contains per-slot references and a registry of explanations for available windows only.
   securitySchemes:
     BearerAuth:
       type: http

@@ -127,12 +127,11 @@ paths:
       - Attachments
 components:
   schemas:
-    ApiResultsFileMetaMap:
+    ApiResultFileMeta:
       type: object
-      additionalProperties:
-        type: array
-        items:
-          $ref: '#/components/schemas/FileMetaOld'
+      properties:
+        result:
+          $ref: '#/components/schemas/FileMeta'
     FileMetaOld:
       type: object
       required:
@@ -164,23 +163,6 @@ components:
           type: string
         downloadUrl:
           type: string
-    ApiResultFileMeta:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/FileMeta'
-    ApiResultsFileMeta:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/FileMetaOld'
-    ApiResultFileMetaOld:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/FileMetaOld'
     FileMeta:
       type: object
       required:
@@ -211,6 +193,24 @@ components:
           type: string
         downloadUrl:
           type: string
+    ApiResultFileMetaOld:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/FileMetaOld'
+    ApiResultsFileMeta:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileMetaOld'
+    ApiResultsFileMetaMap:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          $ref: '#/components/schemas/FileMetaOld'
   securitySchemes:
     Authorization:
       type: http

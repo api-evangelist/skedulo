@@ -14,7 +14,7 @@ paths:
     get:
       summary: Get batch schedules by ids
       description: Returns a paginated list of batch schedules matching the provided comma-separated list of schedule IDs.
-      operationId: Get Batch Schedules By Ids
+      operationId: GetBatchSchedulesByIds
       parameters:
       - name: ids
         in: query
@@ -136,10 +136,12 @@ paths:
       - httpAuth: []
       tags:
       - Batch
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Batch Schedules By Ids
     post:
       summary: Create a batch schedule
       description: Create a new batch of scheduled runs to be optimized. These can be either one-off or recurring schedules.
-      operationId: Batch Schedule
+      operationId: BatchSchedule
       requestBody:
         content:
           application/json:
@@ -214,11 +216,13 @@ paths:
       - httpAuth: []
       tags:
       - Batch
+      x-operation-id-source: normalized
+      x-operation-id-original: Batch Schedule
   /batch/schedule/{scheduleId}:
     get:
       summary: Get a batch schedule
       description: Returns the configuration and current status of a single batch schedule identified by its ID.
-      operationId: Get Batch Schedule
+      operationId: GetBatchSchedule
       parameters:
       - name: scheduleId
         in: path
@@ -284,10 +288,12 @@ paths:
       - httpAuth: []
       tags:
       - Batch
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Batch Schedule
     put:
       summary: Update a batch schedule
       description: Replace the configuration of an existing batch schedule with the provided definition. This will affect all future runs triggered by this schedule.
-      operationId: Update Batch Schedule
+      operationId: UpdateBatchSchedule
       parameters:
       - name: scheduleId
         in: path
@@ -356,10 +362,12 @@ paths:
       - httpAuth: []
       tags:
       - Batch
+      x-operation-id-source: normalized
+      x-operation-id-original: Update Batch Schedule
     delete:
       summary: Delete a batch schedule
       description: Permanently deletes a batch schedule by its ID. No further optimization runs will be triggered for this schedule after deletion.
-      operationId: Delete Batch Schedule
+      operationId: DeleteBatchSchedule
       parameters:
       - name: scheduleId
         in: path
@@ -373,8 +381,184 @@ paths:
       - httpAuth: []
       tags:
       - Batch
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete Batch Schedule
 components:
   schemas:
+    Yearly:
+      required:
+      - step
+      - repeatMode
+      type: object
+      properties:
+        step:
+          type: integer
+          format: int32
+        repeatMode:
+          type: string
+          description: '`yearly`'
+        endAfterNumberOccurrences:
+          type: integer
+          format: int32
+        endOn:
+          type: string
+          format: date
+      description: recurringFieldsDescription
+    ObjectiveWeightModifiersShape:
+      type: object
+      properties:
+        minimizeDisruption:
+          type: number
+        balanceAbsoluteWorkload:
+          type: number
+        travelTime:
+          type: number
+        minimizeResources:
+          type: number
+        softSkills:
+          type: number
+        jobsPriority:
+          type: number
+        resourceRating:
+          type: number
+        scheduleImmediacy:
+          type: number
+        urgency:
+          type: number
+        overtime:
+          type: number
+    Monthly:
+      required:
+      - step
+      - repeatMode
+      - dayOfMonthToRepeatOn
+      type: object
+      properties:
+        step:
+          type: integer
+          format: int32
+        repeatMode:
+          type: string
+          description: '`monthly_nth_day`'
+        dayOfMonthToRepeatOn:
+          type: integer
+          format: int32
+        endAfterNumberOccurrences:
+          type: integer
+          format: int32
+        endOn:
+          type: string
+          format: date
+      description: recurringFieldsDescription
+    ObjectiveWeightsShape:
+      type: object
+      properties:
+        minimizeDisruption:
+          type: integer
+        balanceAbsoluteWorkload:
+          type: integer
+        travelTime:
+          type: integer
+        minimizeResources:
+          type: integer
+        softSkills:
+          type: integer
+        jobsPriority:
+          type: integer
+        resourceRating:
+          type: integer
+        scheduleImmediacy:
+          type: integer
+        urgency:
+          type: integer
+        overtime:
+          type: integer
+    Recurring:
+      description: Configuration for recurring schedules, if blank the schedule will only run once
+      oneOf:
+      - $ref: '#/components/schemas/Daily'
+      - $ref: '#/components/schemas/Monthly'
+      - $ref: '#/components/schemas/Weekly'
+      - $ref: '#/components/schemas/Yearly'
+    ScheduleShape:
+      required:
+      - name
+      - runDate
+      - timezone
+      - earliestStartTime
+      - optimizationType
+      - region
+      - dayRange
+      - dayOffset
+      - schedulingOptions
+      type: object
+      properties:
+        name:
+          type: string
+        runDate:
+          type: string
+          description: Date the schedule will first run
+          format: date
+        timezone:
+          type: string
+        earliestStartTime:
+          type: string
+          description: Earliest time the schedule can start
+        latestEndTime:
+          type: string
+        recurring:
+          $ref: '#/components/schemas/Recurring'
+        persistenceStrategy:
+          type: string
+          description: Whether the optimization results will be autosaved
+          enum:
+          - save
+          - optimize
+        optimizationType:
+          type: string
+          enum:
+          - pvrp
+        region:
+          type: string
+        jobQuery:
+          type: string
+          description: EQL filter for jobs to include in the optimization
+        resourceQuery:
+          type: string
+          description: EQL filter for resources to include in the optimization
+        dayRange:
+          type: integer
+          description: Number of days to include in the scheduling window
+          format: int32
+        dayOffset:
+          type: integer
+          description: Number of days after the run date to start the scheduling window
+          format: int32
+        schedulingOptions:
+          $ref: '#/components/schemas/PVRPProductOptionsShape'
+        includeTemporaryRegions:
+          type: boolean
+        includeSecondaryRegions:
+          type: boolean
+    Daily:
+      required:
+      - step
+      - repeatMode
+      type: object
+      properties:
+        step:
+          type: integer
+          format: int32
+        repeatMode:
+          type: string
+          description: '`daily`'
+        endAfterNumberOccurrences:
+          type: integer
+          format: int32
+        endOn:
+          type: string
+          format: date
+      description: recurringFieldsDescription
     Weekly:
       required:
       - step
@@ -407,6 +591,65 @@ components:
           type: string
           format: date
       description: recurringFieldsDescription
+    PVRPProductOptionsShape:
+      type: object
+      properties:
+        full:
+          type: boolean
+        ignoreTravelTime:
+          type: boolean
+        ignoreTravelTimeFirstJob:
+          type: boolean
+        ignoreTravelTimeLastJob:
+          type: boolean
+        minimizeResources:
+          type: boolean
+        maxDailyTravelTimeInMinutes:
+          type: integer
+          format: int64
+        maxTravelTimeBetweenLocations:
+          type: integer
+          format: int64
+        respectAllocationTimes:
+          type: boolean
+        respectAllocationTimesOverTimeConstraints:
+          type: boolean
+        balanceAbsoluteWorkload:
+          type: boolean
+        snapUnit:
+          type: integer
+          format: int32
+        padding:
+          type: integer
+          format: int32
+        objectiveWeights:
+          $ref: '#/components/schemas/ObjectiveWeightsShape'
+        objectiveWeightModifiers:
+          $ref: '#/components/schemas/ObjectiveWeightModifiersShape'
+        temporalAffinityStrength:
+          type: integer
+          format: int32
+        respectSchedule:
+          type: boolean
+        recipeId:
+          type: string
+          description: The recipe id to use for the optimization run, this will override any scheduling options in the request and is the preferred way of controlling the optimization run
+        enablePartiallyAllocatedGroups:
+          type: boolean
+        enablePartiallyAllocatedAllocationDependencies:
+          type: boolean
+        enforceCompatibility:
+          type: boolean
+        onJobRemoval:
+          type: array
+          items:
+            type: string
+            enum:
+            - clearJobTimes
+            - deallocateResources
+          minItems: 1
+        rollingScheduleWindowInterval:
+          description: The interval used to split the schedule window into rolling sub-windows. Accepts "monthly", "quarterly", or a positive integer representing a fixed number of days.
     ScheduleRecordShape:
       required:
       - name
@@ -480,171 +723,6 @@ components:
         lastModifiedByDate:
           type: string
           format: date-time
-    ScheduleShape:
-      required:
-      - name
-      - runDate
-      - timezone
-      - earliestStartTime
-      - optimizationType
-      - region
-      - dayRange
-      - dayOffset
-      - schedulingOptions
-      type: object
-      properties:
-        name:
-          type: string
-        runDate:
-          type: string
-          description: Date the schedule will first run
-          format: date
-        timezone:
-          type: string
-        earliestStartTime:
-          type: string
-          description: Earliest time the schedule can start
-        latestEndTime:
-          type: string
-        recurring:
-          $ref: '#/components/schemas/Recurring'
-        persistenceStrategy:
-          type: string
-          description: Whether the optimization results will be autosaved
-          enum:
-          - save
-          - optimize
-        optimizationType:
-          type: string
-          enum:
-          - pvrp
-        region:
-          type: string
-        jobQuery:
-          type: string
-          description: EQL filter for jobs to include in the optimization
-        resourceQuery:
-          type: string
-          description: EQL filter for resources to include in the optimization
-        dayRange:
-          type: integer
-          description: Number of days to include in the scheduling window
-          format: int32
-        dayOffset:
-          type: integer
-          description: Number of days after the run date to start the scheduling window
-          format: int32
-        schedulingOptions:
-          $ref: '#/components/schemas/PVRPProductOptionsShape'
-        includeTemporaryRegions:
-          type: boolean
-        includeSecondaryRegions:
-          type: boolean
-    ObjectiveWeightsShape:
-      type: object
-      properties:
-        minimizeDisruption:
-          type: integer
-        balanceAbsoluteWorkload:
-          type: integer
-        travelTime:
-          type: integer
-        minimizeResources:
-          type: integer
-        softSkills:
-          type: integer
-        jobsPriority:
-          type: integer
-        resourceRating:
-          type: integer
-        scheduleImmediacy:
-          type: integer
-        urgency:
-          type: integer
-        overtime:
-          type: integer
-    ObjectiveWeightModifiersShape:
-      type: object
-      properties:
-        minimizeDisruption:
-          type: number
-        balanceAbsoluteWorkload:
-          type: number
-        travelTime:
-          type: number
-        minimizeResources:
-          type: number
-        softSkills:
-          type: number
-        jobsPriority:
-          type: number
-        resourceRating:
-          type: number
-        scheduleImmediacy:
-          type: number
-        urgency:
-          type: number
-        overtime:
-          type: number
-    PVRPProductOptionsShape:
-      type: object
-      properties:
-        full:
-          type: boolean
-        ignoreTravelTime:
-          type: boolean
-        ignoreTravelTimeFirstJob:
-          type: boolean
-        ignoreTravelTimeLastJob:
-          type: boolean
-        minimizeResources:
-          type: boolean
-        maxDailyTravelTimeInMinutes:
-          type: integer
-          format: int64
-        maxTravelTimeBetweenLocations:
-          type: integer
-          format: int64
-        respectAllocationTimes:
-          type: boolean
-        respectAllocationTimesOverTimeConstraints:
-          type: boolean
-        balanceAbsoluteWorkload:
-          type: boolean
-        snapUnit:
-          type: integer
-          format: int32
-        padding:
-          type: integer
-          format: int32
-        objectiveWeights:
-          $ref: '#/components/schemas/ObjectiveWeightsShape'
-        objectiveWeightModifiers:
-          $ref: '#/components/schemas/ObjectiveWeightModifiersShape'
-        temporalAffinityStrength:
-          type: integer
-          format: int32
-        respectSchedule:
-          type: boolean
-        recipeId:
-          type: string
-          description: The recipe id to use for the optimization run, this will override any scheduling options in the request and is the preferred way of controlling the optimization run
-        enablePartiallyAllocatedGroups:
-          type: boolean
-        enablePartiallyAllocatedAllocationDependencies:
-          type: boolean
-        enforceCompatibility:
-          type: boolean
-        onJobRemoval:
-          type: array
-          items:
-            type: string
-            enum:
-            - clearJobTimes
-            - deallocateResources
-          minItems: 1
-        rollingScheduleWindowInterval:
-          description: The interval used to split the schedule window into rolling sub-windows. Accepts "monthly", "quarterly", or a positive integer representing a fixed number of days.
     Paging:
       required:
       - limit
@@ -658,74 +736,6 @@ components:
         total:
           type: integer
           format: int32
-    Daily:
-      required:
-      - step
-      - repeatMode
-      type: object
-      properties:
-        step:
-          type: integer
-          format: int32
-        repeatMode:
-          type: string
-          description: '`daily`'
-        endAfterNumberOccurrences:
-          type: integer
-          format: int32
-        endOn:
-          type: string
-          format: date
-      description: recurringFieldsDescription
-    Recurring:
-      description: Configuration for recurring schedules, if blank the schedule will only run once
-      oneOf:
-      - $ref: '#/components/schemas/Daily'
-      - $ref: '#/components/schemas/Monthly'
-      - $ref: '#/components/schemas/Weekly'
-      - $ref: '#/components/schemas/Yearly'
-    Monthly:
-      required:
-      - step
-      - repeatMode
-      - dayOfMonthToRepeatOn
-      type: object
-      properties:
-        step:
-          type: integer
-          format: int32
-        repeatMode:
-          type: string
-          description: '`monthly_nth_day`'
-        dayOfMonthToRepeatOn:
-          type: integer
-          format: int32
-        endAfterNumberOccurrences:
-          type: integer
-          format: int32
-        endOn:
-          type: string
-          format: date
-      description: recurringFieldsDescription
-    Yearly:
-      required:
-      - step
-      - repeatMode
-      type: object
-      properties:
-        step:
-          type: integer
-          format: int32
-        repeatMode:
-          type: string
-          description: '`yearly`'
-        endAfterNumberOccurrences:
-          type: integer
-          format: int32
-        endOn:
-          type: string
-          format: date
-      description: recurringFieldsDescription
   securitySchemes:
     httpAuth:
       type: http

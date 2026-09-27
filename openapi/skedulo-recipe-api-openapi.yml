@@ -14,7 +14,7 @@ paths:
     get:
       summary: Get a list of recipes
       description: Returns a paginated list of optimization recipes visible to the authenticated tenant. Recipes encapsulate optimizer configuration and can be filtered by name, description, status, system flag, and the user who created or last modified them.
-      operationId: Get Recipes
+      operationId: GetRecipes
       parameters:
       - name: name
         in: query
@@ -180,10 +180,12 @@ paths:
       - httpAuth: []
       tags:
       - Recipe
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Recipes
     post:
       summary: Create a new recipe
       description: Creates a new optimization recipe for the authenticated tenant. The recipe encapsulates optimizer settings such as objective weights and feature options that can be referenced when starting optimization runs.
-      operationId: Create Recipe
+      operationId: CreateRecipe
       requestBody:
         content:
           application/json:
@@ -296,11 +298,13 @@ paths:
       - httpAuth: []
       tags:
       - Recipe
+      x-operation-id-source: normalized
+      x-operation-id-original: Create Recipe
   /recipe/{recipeId}:
     get:
       summary: Get a recipe by id
       description: Returns the full configuration of a single recipe identified by its ID, including its name, description, status, and optimizer settings.
-      operationId: Get Recipe By Id
+      operationId: GetRecipeById
       parameters:
       - name: recipeId
         in: path
@@ -391,10 +395,12 @@ paths:
       - httpAuth: []
       tags:
       - Recipe
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Recipe By Id
     put:
       summary: Update a recipe
       description: Replaces the configuration of an existing recipe identified by its ID. This will affect any future optimization runs that reference this recipe.
-      operationId: Update Recipe
+      operationId: UpdateRecipe
       parameters:
       - name: recipeId
         in: path
@@ -513,11 +519,13 @@ paths:
       - httpAuth: []
       tags:
       - Recipe
+      x-operation-id-source: normalized
+      x-operation-id-original: Update Recipe
   /recipe/{recipeId}/default:
     put:
       summary: Set the default recipe for a tenant
       description: Designates the specified recipe as the default for the authenticated tenant. When no explicit recipe is provided at the time of scheduling, this recipe's settings will be used.
-      operationId: Set default recipe
+      operationId: SetDefaultRecipe
       parameters:
       - name: recipeId
         in: path
@@ -575,11 +583,13 @@ paths:
       - httpAuth: []
       tags:
       - Recipe
+      x-operation-id-source: normalized
+      x-operation-id-original: Set default recipe
   /recipe/default:
     get:
       summary: Get the default recipe of the tenant
       description: Returns the recipe currently set as the default for the authenticated tenant. Returns 204 No Content if no default recipe has been configured.
-      operationId: Get Default Recipe
+      operationId: GetDefaultRecipe
       responses:
         '200':
           description: ''
@@ -633,93 +643,10 @@ paths:
       - httpAuth: []
       tags:
       - Recipe
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Default Recipe
 components:
   schemas:
-    RecipeRecordShape:
-      required:
-      - id
-      - name
-      - description
-      - status
-      - system
-      - objectiveWeights
-      - options
-      - createdAt
-      - default
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        status:
-          type: string
-          enum:
-          - active
-          - archived
-        system:
-          type: boolean
-        tenantId:
-          type: string
-        objectiveWeights:
-          $ref: '#/components/schemas/ObjectiveWeightsShape'
-        options:
-          $ref: '#/components/schemas/RecipeOptionsShape'
-        createdAt:
-          type: string
-          format: date-time
-        createdBy:
-          $ref: '#/components/schemas/UserIdsShape'
-        modifiedAt:
-          type: string
-          format: date-time
-        modifiedBy:
-          $ref: '#/components/schemas/UserIdsShape'
-        default:
-          type: boolean
-        setAsDefaultBy:
-          $ref: '#/components/schemas/UserIdsShape'
-        setAsDefaultAt:
-          type: string
-          format: date-time
-    ObjectiveWeightsShape:
-      type: object
-      properties:
-        minimizeDisruption:
-          type: integer
-        balanceAbsoluteWorkload:
-          type: integer
-        travelTime:
-          type: integer
-        minimizeResources:
-          type: integer
-        softSkills:
-          type: integer
-        jobsPriority:
-          type: integer
-        resourceRating:
-          type: integer
-        scheduleImmediacy:
-          type: integer
-        urgency:
-          type: integer
-        overtime:
-          type: integer
-    Paging:
-      required:
-      - limit
-      type: object
-      properties:
-        limit:
-          type: integer
-          format: int32
-        nextCursor:
-          type: string
-        total:
-          type: integer
-          format: int32
     VendorUserRecipeRequestShape:
       required:
       - name
@@ -735,26 +662,12 @@ components:
           $ref: '#/components/schemas/ObjectiveWeightsShape'
         options:
           $ref: '#/components/schemas/RecipeOptionsShape'
-    UserIdsShape:
-      oneOf:
-      - $ref: '#/components/schemas/InternalAdminUserId'
-      - $ref: '#/components/schemas/VendorUserIds'
     InternalAdminUserId:
       required:
       - userId
       type: object
       properties:
         userId:
-          type: string
-    VendorUserIds:
-      required:
-      - userId
-      - vendorUserId
-      type: object
-      properties:
-        userId:
-          type: string
-        vendorUserId:
           type: string
     RecipeOptionsShape:
       required:
@@ -806,6 +719,105 @@ components:
           minItems: 1
         rollingScheduleWindowInterval:
           description: The interval used to split the schedule window into rolling sub-windows. Accepts "monthly", "quarterly", or a positive integer representing a fixed number of days.
+    VendorUserIds:
+      required:
+      - userId
+      - vendorUserId
+      type: object
+      properties:
+        userId:
+          type: string
+        vendorUserId:
+          type: string
+    ObjectiveWeightsShape:
+      type: object
+      properties:
+        minimizeDisruption:
+          type: integer
+        balanceAbsoluteWorkload:
+          type: integer
+        travelTime:
+          type: integer
+        minimizeResources:
+          type: integer
+        softSkills:
+          type: integer
+        jobsPriority:
+          type: integer
+        resourceRating:
+          type: integer
+        scheduleImmediacy:
+          type: integer
+        urgency:
+          type: integer
+        overtime:
+          type: integer
+    UserIdsShape:
+      oneOf:
+      - $ref: '#/components/schemas/InternalAdminUserId'
+      - $ref: '#/components/schemas/VendorUserIds'
+    RecipeRecordShape:
+      required:
+      - id
+      - name
+      - description
+      - status
+      - system
+      - objectiveWeights
+      - options
+      - createdAt
+      - default
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum:
+          - active
+          - archived
+        system:
+          type: boolean
+        tenantId:
+          type: string
+        objectiveWeights:
+          $ref: '#/components/schemas/ObjectiveWeightsShape'
+        options:
+          $ref: '#/components/schemas/RecipeOptionsShape'
+        createdAt:
+          type: string
+          format: date-time
+        createdBy:
+          $ref: '#/components/schemas/UserIdsShape'
+        modifiedAt:
+          type: string
+          format: date-time
+        modifiedBy:
+          $ref: '#/components/schemas/UserIdsShape'
+        default:
+          type: boolean
+        setAsDefaultBy:
+          $ref: '#/components/schemas/UserIdsShape'
+        setAsDefaultAt:
+          type: string
+          format: date-time
+    Paging:
+      required:
+      - limit
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int32
+        nextCursor:
+          type: string
+        total:
+          type: integer
+          format: int32
   securitySchemes:
     httpAuth:
       type: http

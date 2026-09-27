@@ -133,13 +133,6 @@ paths:
       - Travel
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
     RouteForResource:
       type: object
       description: Map resource ids to route information
@@ -180,6 +173,13 @@ components:
           type: object
           format: GeoJson
           description: GeoJSON encoded point or linestring
+    Error:
+      type: object
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
   securitySchemes:
     Authorization:
       type: apiKey

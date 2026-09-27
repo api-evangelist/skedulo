@@ -259,22 +259,26 @@ components:
           type: number
           format: double
           description: Accuracy of the position
-    Paging:
+    LocationHistory:
+      type: array
+      items:
+        $ref: '#/components/schemas/Location'
+    LatestLocationResult:
       type: object
-      required:
-      - total
-      - offset
-      - limit
+      additionalProperties:
+        $ref: '#/components/schemas/Location'
+    ResourceDistanceFromLocationResult:
+      type: object
+      description: Map resource ids to their distance from a location
+      additionalProperties:
+        $ref: '#/components/schemas/DistanceFromLocation'
+    Error:
+      type: object
       properties:
-        total:
-          type: number
-          format: int64
-        offset:
-          type: number
-          format: int64
-        limit:
-          type: number
-          format: int64
+        errorType:
+          type: string
+        message:
+          type: string
     Location:
       type: object
       required:
@@ -339,26 +343,22 @@ components:
           $ref: '#/components/schemas/Paging'
         result:
           $ref: '#/components/schemas/LocationHistory'
-    ResourceDistanceFromLocationResult:
+    Paging:
       type: object
-      description: Map resource ids to their distance from a location
-      additionalProperties:
-        $ref: '#/components/schemas/DistanceFromLocation'
-    LocationHistory:
-      type: array
-      items:
-        $ref: '#/components/schemas/Location'
-    Error:
-      type: object
+      required:
+      - total
+      - offset
+      - limit
       properties:
-        errorType:
-          type: string
-        message:
-          type: string
-    LatestLocationResult:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/Location'
+        total:
+          type: number
+          format: int64
+        offset:
+          type: number
+          format: int64
+        limit:
+          type: number
+          format: int64
   securitySchemes:
     Authorization:
       type: apiKey

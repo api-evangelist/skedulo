@@ -85,81 +85,13 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    EvaluateViolationsJobInput:
+    ApiResultAsyncJob:
       required:
-      - endTime
-      - ruleIds
-      - startTime
+      - result
       type: object
       properties:
-        startTime:
-          type: string
-          description: Start of the evaluation time window
-          format: date-time
-          example: '2022-07-04T12:00:00Z'
-        endTime:
-          type: string
-          description: End of the evaluation time window
-          format: date-time
-          example: '2022-08-04T12:00:00Z'
-        ruleIds:
-          $ref: '#/components/schemas/RuleIdFilter'
-      description: Details of the async job to be created
-    ErrorDetails:
-      type: object
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
-    AsyncJobTasks:
-      required:
-      - failure
-      - inProgress
-      - queued
-      - success
-      - total
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total number of tasks
-          format: int32
-          example: 22
-        queued:
-          type: integer
-          description: Number of tasks with a 'Queued' status
-          format: int32
-          example: 10
-        inProgress:
-          type: integer
-          description: Number of tasks with an 'InProgress' status
-          format: int32
-          example: 5
-        success:
-          type: integer
-          description: Number of tasks with a 'Success' status
-          format: int32
-          example: 5
-        failure:
-          type: integer
-          description: Number of tasks with a 'Failure' status
-          format: int32
-          example: 2
-      description: A summary of the tasks associated with the job
-    RuleIdFilter:
-      required:
-      - include
-      type: object
-      properties:
-        include:
-          $ref: '#/components/schemas/IncludeType'
-      description: Filter parameters.
-      discriminator:
-        propertyName: include
-        mapping:
-          all: '#/components/schemas/IncludeAllRuleId'
-          only: '#/components/schemas/IncludeOnlyRuleId'
+        result:
+          $ref: '#/components/schemas/AsyncJob'
     AsyncJob:
       required:
       - createdBy
@@ -214,6 +146,59 @@ components:
         tasks:
           $ref: '#/components/schemas/AsyncJobTasks'
       description: Summary details of an async job.
+    AsyncJobTasks:
+      required:
+      - failure
+      - inProgress
+      - queued
+      - success
+      - total
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of tasks
+          format: int32
+          example: 22
+        queued:
+          type: integer
+          description: Number of tasks with a 'Queued' status
+          format: int32
+          example: 10
+        inProgress:
+          type: integer
+          description: Number of tasks with an 'InProgress' status
+          format: int32
+          example: 5
+        success:
+          type: integer
+          description: Number of tasks with a 'Success' status
+          format: int32
+          example: 5
+        failure:
+          type: integer
+          description: Number of tasks with a 'Failure' status
+          format: int32
+          example: 2
+      description: A summary of the tasks associated with the job
+    JobIdResult:
+      required:
+      - jobId
+      type: object
+      properties:
+        jobId:
+          type: string
+          description: Globally unique identifier for the async job.
+          format: uuid
+          example: bebddd90-8f39-4d3d-8601-35f406f27db2
+      description: Job ID Result of the async job created for processing
+    ErrorDetails:
+      type: object
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
     AsyncJobParameters:
       required:
       - type
@@ -228,13 +213,26 @@ components:
       description: The parameters specified when creating the job
       discriminator:
         propertyName: type
-    ApiResultAsyncJob:
+    EvaluateViolationsJobInput:
       required:
-      - result
+      - endTime
+      - ruleIds
+      - startTime
       type: object
       properties:
-        result:
-          $ref: '#/components/schemas/AsyncJob'
+        startTime:
+          type: string
+          description: Start of the evaluation time window
+          format: date-time
+          example: '2022-07-04T12:00:00Z'
+        endTime:
+          type: string
+          description: End of the evaluation time window
+          format: date-time
+          example: '2022-08-04T12:00:00Z'
+        ruleIds:
+          $ref: '#/components/schemas/RuleIdFilter'
+      description: Details of the async job to be created
     ApiResultJobIdResult:
       required:
       - result
@@ -242,22 +240,24 @@ components:
       properties:
         result:
           $ref: '#/components/schemas/JobIdResult'
-    JobIdResult:
-      required:
-      - jobId
-      type: object
-      properties:
-        jobId:
-          type: string
-          description: Globally unique identifier for the async job.
-          format: uuid
-          example: bebddd90-8f39-4d3d-8601-35f406f27db2
-      description: Job ID Result of the async job created for processing
     IncludeType:
       type: string
       enum:
       - all
       - only
+    RuleIdFilter:
+      required:
+      - include
+      type: object
+      properties:
+        include:
+          $ref: '#/components/schemas/IncludeType'
+      description: Filter parameters.
+      discriminator:
+        propertyName: include
+        mapping:
+          all: '#/components/schemas/IncludeAllRuleId'
+          only: '#/components/schemas/IncludeOnlyRuleId'
   securitySchemes:
     ApiKeyAuth:
       type: http
