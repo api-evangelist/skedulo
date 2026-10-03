@@ -256,80 +256,10 @@ paths:
       - Optimize
 components:
   schemas:
-    RecordFilter:
-      type: object
-      additionalProperties: false
-      properties:
-        uid:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        expression:
-          type: string
-        objectType:
-          type: string
-    SuggestBodyResources:
-      type: object
-      properties:
-        suggestForNode:
-          type: string
-          description: ID of the job that you want the suggestion for.
-        resources:
-          description: A map of availability windows for each resource.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              properties:
-                start:
-                  $ref: '#/components/schemas/TimeStamp'
-                end:
-                  $ref: '#/components/schemas/TimeStamp'
-        scheduleStart:
-          $ref: '#/components/schemas/TimeStamp'
-        scheduleEnd:
-          $ref: '#/components/schemas/TimeStamp'
-        schedulingOptions:
-          $ref: '#/components/schemas/SchedulingOptions'
-        accountResourceScores:
-          type: array
-          description: An array of accounts and resources to blacklist
-          items:
-            $ref: '#/components/schemas/AccountResourceScores'
-        regionId:
-          type: string
-          description: 'Resource availability will be based on when resources are available in the region specified.  Availability depends
-
-            on the primary region of the resource or whether the resource has Temporary or Secondary regions assigned.
-
-            '
-      required:
-      - suggestForNode
-      - resources
-      - scheduleStart
-      - scheduleEnd
-    AccountResourceScores:
-      type: object
-      properties:
-        resourceId:
-          type: string
-          description: The resource id black listing or white listing jobs associated with the account id
-        accountId:
-          type: string
-          description: The account id associated with jobs black listing or white listing a resource
-        whitelist:
-          type: boolean
-          description: Is true if the resource and jobs assoicated with the account id are white listed
-        blacklist:
-          type: boolean
-          description: Is true if the resource and jobs associated with the account id are black listed
-      required:
-      - resourceId
-      - accountId
-      - whitelist
-      - blacklist
+    TimeStamp:
+      type: string
+      format: date-time
+      description: Can be either ISO8601 date time string or Unix timestamp number ( in milliseconds ). Always returned in ISO8601 format.
     ResourceSuggestionBodyResourceIds:
       type: object
       properties:
@@ -375,10 +305,6 @@ components:
       - resourceIds
       - scheduleStart
       - scheduleEnd
-    TimeStamp:
-      type: string
-      format: date-time
-      description: Can be either ISO8601 date time string or Unix timestamp number ( in milliseconds ). Always returned in ISO8601 format.
     ResourceSuggestionResponse:
       type: object
       example: "{\n  \"result\": {\n    \"0005ea18-61c1-49d9-9b50-d16a31a21c20\": {\n      \"resourceId\": \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n      \"jobId\": \"0014cac9-4ba2-4944-b7ca-b4d2c40b1403\",\n      \"start\": \"2018-09-03T23:21:00.000Z\",\n      \"duration\": 30,\n      \"travelTime\": 17,\n      \"currentCapacityInSeconds\": 86400,\n      \"newCapacityInSeconds\": 83580\n    }\n  }\n}\n"
@@ -445,6 +371,138 @@ components:
                       '
                     additionalProperties:
                       $ref: '#/components/schemas/RecordFilter'
+    SuggestResponse:
+      type: object
+      example: "{\n  \"result\": {\n    \"routes\": {\n      \"0005ea18-61c1-49d9-9b50-d16a31a21c20\": {\n        \"resourceId\": \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n        \"route\": {\n          \"jobId\": \"0014cac9-4ba2-4944-b7ca-b4d2c40b1403\",\n          \"jobName\": \"JOB-0225\",\n          \"start\": \"2018-09-03T23:21:00.000Z\",\n          \"duration\": 40,\n          \"travelTime\": 21,\n          \"type\": \"job\"\n        },\n        \"gapList\": [\n          {\n            \"fromPrev\": {\n              \"travelTime\": 21\n            },\n            \"interval\": {\n              \"start\": \"2018-09-03T23:21:00.000Z\",\n              \"end\": \"2018-09-04T00:01:00.000Z\"\n            },\n            \"toNext\": {\n              \"travelTime\": 0\n            }\n          }\n        ],\n        \"isAllocated\": false\n      }\n    }\n  }\n}\n"
+      properties:
+        result:
+          type: object
+          properties:
+            routes:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  resourceId:
+                    type: string
+                    description: Id of the resource this suggestion is related to.
+                  isAllocated:
+                    type: boolean
+                    description: Flag that signifies whether this resource has already been allocated to the job.
+                  route:
+                    type: object
+                    properties:
+                      duration:
+                        type: integer
+                        description: Duration ( in minutes ) of the current job.
+                      jobId:
+                        type: string
+                        description: Id of the current job.
+                      jobName:
+                        type: string
+                        description: Name of the current job ( Job.Name ).
+                      start:
+                        type: string
+                        format: date-time
+                        description: Suggested start time of the job as an ISO8601 Date Time string.
+                      travelTime:
+                        type: integer
+                        description: Travel time ( in minutes ) from the previous location ( resource home or previous job ) to the current job.
+                      type:
+                        type: string
+    SuggestBodyResources:
+      type: object
+      properties:
+        suggestForNode:
+          type: string
+          description: ID of the job that you want the suggestion for.
+        resources:
+          description: A map of availability windows for each resource.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              properties:
+                start:
+                  $ref: '#/components/schemas/TimeStamp'
+                end:
+                  $ref: '#/components/schemas/TimeStamp'
+        scheduleStart:
+          $ref: '#/components/schemas/TimeStamp'
+        scheduleEnd:
+          $ref: '#/components/schemas/TimeStamp'
+        schedulingOptions:
+          $ref: '#/components/schemas/SchedulingOptions'
+        accountResourceScores:
+          type: array
+          description: An array of accounts and resources to blacklist
+          items:
+            $ref: '#/components/schemas/AccountResourceScores'
+        regionId:
+          type: string
+          description: 'Resource availability will be based on when resources are available in the region specified.  Availability depends
+
+            on the primary region of the resource or whether the resource has Temporary or Secondary regions assigned.
+
+            '
+      required:
+      - suggestForNode
+      - resources
+      - scheduleStart
+      - scheduleEnd
+    AccountResourceScores:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          description: The resource id black listing or white listing jobs associated with the account id
+        accountId:
+          type: string
+          description: The account id associated with jobs black listing or white listing a resource
+        whitelist:
+          type: boolean
+          description: Is true if the resource and jobs assoicated with the account id are white listed
+        blacklist:
+          type: boolean
+          description: Is true if the resource and jobs associated with the account id are black listed
+      required:
+      - resourceId
+      - accountId
+      - whitelist
+      - blacklist
+    SuggestBodyResourceIds:
+      type: object
+      properties:
+        suggestForNode:
+          type: string
+          description: ID of the job that you want the suggestion for.
+        resourceIds:
+          type: array
+          items:
+            type: string
+        scheduleStart:
+          $ref: '#/components/schemas/TimeStamp'
+        scheduleEnd:
+          $ref: '#/components/schemas/TimeStamp'
+        schedulingOptions:
+          $ref: '#/components/schemas/SchedulingOptions'
+        accountResourceScores:
+          type: array
+          description: An array of accounts and resources to blacklist
+          items:
+            $ref: '#/components/schemas/AccountResourceScores'
+        regionId:
+          type: string
+          description: 'Resource availability will be based on when resources are available in the region specified.  Availability depends
+
+            on the primary region of the resource or whether the resource has Temporary or Secondary regions assigned.
+
+            '
+      required:
+      - suggestForNode
+      - resourceIds
+      - scheduleStart
+      - scheduleEnd
     SchedulingOptions:
       type: object
       properties:
@@ -489,6 +547,20 @@ components:
           default: 0
           minimum: 0
           description: Divide the given time frame into parts described by this value and allocate all jobs to the nearest part.
+    RecordFilter:
+      type: object
+      additionalProperties: false
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        expression:
+          type: string
+        objectType:
+          type: string
     ResourceSuggestionBodyResources:
       type: object
       properties:
@@ -543,78 +615,6 @@ components:
       - resources
       - scheduleStart
       - scheduleEnd
-    SuggestBodyResourceIds:
-      type: object
-      properties:
-        suggestForNode:
-          type: string
-          description: ID of the job that you want the suggestion for.
-        resourceIds:
-          type: array
-          items:
-            type: string
-        scheduleStart:
-          $ref: '#/components/schemas/TimeStamp'
-        scheduleEnd:
-          $ref: '#/components/schemas/TimeStamp'
-        schedulingOptions:
-          $ref: '#/components/schemas/SchedulingOptions'
-        accountResourceScores:
-          type: array
-          description: An array of accounts and resources to blacklist
-          items:
-            $ref: '#/components/schemas/AccountResourceScores'
-        regionId:
-          type: string
-          description: 'Resource availability will be based on when resources are available in the region specified.  Availability depends
-
-            on the primary region of the resource or whether the resource has Temporary or Secondary regions assigned.
-
-            '
-      required:
-      - suggestForNode
-      - resourceIds
-      - scheduleStart
-      - scheduleEnd
-    SuggestResponse:
-      type: object
-      example: "{\n  \"result\": {\n    \"routes\": {\n      \"0005ea18-61c1-49d9-9b50-d16a31a21c20\": {\n        \"resourceId\": \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n        \"route\": {\n          \"jobId\": \"0014cac9-4ba2-4944-b7ca-b4d2c40b1403\",\n          \"jobName\": \"JOB-0225\",\n          \"start\": \"2018-09-03T23:21:00.000Z\",\n          \"duration\": 40,\n          \"travelTime\": 21,\n          \"type\": \"job\"\n        },\n        \"gapList\": [\n          {\n            \"fromPrev\": {\n              \"travelTime\": 21\n            },\n            \"interval\": {\n              \"start\": \"2018-09-03T23:21:00.000Z\",\n              \"end\": \"2018-09-04T00:01:00.000Z\"\n            },\n            \"toNext\": {\n              \"travelTime\": 0\n            }\n          }\n        ],\n        \"isAllocated\": false\n      }\n    }\n  }\n}\n"
-      properties:
-        result:
-          type: object
-          properties:
-            routes:
-              type: object
-              additionalProperties:
-                type: object
-                properties:
-                  resourceId:
-                    type: string
-                    description: Id of the resource this suggestion is related to.
-                  isAllocated:
-                    type: boolean
-                    description: Flag that signifies whether this resource has already been allocated to the job.
-                  route:
-                    type: object
-                    properties:
-                      duration:
-                        type: integer
-                        description: Duration ( in minutes ) of the current job.
-                      jobId:
-                        type: string
-                        description: Id of the current job.
-                      jobName:
-                        type: string
-                        description: Name of the current job ( Job.Name ).
-                      start:
-                        type: string
-                        format: date-time
-                        description: Suggested start time of the job as an ISO8601 Date Time string.
-                      travelTime:
-                        type: integer
-                        description: Travel time ( in minutes ) from the previous location ( resource home or previous job ) to the current job.
-                      type:
-                        type: string
   securitySchemes:
     BearerAuth:
       type: http

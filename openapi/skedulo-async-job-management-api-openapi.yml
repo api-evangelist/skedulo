@@ -85,13 +85,41 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    ApiResultAsyncJob:
+    AsyncJobTasks:
       required:
-      - result
+      - failure
+      - inProgress
+      - queued
+      - success
+      - total
       type: object
       properties:
-        result:
-          $ref: '#/components/schemas/AsyncJob'
+        total:
+          type: integer
+          description: Total number of tasks
+          format: int32
+          example: 22
+        queued:
+          type: integer
+          description: Number of tasks with a 'Queued' status
+          format: int32
+          example: 10
+        inProgress:
+          type: integer
+          description: Number of tasks with an 'InProgress' status
+          format: int32
+          example: 5
+        success:
+          type: integer
+          description: Number of tasks with a 'Success' status
+          format: int32
+          example: 5
+        failure:
+          type: integer
+          description: Number of tasks with a 'Failure' status
+          format: int32
+          example: 2
+      description: A summary of the tasks associated with the job
     AsyncJob:
       required:
       - createdBy
@@ -146,41 +174,26 @@ components:
         tasks:
           $ref: '#/components/schemas/AsyncJobTasks'
       description: Summary details of an async job.
-    AsyncJobTasks:
-      required:
-      - failure
-      - inProgress
-      - queued
-      - success
-      - total
+    ErrorDetails:
       type: object
       properties:
-        total:
-          type: integer
-          description: Total number of tasks
-          format: int32
-          example: 22
-        queued:
-          type: integer
-          description: Number of tasks with a 'Queued' status
-          format: int32
-          example: 10
-        inProgress:
-          type: integer
-          description: Number of tasks with an 'InProgress' status
-          format: int32
-          example: 5
-        success:
-          type: integer
-          description: Number of tasks with a 'Success' status
-          format: int32
-          example: 5
-        failure:
-          type: integer
-          description: Number of tasks with a 'Failure' status
-          format: int32
-          example: 2
-      description: A summary of the tasks associated with the job
+        errorType:
+          type: string
+        message:
+          type: string
+    RuleIdFilter:
+      required:
+      - include
+      type: object
+      properties:
+        include:
+          $ref: '#/components/schemas/IncludeType'
+      description: Filter parameters.
+      discriminator:
+        propertyName: include
+        mapping:
+          all: '#/components/schemas/IncludeAllRuleId'
+          only: '#/components/schemas/IncludeOnlyRuleId'
     JobIdResult:
       required:
       - jobId
@@ -192,27 +205,13 @@ components:
           format: uuid
           example: bebddd90-8f39-4d3d-8601-35f406f27db2
       description: Job ID Result of the async job created for processing
-    ErrorDetails:
-      type: object
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
-    AsyncJobParameters:
+    ApiResultAsyncJob:
       required:
-      - type
+      - result
       type: object
       properties:
-        type:
-          type: string
-          description: The type of async job
-          example: BatchEvaluateViolations
-          enum:
-          - BatchEvaluateViolations
-      description: The parameters specified when creating the job
-      discriminator:
-        propertyName: type
+        result:
+          $ref: '#/components/schemas/AsyncJob'
     EvaluateViolationsJobInput:
       required:
       - endTime
@@ -233,6 +232,20 @@ components:
         ruleIds:
           $ref: '#/components/schemas/RuleIdFilter'
       description: Details of the async job to be created
+    AsyncJobParameters:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of async job
+          example: BatchEvaluateViolations
+          enum:
+          - BatchEvaluateViolations
+      description: The parameters specified when creating the job
+      discriminator:
+        propertyName: type
     ApiResultJobIdResult:
       required:
       - result
@@ -245,19 +258,6 @@ components:
       enum:
       - all
       - only
-    RuleIdFilter:
-      required:
-      - include
-      type: object
-      properties:
-        include:
-          $ref: '#/components/schemas/IncludeType'
-      description: Filter parameters.
-      discriminator:
-        propertyName: include
-        mapping:
-          all: '#/components/schemas/IncludeAllRuleId'
-          only: '#/components/schemas/IncludeOnlyRuleId'
   securitySchemes:
     ApiKeyAuth:
       type: http

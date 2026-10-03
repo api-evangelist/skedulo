@@ -230,55 +230,27 @@ paths:
       - Location
 components:
   schemas:
-    DistanceFromLocation:
+    Paging:
       type: object
-      description: Position and Distance from a location
       required:
-      - time
-      - lat
-      - lng
-      - distance
+      - total
+      - offset
+      - limit
       properties:
-        time:
-          type: string
-          format: date-time
-          description: Time the last position was received
-        lat:
+        total:
           type: number
-          format: double
-          description: Latitude of the position
-        lng:
+          format: int64
+        offset:
           type: number
-          format: double
-          description: Longitude of the position
-        distance:
+          format: int64
+        limit:
           type: number
-          format: double
-          description: Distance from the requested location (in meters)
-        accuracy:
-          type: number
-          format: double
-          description: Accuracy of the position
-    LocationHistory:
-      type: array
-      items:
-        $ref: '#/components/schemas/Location'
-    LatestLocationResult:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/Location'
+          format: int64
     ResourceDistanceFromLocationResult:
       type: object
       description: Map resource ids to their distance from a location
       additionalProperties:
         $ref: '#/components/schemas/DistanceFromLocation'
-    Error:
-      type: object
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
     Location:
       type: object
       required:
@@ -333,6 +305,43 @@ components:
           description: 'Vertical position accuracy (m).
 
             '
+    DistanceFromLocation:
+      type: object
+      description: Position and Distance from a location
+      required:
+      - time
+      - lat
+      - lng
+      - distance
+      properties:
+        time:
+          type: string
+          format: date-time
+          description: Time the last position was received
+        lat:
+          type: number
+          format: double
+          description: Latitude of the position
+        lng:
+          type: number
+          format: double
+          description: Longitude of the position
+        distance:
+          type: number
+          format: double
+          description: Distance from the requested location (in meters)
+        accuracy:
+          type: number
+          format: double
+          description: Accuracy of the position
+    LocationHistory:
+      type: array
+      items:
+        $ref: '#/components/schemas/Location'
+    LatestLocationResult:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Location'
     PagedResultLocationHistory:
       type: object
       required:
@@ -343,22 +352,13 @@ components:
           $ref: '#/components/schemas/Paging'
         result:
           $ref: '#/components/schemas/LocationHistory'
-    Paging:
+    Error:
       type: object
-      required:
-      - total
-      - offset
-      - limit
       properties:
-        total:
-          type: number
-          format: int64
-        offset:
-          type: number
-          format: int64
-        limit:
-          type: number
-          format: int64
+        errorType:
+          type: string
+        message:
+          type: string
   securitySchemes:
     Authorization:
       type: apiKey

@@ -647,28 +647,42 @@ paths:
       x-operation-id-original: Get Default Recipe
 components:
   schemas:
-    VendorUserRecipeRequestShape:
-      required:
-      - name
-      - description
-      - objectiveWeights
+    ObjectiveWeightsShape:
       type: object
       properties:
-        name:
-          type: string
-        description:
-          type: string
-        objectiveWeights:
-          $ref: '#/components/schemas/ObjectiveWeightsShape'
-        options:
-          $ref: '#/components/schemas/RecipeOptionsShape'
-    InternalAdminUserId:
+        minimizeDisruption:
+          type: integer
+        balanceAbsoluteWorkload:
+          type: integer
+        travelTime:
+          type: integer
+        minimizeResources:
+          type: integer
+        softSkills:
+          type: integer
+        jobsPriority:
+          type: integer
+        resourceRating:
+          type: integer
+        scheduleImmediacy:
+          type: integer
+        urgency:
+          type: integer
+        overtime:
+          type: integer
+    Paging:
       required:
-      - userId
+      - limit
       type: object
       properties:
-        userId:
+        limit:
+          type: integer
+          format: int32
+        nextCursor:
           type: string
+        total:
+          type: integer
+          format: int32
     RecipeOptionsShape:
       required:
       - ignoreTravelTime
@@ -719,43 +733,28 @@ components:
           minItems: 1
         rollingScheduleWindowInterval:
           description: The interval used to split the schedule window into rolling sub-windows. Accepts "monthly", "quarterly", or a positive integer representing a fixed number of days.
-    VendorUserIds:
+    VendorUserRecipeRequestShape:
+      required:
+      - name
+      - description
+      - objectiveWeights
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        objectiveWeights:
+          $ref: '#/components/schemas/ObjectiveWeightsShape'
+        options:
+          $ref: '#/components/schemas/RecipeOptionsShape'
+    InternalAdminUserId:
       required:
       - userId
-      - vendorUserId
       type: object
       properties:
         userId:
           type: string
-        vendorUserId:
-          type: string
-    ObjectiveWeightsShape:
-      type: object
-      properties:
-        minimizeDisruption:
-          type: integer
-        balanceAbsoluteWorkload:
-          type: integer
-        travelTime:
-          type: integer
-        minimizeResources:
-          type: integer
-        softSkills:
-          type: integer
-        jobsPriority:
-          type: integer
-        resourceRating:
-          type: integer
-        scheduleImmediacy:
-          type: integer
-        urgency:
-          type: integer
-        overtime:
-          type: integer
-    UserIdsShape:
-      oneOf:
-      - $ref: '#/components/schemas/InternalAdminUserId'
-      - $ref: '#/components/schemas/VendorUserIds'
     RecipeRecordShape:
       required:
       - id
@@ -805,19 +804,20 @@ components:
         setAsDefaultAt:
           type: string
           format: date-time
-    Paging:
+    VendorUserIds:
       required:
-      - limit
+      - userId
+      - vendorUserId
       type: object
       properties:
-        limit:
-          type: integer
-          format: int32
-        nextCursor:
+        userId:
           type: string
-        total:
-          type: integer
-          format: int32
+        vendorUserId:
+          type: string
+    UserIdsShape:
+      oneOf:
+      - $ref: '#/components/schemas/InternalAdminUserId'
+      - $ref: '#/components/schemas/VendorUserIds'
   securitySchemes:
     httpAuth:
       type: http

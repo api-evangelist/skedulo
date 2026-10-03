@@ -385,71 +385,6 @@ paths:
       x-operation-id-original: Delete Batch Schedule
 components:
   schemas:
-    Yearly:
-      required:
-      - step
-      - repeatMode
-      type: object
-      properties:
-        step:
-          type: integer
-          format: int32
-        repeatMode:
-          type: string
-          description: '`yearly`'
-        endAfterNumberOccurrences:
-          type: integer
-          format: int32
-        endOn:
-          type: string
-          format: date
-      description: recurringFieldsDescription
-    ObjectiveWeightModifiersShape:
-      type: object
-      properties:
-        minimizeDisruption:
-          type: number
-        balanceAbsoluteWorkload:
-          type: number
-        travelTime:
-          type: number
-        minimizeResources:
-          type: number
-        softSkills:
-          type: number
-        jobsPriority:
-          type: number
-        resourceRating:
-          type: number
-        scheduleImmediacy:
-          type: number
-        urgency:
-          type: number
-        overtime:
-          type: number
-    Monthly:
-      required:
-      - step
-      - repeatMode
-      - dayOfMonthToRepeatOn
-      type: object
-      properties:
-        step:
-          type: integer
-          format: int32
-        repeatMode:
-          type: string
-          description: '`monthly_nth_day`'
-        dayOfMonthToRepeatOn:
-          type: integer
-          format: int32
-        endAfterNumberOccurrences:
-          type: integer
-          format: int32
-        endOn:
-          type: string
-          format: date
-      description: recurringFieldsDescription
     ObjectiveWeightsShape:
       type: object
       properties:
@@ -473,13 +408,51 @@ components:
           type: integer
         overtime:
           type: integer
-    Recurring:
-      description: Configuration for recurring schedules, if blank the schedule will only run once
-      oneOf:
-      - $ref: '#/components/schemas/Daily'
-      - $ref: '#/components/schemas/Monthly'
-      - $ref: '#/components/schemas/Weekly'
-      - $ref: '#/components/schemas/Yearly'
+    Paging:
+      required:
+      - limit
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int32
+        nextCursor:
+          type: string
+        total:
+          type: integer
+          format: int32
+    Weekly:
+      required:
+      - step
+      - repeatMode
+      - repeatOnWeekDays
+      type: object
+      properties:
+        step:
+          type: integer
+          format: int32
+        repeatMode:
+          type: string
+          description: '`weekly`'
+        repeatOnWeekDays:
+          type: array
+          items:
+            type: string
+            enum:
+            - sun
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
+            - sat
+        endAfterNumberOccurrences:
+          type: integer
+          format: int32
+        endOn:
+          type: string
+          format: date
+      description: recurringFieldsDescription
     ScheduleShape:
       required:
       - name
@@ -540,116 +513,29 @@ components:
           type: boolean
         includeSecondaryRegions:
           type: boolean
-    Daily:
-      required:
-      - step
-      - repeatMode
+    ObjectiveWeightModifiersShape:
       type: object
       properties:
-        step:
-          type: integer
-          format: int32
-        repeatMode:
-          type: string
-          description: '`daily`'
-        endAfterNumberOccurrences:
-          type: integer
-          format: int32
-        endOn:
-          type: string
-          format: date
-      description: recurringFieldsDescription
-    Weekly:
-      required:
-      - step
-      - repeatMode
-      - repeatOnWeekDays
-      type: object
-      properties:
-        step:
-          type: integer
-          format: int32
-        repeatMode:
-          type: string
-          description: '`weekly`'
-        repeatOnWeekDays:
-          type: array
-          items:
-            type: string
-            enum:
-            - sun
-            - mon
-            - tue
-            - wed
-            - thu
-            - fri
-            - sat
-        endAfterNumberOccurrences:
-          type: integer
-          format: int32
-        endOn:
-          type: string
-          format: date
-      description: recurringFieldsDescription
-    PVRPProductOptionsShape:
-      type: object
-      properties:
-        full:
-          type: boolean
-        ignoreTravelTime:
-          type: boolean
-        ignoreTravelTimeFirstJob:
-          type: boolean
-        ignoreTravelTimeLastJob:
-          type: boolean
-        minimizeResources:
-          type: boolean
-        maxDailyTravelTimeInMinutes:
-          type: integer
-          format: int64
-        maxTravelTimeBetweenLocations:
-          type: integer
-          format: int64
-        respectAllocationTimes:
-          type: boolean
-        respectAllocationTimesOverTimeConstraints:
-          type: boolean
+        minimizeDisruption:
+          type: number
         balanceAbsoluteWorkload:
-          type: boolean
-        snapUnit:
-          type: integer
-          format: int32
-        padding:
-          type: integer
-          format: int32
-        objectiveWeights:
-          $ref: '#/components/schemas/ObjectiveWeightsShape'
-        objectiveWeightModifiers:
-          $ref: '#/components/schemas/ObjectiveWeightModifiersShape'
-        temporalAffinityStrength:
-          type: integer
-          format: int32
-        respectSchedule:
-          type: boolean
-        recipeId:
-          type: string
-          description: The recipe id to use for the optimization run, this will override any scheduling options in the request and is the preferred way of controlling the optimization run
-        enablePartiallyAllocatedGroups:
-          type: boolean
-        enablePartiallyAllocatedAllocationDependencies:
-          type: boolean
-        enforceCompatibility:
-          type: boolean
-        onJobRemoval:
-          type: array
-          items:
-            type: string
-            enum:
-            - clearJobTimes
-            - deallocateResources
-          minItems: 1
-        rollingScheduleWindowInterval:
-          description: The interval used to split the schedule window into rolling sub-windows. Accepts "monthly", "quarterly", or a positive integer representing a fixed number of days.
+          type: number
+        travelTime:
+          type: number
+        minimizeResources:
+          type: number
+        softSkills:
+          type: number
+        jobsPriority:
+          type: number
+        resourceRating:
+          type: number
+        scheduleImmediacy:
+          type: number
+        urgency:
+          type: number
+        overtime:
+          type: number
     ScheduleRecordShape:
       required:
       - name
@@ -723,19 +609,133 @@ components:
         lastModifiedByDate:
           type: string
           format: date-time
-    Paging:
+    Yearly:
       required:
-      - limit
+      - step
+      - repeatMode
       type: object
       properties:
-        limit:
+        step:
           type: integer
           format: int32
-        nextCursor:
+        repeatMode:
           type: string
-        total:
+          description: '`yearly`'
+        endAfterNumberOccurrences:
           type: integer
           format: int32
+        endOn:
+          type: string
+          format: date
+      description: recurringFieldsDescription
+    Daily:
+      required:
+      - step
+      - repeatMode
+      type: object
+      properties:
+        step:
+          type: integer
+          format: int32
+        repeatMode:
+          type: string
+          description: '`daily`'
+        endAfterNumberOccurrences:
+          type: integer
+          format: int32
+        endOn:
+          type: string
+          format: date
+      description: recurringFieldsDescription
+    Monthly:
+      required:
+      - step
+      - repeatMode
+      - dayOfMonthToRepeatOn
+      type: object
+      properties:
+        step:
+          type: integer
+          format: int32
+        repeatMode:
+          type: string
+          description: '`monthly_nth_day`'
+        dayOfMonthToRepeatOn:
+          type: integer
+          format: int32
+        endAfterNumberOccurrences:
+          type: integer
+          format: int32
+        endOn:
+          type: string
+          format: date
+      description: recurringFieldsDescription
+    Recurring:
+      description: Configuration for recurring schedules, if blank the schedule will only run once
+      oneOf:
+      - $ref: '#/components/schemas/Daily'
+      - $ref: '#/components/schemas/Monthly'
+      - $ref: '#/components/schemas/Weekly'
+      - $ref: '#/components/schemas/Yearly'
+    PVRPProductOptionsShape:
+      type: object
+      properties:
+        full:
+          type: boolean
+        ignoreTravelTime:
+          type: boolean
+        ignoreTravelTimeFirstJob:
+          type: boolean
+        ignoreTravelTimeLastJob:
+          type: boolean
+        minimizeResources:
+          type: boolean
+        maxDailyTravelTimeInMinutes:
+          type: integer
+          format: int64
+        maxTravelTimeBetweenLocations:
+          type: integer
+          format: int64
+        respectAllocationTimes:
+          type: boolean
+        respectAllocationTimesOverTimeConstraints:
+          type: boolean
+        balanceAbsoluteWorkload:
+          type: boolean
+        snapUnit:
+          type: integer
+          format: int32
+        padding:
+          type: integer
+          format: int32
+        objectiveWeights:
+          $ref: '#/components/schemas/ObjectiveWeightsShape'
+        objectiveWeightModifiers:
+          $ref: '#/components/schemas/ObjectiveWeightModifiersShape'
+        temporalAffinityStrength:
+          type: integer
+          format: int32
+        respectSchedule:
+          type: boolean
+        recipeId:
+          type: string
+          description: The recipe id to use for the optimization run, this will override any scheduling options in the request and is the preferred way of controlling the optimization run
+        enablePartiallyAllocatedGroups:
+          type: boolean
+        enablePartiallyAllocatedAllocationDependencies:
+          type: boolean
+        enforceCompatibility:
+          type: boolean
+        onJobRemoval:
+          type: array
+          items:
+            type: string
+            enum:
+            - clearJobTimes
+            - deallocateResources
+          minItems: 1
+        rollingScheduleWindowInterval:
+          description: The interval used to split the schedule window into rolling sub-windows. Accepts "monthly", "quarterly", or a positive integer representing a fixed number of days.
   securitySchemes:
     httpAuth:
       type: http

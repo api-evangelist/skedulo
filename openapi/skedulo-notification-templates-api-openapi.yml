@@ -129,28 +129,20 @@ paths:
       operationId: deleteV2TemplateByTypeByProtocol
       x-operation-id-source: derived
 components:
-  parameters:
-    NotificationTemplateProtocol:
-      name: protocol
-      in: path
-      required: true
-      schema:
-        type: string
-        enum:
-        - sms
-        - push
-    NotificationTemplateType:
-      name: type
-      in: path
-      required: true
-      schema:
-        type: string
-        enum:
-        - job_dispatch
-        - job_reminder
-        - job_cancelled
-        - job_offer
   schemas:
+    NotificationTemplateV2Part:
+      type: object
+      discriminator:
+        propertyName: type
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - text
+          - variable
+          - function
     NotificationTemplateV2:
       type: object
       required:
@@ -175,6 +167,28 @@ components:
           type: string
         template:
           $ref: '#/components/schemas/NotificationTemplateV2Template'
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+    NotificationTemplateV2Template:
+      type: object
+      required:
+      - text
+      - parts
+      properties:
+        text:
+          type: string
+        parts:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationTemplateV2Part'
     NotificationTemplateV2Error:
       type: object
       required:
@@ -217,41 +231,27 @@ components:
         job_offer:
           $ref: '#/components/schemas/NotificationTemplateV2Template'
       additionalProperties: false
-    NotificationTemplateV2Part:
-      type: object
-      discriminator:
-        propertyName: type
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - text
-          - variable
-          - function
-    NotificationTemplateV2Template:
-      type: object
-      required:
-      - text
-      - parts
-      properties:
-        text:
-          type: string
-        parts:
-          type: array
-          items:
-            $ref: '#/components/schemas/NotificationTemplateV2Part'
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
+  parameters:
+    NotificationTemplateType:
+      name: type
+      in: path
+      required: true
+      schema:
+        type: string
+        enum:
+        - job_dispatch
+        - job_reminder
+        - job_cancelled
+        - job_offer
+    NotificationTemplateProtocol:
+      name: protocol
+      in: path
+      required: true
+      schema:
+        type: string
+        enum:
+        - sms
+        - push
   securitySchemes:
     Authorization:
       type: http

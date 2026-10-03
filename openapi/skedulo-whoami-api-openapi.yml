@@ -36,11 +36,48 @@ paths:
       - Whoami
 components:
   schemas:
+    Roles:
+      type: array
+      items:
+        type: string
+        enum:
+        - administrator
+        - scheduler
+        - resource
     ResultOKUserInfo:
       type: object
       properties:
         result:
           $ref: '#/components/schemas/UserInfo'
+    Permissions:
+      description: The permissions for the user. Only present if the useNewPermissions feature flag is enabled.
+      type: array
+      items:
+        description: Permission keys assigned to the user
+        type: string
+    UserInfo:
+      type: object
+      required:
+      - username
+      - userId
+      - tenantId
+      - roles
+      - vendorInfo
+      properties:
+        username:
+          type: string
+        userId:
+          type: string
+        tenantId:
+          type: string
+        roles:
+          $ref: '#/components/schemas/Roles'
+        resourceId:
+          type: string
+        vendorInfo:
+          $ref: '#/components/schemas/VendorInfo'
+        permissions:
+          $ref: '#/components/schemas/Permissions'
     VendorInfo:
       oneOf:
       - type: object
@@ -72,43 +109,6 @@ components:
           vendorUserId:
             type: string
             description: Skedulo user ID of this user
-    Roles:
-      type: array
-      items:
-        type: string
-        enum:
-        - administrator
-        - scheduler
-        - resource
-    Permissions:
-      description: The permissions for the user. Only present if the useNewPermissions feature flag is enabled.
-      type: array
-      items:
-        description: Permission keys assigned to the user
-        type: string
-    UserInfo:
-      type: object
-      required:
-      - username
-      - userId
-      - tenantId
-      - roles
-      - vendorInfo
-      properties:
-        username:
-          type: string
-        userId:
-          type: string
-        tenantId:
-          type: string
-        roles:
-          $ref: '#/components/schemas/Roles'
-        resourceId:
-          type: string
-        vendorInfo:
-          $ref: '#/components/schemas/VendorInfo'
-        permissions:
-          $ref: '#/components/schemas/Permissions'
   securitySchemes:
     Authorization:
       type: http

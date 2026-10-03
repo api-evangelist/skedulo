@@ -43,15 +43,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    SalesforceMfaDelegation:
-      type: object
-      properties:
-        enabled:
-          description: Whether the tenant's Salesforce org enforces MFA org-wide. Omit to leave unchanged.
-          type: boolean
-        salesforceLoginUrl:
-          description: The org's Skedulo SAML SSO "Salesforce Login URL", used verbatim as the SAML assertion ACS. Must be an https URL with a *.salesforce.com host. Omit to leave unchanged.
-          type: string
     ResultOkSalesforceMfaDelegation:
       type: object
       required:
@@ -68,6 +59,15 @@ components:
             salesforceLoginUrl:
               description: The stored Salesforce Login URL, or null if not configured.
               type: string
+    SalesforceMfaDelegation:
+      type: object
+      properties:
+        enabled:
+          description: Whether the tenant's Salesforce org enforces MFA org-wide. Omit to leave unchanged.
+          type: boolean
+        salesforceLoginUrl:
+          description: The org's Skedulo SAML SSO "Salesforce Login URL", used verbatim as the SAML assertion ACS. Must be an https URL with a *.salesforce.com host. Omit to leave unchanged.
+          type: string
   securitySchemes:
     Authorization:
       type: http

@@ -51,24 +51,14 @@ components:
           $ref: '#/components/schemas/AvatarErrors'
         extra:
           $ref: '#/components/schemas/AvatarAuths'
-    AvatarError:
-      type: object
-      required:
-      - errorType
-      - errorMsg
-      properties:
-        errorType:
-          type: string
-        errorMsg:
-          type: string
-    AvatarResults:
-      type: object
-      additionalProperties:
-        type: string
     AvatarErrors:
       type: object
       additionalProperties:
         $ref: '#/components/schemas/AvatarError'
+    AvatarAuths:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/AvatarAuth'
     AvatarAuth:
       type: object
       required:
@@ -79,10 +69,20 @@ components:
           type: string
         expiry:
           type: string
-    AvatarAuths:
+    AvatarResults:
       type: object
       additionalProperties:
-        $ref: '#/components/schemas/AvatarAuth'
+        type: string
+    AvatarError:
+      type: object
+      required:
+      - errorType
+      - errorMsg
+      properties:
+        errorType:
+          type: string
+        errorMsg:
+          type: string
   securitySchemes:
     Authorization:
       type: http

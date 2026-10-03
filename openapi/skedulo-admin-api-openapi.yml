@@ -189,6 +189,10 @@ paths:
       - Admin
 components:
   schemas:
+    JwtClaims:
+      description: Selection of the user claims from the JWT
+      type: object
+      additionalProperties: true
     ApiTokenInfo:
       type: object
       required:
@@ -219,10 +223,6 @@ components:
         lastUpdated:
           type: string
           format: date-time
-    JwtClaims:
-      description: Selection of the user claims from the JWT
-      type: object
-      additionalProperties: true
     AdminApiUser:
       type: object
       required:

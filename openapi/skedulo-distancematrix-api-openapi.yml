@@ -46,25 +46,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Distance:
-      type: object
-      required:
-      - distanceInMeters
-      properties:
-        distanceInMeters:
-          type: number
     MapVendor:
       type: string
       enum:
       - GOOGLE
       - GRAPHHOPPER
       - LINEOFSIGHT
-    Duration:
+    Distance:
       type: object
       required:
-      - durationInSeconds
+      - distanceInMeters
       properties:
-        durationInSeconds:
+        distanceInMeters:
           type: number
     TravelLegResult:
       type: object
@@ -106,12 +99,6 @@ components:
           type: string
         message:
           type: string
-    Avoid:
-      type: string
-      enum:
-      - ferry
-      - highway
-      - toll
     DistanceMatrixRequest:
       type: object
       required:
@@ -153,6 +140,19 @@ components:
           type: number
         lng:
           description: -180 <= x <= 180
+          type: number
+    Avoid:
+      type: string
+      enum:
+      - ferry
+      - highway
+      - toll
+    Duration:
+      type: object
+      required:
+      - durationInSeconds
+      properties:
+        durationInSeconds:
           type: number
   securitySchemes:
     Authorization:

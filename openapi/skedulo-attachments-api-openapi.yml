@@ -132,6 +132,43 @@ components:
       properties:
         result:
           $ref: '#/components/schemas/FileMeta'
+    ApiResultsFileMeta:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileMetaOld'
+    FileMeta:
+      type: object
+      required:
+      - id
+      - parentId
+      - name
+      - createdById
+      - createdDate
+      properties:
+        id:
+          type: string
+          description: The id of the file or the string 'temporary_file' if the 'parentId' is an unlinked temporary id
+        parentId:
+          type: string
+          description: The parent id or the temporary parent id that the file is uploaded with
+        contentType:
+          type: string
+        name:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        contentLength:
+          type: string
+        createdById:
+          type: string
+        description:
+          type: string
+        downloadUrl:
+          type: string
     FileMetaOld:
       type: object
       required:
@@ -163,53 +200,16 @@ components:
           type: string
         downloadUrl:
           type: string
-    FileMeta:
-      type: object
-      required:
-      - id
-      - parentId
-      - name
-      - createdById
-      - createdDate
-      properties:
-        id:
-          type: string
-          description: The id of the file or the string 'temporary_file' if the 'parentId' is an unlinked temporary id
-        parentId:
-          type: string
-          description: The parent id or the temporary parent id that the file is uploaded with
-        contentType:
-          type: string
-        name:
-          type: string
-        createdDate:
-          type: string
-          format: date-time
-        contentLength:
-          type: string
-        createdById:
-          type: string
-        description:
-          type: string
-        downloadUrl:
-          type: string
-    ApiResultFileMetaOld:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/FileMetaOld'
-    ApiResultsFileMeta:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/FileMetaOld'
     ApiResultsFileMetaMap:
       type: object
       additionalProperties:
         type: array
         items:
+          $ref: '#/components/schemas/FileMetaOld'
+    ApiResultFileMetaOld:
+      type: object
+      properties:
+        result:
           $ref: '#/components/schemas/FileMetaOld'
   securitySchemes:
     Authorization:

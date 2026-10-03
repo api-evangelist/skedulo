@@ -302,24 +302,6 @@ paths:
       - Vocabulary
 components:
   schemas:
-    FieldDependencyInput:
-      type: object
-      required:
-      - schemaName
-      - dependentField
-      - controllingField
-      - entries
-      properties:
-        schemaName:
-          type: string
-        dependentField:
-          type: string
-        controllingField:
-          type: string
-        entries:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldDependencyEntry'
     FieldDependencyKeyInput:
       type: object
       required:
@@ -340,15 +322,24 @@ components:
       properties:
         result:
           $ref: '#/components/schemas/FieldMetadataValue'
-    ModifiedVocabularyItem:
+    FieldDependencyInput:
       type: object
+      required:
+      - schemaName
+      - dependentField
+      - controllingField
+      - entries
       properties:
-        label:
+        schemaName:
           type: string
-        active:
-          type: boolean
-        defaultValue:
-          type: boolean
+        dependentField:
+          type: string
+        controllingField:
+          type: string
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldDependencyEntry'
     FieldMetadataValue:
       type: object
       required:
@@ -365,6 +356,35 @@ components:
           type: boolean
         defaultValue:
           type: boolean
+    FieldDependencyEntry:
+      type: object
+      required:
+      - dependentValue
+      - controllingValue
+      properties:
+        dependentValue:
+          type: string
+        controllingValue:
+          type: string
+    ModifiedVocabularyItem:
+      type: object
+      properties:
+        label:
+          type: string
+        active:
+          type: boolean
+        defaultValue:
+          type: boolean
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
     ResultOKEmpty:
       type: object
       required:
@@ -388,16 +408,6 @@ components:
           type: string
         entry:
           $ref: '#/components/schemas/FieldDependencyEntry'
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
     VocabularyItem:
       type: object
       required:
@@ -421,16 +431,6 @@ components:
           type: array
           items:
             type: string
-    FieldDependencyEntry:
-      type: object
-      required:
-      - dependentValue
-      - controllingValue
-      properties:
-        dependentValue:
-          type: string
-        controllingValue:
-          type: string
   securitySchemes:
     Authorization:
       type: http

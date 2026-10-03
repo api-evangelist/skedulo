@@ -172,25 +172,12 @@ paths:
       - Template
 components:
   schemas:
-    ResultOKCreateTemplate:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Template'
-    NewTemplateValue:
+    UpdateTemplate:
       type: object
       required:
-      - rel
-      - field
-      - value
+      - name
       properties:
-        rel:
-          type: string
-        field:
-          type: string
-        value:
+        name:
           type: string
     Template:
       type: object
@@ -205,30 +192,36 @@ components:
           type: string
         schemaName:
           type: string
+    ResultOKTemplateValues:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateValue'
     ResultOKDeleteTemplate:
       type: object
       properties:
         deleted:
           $ref: '#/components/schemas/TemplateId'
-    TemplateValueId:
-      type: string
-      format: uuid
-    NewTemplate:
+    ResultOKCreateTemplate:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Template'
+    Error:
       type: object
       required:
-      - name
-      - schemaName
+      - errorType
+      - message
       properties:
-        name:
+        errorType:
           type: string
-        schemaName:
+        message:
           type: string
-    UpdateTemplate:
-      type: object
-      required:
-      - name
-      properties:
-        name:
+        errorId:
           type: string
     TemplateValue:
       type: object
@@ -249,28 +242,35 @@ components:
           type: string
         value:
           type: string
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
-        errorId:
-          type: string
-    ResultOKTemplateValues:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/TemplateValue'
     TemplateId:
       type: string
       format: uuid
+    NewTemplate:
+      type: object
+      required:
+      - name
+      - schemaName
+      properties:
+        name:
+          type: string
+        schemaName:
+          type: string
+    TemplateValueId:
+      type: string
+      format: uuid
+    NewTemplateValue:
+      type: object
+      required:
+      - rel
+      - field
+      - value
+      properties:
+        rel:
+          type: string
+        field:
+          type: string
+        value:
+          type: string
   securitySchemes:
     Authorization:
       type: http

@@ -133,19 +133,6 @@ paths:
       - Travel
 components:
   schemas:
-    RouteForResource:
-      type: object
-      description: Map resource ids to route information
-      additionalProperties:
-        $ref: '#/components/schemas/Route'
-    RouteResult:
-      type: object
-      description: Map resource ids to routes with start and end times
-      required:
-      - result
-      properties:
-        result:
-          $ref: '#/components/schemas/RouteForResource'
     Route:
       type: object
       description: Route Information for a given resource.  One of polyline, wkt, or geoJson should be present
@@ -173,6 +160,19 @@ components:
           type: object
           format: GeoJson
           description: GeoJSON encoded point or linestring
+    RouteForResource:
+      type: object
+      description: Map resource ids to route information
+      additionalProperties:
+        $ref: '#/components/schemas/Route'
+    RouteResult:
+      type: object
+      description: Map resource ids to routes with start and end times
+      required:
+      - result
+      properties:
+        result:
+          $ref: '#/components/schemas/RouteForResource'
     Error:
       type: object
       properties:

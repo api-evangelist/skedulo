@@ -195,6 +195,10 @@ paths:
     - url: https://api.au.skedulo.com/auth
 components:
   schemas:
+    JwtClaims:
+      description: Selection of the user claims from the JWT
+      type: object
+      additionalProperties: true
     ApiTokenInfo:
       type: object
       required:
@@ -225,10 +229,6 @@ components:
         lastUpdated:
           type: string
           format: date-time
-    JwtClaims:
-      description: Selection of the user claims from the JWT
-      type: object
-      additionalProperties: true
     Error:
       type: object
       required:

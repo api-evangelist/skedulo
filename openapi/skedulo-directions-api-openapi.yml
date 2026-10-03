@@ -41,6 +41,20 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Route:
+      type: object
+      required:
+      - origin
+      - destination
+      properties:
+        origin:
+          $ref: '#/components/schemas/LatLng'
+        destination:
+          $ref: '#/components/schemas/LatLng'
+        waypoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/LatLng'
     Distance:
       type: object
       required:
@@ -61,54 +75,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Avoid'
-    Leg:
-      type: object
-      required:
-      - origin
-      - destination
-      - avoid
-      properties:
-        origin:
-          $ref: '#/components/schemas/LatLng'
-        destination:
-          $ref: '#/components/schemas/LatLng'
-        avoid:
-          type: array
-          items:
-            $ref: '#/components/schemas/Avoid'
-    Route:
-      type: object
-      required:
-      - origin
-      - destination
-      properties:
-        origin:
-          $ref: '#/components/schemas/LatLng'
-        destination:
-          $ref: '#/components/schemas/LatLng'
-        waypoints:
-          type: array
-          items:
-            $ref: '#/components/schemas/LatLng'
-    Duration:
-      type: object
-      required:
-      - durationInSeconds
-      properties:
-        durationInSeconds:
-          type: number
-    LatLng:
-      type: object
-      required:
-      - lat
-      - lng
-      properties:
-        lat:
-          description: -90 <= y <= 90
-          type: number
-        lng:
-          description: -180 <= x <= 180
-          type: number
     TravelLegResult:
       type: object
       required:
@@ -125,22 +91,31 @@ components:
           $ref: '#/components/schemas/Duration'
         distance:
           $ref: '#/components/schemas/Distance'
-    Error:
+    Leg:
       type: object
       required:
-      - errorType
-      - message
+      - origin
+      - destination
+      - avoid
       properties:
-        errorType:
-          type: string
-        message:
-          type: string
-    Avoid:
-      type: string
-      enum:
-      - ferry
-      - highway
-      - toll
+        origin:
+          $ref: '#/components/schemas/LatLng'
+        destination:
+          $ref: '#/components/schemas/LatLng'
+        avoid:
+          type: array
+          items:
+            $ref: '#/components/schemas/Avoid'
+    TravelRoute:
+      type: object
+      required:
+      - leg
+      - travelInfo
+      properties:
+        leg:
+          $ref: '#/components/schemas/Leg'
+        travelInfo:
+          $ref: '#/components/schemas/TravelLegResult'
     DirectionsResponse:
       type: object
       required:
@@ -152,16 +127,41 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/TravelRoute'
-    TravelRoute:
+    Error:
       type: object
       required:
-      - leg
-      - travelInfo
+      - errorType
+      - message
       properties:
-        leg:
-          $ref: '#/components/schemas/Leg'
-        travelInfo:
-          $ref: '#/components/schemas/TravelLegResult'
+        errorType:
+          type: string
+        message:
+          type: string
+    LatLng:
+      type: object
+      required:
+      - lat
+      - lng
+      properties:
+        lat:
+          description: -90 <= y <= 90
+          type: number
+        lng:
+          description: -180 <= x <= 180
+          type: number
+    Avoid:
+      type: string
+      enum:
+      - ferry
+      - highway
+      - toll
+    Duration:
+      type: object
+      required:
+      - durationInSeconds
+      properties:
+        durationInSeconds:
+          type: number
   securitySchemes:
     Authorization:
       type: apiKey

@@ -210,76 +210,6 @@ paths:
       - Grid
 components:
   schemas:
-    RecordFilter:
-      type: object
-      additionalProperties: false
-      properties:
-        uid:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        expression:
-          type: string
-        objectType:
-          type: string
-    ReasonContributor:
-      type: object
-      additionalProperties: false
-      properties:
-        entity:
-          type: string
-          enum:
-          - AvailabilityPatterns
-          - Holidays
-          - Availabilities
-        id:
-          type: string
-        isAvailable:
-          type: boolean
-        name:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        start:
-          $ref: '#/components/schemas/TimeStamp'
-        end:
-          $ref: '#/components/schemas/TimeStamp'
-        precedence:
-          type: integer
-        extra:
-          type: object
-          properties:
-            patternId:
-              type: string
-            patternType:
-              type: string
-            availabilityType:
-              type: string
-            matchedRecordFilterIds:
-              type: array
-              items:
-                type: string
-            global:
-              type: boolean
-            status:
-              type: string
-            customAvailabilityType:
-              type: string
-            createdDate:
-              $ref: '#/components/schemas/TimeStamp'
-      required:
-      - entity
-      - id
-      - isAvailable
-      - start
-      - end
-      - precedence
     SchedulingGridBodyResources:
       type: object
       example: "{\n  \"resources\": {\n    \"0005ade1-2a42-431f-a468-594ec4cb3261\": [\n      {\n        \"start\": \"2018-11-22T22:00:00.000Z\",\n        \"end\": \"2018-11-23T01:00:00.000Z\"\n      }\n    ]\n  },\n  \"job\": {\n    \"location\": {\n      \"lat\": -27.457865,\n      \"lng\": 153.037271\n    }\n  },\n  \"gridSize\": 1800,\n  \"scheduleStart\": \"2018-11-22T22:00:00.000Z\",\n  \"scheduleEnd\": \"2018-11-23T01:00:00.000Z\",\n  \"maxTravelTimeInSeconds\": 600,\n  \"includeTravelTimeToAndFromHome\": true,\n  \"regionId\": \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n  \"availabilityFilterValues\": [\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": {\n        \"Type\": \"Maintenance\",\n        \"Urgency\": \"Critical\"\n      }\n    }\n  ]\n}\n"
@@ -402,6 +332,32 @@ components:
       - scheduleStart
       - scheduleEnd
       - gridSize
+    SchedulingGridExplain:
+      type: object
+      additionalProperties: false
+      properties:
+        enabled:
+          type: boolean
+          default: false
+      description: When enabled, the response contains per-slot references and a registry of explanations for available windows only.
+    TimeStamp:
+      type: string
+      format: date-time
+      description: Can be either ISO8601 date time string or Unix timestamp number ( in milliseconds ). Always returned in ISO8601 format.
+    GridWindowExplanation:
+      type: object
+      additionalProperties: false
+      properties:
+        matchedGroups:
+          type: array
+          description: Matched groups from overlapping contributors, deduplicated.
+          items:
+            $ref: '#/components/schemas/MatchedGroup'
+        contributors:
+          type: array
+          description: Contributors are returned in the upstream order.
+          items:
+            $ref: '#/components/schemas/ReasonContributor'
     SchedulingGridBodyResourceIds:
       type: object
       example: "{\n  \"resourceIds\": [\n    \"0005ade1-2a42-431f-a468-594ec4cb3261\",\n    \"0005ea18-61c1-49d9-9b50-d16a31a21c20\"\n  ],\n  \"job\": {\n    \"location\": {\n      \"lat\": -27.457865,\n      \"lng\": 153.037271\n    }\n  },\n  \"gridSize\": 1800,\n  \"scheduleStart\": \"2018-11-22T22:00:00.000Z\",\n  \"scheduleEnd\": \"2018-11-23T01:00:00.000Z\",\n  \"maxTravelTimeInSeconds\": 600,\n  \"includeTravelTimeToAndFromHome\": true,\n  \"regionId\": \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n  \"availabilityFilterValues\": [\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": {\n        \"Type\": \"Maintenance\",\n        \"Urgency\": \"Critical\"\n      }\n    }\n  ]\n}\n"
@@ -518,10 +474,6 @@ components:
       - scheduleStart
       - scheduleEnd
       - gridSize
-    TimeStamp:
-      type: string
-      format: date-time
-      description: Can be either ISO8601 date time string or Unix timestamp number ( in milliseconds ). Always returned in ISO8601 format.
     SchedulingGridResponse:
       type: object
       example: "{\n  \"result\": [\n    {\n      \"start\": \"2018-11-22T22:00:00.000Z\",\n      \"end\": \"2018-11-22T22:30:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-22T22:30:00.000Z\",\n      \"end\": \"2018-11-22T23:00:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-22T23:00:00.000Z\",\n      \"end\": \"2018-11-22T23:30:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-22T23:30:00.000Z\",\n      \"end\": \"2018-11-23T00:00:00.000Z\",\n      \"availableResources\": [\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-23T00:00:00.000Z\",\n      \"end\": \"2018-11-23T00:30:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-23T00:30:00.000Z\",\n      \"end\": \"2018-11-23T01:00:00.000Z\",\n      \"availableResources\": [\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    }\n  ]\n}\n"
@@ -568,20 +520,6 @@ components:
               description: Registry of unique explanations when explain is enabled. IDs are response-local and not stable across requests; do not store or assume global uniqueness. Deduplicated within a single response (per resource).
               additionalProperties:
                 $ref: '#/components/schemas/GridWindowExplanation'
-    GridWindowExplanation:
-      type: object
-      additionalProperties: false
-      properties:
-        matchedGroups:
-          type: array
-          description: Matched groups from overlapping contributors, deduplicated.
-          items:
-            $ref: '#/components/schemas/MatchedGroup'
-        contributors:
-          type: array
-          description: Contributors are returned in the upstream order.
-          items:
-            $ref: '#/components/schemas/ReasonContributor'
     MatchedGroup:
       type: object
       additionalProperties: false
@@ -609,14 +547,76 @@ components:
       required:
       - objectType
       - groupId
-    SchedulingGridExplain:
+    ReasonContributor:
       type: object
       additionalProperties: false
       properties:
-        enabled:
+        entity:
+          type: string
+          enum:
+          - AvailabilityPatterns
+          - Holidays
+          - Availabilities
+        id:
+          type: string
+        isAvailable:
           type: boolean
-          default: false
-      description: When enabled, the response contains per-slot references and a registry of explanations for available windows only.
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        start:
+          $ref: '#/components/schemas/TimeStamp'
+        end:
+          $ref: '#/components/schemas/TimeStamp'
+        precedence:
+          type: integer
+        extra:
+          type: object
+          properties:
+            patternId:
+              type: string
+            patternType:
+              type: string
+            availabilityType:
+              type: string
+            matchedRecordFilterIds:
+              type: array
+              items:
+                type: string
+            global:
+              type: boolean
+            status:
+              type: string
+            customAvailabilityType:
+              type: string
+            createdDate:
+              $ref: '#/components/schemas/TimeStamp'
+      required:
+      - entity
+      - id
+      - isAvailable
+      - start
+      - end
+      - precedence
+    RecordFilter:
+      type: object
+      additionalProperties: false
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        expression:
+          type: string
+        objectType:
+          type: string
   securitySchemes:
     BearerAuth:
       type: http

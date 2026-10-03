@@ -194,6 +194,25 @@ paths:
       - Standalone
 components:
   schemas:
+    NewStandaloneCustomSchema:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Internal name
+        label:
+          type: string
+          description: Display name
+        description:
+          type: string
+          description: Description display only when modifying this field's definition
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewStandaloneCustomSchemaField'
+          description: Fields to create at the same time as the object. These fields are allowed to be required and have no default as there is no data in the object yet.
     CustomField:
       type: object
       required:
@@ -347,28 +366,6 @@ components:
           default: false
         displayOrder:
           type: integer
-    CustomSchema:
-      type: object
-      required:
-      - id
-      - name
-      - mapping
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-          description: Internal name
-        label:
-          type: string
-          description: Display name
-        description:
-          type: string
-          description: Description display only when modifying this field's definition
-        mapping:
-          type: string
-          description: The name of the object in the remote system (e.g. 'order' for Skedulo platform or 'Order__c' for Salesforce)
     NewStandaloneCustomFieldColumn:
       type: object
       required:
@@ -391,16 +388,6 @@ components:
           - datetime
           - time
           - reference
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
     NewStandaloneCustomSchemaField:
       type: object
       required:
@@ -445,11 +432,16 @@ components:
           default: false
         displayOrder:
           type: integer
-    NewStandaloneCustomSchema:
+    CustomSchema:
       type: object
       required:
+      - id
       - name
+      - mapping
       properties:
+        id:
+          type: string
+          format: uuid
         name:
           type: string
           description: Internal name
@@ -459,11 +451,19 @@ components:
         description:
           type: string
           description: Description display only when modifying this field's definition
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/NewStandaloneCustomSchemaField'
-          description: Fields to create at the same time as the object. These fields are allowed to be required and have no default as there is no data in the object yet.
+        mapping:
+          type: string
+          description: The name of the object in the remote system (e.g. 'order' for Skedulo platform or 'Order__c' for Salesforce)
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
   securitySchemes:
     Authorization:
       type: http

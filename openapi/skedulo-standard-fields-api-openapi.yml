@@ -50,7 +50,28 @@ paths:
       - Standard Fields
 components:
   schemas:
-    SchemaNotFoundError:
+    StandardField:
+      type: object
+      required:
+      - name
+      - mapping
+      properties:
+        name:
+          type: string
+          description: The name of the field
+        mapping:
+          type: string
+          description: The field mapping in the remote system
+    ResultOKStandardFields:
+      type: object
+      required:
+      - result
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/StandardField'
+    Error:
       type: object
       required:
       - errorType
@@ -58,7 +79,6 @@ components:
       properties:
         errorType:
           type: string
-          example: schema_not_found
         message:
           type: string
     VendorNotSupportedError:
@@ -73,28 +93,7 @@ components:
         message:
           type: string
           example: This endpoint is only supported for Skedulo on Salesforce tenants
-    ResultOKStandardFields:
-      type: object
-      required:
-      - result
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/StandardField'
-    StandardField:
-      type: object
-      required:
-      - name
-      - mapping
-      properties:
-        name:
-          type: string
-          description: The name of the field
-        mapping:
-          type: string
-          description: The field mapping in the remote system
-    Error:
+    SchemaNotFoundError:
       type: object
       required:
       - errorType
@@ -102,6 +101,7 @@ components:
       properties:
         errorType:
           type: string
+          example: schema_not_found
         message:
           type: string
   securitySchemes:

@@ -36,19 +36,10 @@ paths:
       - Geoservices
 components:
   schemas:
-    Coordinates:
-      type: object
-      description: Geocoordinates of the activity/job/resource
-      properties:
-        lat:
-          type: number
-          description: Latitude
-        lng:
-          type: number
-          description: Longitude
-      required:
-      - lat
-      - lng
+    TimeStamp:
+      type: string
+      format: date-time
+      description: Can be either ISO8601 date time string or Unix timestamp number ( in milliseconds ). Always returned in ISO8601 format.
     TravelTimeResponse:
       type: object
       properties:
@@ -56,10 +47,6 @@ components:
           type: object
           description: The response will contain successful travel times grouped by the Nodes id
       example: "{\n  \"result\": {\n    \"0008dea1-7b0b-496c-8043-fb86ff6a73aa\": 204,\n    \"0008cb3c-e5d8-45e6-ba80-cc674aedbbbe\": 0,\n    \"001413ed-c6a5-495d-9fb9-a92503a250c1\": 340,\n    \"001442ff-27e7-40f3-80c8-016305b92230\": 344,\n    \"001484ec-5a47-48ae-bce8-0bf443fbf50c\": 163,\n    \"000555ac-24f1-43fe-b6c0-117c34bbc994\": 257\n  }\n}\n"
-    TimeStamp:
-      type: string
-      format: date-time
-      description: Can be either ISO8601 date time string or Unix timestamp number ( in milliseconds ). Always returned in ISO8601 format.
     TravelTimeBody:
       type: object
       properties:
@@ -76,50 +63,19 @@ components:
       required:
       - resources
       - nodes
-    SchedulingOptions:
+    Coordinates:
       type: object
+      description: Geocoordinates of the activity/job/resource
       properties:
-        jobTimeAsTimeConstraint:
-          type: boolean
-          default: true
-          description: When a job has a time set, consider it to be a time constraint and never re-schedule to another time slot.
-        preferJobTimeOverTimeConstraint:
-          type: boolean
-          default: true
-          description: When a job with a JobTimeConstraint also has a time set, consider the job time as the authoritative constraint and ignore the JobTimeConstraint.
-        respectSchedule:
-          type: boolean
-          default: true
-          description: For a job that is allocated and in "Pending Dispatch" status, do not move the job to a different time.
-        ignoreTravelTimes:
-          type: boolean
-          default: false
-          description: Ignore all travel times between resources and jobs.
-        ignoreTravelTimeFirstJob:
-          type: boolean
-          default: false
-          description: Ignore travel time from a resource' home location to the first job.
-        ignoreTravelTimeLastJob:
-          type: boolean
-          default: false
-          description: Ignore travel time to the resource' home location from the last job.
-        assumeResourceCanTravelBeforeStart:
-          type: boolean
-          default: false
-          description: Ignore travel time to first job when deriving its arrival time however include the travel time when considering overall travel time reduction.
-        assumeResourceCanTravelAfterEnd:
-          type: boolean
-          default: false
-          description: Assume that the resource can travel after their end time to get to their end location however include the travel time when considering overall travel time reduction.
-        padding:
-          type: integer
-          default: 0
-          description: A fixed interval of time between consecutive jobs.
-        snapUnit:
-          type: integer
-          default: 0
-          minimum: 0
-          description: Divide the given time frame into parts described by this value and allocate all jobs to the nearest part.
+        lat:
+          type: number
+          description: Latitude
+        lng:
+          type: number
+          description: Longitude
+      required:
+      - lat
+      - lng
     TravelTimeResource:
       type: object
       properties:
@@ -165,6 +121,50 @@ components:
       - resourceId
       - start
       - end
+    SchedulingOptions:
+      type: object
+      properties:
+        jobTimeAsTimeConstraint:
+          type: boolean
+          default: true
+          description: When a job has a time set, consider it to be a time constraint and never re-schedule to another time slot.
+        preferJobTimeOverTimeConstraint:
+          type: boolean
+          default: true
+          description: When a job with a JobTimeConstraint also has a time set, consider the job time as the authoritative constraint and ignore the JobTimeConstraint.
+        respectSchedule:
+          type: boolean
+          default: true
+          description: For a job that is allocated and in "Pending Dispatch" status, do not move the job to a different time.
+        ignoreTravelTimes:
+          type: boolean
+          default: false
+          description: Ignore all travel times between resources and jobs.
+        ignoreTravelTimeFirstJob:
+          type: boolean
+          default: false
+          description: Ignore travel time from a resource' home location to the first job.
+        ignoreTravelTimeLastJob:
+          type: boolean
+          default: false
+          description: Ignore travel time to the resource' home location from the last job.
+        assumeResourceCanTravelBeforeStart:
+          type: boolean
+          default: false
+          description: Ignore travel time to first job when deriving its arrival time however include the travel time when considering overall travel time reduction.
+        assumeResourceCanTravelAfterEnd:
+          type: boolean
+          default: false
+          description: Assume that the resource can travel after their end time to get to their end location however include the travel time when considering overall travel time reduction.
+        padding:
+          type: integer
+          default: 0
+          description: A fixed interval of time between consecutive jobs.
+        snapUnit:
+          type: integer
+          default: 0
+          minimum: 0
+          description: Divide the given time frame into parts described by this value and allocate all jobs to the nearest part.
   securitySchemes:
     BearerAuth:
       type: http

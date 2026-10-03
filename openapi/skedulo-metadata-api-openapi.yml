@@ -34,36 +34,6 @@ paths:
       - Metadata
 components:
   schemas:
-    TeamMetadata:
-      type: object
-      required:
-      - id
-      - name
-      - description
-      - vendor
-      - orgId
-      properties:
-        id:
-          type: string
-        name:
-          description: A valid DNS sub domain
-          type: string
-        description:
-          description: A human friendly name
-          type: string
-        vendor:
-          description: The vendor associated with this organization
-          type: string
-          enum:
-          - salesforce
-          - servicenow
-          - skedulo
-        orgId:
-          description: The vendor specific organization ID
-          type: string
-        customer:
-          description: The customer name.
-          type: string
     UserMetadata:
       type: object
       required:
@@ -111,6 +81,36 @@ components:
         mobilePhone:
           type: string
         timezone:
+          type: string
+    TeamMetadata:
+      type: object
+      required:
+      - id
+      - name
+      - description
+      - vendor
+      - orgId
+      properties:
+        id:
+          type: string
+        name:
+          description: A valid DNS sub domain
+          type: string
+        description:
+          description: A human friendly name
+          type: string
+        vendor:
+          description: The vendor associated with this organization
+          type: string
+          enum:
+          - salesforce
+          - servicenow
+          - skedulo
+        orgId:
+          description: The vendor specific organization ID
+          type: string
+        customer:
+          description: The customer name.
           type: string
   securitySchemes:
     Authorization:

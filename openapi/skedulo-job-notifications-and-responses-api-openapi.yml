@@ -141,19 +141,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    NotifyRequest:
-      type: object
-      required:
-      - jobId
-      properties:
-        jobId:
-          type: string
-        resourceId:
-          type: string
-        resourceIds:
-          type: array
-          items:
-            type: string
     DispatchResponse:
       type: object
       properties:
@@ -179,6 +166,26 @@ components:
           type: string
         message:
           type: string
+    NotifyRequest:
+      type: object
+      required:
+      - jobId
+      properties:
+        jobId:
+          type: string
+        resourceId:
+          type: string
+        resourceIds:
+          type: array
+          items:
+            type: string
+    CancelRequest:
+      type: object
+      required:
+      - jobId
+      properties:
+        jobId:
+          type: string
     ResourceResult:
       type: object
       properties:
@@ -189,13 +196,6 @@ components:
         error:
           description: null if the notification was sent successfully
           $ref: '#/components/schemas/Error'
-    CancelRequest:
-      type: object
-      required:
-      - jobId
-      properties:
-        jobId:
-          type: string
   requestBodies:
     NotifyRequest:
       content:

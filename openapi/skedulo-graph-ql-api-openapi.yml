@@ -86,6 +86,17 @@ paths:
       - Graph QL
 components:
   schemas:
+    GraphQLResult:
+      type: object
+      properties:
+        data:
+          type: object
+          description: Query or mutation result.
+          additionalProperties: true
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLError'
     GraphQLError:
       type: object
       description: errors
@@ -102,17 +113,6 @@ components:
             column:
               type: string
               description: Column number
-    GraphQLResult:
-      type: object
-      properties:
-        data:
-          type: object
-          description: Query or mutation result.
-          additionalProperties: true
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLError'
     Error:
       type: object
       required:
