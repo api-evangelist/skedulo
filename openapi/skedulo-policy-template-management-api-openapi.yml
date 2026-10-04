@@ -125,6 +125,61 @@ components:
           description: The ID of the template the policy was created from. null if the policy was not created from a template.
           format: uuid
       description: A group of record access rules that combine to achieve a desired outcome.
+    RuleTemplateResult:
+      required:
+      - accessType
+      - description
+      - filter
+      - objectType
+      - permissionsExcluded
+      type: object
+      properties:
+        description:
+          type: string
+          description: See RuleResult.
+        objectType:
+          type: string
+          description: See RuleResult.
+        filter:
+          type: string
+          description: See RuleResult.
+        accessType:
+          type: string
+          description: See RuleResult.
+          enum:
+          - deny
+          - allow
+        permissionsExcluded:
+          type: array
+          description: See RuleResult.
+          items:
+            type: string
+            description: See RuleResult.
+      description: A pre-defined rule.
+    TemplateResult:
+      required:
+      - description
+      - id
+      - name
+      - rules
+      type: object
+      properties:
+        id:
+          type: string
+          description: Uniquely identifies the template. This ID must be provided when applying the template to create a policy.
+          format: uuid
+        name:
+          type: string
+          description: Short name for the policy.
+        description:
+          type: string
+          description: Detailed description of the policy.
+        rules:
+          type: array
+          description: The rules for the policy.
+          items:
+            $ref: '#/components/schemas/RuleTemplateResult'
+      description: A pre-defined policy with rules.
     ErrorDetails:
       type: object
       properties:
@@ -136,13 +191,6 @@ components:
           type: object
           additionalProperties:
             type: object
-    ApiResultPolicyResult:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/PolicyResult'
     RuleResult:
       required:
       - accessType
@@ -194,61 +242,13 @@ components:
             description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
             format: uuid
       description: A record access rule that controls access to data.
-    TemplateResult:
+    ApiResultPolicyResult:
       required:
-      - description
-      - id
-      - name
-      - rules
+      - result
       type: object
       properties:
-        id:
-          type: string
-          description: Uniquely identifies the template. This ID must be provided when applying the template to create a policy.
-          format: uuid
-        name:
-          type: string
-          description: Short name for the policy.
-        description:
-          type: string
-          description: Detailed description of the policy.
-        rules:
-          type: array
-          description: The rules for the policy.
-          items:
-            $ref: '#/components/schemas/RuleTemplateResult'
-      description: A pre-defined policy with rules.
-    RuleTemplateResult:
-      required:
-      - accessType
-      - description
-      - filter
-      - objectType
-      - permissionsExcluded
-      type: object
-      properties:
-        description:
-          type: string
-          description: See RuleResult.
-        objectType:
-          type: string
-          description: See RuleResult.
-        filter:
-          type: string
-          description: See RuleResult.
-        accessType:
-          type: string
-          description: See RuleResult.
-          enum:
-          - deny
-          - allow
-        permissionsExcluded:
-          type: array
-          description: See RuleResult.
-          items:
-            type: string
-            description: See RuleResult.
-      description: A pre-defined rule.
+        result:
+          $ref: '#/components/schemas/PolicyResult'
   securitySchemes:
     ApiKeyAuth:
       type: http

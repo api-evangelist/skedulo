@@ -133,6 +133,21 @@ paths:
       - Travel
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+    RouteResult:
+      type: object
+      description: Map resource ids to routes with start and end times
+      required:
+      - result
+      properties:
+        result:
+          $ref: '#/components/schemas/RouteForResource'
     Route:
       type: object
       description: Route Information for a given resource.  One of polyline, wkt, or geoJson should be present
@@ -165,21 +180,6 @@ components:
       description: Map resource ids to route information
       additionalProperties:
         $ref: '#/components/schemas/Route'
-    RouteResult:
-      type: object
-      description: Map resource ids to routes with start and end times
-      required:
-      - result
-      properties:
-        result:
-          $ref: '#/components/schemas/RouteForResource'
-    Error:
-      type: object
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
   securitySchemes:
     Authorization:
       type: apiKey

@@ -50,37 +50,6 @@ paths:
       - Standard Fields
 components:
   schemas:
-    StandardField:
-      type: object
-      required:
-      - name
-      - mapping
-      properties:
-        name:
-          type: string
-          description: The name of the field
-        mapping:
-          type: string
-          description: The field mapping in the remote system
-    ResultOKStandardFields:
-      type: object
-      required:
-      - result
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/StandardField'
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
     VendorNotSupportedError:
       type: object
       required:
@@ -104,6 +73,37 @@ components:
           example: schema_not_found
         message:
           type: string
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+    StandardField:
+      type: object
+      required:
+      - name
+      - mapping
+      properties:
+        name:
+          type: string
+          description: The name of the field
+        mapping:
+          type: string
+          description: The field mapping in the remote system
+    ResultOKStandardFields:
+      type: object
+      required:
+      - result
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/StandardField'
   securitySchemes:
     Authorization:
       type: http

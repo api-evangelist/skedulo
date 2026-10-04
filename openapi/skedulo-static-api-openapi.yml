@@ -178,11 +178,6 @@ paths:
       - Static
 components:
   schemas:
-    ApiResultStaticFileMeta:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/StaticFileMeta'
     StaticFileMeta:
       type: object
       required:
@@ -221,6 +216,11 @@ components:
           format: date-time
         downloadUrl:
           type: string
+    ApiResultStaticFileMeta:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/StaticFileMeta'
   securitySchemes:
     Authorization:
       type: http

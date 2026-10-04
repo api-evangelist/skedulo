@@ -156,6 +156,23 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ResourceResult'
+    ResourceResult:
+      type: object
+      properties:
+        resourceId:
+          type: string
+        protocol:
+          type: string
+        error:
+          description: null if the notification was sent successfully
+          $ref: '#/components/schemas/Error'
+    CancelRequest:
+      type: object
+      required:
+      - jobId
+      properties:
+        jobId:
+          type: string
     Error:
       type: object
       required:
@@ -179,23 +196,6 @@ components:
           type: array
           items:
             type: string
-    CancelRequest:
-      type: object
-      required:
-      - jobId
-      properties:
-        jobId:
-          type: string
-    ResourceResult:
-      type: object
-      properties:
-        resourceId:
-          type: string
-        protocol:
-          type: string
-        error:
-          description: null if the notification was sent successfully
-          $ref: '#/components/schemas/Error'
   requestBodies:
     NotifyRequest:
       content:

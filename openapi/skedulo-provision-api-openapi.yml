@@ -348,6 +348,22 @@ paths:
       - Provision
 components:
   schemas:
+    StandaloneUserResultError:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    NotificationType:
+      type: string
+      description: Default notification method of this resource.
+      enum:
+      - sms
+      - push
     StandaloneUserLog:
       type: object
       required:
@@ -369,25 +385,59 @@ components:
           type: boolean
         errorMsg:
           type: string
-    StandaloneUserResultError:
+    StandaloneUserResult:
       type: object
       required:
-      - code
+      - inserted
+      - updated
+      - total
+      - failures
+      properties:
+        inserted:
+          type: integer
+        updated:
+          type: integer
+        total:
+          type: integer
+        failures:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/StandaloneUserResultError'
+    Error:
+      type: object
+      required:
+      - errorType
       - message
       properties:
-        code:
+        errorType:
           type: string
         message:
           type: string
-    WorkingHourType:
-      type: string
-      description: Working hour type of this resource.
-      enum:
-      - Availability
-      - Shift
+        errorId:
+          type: string
     CountryCode:
       description: The correct country code must be set for each resource so that they can receive SMS.
       type: string
+    RolesField:
+      description: A role to assign to the user.
+      type: string
+      enum:
+      - Administrator
+      - Scheduler
+      - Resource
+      - <custom role name or ID>
+    BulkUserResult:
+      type: object
+      required:
+      - task
+      - users
+      properties:
+        task:
+          $ref: '#/components/schemas/AsyncTaskResult'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/StandaloneUserLog'
     AsyncTaskResult:
       type: object
       required:
@@ -413,6 +463,15 @@ components:
           type: boolean
         errorMsg:
           type: string
+    RegionsField:
+      description: A set of region UIDs that should be associated with the user.
+      type: string
+    WorkingHourType:
+      type: string
+      description: Working hour type of this resource.
+      enum:
+      - Availability
+      - Shift
     NewStandaloneUser:
       type: object
       required:
@@ -472,65 +531,6 @@ components:
               type: number
             geoLatitude:
               type: number
-    RolesField:
-      description: A role to assign to the user.
-      type: string
-      enum:
-      - Administrator
-      - Scheduler
-      - Resource
-      - <custom role name or ID>
-    StandaloneUserResult:
-      type: object
-      required:
-      - inserted
-      - updated
-      - total
-      - failures
-      properties:
-        inserted:
-          type: integer
-        updated:
-          type: integer
-        total:
-          type: integer
-        failures:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/StandaloneUserResultError'
-    NotificationType:
-      type: string
-      description: Default notification method of this resource.
-      enum:
-      - sms
-      - push
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
-        errorId:
-          type: string
-    BulkUserResult:
-      type: object
-      required:
-      - task
-      - users
-      properties:
-        task:
-          $ref: '#/components/schemas/AsyncTaskResult'
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/StandaloneUserLog'
-    RegionsField:
-      description: A set of region UIDs that should be associated with the user.
-      type: string
   securitySchemes:
     Authorization:
       type: http

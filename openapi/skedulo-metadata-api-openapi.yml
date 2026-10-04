@@ -34,54 +34,6 @@ paths:
       - Metadata
 components:
   schemas:
-    UserMetadata:
-      type: object
-      required:
-      - id
-      - email
-      - username
-      - fullName
-      - lastName
-      - team
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-        username:
-          type: string
-        fullName:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        team:
-          $ref: '#/components/schemas/TeamMetadata'
-        resource:
-          $ref: '#/components/schemas/ResourceMetadata'
-    ResourceMetadata:
-      type: object
-      required:
-      - id
-      - timezone
-      properties:
-        id:
-          type: string
-        category:
-          type: string
-        employmentType:
-          type: string
-        address:
-          type: string
-        latitude:
-          type: number
-        longitude:
-          type: number
-        mobilePhone:
-          type: string
-        timezone:
-          type: string
     TeamMetadata:
       type: object
       required:
@@ -112,6 +64,54 @@ components:
         customer:
           description: The customer name.
           type: string
+    ResourceMetadata:
+      type: object
+      required:
+      - id
+      - timezone
+      properties:
+        id:
+          type: string
+        category:
+          type: string
+        employmentType:
+          type: string
+        address:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        mobilePhone:
+          type: string
+        timezone:
+          type: string
+    UserMetadata:
+      type: object
+      required:
+      - id
+      - email
+      - username
+      - fullName
+      - lastName
+      - team
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        username:
+          type: string
+        fullName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        team:
+          $ref: '#/components/schemas/TeamMetadata'
+        resource:
+          $ref: '#/components/schemas/ResourceMetadata'
   securitySchemes:
     Authorization:
       type: http

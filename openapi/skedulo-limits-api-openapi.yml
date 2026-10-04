@@ -35,13 +35,6 @@ paths:
       x-operation-id-original: Get Limits
 components:
   schemas:
-    LimitsDto:
-      required:
-      - scope
-      type: object
-      properties:
-        scope:
-          $ref: '#/components/schemas/LimitsScopeDto'
     LimitsScopeDto:
       required:
       - jobs
@@ -57,6 +50,13 @@ components:
           description: Maximum number of resources allowed in scope for any given run
           format: int32
       description: Limits that apply to the scope of a run
+    LimitsDto:
+      required:
+      - scope
+      type: object
+      properties:
+        scope:
+          $ref: '#/components/schemas/LimitsScopeDto'
   securitySchemes:
     httpAuth:
       type: http

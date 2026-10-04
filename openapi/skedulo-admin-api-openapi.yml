@@ -189,10 +189,26 @@ paths:
       - Admin
 components:
   schemas:
-    JwtClaims:
-      description: Selection of the user claims from the JWT
+    AdminApiUser:
       type: object
-      additionalProperties: true
+      required:
+      - tenantId
+      - type
+      properties:
+        tenantId:
+          type: string
+          example: sk_e0bb1f8aa1924a00b77a9c1f43b09e41
+        type:
+          type: string
+          enum:
+          - api_user
+          - standalone_system_user
+          - legacy_user
+          - none
+          example: api_user
+        userId:
+          type: string
+          example: ipovey@skedulo.com
     ApiTokenInfo:
       type: object
       required:
@@ -223,26 +239,10 @@ components:
         lastUpdated:
           type: string
           format: date-time
-    AdminApiUser:
+    JwtClaims:
+      description: Selection of the user claims from the JWT
       type: object
-      required:
-      - tenantId
-      - type
-      properties:
-        tenantId:
-          type: string
-          example: sk_e0bb1f8aa1924a00b77a9c1f43b09e41
-        type:
-          type: string
-          enum:
-          - api_user
-          - standalone_system_user
-          - legacy_user
-          - none
-          example: api_user
-        userId:
-          type: string
-          example: ipovey@skedulo.com
+      additionalProperties: true
   securitySchemes:
     Authorization:
       type: http

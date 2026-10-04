@@ -41,22 +41,32 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    AutoCompleteResult:
+    LatLng:
       type: object
       required:
-      - predictions
-      - status
+      - lat
+      - lng
       properties:
-        predictions:
-          type: array
-          items:
-            $ref: '#/components/schemas/AutoCompletePrediction'
-        status:
+        lat:
+          description: -90 <= y <= 90
+          type: number
+        lng:
+          description: -180 <= x <= 180
+          type: number
+    AutoCompleteResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/AutoCompleteResult'
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
           type: string
-          enum:
-          - OK
-          - ZERO_RESULTS
-        errorMessage:
+        message:
           type: string
     AutoCompleteRequest:
       type: object
@@ -89,33 +99,23 @@ components:
         placeId:
           type: string
           description: Unique id for the suggested place, to be used with fetch place endpoint.
-    AutoCompleteResponse:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/AutoCompleteResult'
-    Error:
+    AutoCompleteResult:
       type: object
       required:
-      - errorType
-      - message
+      - predictions
+      - status
       properties:
-        errorType:
+        predictions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutoCompletePrediction'
+        status:
           type: string
-        message:
+          enum:
+          - OK
+          - ZERO_RESULTS
+        errorMessage:
           type: string
-    LatLng:
-      type: object
-      required:
-      - lat
-      - lng
-      properties:
-        lat:
-          description: -90 <= y <= 90
-          type: number
-        lng:
-          description: -180 <= x <= 180
-          type: number
   securitySchemes:
     Authorization:
       type: apiKey

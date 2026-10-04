@@ -212,67 +212,27 @@ paths:
       - Webhooks
 components:
   schemas:
-    Webhook:
-      oneOf:
-      - $ref: '#/components/schemas/WebhookGraphQL'
-      - $ref: '#/components/schemas/WebhookGraphQLDeferred'
-      - $ref: '#/components/schemas/WebhookScheduled'
-      - $ref: '#/components/schemas/WebhookInboundSMS'
-      discriminator:
-        propertyName: type
-        mapping:
-          graphql: '#/components/schemas/WebhookGraphQL'
-          graphql_deferred: '#/components/schemas/WebhookGraphQLDeferred'
-          scheduled: '#/components/schemas/WebhookScheduled'
-          inbound_sms: '#/components/schemas/WebhookInboundSMS'
-    WebhookGraphQL:
+    WebhookGraphQLDeferred:
       allOf:
       - $ref: '#/components/schemas/WebhookBase'
       required:
       - type
+      - name
+      - offset
       - query
       properties:
         type:
           type: string
           enum:
-          - graphql
+          - graphql_deferred
+        filter:
+          type: string
+        name:
+          type: string
+        offset:
+          $ref: '#/components/schemas/WebhookGraphQLDeferredOffset'
         query:
           type: string
-    WebhookGraphQLDeferredOffsetField:
-      required:
-      - fieldName
-      properties:
-        fieldName:
-          type: string
-        default:
-          type: integer
-          format: int64
-    GraphQLError:
-      type: object
-      description: errors
-      properties:
-        message:
-          type: string
-          description: Error message.
-        location:
-          type: object
-          properties:
-            line:
-              type: string
-              description: Line Number
-            column:
-              type: string
-              description: Column number
-    WebhookInboundSMS:
-      allOf:
-      - $ref: '#/components/schemas/WebhookBase'
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - inbound_sms
     NewWebhook:
       oneOf:
       - $ref: '#/components/schemas/WebhookGraphQL'
@@ -286,6 +246,79 @@ components:
           graphql_deferred: '#/components/schemas/WebhookGraphQLDeferred'
           scheduled: '#/components/schemas/WebhookScheduled'
           inbound_sms: '#/components/schemas/WebhookInboundSMS'
+    Webhook:
+      oneOf:
+      - $ref: '#/components/schemas/WebhookGraphQL'
+      - $ref: '#/components/schemas/WebhookGraphQLDeferred'
+      - $ref: '#/components/schemas/WebhookScheduled'
+      - $ref: '#/components/schemas/WebhookInboundSMS'
+      discriminator:
+        propertyName: type
+        mapping:
+          graphql: '#/components/schemas/WebhookGraphQL'
+          graphql_deferred: '#/components/schemas/WebhookGraphQLDeferred'
+          scheduled: '#/components/schemas/WebhookScheduled'
+          inbound_sms: '#/components/schemas/WebhookInboundSMS'
+    WebhookGraphQLDeferredOffsetField:
+      required:
+      - fieldName
+      properties:
+        fieldName:
+          type: string
+        default:
+          type: integer
+          format: int64
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+        errorId:
+          type: string
+    GraphQLResult:
+      type: object
+      properties:
+        data:
+          type: object
+          description: Query result
+          additionalProperties: true
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLError'
+    WebhookInboundSMS:
+      allOf:
+      - $ref: '#/components/schemas/WebhookBase'
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - inbound_sms
+    WebhookGraphQLDeferredOffset:
+      oneOf:
+      - type: integer
+        format: int64
+      - $ref: '#/components/schemas/WebhookGraphQLDeferredOffsetField'
+    WebhookScheduled:
+      allOf:
+      - $ref: '#/components/schemas/WebhookBase'
+      required:
+      - type
+      - cron
+      properties:
+        type:
+          type: string
+          enum:
+          - scheduled
+        cron:
+          type: string
     WebhookBase:
       type: object
       required:
@@ -307,66 +340,33 @@ components:
         headers:
           type: object
           additionalProperties: true
-    Error:
+    GraphQLError:
       type: object
-      required:
-      - errorType
-      - message
+      description: errors
       properties:
-        errorType:
-          type: string
         message:
           type: string
-        errorId:
-          type: string
-    WebhookGraphQLDeferredOffset:
-      oneOf:
-      - type: integer
-        format: int64
-      - $ref: '#/components/schemas/WebhookGraphQLDeferredOffsetField'
-    GraphQLResult:
-      type: object
-      properties:
-        data:
+          description: Error message.
+        location:
           type: object
-          description: Query result
-          additionalProperties: true
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLError'
-    WebhookScheduled:
+          properties:
+            line:
+              type: string
+              description: Line Number
+            column:
+              type: string
+              description: Column number
+    WebhookGraphQL:
       allOf:
       - $ref: '#/components/schemas/WebhookBase'
       required:
       - type
-      - cron
-      properties:
-        type:
-          type: string
-          enum:
-          - scheduled
-        cron:
-          type: string
-    WebhookGraphQLDeferred:
-      allOf:
-      - $ref: '#/components/schemas/WebhookBase'
-      required:
-      - type
-      - name
-      - offset
       - query
       properties:
         type:
           type: string
           enum:
-          - graphql_deferred
-        filter:
-          type: string
-        name:
-          type: string
-        offset:
-          $ref: '#/components/schemas/WebhookGraphQLDeferredOffset'
+          - graphql
         query:
           type: string
   securitySchemes:

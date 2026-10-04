@@ -679,355 +679,75 @@ paths:
       x-operation-id-original: Solve planned
 components:
   schemas:
-    SharedGroupConstraintShape:
-      required:
-      - groupId
-      - resourceIds
-      - maxAllocations
-      - start
-      - end
-      type: object
-      properties:
-        groupId:
-          type: string
-          description: The allocation group identifier the pooled limit applies to
-        resourceIds:
-          type: array
-          items:
-            type: string
-          description: The resources that share the pooled limit
-        maxAllocations:
-          type: integer
-          description: Maximum number of allocations from this group across all listed resources combined within the period
-          format: int32
-        start:
-          type: string
-          description: Start of the period the pooled limit applies to
-          format: date-time
-        end:
-          type: string
-          description: End of the period the pooled limit applies to
-          format: date-time
-    GraphQLActivityResource:
-      required:
-      - resourceId
-      type: object
-      properties:
-        resourceId:
-          type: string
-    GraphQLJobTag:
-      required:
-      - Required
-      - Tag
-      type: object
-      properties:
-        Required:
-          type: boolean
-        Weighting:
-          type: integer
-          format: int32
-        Tag:
-          $ref: '#/components/schemas/GraphQLTag'
-    GraphQLResourceTag:
-      required:
-      - Tag
-      type: object
-      properties:
-        Tag:
-          $ref: '#/components/schemas/GraphQLTag'
-        ExpiryDate:
-          type: string
-          format: date-time
-    AllocationGroupShape:
-      required:
-      - id
-      - locked
-      type: object
-      properties:
-        id:
-          type: string
-        synchronizationMode:
-          type: string
-          description: The time that should be synchronised for each job in the group
-          default: no_synchronization
-          enum:
-          - no_synchronization
-          - start_time
-          - end_time
-          - day
-        locked:
-          type: boolean
-          description: If the group is locked, all allocations in the group will be locked
-        enablePartialAllocation:
-          type: boolean
-          description: Allows allocations in the group to be partially allocated if they cannot be fully allocated. This will be overridden by the global setting options.enablePartiallyAllocatedGroups if the global setting is true.
-          default: false
-        phaseTags:
-          type: array
-          items:
-            type: string
-          description: Phase tags that restrict this group to specific phases. If absent or empty, the group is included in all phases.
-    ResourceAvailabilityAttributeShape:
+    AttributeRequirementsShape:
       required:
       - id
       type: object
       properties:
         id:
           type: string
-          description: The attribute identifier active during this availability window
-    ShiftFeatureOptionsShape:
-      required:
-      - locations
-      type: object
-      properties:
-        locations:
-          type: boolean
-          description: If true, location data is used to calculate travel times between allocations and resource home locations
-        exceptionFilter:
-          $ref: '#/components/schemas/ExceptionFilterShape'
-        solviceWeights:
-          $ref: '#/components/schemas/SolviceWeightsShape'
-      description: Configuration options controlling the shift optimization behaviour
-    GraphQLLocationResourceScore:
-      required:
-      - LocationId
-      - ResourceId
-      - Blacklisted
-      type: object
-      properties:
-        LocationId:
-          type: string
-        ResourceId:
-          type: string
-        Blacklisted:
-          type: boolean
-    JobStatus:
-      type: string
-      enum:
-      - Cancelled
-      - Complete
-      - Dispatched
-      - En Route
-      - In Progress
-      - On Site
-      - Pending Allocation
-      - Pending Dispatch
-      - Queued
-      - Ready
-    RegionAvailability:
-      required:
-      - start
-      - end
-      - regionIds
-      type: object
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-        regionIds:
-          type: array
-          items:
-            type: string
-    ResourceAvailabilityShape:
-      required:
-      - from
-      - to
-      type: object
-      properties:
-        from:
-          type: string
-          description: Start of the availability window
-          format: date-time
-        to:
-          type: string
-          description: End of the availability window
-          format: date-time
-        fromLocation:
-          type: string
-          description: Location from which the resource departs at the start of this availability window; overrides the resource's home location for travel time calculations
-    AllocationShape1:
-      required:
-      - id
-      - groupIds
-      - duration
-      - locked
-      - attributeRequirements
-      - scheduleConstraints
-      - resourceRatings
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for this allocation
-        groupId:
-          type: string
-          description: The allocation group if an allocation belongs to a single group
-        groupIds:
-          type: array
-          items:
-            type: string
-          description: The allocation groups if an allocation belongs to multiple groups
-        start:
-          type: string
-          description: The currently scheduled start time, if the allocation has already been scheduled
-          format: date-time
-        resourceId:
-          type: string
-          description: The resource currently assigned to this allocation, if any
-        locationId:
-          type: string
-          description: The location at which this allocation takes place
-        duration:
-          type: integer
-          description: The duration of the allocation in minutes
-          format: int64
-        locked:
-          type: boolean
-          description: If the allocation is locked, the start time and resourceId cannot be reassigned
-        attributeRequirements:
-          type: array
-          items:
-            $ref: '#/components/schemas/AllocationAttributeShape'
-          description: Attributes a resource must or preferably should have to be assigned to this allocation
-        resourceConstraints:
-          $ref: '#/components/schemas/AllocationResourceConstraintShape'
-        scheduleConstraints:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScheduleTimeConstraintShape'
-          description: Time windows within which this allocation must be scheduled; the allocation's start time must fall within one of these windows
-        resourceRatings:
-          type: array
-          items:
-            $ref: '#/components/schemas/AllocationResourceRatingShape'
-          description: The rating of resources for this specific job. If present this will override the rating field on resources for this job.
-        priority:
-          type: integer
-          description: Priority of this allocation (1-100); higher values cause the optimizer to prefer assigning this allocation over lower-priority ones
-          format: int32
-        urgency:
-          type: integer
-          description: Urgency of this allocation (1-100); higher values cause the optimizer to schedule the allocation closer to the start of its time windows
-          format: int32
-        phaseTags:
-          type: array
-          items:
-            type: string
-          description: Phase tags that restrict this allocation to specific phases. If absent or empty, the allocation is included in all phases.
-    ResourceShape1:
-      required:
-      - id
-      - attributes
-      - availability
-      - periodConstraints
-      - breaks
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for this resource
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceAttributeShape'
-          description: Skills and qualifications held by this resource
-        locationId:
-          type: string
-          description: The home/base location of this resource, used as the default start and end point for route calculations
-        availability:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceAvailabilityShape1'
-          description: Time windows during which this resource is available for allocation, with optional start and end locations for each window
-        compatibleResources:
-          type: array
-          items:
-            type: string
-          description: List of resource IDs that this resource is compatible with; used to constrain which resources can share work within a locked group
-        maxDailyTravelTimeInMinutes:
-          type: integer
-          description: Maximum total travel time allowed per day for this resource, in minutes; overrides the global option if set
-          format: int64
-        maxTravelTimeBetweenLocations:
-          type: integer
-          description: Maximum travel time allowed between any two consecutive allocation locations for this resource, in minutes; overrides the global option if set
-          format: int64
-        periodConstraints:
-          type: array
-          items:
-            $ref: '#/components/schemas/PeriodConstraintsShape1'
-          description: Allows a resource to be given minimum and maximum service times for different periods
-        breaks:
-          type: array
-          items:
-            $ref: '#/components/schemas/BreakShape'
-          description: Scheduled breaks that must be incorporated into the resource's route
-        rating:
-          type: integer
-          description: The rating of the resource, can be an integer between 1 and 100
-          format: int32
-        phaseTags:
-          type: array
-          items:
-            type: string
-          description: Phase tags that restrict this resource to specific phases. If absent or empty, the resource is included in all phases.
-    ObjectiveWeightsShape:
-      type: object
-      properties:
-        minimizeDisruption:
-          type: integer
-        balanceAbsoluteWorkload:
-          type: integer
-        travelTime:
-          type: integer
-        minimizeResources:
-          type: integer
-        softSkills:
-          type: integer
-        jobsPriority:
-          type: integer
-        resourceRating:
-          type: integer
-        scheduleImmediacy:
-          type: integer
-        urgency:
-          type: integer
-        overtime:
-          type: integer
-    WindowedBreakShape:
-      required:
-      - breakTimeInMinutes
-      - minStartTime
-      - maxStartTime
-      type: object
-      properties:
-        breakTimeInMinutes:
-          type: integer
-          description: Duration of the break in minutes
-          format: int64
-        minStartTime:
-          type: string
-          description: Earliest time at which the break may start
-          format: date-time
-        maxStartTime:
-          type: string
-          description: Latest time at which the break may start
-          format: date-time
-    AllocationAttributeShape:
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          type: string
-          description: The attribute identifier
+          description: The attribute identifier that the resource must or preferably should have
         weighting:
           type: integer
-          description: If present, this is a soft (preferred) requirement with the given weighting; if absent, this is a hard (required) attribute
+          description: If present, this is a soft (preferred) requirement with the given weighting (1-10000); if absent, this is a hard (required) attribute
           format: int32
+    GroupConstraintsShape:
+      required:
+      - groupId
+      - maxAllocations
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The allocation group identifier
+        maxAllocations:
+          type: integer
+          description: Maximum number of allocations from this group that can be assigned to the resource in the period
+          format: int32
+    GraphQLActivity:
+      required:
+      - UID
+      - Start
+      - End
+      - ActivityResources
+      type: object
+      properties:
+        UID:
+          type: string
+        Start:
+          type: string
+          format: date-time
+        End:
+          type: string
+          format: date-time
+        LocationId:
+          type: string
+        GeoLatitude:
+          type: number
+          format: double
+        GeoLongitude:
+          type: number
+          format: double
+        ResourceId:
+          type: string
+        ActivityResources:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLActivityResource'
+    SolveResult:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+    GraphQLJobDependencyTo:
+      required:
+      - FromJobId
+      type: object
+      properties:
+        FromJobId:
+          type: string
     FixedTimeBreakShape:
       required:
       - startTime
@@ -1045,184 +765,21 @@ components:
         locationId:
           type: string
           description: Optional location where the resource will be during this break; affects travel time calculations for surrounding allocations
-    FeatureModelShape:
-      oneOf:
-      - $ref: '#/components/schemas/ARCShiftModelShape'
-      - $ref: '#/components/schemas/CorePVRPFeatureModelShape'
-    BreakShape:
-      oneOf:
-      - $ref: '#/components/schemas/FixedTimeBreakShape'
-      - $ref: '#/components/schemas/WindowedBreakShape'
-    RollingScheduleWindow:
+    GraphQLRegion:
       required:
-      - start
-      - end
+      - UID
       type: object
       properties:
-        start:
+        UID:
           type: string
-          format: date-time
-        end:
+        Timezone:
           type: string
-          format: date-time
-    JobUrgency:
-      type: string
-      enum:
-      - Critical
-      - Normal
-      - Urgent
-    ResourceAttributeShape:
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          type: string
-          description: The attribute identifier
-    ResourceConstraintsShape:
-      required:
-      - type
-      - resources
-      type: object
-      properties:
-        type:
-          type: string
-          description: The constraint type; currently only 'blocked' (exclude list) is supported
-          enum:
-          - blocked
-        resources:
-          type: array
-          items:
-            type: string
-          description: The resources to which this constraint applies
-      description: Restricts which resources may be assigned to this allocation
-    AllocationResourceRatingShape:
-      required:
-      - resourceId
-      - rating
-      type: object
-      properties:
-        resourceId:
-          type: string
-        rating:
-          type: integer
-          description: The rating of the resource, can be an integer between 1 and 100
-          format: int32
-    APIProductData:
-      required:
-      - jobs
-      - activities
-      - resources
-      - accountResourceScores
-      - locationResourceScores
-      - availability
-      - start
-      - end
-      - timezone
-      type: object
-      properties:
-        jobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLJob'
-        activities:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLActivity'
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLResource'
-        accountResourceScores:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLAccountResourceScore'
-        locationResourceScores:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLLocationResourceScore'
-        availability:
-          $ref: '#/components/schemas/Map_ResourceId_ResourceAvailability'
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-        rollingScheduleWindows:
-          type: array
-          items:
-            $ref: '#/components/schemas/RollingScheduleWindow'
-        timezone:
-          type: string
-        region:
-          $ref: '#/components/schemas/GraphQLRegion'
-        regions:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLRegion'
-      description: All the data retrieved from GraphQL to run the optimization
-    PeriodConstraintsShape1:
-      required:
-      - start
-      - end
-      type: object
-      properties:
-        start:
-          type: string
-          description: Start of the constraint period; must be within the scheduling period
-          format: date-time
-        end:
-          type: string
-          description: End of the constraint period; must be within the scheduling period
-          format: date-time
-        maxServiceTimeInMinutes:
-          type: integer
-          description: Maximum total service (working) time for this resource within this period, in minutes
-          format: int64
-        minServiceTimeInMinutes:
-          type: integer
-          description: Minimum total service (working) time for this resource within this period, in minutes
-          format: int64
-        groupConstraints:
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupConstraintsShape'
-          description: Defines the maximum number of allocations from specific groups that can be assigned to a resource during this period. Any group not listed has no limit.
-    ObjectiveWeightModifiersShape:
-      type: object
-      properties:
-        minimizeDisruption:
+        GeoLatitude:
           type: number
-        balanceAbsoluteWorkload:
+          format: double
+        GeoLongitude:
           type: number
-        travelTime:
-          type: number
-        minimizeResources:
-          type: number
-        softSkills:
-          type: number
-        jobsPriority:
-          type: number
-        resourceRating:
-          type: number
-        scheduleImmediacy:
-          type: number
-        urgency:
-          type: number
-        overtime:
-          type: number
-    SolveResult:
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          type: string
-    Map_ResourceId_ResourceAvailability:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/ResourceAvailability'
+          format: double
     GraphQLJob:
       required:
       - UID
@@ -1290,6 +847,197 @@ components:
           type: string
         Urgency:
           $ref: '#/components/schemas/JobUrgency'
+    APIIdInput:
+      required:
+      - resourceIds
+      - jobIds
+      type: object
+      properties:
+        resourceIds:
+          type: array
+          items:
+            type: string
+        jobIds:
+          type: array
+          items:
+            type: string
+        regionId:
+          type: string
+        regionIds:
+          type: array
+          items:
+            type: string
+      description: The ids of entities requested in the optimization run
+    SchedulePlanShape:
+      required:
+      - productData
+      - featureModel
+      - ids
+      - options
+      type: object
+      properties:
+        productData:
+          $ref: '#/components/schemas/APIProductData'
+        featureModel:
+          $ref: '#/components/schemas/CorePVRPFeatureModelShape'
+        ids:
+          $ref: '#/components/schemas/APIIdInput'
+        options:
+          $ref: '#/components/schemas/SchedulePlanOptionsShape'
+    ResourceShape:
+      required:
+      - id
+      - availability
+      - attributes
+      - periodConstraints
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this resource
+        locationId:
+          type: string
+          description: The home location of this resource, used as the starting point for travel time calculations
+        availability:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceAvailabilityShape'
+          description: Time windows during which this resource is available for shift assignment, with an optional departure location for each window
+        efficiency:
+          type: integer
+          description: Work efficiency of this resource (1-100); lower values indicate the resource takes proportionally longer to complete tasks relative to others
+          format: int32
+        statuteId:
+          type: string
+          description: Reference to a statute defining contractual working constraints (rest periods, min/max working hours) applicable to this resource
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttributeShape'
+          description: Skills and qualifications held by this resource
+        periodConstraints:
+          type: array
+          items:
+            $ref: '#/components/schemas/PeriodConstraintsShape'
+          description: Working time constraints applied to specific sub-periods of the scheduling window for this resource
+    ResourceAvailabilityShape:
+      required:
+      - from
+      - to
+      type: object
+      properties:
+        from:
+          type: string
+          description: Start of the availability window
+          format: date-time
+        to:
+          type: string
+          description: End of the availability window
+          format: date-time
+        fromLocation:
+          type: string
+          description: Location from which the resource departs at the start of this availability window; overrides the resource's home location for travel time calculations
+    AllocationDependencyShape:
+      required:
+      - anchorAllocationId
+      - dependentAllocationId
+      type: object
+      properties:
+        anchorAllocationId:
+          type: string
+          description: The allocation that represents the fixed point in time that the dependent allocation must be scheduled relative to
+        dependentAllocationId:
+          type: string
+          description: The allocation that must be scheduled relative to the anchor allocation
+        minTimeIntervalInMinutes:
+          type: integer
+          description: The offset that defines the start of the valid window of time relative to the anchor, if blank the dependent allocation has no earliest start time constraint, can be negative to represent a time before the anchor allocation
+          format: int64
+        maxTimeIntervalInMinutes:
+          type: integer
+          description: The offset that defines the end of the valid window of time for the dependent allocation to start relative to the anchor, if blank the dependent allocation has no latest start time constraint, can be negative to represent a time before the anchor allocation
+          format: int64
+        enablePartialAllocation:
+          type: boolean
+          description: Allows allocations in the allocation dependency to be partially allocated if they cannot be fully allocated. This will be overridden by the global setting options.enablePartiallyAllocatedAllocationDependencies if the global setting is true.
+    AttributeValidityPeriodShape:
+      type: object
+      properties:
+        from:
+          type: string
+          description: Start date from which this attribute is valid (inclusive); absent means valid from the beginning of time
+          format: date
+        to:
+          type: string
+          description: End date after which this attribute is no longer valid (exclusive); absent means no expiry
+          format: date
+    GraphQLJobAllocation:
+      required:
+      - UID
+      - ResourceId
+      - Status
+      type: object
+      properties:
+        UID:
+          type: string
+        ResourceId:
+          type: string
+        ResourceRequirementId:
+          type: string
+        Status:
+          $ref: '#/components/schemas/JobAllocationStatus'
+    ObjectiveWeightModifiersShape:
+      type: object
+      properties:
+        minimizeDisruption:
+          type: number
+        balanceAbsoluteWorkload:
+          type: number
+        travelTime:
+          type: number
+        minimizeResources:
+          type: number
+        softSkills:
+          type: number
+        jobsPriority:
+          type: number
+        resourceRating:
+          type: number
+        scheduleImmediacy:
+          type: number
+        urgency:
+          type: number
+        overtime:
+          type: number
+    AllocationGroupShape:
+      required:
+      - id
+      - locked
+      type: object
+      properties:
+        id:
+          type: string
+        synchronizationMode:
+          type: string
+          description: The time that should be synchronised for each job in the group
+          default: no_synchronization
+          enum:
+          - no_synchronization
+          - start_time
+          - end_time
+          - day
+        locked:
+          type: boolean
+          description: If the group is locked, all allocations in the group will be locked
+        enablePartialAllocation:
+          type: boolean
+          description: Allows allocations in the group to be partially allocated if they cannot be fully allocated. This will be overridden by the global setting options.enablePartiallyAllocatedGroups if the global setting is true.
+          default: false
+        phaseTags:
+          type: array
+          items:
+            type: string
+          description: Phase tags that restrict this group to specific phases. If absent or empty, the group is included in all phases.
     CorePVRPFeatureModelShape:
       required:
       - allocations
@@ -1368,6 +1116,205 @@ components:
           items:
             $ref: '#/components/schemas/SharedGroupConstraintShape'
           description: Collective allocation limits shared across a filtered set of resources. Unlike per-resource groupConstraints, each entry caps the total allocations of a group across all listed resources combined (a shared pool), regardless of how they are distributed. Every resource in the pool shares the exact same period and limit.
+    AllocationShape1:
+      required:
+      - id
+      - groupIds
+      - duration
+      - locked
+      - attributeRequirements
+      - scheduleConstraints
+      - resourceRatings
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this allocation
+        groupId:
+          type: string
+          description: The allocation group if an allocation belongs to a single group
+        groupIds:
+          type: array
+          items:
+            type: string
+          description: The allocation groups if an allocation belongs to multiple groups
+        start:
+          type: string
+          description: The currently scheduled start time, if the allocation has already been scheduled
+          format: date-time
+        resourceId:
+          type: string
+          description: The resource currently assigned to this allocation, if any
+        locationId:
+          type: string
+          description: The location at which this allocation takes place
+        duration:
+          type: integer
+          description: The duration of the allocation in minutes
+          format: int64
+        locked:
+          type: boolean
+          description: If the allocation is locked, the start time and resourceId cannot be reassigned
+        attributeRequirements:
+          type: array
+          items:
+            $ref: '#/components/schemas/AllocationAttributeShape'
+          description: Attributes a resource must or preferably should have to be assigned to this allocation
+        resourceConstraints:
+          $ref: '#/components/schemas/AllocationResourceConstraintShape'
+        scheduleConstraints:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleTimeConstraintShape'
+          description: Time windows within which this allocation must be scheduled; the allocation's start time must fall within one of these windows
+        resourceRatings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AllocationResourceRatingShape'
+          description: The rating of resources for this specific job. If present this will override the rating field on resources for this job.
+        priority:
+          type: integer
+          description: Priority of this allocation (1-100); higher values cause the optimizer to prefer assigning this allocation over lower-priority ones
+          format: int32
+        urgency:
+          type: integer
+          description: Urgency of this allocation (1-100); higher values cause the optimizer to schedule the allocation closer to the start of its time windows
+          format: int32
+        phaseTags:
+          type: array
+          items:
+            type: string
+          description: Phase tags that restrict this allocation to specific phases. If absent or empty, the allocation is included in all phases.
+    RegionAvailability:
+      required:
+      - start
+      - end
+      - regionIds
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        regionIds:
+          type: array
+          items:
+            type: string
+    FeatureModelShape:
+      oneOf:
+      - $ref: '#/components/schemas/ARCShiftModelShape'
+      - $ref: '#/components/schemas/CorePVRPFeatureModelShape'
+    GraphQLResourceTag:
+      required:
+      - Tag
+      type: object
+      properties:
+        Tag:
+          $ref: '#/components/schemas/GraphQLTag'
+        ExpiryDate:
+          type: string
+          format: date-time
+    LocationShape1:
+      required:
+      - id
+      - latitude
+      - longitude
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this location
+        latitude:
+          type: number
+          description: Geographic latitude coordinate
+          format: double
+        longitude:
+          type: number
+          description: Geographic longitude coordinate
+          format: double
+    ResourceAvailabilityShape1:
+      required:
+      - from
+      - to
+      type: object
+      properties:
+        from:
+          type: string
+          description: Start of the availability window
+          format: date-time
+        to:
+          type: string
+          description: End of the availability window
+          format: date-time
+        startLocationId:
+          type: string
+          description: Location from which the resource departs at the start of this availability window; overrides the resource's home location
+        endLocationId:
+          type: string
+          description: Location at which the resource must finish at the end of this availability window; overrides the resource's home location
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceAvailabilityAttributeShape'
+          description: Attributes that are active for this resource during this availability window; overrides the resource-level attributes for allocations scheduled within this window
+        phaseTags:
+          type: array
+          items:
+            type: string
+          description: Phase tags that restrict this availability window to specific phases. If absent or empty, the availability window is included in all phases.
+        overtimeEnd:
+          type: string
+          description: Latest end the shift may extend to when working overtime; must be after the end of the availability window
+          format: date-time
+    AllocationResourceRatingShape:
+      required:
+      - resourceId
+      - rating
+      type: object
+      properties:
+        resourceId:
+          type: string
+        rating:
+          type: integer
+          description: The rating of the resource, can be an integer between 1 and 100
+          format: int32
+    JobDependencyAnchor:
+      type: string
+      enum:
+      - End
+      - Start
+    JobStatus:
+      type: string
+      enum:
+      - Cancelled
+      - Complete
+      - Dispatched
+      - En Route
+      - In Progress
+      - On Site
+      - Pending Allocation
+      - Pending Dispatch
+      - Queued
+      - Ready
+    GraphQLLocationResourceScore:
+      required:
+      - LocationId
+      - ResourceId
+      - Blacklisted
+      type: object
+      properties:
+        LocationId:
+          type: string
+        ResourceId:
+          type: string
+        Blacklisted:
+          type: boolean
+    Map_ResourceId_ResourceAvailability:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/ResourceAvailability'
     SolviceWeightsShape:
       type: object
       properties:
@@ -1440,6 +1387,111 @@ components:
         fairness:
           type: string
       description: Fine-grained weight configuration passed directly to the underlying Solvice ShiftFill solver
+    SchedulePlanOptionsShape:
+      required:
+      - respectSchedule
+      type: object
+      properties:
+        recipeId:
+          type: string
+        respectSchedule:
+          type: boolean
+        persistenceStrategy:
+          type: string
+          enum:
+          - save
+          - optimize
+        label:
+          type: string
+    LocationShape2:
+      required:
+      - id
+      - latitude
+      - longitude
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this location
+        latitude:
+          type: number
+          description: Geographic latitude coordinate
+          format: double
+        longitude:
+          type: number
+          description: Geographic longitude coordinate
+          format: double
+    GraphQLResourcePrimaryRegion:
+      required:
+      - Timezone
+      type: object
+      properties:
+        Timezone:
+          type: string
+    GraphQLResource:
+      required:
+      - UID
+      - ResourceTags
+      - ResourceOverrides
+      type: object
+      properties:
+        UID:
+          type: string
+        GeoLatitude:
+          type: number
+          format: double
+        GeoLongitude:
+          type: number
+          format: double
+        ResourceTags:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLResourceTag'
+        HomeAddress:
+          type: string
+        WeeklyHours:
+          type: number
+        WorkingHoursTimePeriod:
+          type: string
+          enum:
+          - Day
+          - Week
+          - TwoWeeks
+          - FourWeeks
+        WorkingHoursStart:
+          type: string
+          format: date
+        WorkingHoursMin:
+          type: number
+        WorkingHoursMax:
+          type: number
+        ResourceOverrides:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLResourceOverride'
+        Rating:
+          type: integer
+          format: int32
+        PrimaryRegion:
+          $ref: '#/components/schemas/GraphQLResourcePrimaryRegion'
+    GraphQLResourceOverride:
+      required:
+      - Start
+      - End
+      type: object
+      properties:
+        Start:
+          type: string
+          format: date-time
+        End:
+          type: string
+          format: date-time
+        GeoLatitude:
+          type: number
+          format: double
+        GeoLongitude:
+          type: number
+          format: double
     AllocationShape:
       required:
       - id
@@ -1485,174 +1537,130 @@ components:
           items:
             type: string
           description: Ordered list of preferred resources for this allocation; the optimizer will prefer resources appearing earlier in the list
-    GraphQLActivity:
+    GraphQLJobTag:
       required:
-      - UID
-      - Start
-      - End
-      - ActivityResources
+      - Required
+      - Tag
       type: object
       properties:
-        UID:
-          type: string
-        Start:
-          type: string
-          format: date-time
-        End:
-          type: string
-          format: date-time
-        LocationId:
-          type: string
-        GeoLatitude:
-          type: number
-          format: double
-        GeoLongitude:
-          type: number
-          format: double
-        ResourceId:
-          type: string
-        ActivityResources:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLActivityResource'
-    LocationShape2:
+        Required:
+          type: boolean
+        Weighting:
+          type: integer
+          format: int32
+        Tag:
+          $ref: '#/components/schemas/GraphQLTag'
+    APIProductData:
       required:
-      - id
-      - latitude
-      - longitude
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for this location
-        latitude:
-          type: number
-          description: Geographic latitude coordinate
-          format: double
-        longitude:
-          type: number
-          description: Geographic longitude coordinate
-          format: double
-    GraphQLResourcePrimaryRegion:
-      required:
-      - Timezone
-      type: object
-      properties:
-        Timezone:
-          type: string
-    PhaseObjectFilterShape:
-      required:
-      - objectType
-      - tags
-      - filterType
-      type: object
-      properties:
-        objectType:
-          type: string
-          description: Object type this filter applies to
-          enum:
-          - all
-          - allocations
-          - groups
-          - resources
-          - availability
-        tags:
-          type: array
-          items:
-            type: string
-          description: Phase tags to match against
-        filterType:
-          type: string
-          description: How tags are applied
-          enum:
-          - permit
-          - permitIncludeUnset
-          - restrict
-          - restrictExcludeUnset
-    PeriodConstraintsShape:
-      required:
+      - jobs
+      - activities
+      - resources
+      - accountResourceScores
+      - locationResourceScores
+      - availability
       - start
       - end
+      - timezone
       type: object
       properties:
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLJob'
+        activities:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLActivity'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLResource'
+        accountResourceScores:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLAccountResourceScore'
+        locationResourceScores:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLLocationResourceScore'
+        availability:
+          $ref: '#/components/schemas/Map_ResourceId_ResourceAvailability'
         start:
           type: string
-          description: Start of the constraint period; must be within the scheduling period
           format: date-time
         end:
           type: string
-          description: End of the constraint period; must be within the scheduling period
           format: date-time
-        minRestTimeInMinutes:
-          type: integer
-          description: Minimum rest time required between consecutive allocations within this period, in minutes
-          format: int64
-        minWorkingDays:
-          type: integer
-          description: Minimum number of days the resource must work within this period
-          format: int32
-        maxWorkingDays:
-          type: integer
-          description: Maximum number of days the resource may work within this period
-          format: int32
-        minWorkingDurationInMinutes:
-          type: integer
-          description: Minimum total working duration within this period, in minutes
-          format: int64
-        maxWorkingDurationInMinutes:
-          type: integer
-          description: Maximum total working duration within this period, in minutes
-          format: int64
-    APIIdInput:
-      required:
-      - resourceIds
-      - jobIds
+        rollingScheduleWindows:
+          type: array
+          items:
+            $ref: '#/components/schemas/RollingScheduleWindow'
+        timezone:
+          type: string
+        region:
+          $ref: '#/components/schemas/GraphQLRegion'
+        regions:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLRegion'
+      description: All the data retrieved from GraphQL to run the optimization
+    PVRPFeatureOptionsShape:
       type: object
       properties:
-        resourceIds:
-          type: array
-          items:
-            type: string
-        jobIds:
-          type: array
-          items:
-            type: string
-        regionId:
-          type: string
-        regionIds:
-          type: array
-          items:
-            type: string
-      description: The ids of entities requested in the optimization run
-    AttributeShape:
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          type: string
-          description: The attribute identifier
-        validFor:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttributeValidityPeriodShape'
-          description: Validity periods for this attribute; absent means the attribute is always valid
-        weighting:
+        full:
+          type: boolean
+          description: If true, runs a full optimization pass; if false, only optimizes unscheduled allocations
+        ignoreTravelTime:
+          type: boolean
+          description: If true, travel time between locations is not considered when scoring the solution
+        ignoreTravelTimeFirstJob:
+          type: boolean
+          description: If true, travel time to a resource's first allocation of the day is not penalised
+        ignoreTravelTimeLastJob:
+          type: boolean
+          description: If true, travel time from a resource's last allocation of the day is not penalised
+        minimizeResources:
+          type: boolean
+          description: If true, the optimizer will attempt to use the minimum number of resources required to service all allocations
+        maxDailyTravelTimeInMinutes:
           type: integer
-          description: Preference weighting for this attribute (1-10000); used in soft skill scoring to rank resources when the attribute is a preferred rather than required requirement
-          format: int32
-    AttributeRequirementsShape:
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          type: string
-          description: The attribute identifier that the resource must or preferably should have
-        weighting:
+          description: Global maximum total travel time per resource per day in minutes; can be overridden per resource
+          format: int64
+        maxTravelTimeBetweenLocations:
           type: integer
-          description: If present, this is a soft (preferred) requirement with the given weighting (1-10000); if absent, this is a hard (required) attribute
+          description: Global maximum travel time between any two consecutive allocation locations in minutes; can be overridden per resource
+          format: int64
+        respectAllocationTimes:
+          type: boolean
+          description: If true, currently scheduled start times are treated as soft constraints that the optimizer will try to preserve
+        respectAllocationTimesOverTimeConstraints:
+          type: boolean
+          description: If true, existing allocation start times take precedence over schedule time window constraints when the two conflict
+        balanceAbsoluteWorkload:
+          type: boolean
+          description: If true, the optimizer will try to balance the total absolute working time evenly across all resources
+        snapUnit:
+          type: integer
+          description: Snap allocation start times to multiples of this value in minutes; useful to avoid solutions with odd start times
           format: int32
+        padding:
+          type: integer
+          description: Minimum gap in minutes that must be left between consecutive allocations for a resource, in addition to travel time
+          format: int32
+        objectiveWeights:
+          $ref: '#/components/schemas/ObjectiveWeightsShape'
+        objectiveWeightModifiers:
+          $ref: '#/components/schemas/ObjectiveWeightModifiersShape'
+        temporalAffinityStrength:
+          type: integer
+          description: Strength of the preference to schedule allocations close in time to their schedule time windows (1-100)
+          format: int32
+        enablePartiallyAllocatedGroups:
+          type: boolean
+          description: If true, allocation groups that cannot be fully assigned will be partially assigned rather than left unscheduled
+        enablePartiallyAllocatedAllocationDependencies:
+          type: boolean
+          description: If true, allocation dependencies that cannot be fully assigned will be partially assigned rather than left unscheduled
     TimeBounds:
       required:
       - start
@@ -1666,392 +1674,6 @@ components:
           type: string
           format: date-time
       description: The time window within which the optimization occurs
-    ScheduleTimeConstraintShape:
-      required:
-      - windowStart
-      - windowEnd
-      type: object
-      properties:
-        windowStart:
-          type: string
-          description: Start of the time window within which this allocation must be scheduled
-          format: date-time
-        windowEnd:
-          type: string
-          description: End of the time window within which this allocation must be scheduled
-          format: date-time
-    ResourceDependencyShape:
-      required:
-      - allocationIds
-      type: object
-      properties:
-        allocationIds:
-          type: array
-          items:
-            type: string
-          description: The set of allocations that must all be assigned to the same resource
-    SchedulePlanShape:
-      required:
-      - productData
-      - featureModel
-      - ids
-      - options
-      type: object
-      properties:
-        productData:
-          $ref: '#/components/schemas/APIProductData'
-        featureModel:
-          $ref: '#/components/schemas/CorePVRPFeatureModelShape'
-        ids:
-          $ref: '#/components/schemas/APIIdInput'
-        options:
-          $ref: '#/components/schemas/SchedulePlanOptionsShape'
-    ResourceAvailability:
-      required:
-      - available
-      - regions
-      type: object
-      properties:
-        available:
-          type: array
-          items:
-            $ref: '#/components/schemas/Availability'
-        regions:
-          type: array
-          items:
-            $ref: '#/components/schemas/RegionAvailability'
-    GraphQLAccountResourceScore:
-      required:
-      - AccountId
-      - ResourceId
-      - Blacklisted
-      type: object
-      properties:
-        AccountId:
-          type: string
-        ResourceId:
-          type: string
-        Blacklisted:
-          type: boolean
-    GroupConstraintsShape:
-      required:
-      - groupId
-      - maxAllocations
-      type: object
-      properties:
-        groupId:
-          type: string
-          description: The allocation group identifier
-        maxAllocations:
-          type: integer
-          description: Maximum number of allocations from this group that can be assigned to the resource in the period
-          format: int32
-    GraphQLJobDependencyTo:
-      required:
-      - FromJobId
-      type: object
-      properties:
-        FromJobId:
-          type: string
-    GraphQLResourceRequirement:
-      required:
-      - UID
-      - Quantity
-      - Tags
-      type: object
-      properties:
-        UID:
-          type: string
-        Quantity:
-          type: integer
-          format: int32
-        Tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLJobTag'
-    GraphQLResourceOverride:
-      required:
-      - Start
-      - End
-      type: object
-      properties:
-        Start:
-          type: string
-          format: date-time
-        End:
-          type: string
-          format: date-time
-        GeoLatitude:
-          type: number
-          format: double
-        GeoLongitude:
-          type: number
-          format: double
-    ResourceShape:
-      required:
-      - id
-      - availability
-      - attributes
-      - periodConstraints
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for this resource
-        locationId:
-          type: string
-          description: The home location of this resource, used as the starting point for travel time calculations
-        availability:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceAvailabilityShape'
-          description: Time windows during which this resource is available for shift assignment, with an optional departure location for each window
-        efficiency:
-          type: integer
-          description: Work efficiency of this resource (1-100); lower values indicate the resource takes proportionally longer to complete tasks relative to others
-          format: int32
-        statuteId:
-          type: string
-          description: Reference to a statute defining contractual working constraints (rest periods, min/max working hours) applicable to this resource
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttributeShape'
-          description: Skills and qualifications held by this resource
-        periodConstraints:
-          type: array
-          items:
-            $ref: '#/components/schemas/PeriodConstraintsShape'
-          description: Working time constraints applied to specific sub-periods of the scheduling window for this resource
-    GraphQLTag:
-      required:
-      - UID
-      type: object
-      properties:
-        UID:
-          type: string
-    GraphQLJobTimeConstraint:
-      required:
-      - Required
-      type: object
-      properties:
-        StartAfter:
-          type: string
-          format: date-time
-        StartBefore:
-          type: string
-          format: date-time
-        EndBefore:
-          type: string
-          format: date-time
-        Required:
-          type: boolean
-    JobAllocationStatus:
-      type: string
-      enum:
-      - Checked In
-      - Complete
-      - Confirmed
-      - Declined
-      - Deleted
-      - Dispatched
-      - En Route
-      - In Progress
-      - Pending Dispatch
-    GraphQLJobDependencyFrom:
-      required:
-      - ToJobId
-      type: object
-      properties:
-        ToJobId:
-          type: string
-        FromAnchor:
-          $ref: '#/components/schemas/JobDependencyAnchor'
-        ToAnchor:
-          $ref: '#/components/schemas/JobDependencyAnchor'
-        ToAnchorMinOffsetMinutes:
-          type: integer
-          format: int32
-        ToAnchorMaxOffsetMinutes:
-          type: integer
-          format: int32
-    GraphQLJobAllocation:
-      required:
-      - UID
-      - ResourceId
-      - Status
-      type: object
-      properties:
-        UID:
-          type: string
-        ResourceId:
-          type: string
-        ResourceRequirementId:
-          type: string
-        Status:
-          $ref: '#/components/schemas/JobAllocationStatus'
-    SchedulePlanOptionsShape:
-      required:
-      - respectSchedule
-      type: object
-      properties:
-        recipeId:
-          type: string
-        respectSchedule:
-          type: boolean
-        persistenceStrategy:
-          type: string
-          enum:
-          - save
-          - optimize
-        label:
-          type: string
-    JobDependencyAnchor:
-      type: string
-      enum:
-      - End
-      - Start
-    AttributeValidityPeriodShape:
-      type: object
-      properties:
-        from:
-          type: string
-          description: Start date from which this attribute is valid (inclusive); absent means valid from the beginning of time
-          format: date
-        to:
-          type: string
-          description: End date after which this attribute is no longer valid (exclusive); absent means no expiry
-          format: date
-    LocationShape1:
-      required:
-      - id
-      - latitude
-      - longitude
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for this location
-        latitude:
-          type: number
-          description: Geographic latitude coordinate
-          format: double
-        longitude:
-          type: number
-          description: Geographic longitude coordinate
-          format: double
-    PhaseConfigurationShape:
-      required:
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          description: all = every object is active in this phase; filtered = apply object type filters
-          enum:
-          - all
-          - filtered
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/PhaseObjectFilterShape'
-          description: Filters controlling which objects are active in this phase; only present when type is filtered
-    AllocationDependencyShape:
-      required:
-      - anchorAllocationId
-      - dependentAllocationId
-      type: object
-      properties:
-        anchorAllocationId:
-          type: string
-          description: The allocation that represents the fixed point in time that the dependent allocation must be scheduled relative to
-        dependentAllocationId:
-          type: string
-          description: The allocation that must be scheduled relative to the anchor allocation
-        minTimeIntervalInMinutes:
-          type: integer
-          description: The offset that defines the start of the valid window of time relative to the anchor, if blank the dependent allocation has no earliest start time constraint, can be negative to represent a time before the anchor allocation
-          format: int64
-        maxTimeIntervalInMinutes:
-          type: integer
-          description: The offset that defines the end of the valid window of time for the dependent allocation to start relative to the anchor, if blank the dependent allocation has no latest start time constraint, can be negative to represent a time before the anchor allocation
-          format: int64
-        enablePartialAllocation:
-          type: boolean
-          description: Allows allocations in the allocation dependency to be partially allocated if they cannot be fully allocated. This will be overridden by the global setting options.enablePartiallyAllocatedAllocationDependencies if the global setting is true.
-    GraphQLRegion:
-      required:
-      - UID
-      type: object
-      properties:
-        UID:
-          type: string
-        Timezone:
-          type: string
-        GeoLatitude:
-          type: number
-          format: double
-        GeoLongitude:
-          type: number
-          format: double
-    FairnessBucketShape:
-      required:
-      - start
-      - end
-      - resourceIds
-      - allocationIds
-      type: object
-      properties:
-        start:
-          type: string
-          description: Start of the fairness period
-          format: date-time
-        end:
-          type: string
-          description: End of the fairness period
-          format: date-time
-        resourceIds:
-          type: array
-          items:
-            type: string
-          description: Resources whose working time should be balanced within this period
-        allocationIds:
-          type: array
-          items:
-            type: string
-          description: Allocations to consider when measuring workload for fairness balancing
-        targetInMinutes:
-          type: integer
-          description: Target working time per resource in minutes; if absent, total allocation time is distributed evenly across the listed resources
-          format: int64
-    ResourceStatuteShape:
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for this statute
-        minimumRestPeriodBetweenAllocations:
-          type: integer
-          description: 'Deprecated: use minimumRestPeriodBetweenAllocationsInHours instead'
-          format: int64
-        minimumRestPeriodBetweenAllocationsInHours:
-          type: integer
-          description: Minimum number of hours of rest required between consecutive allocations for resources governed by this statute
-          format: int64
-        minimumHoursForPlanningPeriod:
-          type: integer
-          description: Minimum number of hours the resource must work within the planning period
-          format: int64
-        maximumHoursForPlanningPeriod:
-          type: integer
-          description: Maximum number of hours the resource may work within the planning period
-          format: int64
-        maximumTravelTimeToAllocationsInMinutes:
-          type: integer
-          description: Maximum travel time in minutes allowed for the resource to travel to any single allocation
-          format: int64
     ARCShiftModelShape:
       required:
       - allocations
@@ -2113,6 +1735,101 @@ components:
           description: Identifies the solver type; always 'arc' for ARCShift models
           enum:
           - arc
+    ResourceDependencyShape:
+      required:
+      - allocationIds
+      type: object
+      properties:
+        allocationIds:
+          type: array
+          items:
+            type: string
+          description: The set of allocations that must all be assigned to the same resource
+    ResourceShape1:
+      required:
+      - id
+      - attributes
+      - availability
+      - periodConstraints
+      - breaks
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this resource
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceAttributeShape'
+          description: Skills and qualifications held by this resource
+        locationId:
+          type: string
+          description: The home/base location of this resource, used as the default start and end point for route calculations
+        availability:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceAvailabilityShape1'
+          description: Time windows during which this resource is available for allocation, with optional start and end locations for each window
+        compatibleResources:
+          type: array
+          items:
+            type: string
+          description: List of resource IDs that this resource is compatible with; used to constrain which resources can share work within a locked group
+        maxDailyTravelTimeInMinutes:
+          type: integer
+          description: Maximum total travel time allowed per day for this resource, in minutes; overrides the global option if set
+          format: int64
+        maxTravelTimeBetweenLocations:
+          type: integer
+          description: Maximum travel time allowed between any two consecutive allocation locations for this resource, in minutes; overrides the global option if set
+          format: int64
+        periodConstraints:
+          type: array
+          items:
+            $ref: '#/components/schemas/PeriodConstraintsShape1'
+          description: Allows a resource to be given minimum and maximum service times for different periods
+        breaks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BreakShape'
+          description: Scheduled breaks that must be incorporated into the resource's route
+        rating:
+          type: integer
+          description: The rating of the resource, can be an integer between 1 and 100
+          format: int32
+        phaseTags:
+          type: array
+          items:
+            type: string
+          description: Phase tags that restrict this resource to specific phases. If absent or empty, the resource is included in all phases.
+    ResourceAvailabilityAttributeShape:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: The attribute identifier active during this availability window
+    ScheduleTimeConstraintShape:
+      required:
+      - windowStart
+      - windowEnd
+      type: object
+      properties:
+        windowStart:
+          type: string
+          description: Start of the time window within which this allocation must be scheduled
+          format: date-time
+        windowEnd:
+          type: string
+          description: End of the time window within which this allocation must be scheduled
+          format: date-time
+    JobUrgency:
+      type: string
+      enum:
+      - Critical
+      - Normal
+      - Urgent
     ScheduleRunWindow:
       required:
       - start
@@ -2125,6 +1842,215 @@ components:
         end:
           type: string
           format: date-time
+    AttributeShape:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: The attribute identifier
+        validFor:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttributeValidityPeriodShape'
+          description: Validity periods for this attribute; absent means the attribute is always valid
+        weighting:
+          type: integer
+          description: Preference weighting for this attribute (1-10000); used in soft skill scoring to rank resources when the attribute is a preferred rather than required requirement
+          format: int32
+    RollingScheduleWindow:
+      required:
+      - start
+      - end
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+    WindowedBreakShape:
+      required:
+      - breakTimeInMinutes
+      - minStartTime
+      - maxStartTime
+      type: object
+      properties:
+        breakTimeInMinutes:
+          type: integer
+          description: Duration of the break in minutes
+          format: int64
+        minStartTime:
+          type: string
+          description: Earliest time at which the break may start
+          format: date-time
+        maxStartTime:
+          type: string
+          description: Latest time at which the break may start
+          format: date-time
+    BreakShape:
+      oneOf:
+      - $ref: '#/components/schemas/FixedTimeBreakShape'
+      - $ref: '#/components/schemas/WindowedBreakShape'
+    GraphQLAccountResourceScore:
+      required:
+      - AccountId
+      - ResourceId
+      - Blacklisted
+      type: object
+      properties:
+        AccountId:
+          type: string
+        ResourceId:
+          type: string
+        Blacklisted:
+          type: boolean
+    GraphQLTag:
+      required:
+      - UID
+      type: object
+      properties:
+        UID:
+          type: string
+    PhaseConfigurationShape:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: all = every object is active in this phase; filtered = apply object type filters
+          enum:
+          - all
+          - filtered
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhaseObjectFilterShape'
+          description: Filters controlling which objects are active in this phase; only present when type is filtered
+    SharedGroupConstraintShape:
+      required:
+      - groupId
+      - resourceIds
+      - maxAllocations
+      - start
+      - end
+      type: object
+      properties:
+        groupId:
+          type: string
+          description: The allocation group identifier the pooled limit applies to
+        resourceIds:
+          type: array
+          items:
+            type: string
+          description: The resources that share the pooled limit
+        maxAllocations:
+          type: integer
+          description: Maximum number of allocations from this group across all listed resources combined within the period
+          format: int32
+        start:
+          type: string
+          description: Start of the period the pooled limit applies to
+          format: date-time
+        end:
+          type: string
+          description: End of the period the pooled limit applies to
+          format: date-time
+    AllocationAttributeShape:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: The attribute identifier
+        weighting:
+          type: integer
+          description: If present, this is a soft (preferred) requirement with the given weighting; if absent, this is a hard (required) attribute
+          format: int32
+    FairnessBucketShape:
+      required:
+      - start
+      - end
+      - resourceIds
+      - allocationIds
+      type: object
+      properties:
+        start:
+          type: string
+          description: Start of the fairness period
+          format: date-time
+        end:
+          type: string
+          description: End of the fairness period
+          format: date-time
+        resourceIds:
+          type: array
+          items:
+            type: string
+          description: Resources whose working time should be balanced within this period
+        allocationIds:
+          type: array
+          items:
+            type: string
+          description: Allocations to consider when measuring workload for fairness balancing
+        targetInMinutes:
+          type: integer
+          description: Target working time per resource in minutes; if absent, total allocation time is distributed evenly across the listed resources
+          format: int64
+    PeriodConstraintsShape:
+      required:
+      - start
+      - end
+      type: object
+      properties:
+        start:
+          type: string
+          description: Start of the constraint period; must be within the scheduling period
+          format: date-time
+        end:
+          type: string
+          description: End of the constraint period; must be within the scheduling period
+          format: date-time
+        minRestTimeInMinutes:
+          type: integer
+          description: Minimum rest time required between consecutive allocations within this period, in minutes
+          format: int64
+        minWorkingDays:
+          type: integer
+          description: Minimum number of days the resource must work within this period
+          format: int32
+        maxWorkingDays:
+          type: integer
+          description: Maximum number of days the resource may work within this period
+          format: int32
+        minWorkingDurationInMinutes:
+          type: integer
+          description: Minimum total working duration within this period, in minutes
+          format: int64
+        maxWorkingDurationInMinutes:
+          type: integer
+          description: Maximum total working duration within this period, in minutes
+          format: int64
+    GraphQLJobTimeConstraint:
+      required:
+      - Required
+      type: object
+      properties:
+        StartAfter:
+          type: string
+          format: date-time
+        StartBefore:
+          type: string
+          format: date-time
+        EndBefore:
+          type: string
+          format: date-time
+        Required:
+          type: boolean
     Availability:
       required:
       - start
@@ -2137,6 +2063,163 @@ components:
         end:
           type: string
           format: date-time
+    GraphQLActivityResource:
+      required:
+      - resourceId
+      type: object
+      properties:
+        resourceId:
+          type: string
+    ExceptionFilterShape:
+      required:
+      - blacklist
+      - resourceAvailability
+      type: object
+      properties:
+        blacklist:
+          type: boolean
+          description: If true, allocations assigned by the solver to explicitly blocked resources will be discarded from the result
+        resourceAvailability:
+          type: boolean
+          description: If true, allocations assigned by the solver to resources outside their availability windows will be discarded from the result
+      description: Controls which types of constraint violation cause the optimizer to discard a proposed assignment from the result
+    PeriodConstraintsShape1:
+      required:
+      - start
+      - end
+      type: object
+      properties:
+        start:
+          type: string
+          description: Start of the constraint period; must be within the scheduling period
+          format: date-time
+        end:
+          type: string
+          description: End of the constraint period; must be within the scheduling period
+          format: date-time
+        maxServiceTimeInMinutes:
+          type: integer
+          description: Maximum total service (working) time for this resource within this period, in minutes
+          format: int64
+        minServiceTimeInMinutes:
+          type: integer
+          description: Minimum total service (working) time for this resource within this period, in minutes
+          format: int64
+        groupConstraints:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupConstraintsShape'
+          description: Defines the maximum number of allocations from specific groups that can be assigned to a resource during this period. Any group not listed has no limit.
+    ObjectiveWeightsShape:
+      type: object
+      properties:
+        minimizeDisruption:
+          type: integer
+        balanceAbsoluteWorkload:
+          type: integer
+        travelTime:
+          type: integer
+        minimizeResources:
+          type: integer
+        softSkills:
+          type: integer
+        jobsPriority:
+          type: integer
+        resourceRating:
+          type: integer
+        scheduleImmediacy:
+          type: integer
+        urgency:
+          type: integer
+        overtime:
+          type: integer
+    ResourceStatuteShape:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this statute
+        minimumRestPeriodBetweenAllocations:
+          type: integer
+          description: 'Deprecated: use minimumRestPeriodBetweenAllocationsInHours instead'
+          format: int64
+        minimumRestPeriodBetweenAllocationsInHours:
+          type: integer
+          description: Minimum number of hours of rest required between consecutive allocations for resources governed by this statute
+          format: int64
+        minimumHoursForPlanningPeriod:
+          type: integer
+          description: Minimum number of hours the resource must work within the planning period
+          format: int64
+        maximumHoursForPlanningPeriod:
+          type: integer
+          description: Maximum number of hours the resource may work within the planning period
+          format: int64
+        maximumTravelTimeToAllocationsInMinutes:
+          type: integer
+          description: Maximum travel time in minutes allowed for the resource to travel to any single allocation
+          format: int64
+    ResourceConstraintsShape:
+      required:
+      - type
+      - resources
+      type: object
+      properties:
+        type:
+          type: string
+          description: The constraint type; currently only 'blocked' (exclude list) is supported
+          enum:
+          - blocked
+        resources:
+          type: array
+          items:
+            type: string
+          description: The resources to which this constraint applies
+      description: Restricts which resources may be assigned to this allocation
+    JobAllocationStatus:
+      type: string
+      enum:
+      - Checked In
+      - Complete
+      - Confirmed
+      - Declined
+      - Deleted
+      - Dispatched
+      - En Route
+      - In Progress
+      - Pending Dispatch
+    ResourceAvailability:
+      required:
+      - available
+      - regions
+      type: object
+      properties:
+        available:
+          type: array
+          items:
+            $ref: '#/components/schemas/Availability'
+        regions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionAvailability'
+    GraphQLResourceRequirement:
+      required:
+      - UID
+      - Quantity
+      - Tags
+      type: object
+      properties:
+        UID:
+          type: string
+        Quantity:
+          type: integer
+          format: int32
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLJobTag'
     AllocationResourceConstraintShape:
       required:
       - type
@@ -2155,6 +2238,65 @@ components:
             type: string
           description: The resources to which this constraint applies
       description: Restricts which resources may be assigned to this allocation (blocked or allowed list)
+    GraphQLJobDependencyFrom:
+      required:
+      - ToJobId
+      type: object
+      properties:
+        ToJobId:
+          type: string
+        FromAnchor:
+          $ref: '#/components/schemas/JobDependencyAnchor'
+        ToAnchor:
+          $ref: '#/components/schemas/JobDependencyAnchor'
+        ToAnchorMinOffsetMinutes:
+          type: integer
+          format: int32
+        ToAnchorMaxOffsetMinutes:
+          type: integer
+          format: int32
+    ShiftFeatureOptionsShape:
+      required:
+      - locations
+      type: object
+      properties:
+        locations:
+          type: boolean
+          description: If true, location data is used to calculate travel times between allocations and resource home locations
+        exceptionFilter:
+          $ref: '#/components/schemas/ExceptionFilterShape'
+        solviceWeights:
+          $ref: '#/components/schemas/SolviceWeightsShape'
+      description: Configuration options controlling the shift optimization behaviour
+    PhaseObjectFilterShape:
+      required:
+      - objectType
+      - tags
+      - filterType
+      type: object
+      properties:
+        objectType:
+          type: string
+          description: Object type this filter applies to
+          enum:
+          - all
+          - allocations
+          - groups
+          - resources
+          - availability
+        tags:
+          type: array
+          items:
+            type: string
+          description: Phase tags to match against
+        filterType:
+          type: string
+          description: How tags are applied
+          enum:
+          - permit
+          - permitIncludeUnset
+          - restrict
+          - restrictExcludeUnset
     SharedAttributesShape:
       required:
       - id
@@ -2178,156 +2320,14 @@ components:
           type: integer
           description: Minimum number of the listed allocations that must be assigned to resources holding the specified attribute
           format: int32
-    ExceptionFilterShape:
+    ResourceAttributeShape:
       required:
-      - blacklist
-      - resourceAvailability
+      - id
       type: object
       properties:
-        blacklist:
-          type: boolean
-          description: If true, allocations assigned by the solver to explicitly blocked resources will be discarded from the result
-        resourceAvailability:
-          type: boolean
-          description: If true, allocations assigned by the solver to resources outside their availability windows will be discarded from the result
-      description: Controls which types of constraint violation cause the optimizer to discard a proposed assignment from the result
-    PVRPFeatureOptionsShape:
-      type: object
-      properties:
-        full:
-          type: boolean
-          description: If true, runs a full optimization pass; if false, only optimizes unscheduled allocations
-        ignoreTravelTime:
-          type: boolean
-          description: If true, travel time between locations is not considered when scoring the solution
-        ignoreTravelTimeFirstJob:
-          type: boolean
-          description: If true, travel time to a resource's first allocation of the day is not penalised
-        ignoreTravelTimeLastJob:
-          type: boolean
-          description: If true, travel time from a resource's last allocation of the day is not penalised
-        minimizeResources:
-          type: boolean
-          description: If true, the optimizer will attempt to use the minimum number of resources required to service all allocations
-        maxDailyTravelTimeInMinutes:
-          type: integer
-          description: Global maximum total travel time per resource per day in minutes; can be overridden per resource
-          format: int64
-        maxTravelTimeBetweenLocations:
-          type: integer
-          description: Global maximum travel time between any two consecutive allocation locations in minutes; can be overridden per resource
-          format: int64
-        respectAllocationTimes:
-          type: boolean
-          description: If true, currently scheduled start times are treated as soft constraints that the optimizer will try to preserve
-        respectAllocationTimesOverTimeConstraints:
-          type: boolean
-          description: If true, existing allocation start times take precedence over schedule time window constraints when the two conflict
-        balanceAbsoluteWorkload:
-          type: boolean
-          description: If true, the optimizer will try to balance the total absolute working time evenly across all resources
-        snapUnit:
-          type: integer
-          description: Snap allocation start times to multiples of this value in minutes; useful to avoid solutions with odd start times
-          format: int32
-        padding:
-          type: integer
-          description: Minimum gap in minutes that must be left between consecutive allocations for a resource, in addition to travel time
-          format: int32
-        objectiveWeights:
-          $ref: '#/components/schemas/ObjectiveWeightsShape'
-        objectiveWeightModifiers:
-          $ref: '#/components/schemas/ObjectiveWeightModifiersShape'
-        temporalAffinityStrength:
-          type: integer
-          description: Strength of the preference to schedule allocations close in time to their schedule time windows (1-100)
-          format: int32
-        enablePartiallyAllocatedGroups:
-          type: boolean
-          description: If true, allocation groups that cannot be fully assigned will be partially assigned rather than left unscheduled
-        enablePartiallyAllocatedAllocationDependencies:
-          type: boolean
-          description: If true, allocation dependencies that cannot be fully assigned will be partially assigned rather than left unscheduled
-    ResourceAvailabilityShape1:
-      required:
-      - from
-      - to
-      type: object
-      properties:
-        from:
+        id:
           type: string
-          description: Start of the availability window
-          format: date-time
-        to:
-          type: string
-          description: End of the availability window
-          format: date-time
-        startLocationId:
-          type: string
-          description: Location from which the resource departs at the start of this availability window; overrides the resource's home location
-        endLocationId:
-          type: string
-          description: Location at which the resource must finish at the end of this availability window; overrides the resource's home location
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceAvailabilityAttributeShape'
-          description: Attributes that are active for this resource during this availability window; overrides the resource-level attributes for allocations scheduled within this window
-        phaseTags:
-          type: array
-          items:
-            type: string
-          description: Phase tags that restrict this availability window to specific phases. If absent or empty, the availability window is included in all phases.
-        overtimeEnd:
-          type: string
-          description: Latest end the shift may extend to when working overtime; must be after the end of the availability window
-          format: date-time
-    GraphQLResource:
-      required:
-      - UID
-      - ResourceTags
-      - ResourceOverrides
-      type: object
-      properties:
-        UID:
-          type: string
-        GeoLatitude:
-          type: number
-          format: double
-        GeoLongitude:
-          type: number
-          format: double
-        ResourceTags:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLResourceTag'
-        HomeAddress:
-          type: string
-        WeeklyHours:
-          type: number
-        WorkingHoursTimePeriod:
-          type: string
-          enum:
-          - Day
-          - Week
-          - TwoWeeks
-          - FourWeeks
-        WorkingHoursStart:
-          type: string
-          format: date
-        WorkingHoursMin:
-          type: number
-        WorkingHoursMax:
-          type: number
-        ResourceOverrides:
-          type: array
-          items:
-            $ref: '#/components/schemas/GraphQLResourceOverride'
-        Rating:
-          type: integer
-          format: int32
-        PrimaryRegion:
-          $ref: '#/components/schemas/GraphQLResourcePrimaryRegion'
+          description: The attribute identifier
   securitySchemes:
     httpAuth:
       type: http

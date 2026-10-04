@@ -230,27 +230,16 @@ paths:
       - Location
 components:
   schemas:
-    Paging:
+    PagedResultLocationHistory:
       type: object
       required:
-      - total
-      - offset
-      - limit
+      - paging
+      - result
       properties:
-        total:
-          type: number
-          format: int64
-        offset:
-          type: number
-          format: int64
-        limit:
-          type: number
-          format: int64
-    ResourceDistanceFromLocationResult:
-      type: object
-      description: Map resource ids to their distance from a location
-      additionalProperties:
-        $ref: '#/components/schemas/DistanceFromLocation'
+        paging:
+          $ref: '#/components/schemas/Paging'
+        result:
+          $ref: '#/components/schemas/LocationHistory'
     Location:
       type: object
       required:
@@ -305,6 +294,33 @@ components:
           description: 'Vertical position accuracy (m).
 
             '
+    Error:
+      type: object
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+    LatestLocationResult:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Location'
+    Paging:
+      type: object
+      required:
+      - total
+      - offset
+      - limit
+      properties:
+        total:
+          type: number
+          format: int64
+        offset:
+          type: number
+          format: int64
+        limit:
+          type: number
+          format: int64
     DistanceFromLocation:
       type: object
       description: Position and Distance from a location
@@ -338,27 +354,11 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Location'
-    LatestLocationResult:
+    ResourceDistanceFromLocationResult:
       type: object
+      description: Map resource ids to their distance from a location
       additionalProperties:
-        $ref: '#/components/schemas/Location'
-    PagedResultLocationHistory:
-      type: object
-      required:
-      - paging
-      - result
-      properties:
-        paging:
-          $ref: '#/components/schemas/Paging'
-        result:
-          $ref: '#/components/schemas/LocationHistory'
-    Error:
-      type: object
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
+        $ref: '#/components/schemas/DistanceFromLocation'
   securitySchemes:
     Authorization:
       type: apiKey

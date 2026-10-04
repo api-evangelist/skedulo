@@ -186,39 +186,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CorePVRPSuggestionShape'
-    BoundedIntervalInstantShape:
-      required:
-      - start
-      - end
-      type: object
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-    SuggestionShape:
-      required:
-      - jobId
-      - score
-      - resourceId
-      - suggestedStartTime
-      type: object
-      properties:
-        jobId:
-          type: string
-        score:
-          type: number
-          description: Effectiveness of this suggestion from 0 to 100, relative to the others in this response. 100 is the best suggestion; higher is better. Suggestions are returned in descending score order. A single suggestion always scores 100.
-          format: double
-        resourceRequirementId:
-          type: string
-        resourceId:
-          type: string
-        suggestedStartTime:
-          type: string
-          format: date-time
     SuggestRequestShape:
       required:
       - jobId
@@ -258,6 +225,39 @@ components:
             $ref: '#/components/schemas/SuggestionShape'
         runId:
           type: string
+    SuggestionShape:
+      required:
+      - jobId
+      - score
+      - resourceId
+      - suggestedStartTime
+      type: object
+      properties:
+        jobId:
+          type: string
+        score:
+          type: number
+          description: Effectiveness of this suggestion from 0 to 100, relative to the others in this response. 100 is the best suggestion; higher is better. Suggestions are returned in descending score order. A single suggestion always scores 100.
+          format: double
+        resourceRequirementId:
+          type: string
+        resourceId:
+          type: string
+        suggestedStartTime:
+          type: string
+          format: date-time
+    BoundedIntervalInstantShape:
+      required:
+      - start
+      - end
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
   securitySchemes:
     httpAuth:
       type: http

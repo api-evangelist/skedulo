@@ -58,6 +58,16 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
     DeviceIDRequest:
       type: object
       required:
@@ -78,16 +88,6 @@ components:
             chat:
               type: boolean
               description: Whether this device can has team chat functionality (e.g. can understand push notifications for chat).
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
   securitySchemes:
     Authorization:
       type: http

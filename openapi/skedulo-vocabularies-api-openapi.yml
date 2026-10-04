@@ -59,6 +59,16 @@ paths:
       - Vocabularies
 components:
   schemas:
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
     PicklistValue:
       type: object
       required:
@@ -84,16 +94,6 @@ components:
           type: array
           items:
             type: string
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
   securitySchemes:
     Authorization:
       type: http

@@ -172,13 +172,26 @@ paths:
       - Template
 components:
   schemas:
-    UpdateTemplate:
+    NewTemplateValue:
       type: object
       required:
-      - name
+      - rel
+      - field
+      - value
       properties:
-        name:
+        rel:
           type: string
+        field:
+          type: string
+        value:
+          type: string
+    ResultOKTemplateValues:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateValue'
     Template:
       type: object
       required:
@@ -192,25 +205,9 @@ components:
           type: string
         schemaName:
           type: string
-    ResultOKTemplateValues:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/TemplateValue'
-    ResultOKDeleteTemplate:
-      type: object
-      properties:
-        deleted:
-          $ref: '#/components/schemas/TemplateId'
-    ResultOKCreateTemplate:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Template'
+    TemplateId:
+      type: string
+      format: uuid
     Error:
       type: object
       required:
@@ -222,6 +219,31 @@ components:
         message:
           type: string
         errorId:
+          type: string
+    NewTemplate:
+      type: object
+      required:
+      - name
+      - schemaName
+      properties:
+        name:
+          type: string
+        schemaName:
+          type: string
+    TemplateValueId:
+      type: string
+      format: uuid
+    ResultOKDeleteTemplate:
+      type: object
+      properties:
+        deleted:
+          $ref: '#/components/schemas/TemplateId'
+    UpdateTemplate:
+      type: object
+      required:
+      - name
+      properties:
+        name:
           type: string
     TemplateValue:
       type: object
@@ -242,35 +264,13 @@ components:
           type: string
         value:
           type: string
-    TemplateId:
-      type: string
-      format: uuid
-    NewTemplate:
+    ResultOKCreateTemplate:
       type: object
-      required:
-      - name
-      - schemaName
       properties:
-        name:
-          type: string
-        schemaName:
-          type: string
-    TemplateValueId:
-      type: string
-      format: uuid
-    NewTemplateValue:
-      type: object
-      required:
-      - rel
-      - field
-      - value
-      properties:
-        rel:
-          type: string
-        field:
-          type: string
-        value:
-          type: string
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Template'
   securitySchemes:
     Authorization:
       type: http

@@ -194,13 +194,6 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    ApiResultUnit:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/Unit'
     PolicyResult:
       required:
       - description
@@ -250,65 +243,38 @@ components:
           type: object
           additionalProperties:
             type: object
-    ApiResultListPolicyResult:
+    PolicyInput:
       required:
-      - result
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/PolicyResult'
-    NewRuleInput:
-      required:
-      - accessType
       - description
-      - filter
-      - objectType
-      - permissionsExcluded
-      - rolesExcluded
+      - enabled
+      - name
       type: object
       properties:
-        description:
+        name:
           maxLength: 250
           minLength: 0
           type: string
-          description: Describes the purpose of the rule.
-        objectType:
+          description: Short name for the policy.
+        description:
+          maxLength: 1000
+          minLength: 0
           type: string
-          description: The object type (schema) that the rule applies to. This may be a custom object.
-        filter:
-          type: string
-          description: A filter expressed in the Skedulo Elastic Query Language (EQL), possibly with placeholders. This filter must be valid with respect to the object type and the custom data model.
-        accessType:
-          type: string
-          description: Specifies whether the filter allows or denies access. All Deny rules will be applied with the AND operator and then all Allow filters will be applied with the OR operator.
-          enum:
-          - deny
-          - allow
-        permissionsExcluded:
+          description: Detailed description of the policy.
+        enabled:
+          type: boolean
+          description: Whether the policy is enabled.
+        rules:
+          maxItems: 20
+          minItems: 0
           type: array
-          description: An optional set of permission keys for which this rule should be ignored. If the user has any of these permissions, the rule will not be applied.
+          description: The rules that define the policy. Rules can also be added to the policy later. A maximum of 20 rules is allowed
           items:
-            type: string
-            description: An optional set of permission keys for which this rule should be ignored. If the user has any of these permissions, the rule will not be applied.
-        rolesExcluded:
-          type: array
-          description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
-          items:
-            type: string
-            description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
-            format: uuid
-      description: The rules that define the policy. Rules can also be added to the policy later. A maximum of 20 rules is allowed
-    ApiResultPolicyResult:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/PolicyResult'
-    Unit:
-      type: object
+            $ref: '#/components/schemas/NewRuleInput'
+        sourceTemplateId:
+          type: string
+          description: The ID of the template the policy was created from. null if the policy was not created from a template.
+          format: uuid
+      description: A group of record access rules that combine to achieve a desired outcome and can be enabled as a group.
     RuleResult:
       required:
       - accessType
@@ -360,38 +326,72 @@ components:
             description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
             format: uuid
       description: A record access rule that controls access to data.
-    PolicyInput:
+    ApiResultUnit:
       required:
-      - description
-      - enabled
-      - name
+      - result
       type: object
       properties:
-        name:
+        result:
+          $ref: '#/components/schemas/Unit'
+    NewRuleInput:
+      required:
+      - accessType
+      - description
+      - filter
+      - objectType
+      - permissionsExcluded
+      - rolesExcluded
+      type: object
+      properties:
+        description:
           maxLength: 250
           minLength: 0
           type: string
-          description: Short name for the policy.
-        description:
-          maxLength: 1000
-          minLength: 0
+          description: Describes the purpose of the rule.
+        objectType:
           type: string
-          description: Detailed description of the policy.
-        enabled:
-          type: boolean
-          description: Whether the policy is enabled.
-        rules:
-          maxItems: 20
-          minItems: 0
+          description: The object type (schema) that the rule applies to. This may be a custom object.
+        filter:
+          type: string
+          description: A filter expressed in the Skedulo Elastic Query Language (EQL), possibly with placeholders. This filter must be valid with respect to the object type and the custom data model.
+        accessType:
+          type: string
+          description: Specifies whether the filter allows or denies access. All Deny rules will be applied with the AND operator and then all Allow filters will be applied with the OR operator.
+          enum:
+          - deny
+          - allow
+        permissionsExcluded:
           type: array
-          description: The rules that define the policy. Rules can also be added to the policy later. A maximum of 20 rules is allowed
+          description: An optional set of permission keys for which this rule should be ignored. If the user has any of these permissions, the rule will not be applied.
           items:
-            $ref: '#/components/schemas/NewRuleInput'
-        sourceTemplateId:
-          type: string
-          description: The ID of the template the policy was created from. null if the policy was not created from a template.
-          format: uuid
-      description: A group of record access rules that combine to achieve a desired outcome and can be enabled as a group.
+            type: string
+            description: An optional set of permission keys for which this rule should be ignored. If the user has any of these permissions, the rule will not be applied.
+        rolesExcluded:
+          type: array
+          description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
+          items:
+            type: string
+            description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
+            format: uuid
+      description: The rules that define the policy. Rules can also be added to the policy later. A maximum of 20 rules is allowed
+    Unit:
+      type: object
+    ApiResultPolicyResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PolicyResult'
+    ApiResultListPolicyResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyResult'
   securitySchemes:
     ApiKeyAuth:
       type: http

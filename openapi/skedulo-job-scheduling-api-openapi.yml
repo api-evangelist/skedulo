@@ -216,50 +216,6 @@ paths:
                       Completed: false
 components:
   schemas:
-    BaseJob:
-      type: object
-      description: 'The base job field that will be used to create the recurring schedule. Child objects (e.g., has-many relationship such as JobTags) can also be included -- they will be create and linked with their parent job.
-
-        Only certain default job fields (see example) are be replicated across the created jobs.
-
-        To replicate a custom field, lookup or child objects, they need to specified in the baseJob object too (see example).
-
-        '
-      required:
-      - Start
-      - Duration
-      - RegionId
-      properties:
-        Start:
-          type: string
-          format: date-time
-          description: Start time of the job which is also the base time / date where the pattern starts generating new jobs from. All generated jobs will have the same clock time as the base job (For example if the first job is at 3pm, all future jobs will occur at 3pm as well).
-        Duration:
-          type: number
-        RegionId:
-          type: string
-          description: RegionId is used to obtain holidays associated with the region, which are used to avoid creating jobs on regional or global holidays.
-      example:
-        Start: '2017-12-23T00:00:00Z'
-        RegionId: a0J28000000TXd3EAG
-        Duration: 30
-        AccountId: 0051I000000hycRQAQ
-        Address: 170 Smith Road
-        CanBeDeclined: true
-        ContactId: 0051I000000hhcRQAQ
-        Description: description of the job
-        GeoLatitude: 100
-        GeoLongitude: 100
-        LocationId: 0051I000000hycRQAQ
-        Locked: false
-        NotesComments: a comment on the job
-        Type: Installation
-        Urgency: Urgent
-        Quantity: 2
-        MyCustomText: hello world
-        JobTags:
-        - TagId: a0B0K00000XR5bPUAT
-          Required: true
     RecurrencePattern:
       type: object
       required:
@@ -347,6 +303,50 @@ components:
           items:
             type: string
             format: date
+    BaseJob:
+      type: object
+      description: 'The base job field that will be used to create the recurring schedule. Child objects (e.g., has-many relationship such as JobTags) can also be included -- they will be create and linked with their parent job.
+
+        Only certain default job fields (see example) are be replicated across the created jobs.
+
+        To replicate a custom field, lookup or child objects, they need to specified in the baseJob object too (see example).
+
+        '
+      required:
+      - Start
+      - Duration
+      - RegionId
+      properties:
+        Start:
+          type: string
+          format: date-time
+          description: Start time of the job which is also the base time / date where the pattern starts generating new jobs from. All generated jobs will have the same clock time as the base job (For example if the first job is at 3pm, all future jobs will occur at 3pm as well).
+        Duration:
+          type: number
+        RegionId:
+          type: string
+          description: RegionId is used to obtain holidays associated with the region, which are used to avoid creating jobs on regional or global holidays.
+      example:
+        Start: '2017-12-23T00:00:00Z'
+        RegionId: a0J28000000TXd3EAG
+        Duration: 30
+        AccountId: 0051I000000hycRQAQ
+        Address: 170 Smith Road
+        CanBeDeclined: true
+        ContactId: 0051I000000hhcRQAQ
+        Description: description of the job
+        GeoLatitude: 100
+        GeoLongitude: 100
+        LocationId: 0051I000000hycRQAQ
+        Locked: false
+        NotesComments: a comment on the job
+        Type: Installation
+        Urgency: Urgent
+        Quantity: 2
+        MyCustomText: hello world
+        JobTags:
+        - TagId: a0B0K00000XR5bPUAT
+          Required: true
     FieldSpec:
       type: object
       required:

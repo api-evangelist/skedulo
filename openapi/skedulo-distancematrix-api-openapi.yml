@@ -46,12 +46,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    MapVendor:
-      type: string
-      enum:
-      - GOOGLE
-      - GRAPHHOPPER
-      - LINEOFSIGHT
+    LatLng:
+      type: object
+      required:
+      - lat
+      - lng
+      properties:
+        lat:
+          description: -90 <= y <= 90
+          type: number
+        lng:
+          description: -180 <= x <= 180
+          type: number
     Distance:
       type: object
       required:
@@ -59,6 +65,49 @@ components:
       properties:
         distanceInMeters:
           type: number
+    DistanceMatrixResponse:
+      type: object
+      required:
+      - matrix
+      - vendor
+      properties:
+        matrix:
+          type: array
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/TravelLegResult'
+        vendor:
+          $ref: '#/components/schemas/MapVendor'
+    MapVendor:
+      type: string
+      enum:
+      - GOOGLE
+      - GRAPHHOPPER
+      - LINEOFSIGHT
+    Duration:
+      type: object
+      required:
+      - durationInSeconds
+      properties:
+        durationInSeconds:
+          type: number
+    Avoid:
+      type: string
+      enum:
+      - ferry
+      - highway
+      - toll
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
     TravelLegResult:
       type: object
       required:
@@ -75,30 +124,6 @@ components:
           $ref: '#/components/schemas/Duration'
         distance:
           $ref: '#/components/schemas/Distance'
-    DistanceMatrixResponse:
-      type: object
-      required:
-      - matrix
-      - vendor
-      properties:
-        matrix:
-          type: array
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/TravelLegResult'
-        vendor:
-          $ref: '#/components/schemas/MapVendor'
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
     DistanceMatrixRequest:
       type: object
       required:
@@ -129,31 +154,6 @@ components:
         destinations:
         - lat: -27.457768
           lng: 153.03583
-    LatLng:
-      type: object
-      required:
-      - lat
-      - lng
-      properties:
-        lat:
-          description: -90 <= y <= 90
-          type: number
-        lng:
-          description: -180 <= x <= 180
-          type: number
-    Avoid:
-      type: string
-      enum:
-      - ferry
-      - highway
-      - toll
-    Duration:
-      type: object
-      required:
-      - durationInSeconds
-      properties:
-        durationInSeconds:
-          type: number
   securitySchemes:
     Authorization:
       type: apiKey

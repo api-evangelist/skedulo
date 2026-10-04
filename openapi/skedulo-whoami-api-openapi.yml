@@ -36,6 +36,12 @@ paths:
       - Whoami
 components:
   schemas:
+    Permissions:
+      description: The permissions for the user. Only present if the useNewPermissions feature flag is enabled.
+      type: array
+      items:
+        description: Permission keys assigned to the user
+        type: string
     Roles:
       type: array
       items:
@@ -44,17 +50,6 @@ components:
         - administrator
         - scheduler
         - resource
-    ResultOKUserInfo:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/UserInfo'
-    Permissions:
-      description: The permissions for the user. Only present if the useNewPermissions feature flag is enabled.
-      type: array
-      items:
-        description: Permission keys assigned to the user
-        type: string
     UserInfo:
       type: object
       required:
@@ -109,6 +104,11 @@ components:
           vendorUserId:
             type: string
             description: Skedulo user ID of this user
+    ResultOKUserInfo:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/UserInfo'
   securitySchemes:
     Authorization:
       type: http

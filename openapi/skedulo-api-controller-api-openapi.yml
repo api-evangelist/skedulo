@@ -634,20 +634,6 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    RecordChangeFetchResultSimple:
-      required:
-      - result
-      type: object
-      properties:
-        nextCursor:
-          type: string
-          description: An opaque cursor representing the current position in the stream of changes.  This can be supplied to the next fetch invocation to obtain the next page of results.
-        result:
-          type: array
-          description: The list of changes.
-          items:
-            $ref: '#/components/schemas/TenantRecordChangeLogSimple'
-      description: A series of record changes for a tenant in a simple format
     TransactionsFetchResultSimple:
       required:
       - result
@@ -662,19 +648,6 @@ components:
           items:
             $ref: '#/components/schemas/TransactionSimple'
       description: A series of transactions for a tenant in a simple format
-    TransactionSimple:
-      required:
-      - changes
-      - transactionId
-      type: object
-      properties:
-        transactionId:
-          type: string
-        changes:
-          type: array
-          items:
-            $ref: '#/components/schemas/TenantRecordChangeLogSimple'
-      description: A single transaction containing multiple tenant data changes in a simple format
     RecordChangeFetchResult:
       required:
       - result
@@ -689,13 +662,6 @@ components:
           items:
             $ref: '#/components/schemas/TenantRecordChangeLog'
       description: A series of record changes for a tenant
-    ErrorDetails:
-      type: object
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
     Transaction:
       required:
       - changes
@@ -709,19 +675,6 @@ components:
           items:
             $ref: '#/components/schemas/TenantRecordChangeLog'
       description: A single transaction containing multiple tenant data changes
-    TransactionsFetchResult:
-      required:
-      - result
-      type: object
-      properties:
-        nextCursor:
-          type: string
-          description: An opaque cursor representing the current position in the stream of changes.  This can be supplied to the next fetch invocation to obtain the next page of results.
-        result:
-          type: array
-          description: The list of changes grouped by transaction.
-          items:
-            $ref: '#/components/schemas/Transaction'
     TenantRecordChangeLog:
       required:
       - data
@@ -771,6 +724,53 @@ components:
         operation:
           type: string
       description: A slim version of TenantRecordChangeLog omitting heavy data fields.
+    ErrorDetails:
+      type: object
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+    TransactionSimple:
+      required:
+      - changes
+      - transactionId
+      type: object
+      properties:
+        transactionId:
+          type: string
+        changes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TenantRecordChangeLogSimple'
+      description: A single transaction containing multiple tenant data changes in a simple format
+    RecordChangeFetchResultSimple:
+      required:
+      - result
+      type: object
+      properties:
+        nextCursor:
+          type: string
+          description: An opaque cursor representing the current position in the stream of changes.  This can be supplied to the next fetch invocation to obtain the next page of results.
+        result:
+          type: array
+          description: The list of changes.
+          items:
+            $ref: '#/components/schemas/TenantRecordChangeLogSimple'
+      description: A series of record changes for a tenant in a simple format
+    TransactionsFetchResult:
+      required:
+      - result
+      type: object
+      properties:
+        nextCursor:
+          type: string
+          description: An opaque cursor representing the current position in the stream of changes.  This can be supplied to the next fetch invocation to obtain the next page of results.
+        result:
+          type: array
+          description: The list of changes grouped by transaction.
+          items:
+            $ref: '#/components/schemas/Transaction'
   securitySchemes:
     ApiKeyAuth:
       type: http

@@ -47,6 +47,23 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    LatLng:
+      type: object
+      required:
+      - lat
+      - lng
+      properties:
+        lat:
+          description: -90 <= y <= 90
+          type: number
+        lng:
+          description: -180 <= x <= 180
+          type: number
+    PlaceDetailResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PlaceDetail'
     AddressComponents:
       type: object
       properties:
@@ -64,11 +81,6 @@ components:
           type: string
         postalCode:
           type: string
-    PlaceDetailResponse:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/PlaceDetail'
     Error:
       type: object
       required:
@@ -92,18 +104,6 @@ components:
           type: string
         geometry:
           $ref: '#/components/schemas/LatLng'
-    LatLng:
-      type: object
-      required:
-      - lat
-      - lng
-      properties:
-        lat:
-          description: -90 <= y <= 90
-          type: number
-        lng:
-          description: -180 <= x <= 180
-          type: number
     PlaceDetailRequest:
       type: object
       required:

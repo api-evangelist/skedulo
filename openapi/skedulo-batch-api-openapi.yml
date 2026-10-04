@@ -385,74 +385,29 @@ paths:
       x-operation-id-original: Delete Batch Schedule
 components:
   schemas:
-    ObjectiveWeightsShape:
+    ObjectiveWeightModifiersShape:
       type: object
       properties:
         minimizeDisruption:
-          type: integer
+          type: number
         balanceAbsoluteWorkload:
-          type: integer
+          type: number
         travelTime:
-          type: integer
+          type: number
         minimizeResources:
-          type: integer
+          type: number
         softSkills:
-          type: integer
+          type: number
         jobsPriority:
-          type: integer
+          type: number
         resourceRating:
-          type: integer
+          type: number
         scheduleImmediacy:
-          type: integer
+          type: number
         urgency:
-          type: integer
+          type: number
         overtime:
-          type: integer
-    Paging:
-      required:
-      - limit
-      type: object
-      properties:
-        limit:
-          type: integer
-          format: int32
-        nextCursor:
-          type: string
-        total:
-          type: integer
-          format: int32
-    Weekly:
-      required:
-      - step
-      - repeatMode
-      - repeatOnWeekDays
-      type: object
-      properties:
-        step:
-          type: integer
-          format: int32
-        repeatMode:
-          type: string
-          description: '`weekly`'
-        repeatOnWeekDays:
-          type: array
-          items:
-            type: string
-            enum:
-            - sun
-            - mon
-            - tue
-            - wed
-            - thu
-            - fri
-            - sat
-        endAfterNumberOccurrences:
-          type: integer
-          format: int32
-        endOn:
-          type: string
-          format: date
-      description: recurringFieldsDescription
+          type: number
     ScheduleShape:
       required:
       - name
@@ -513,106 +468,11 @@ components:
           type: boolean
         includeSecondaryRegions:
           type: boolean
-    ObjectiveWeightModifiersShape:
-      type: object
-      properties:
-        minimizeDisruption:
-          type: number
-        balanceAbsoluteWorkload:
-          type: number
-        travelTime:
-          type: number
-        minimizeResources:
-          type: number
-        softSkills:
-          type: number
-        jobsPriority:
-          type: number
-        resourceRating:
-          type: number
-        scheduleImmediacy:
-          type: number
-        urgency:
-          type: number
-        overtime:
-          type: number
-    ScheduleRecordShape:
-      required:
-      - name
-      - optimizationType
-      - runDate
-      - timezone
-      - earliestStartTime
-      - dayRange
-      - dayOffset
-      - region
-      - schedulingOptions
-      - includeTemporaryRegions
-      - includeSecondaryRegions
-      - createdByUserId
-      - createdByDate
-      - lastModifiedByUserId
-      - lastModifiedByDate
-      type: object
-      properties:
-        name:
-          type: string
-        optimizationType:
-          type: string
-          enum:
-          - pvrp
-        status:
-          type: string
-          enum:
-          - deleted
-        runDate:
-          type: string
-          format: date
-        timezone:
-          type: string
-        earliestStartTime:
-          type: string
-        latestEndTime:
-          type: string
-        recurring:
-          $ref: '#/components/schemas/Recurring'
-        dayRange:
-          type: integer
-          format: int32
-        dayOffset:
-          type: integer
-          format: int32
-        jobQuery:
-          type: string
-        resourceQuery:
-          type: string
-        region:
-          type: string
-        schedulingOptions:
-          $ref: '#/components/schemas/PVRPProductOptionsShape'
-        persistenceStrategy:
-          type: string
-          enum:
-          - save
-          - optimize
-        includeTemporaryRegions:
-          type: boolean
-        includeSecondaryRegions:
-          type: boolean
-        createdByUserId:
-          type: string
-        createdByDate:
-          type: string
-          format: date-time
-        lastModifiedByUserId:
-          type: string
-        lastModifiedByDate:
-          type: string
-          format: date-time
-    Yearly:
+    Weekly:
       required:
       - step
       - repeatMode
+      - repeatOnWeekDays
       type: object
       properties:
         step:
@@ -620,49 +480,19 @@ components:
           format: int32
         repeatMode:
           type: string
-          description: '`yearly`'
-        endAfterNumberOccurrences:
-          type: integer
-          format: int32
-        endOn:
-          type: string
-          format: date
-      description: recurringFieldsDescription
-    Daily:
-      required:
-      - step
-      - repeatMode
-      type: object
-      properties:
-        step:
-          type: integer
-          format: int32
-        repeatMode:
-          type: string
-          description: '`daily`'
-        endAfterNumberOccurrences:
-          type: integer
-          format: int32
-        endOn:
-          type: string
-          format: date
-      description: recurringFieldsDescription
-    Monthly:
-      required:
-      - step
-      - repeatMode
-      - dayOfMonthToRepeatOn
-      type: object
-      properties:
-        step:
-          type: integer
-          format: int32
-        repeatMode:
-          type: string
-          description: '`monthly_nth_day`'
-        dayOfMonthToRepeatOn:
-          type: integer
-          format: int32
+          description: '`weekly`'
+        repeatOnWeekDays:
+          type: array
+          items:
+            type: string
+            enum:
+            - sun
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
+            - sat
         endAfterNumberOccurrences:
           type: integer
           format: int32
@@ -736,6 +566,176 @@ components:
           minItems: 1
         rollingScheduleWindowInterval:
           description: The interval used to split the schedule window into rolling sub-windows. Accepts "monthly", "quarterly", or a positive integer representing a fixed number of days.
+    ObjectiveWeightsShape:
+      type: object
+      properties:
+        minimizeDisruption:
+          type: integer
+        balanceAbsoluteWorkload:
+          type: integer
+        travelTime:
+          type: integer
+        minimizeResources:
+          type: integer
+        softSkills:
+          type: integer
+        jobsPriority:
+          type: integer
+        resourceRating:
+          type: integer
+        scheduleImmediacy:
+          type: integer
+        urgency:
+          type: integer
+        overtime:
+          type: integer
+    Paging:
+      required:
+      - limit
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int32
+        nextCursor:
+          type: string
+        total:
+          type: integer
+          format: int32
+    Yearly:
+      required:
+      - step
+      - repeatMode
+      type: object
+      properties:
+        step:
+          type: integer
+          format: int32
+        repeatMode:
+          type: string
+          description: '`yearly`'
+        endAfterNumberOccurrences:
+          type: integer
+          format: int32
+        endOn:
+          type: string
+          format: date
+      description: recurringFieldsDescription
+    ScheduleRecordShape:
+      required:
+      - name
+      - optimizationType
+      - runDate
+      - timezone
+      - earliestStartTime
+      - dayRange
+      - dayOffset
+      - region
+      - schedulingOptions
+      - includeTemporaryRegions
+      - includeSecondaryRegions
+      - createdByUserId
+      - createdByDate
+      - lastModifiedByUserId
+      - lastModifiedByDate
+      type: object
+      properties:
+        name:
+          type: string
+        optimizationType:
+          type: string
+          enum:
+          - pvrp
+        status:
+          type: string
+          enum:
+          - deleted
+        runDate:
+          type: string
+          format: date
+        timezone:
+          type: string
+        earliestStartTime:
+          type: string
+        latestEndTime:
+          type: string
+        recurring:
+          $ref: '#/components/schemas/Recurring'
+        dayRange:
+          type: integer
+          format: int32
+        dayOffset:
+          type: integer
+          format: int32
+        jobQuery:
+          type: string
+        resourceQuery:
+          type: string
+        region:
+          type: string
+        schedulingOptions:
+          $ref: '#/components/schemas/PVRPProductOptionsShape'
+        persistenceStrategy:
+          type: string
+          enum:
+          - save
+          - optimize
+        includeTemporaryRegions:
+          type: boolean
+        includeSecondaryRegions:
+          type: boolean
+        createdByUserId:
+          type: string
+        createdByDate:
+          type: string
+          format: date-time
+        lastModifiedByUserId:
+          type: string
+        lastModifiedByDate:
+          type: string
+          format: date-time
+    Monthly:
+      required:
+      - step
+      - repeatMode
+      - dayOfMonthToRepeatOn
+      type: object
+      properties:
+        step:
+          type: integer
+          format: int32
+        repeatMode:
+          type: string
+          description: '`monthly_nth_day`'
+        dayOfMonthToRepeatOn:
+          type: integer
+          format: int32
+        endAfterNumberOccurrences:
+          type: integer
+          format: int32
+        endOn:
+          type: string
+          format: date
+      description: recurringFieldsDescription
+    Daily:
+      required:
+      - step
+      - repeatMode
+      type: object
+      properties:
+        step:
+          type: integer
+          format: int32
+        repeatMode:
+          type: string
+          description: '`daily`'
+        endAfterNumberOccurrences:
+          type: integer
+          format: int32
+        endOn:
+          type: string
+          format: date
+      description: recurringFieldsDescription
   securitySchemes:
     httpAuth:
       type: http

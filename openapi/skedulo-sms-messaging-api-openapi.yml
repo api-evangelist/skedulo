@@ -150,12 +150,16 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Success:
+    Error:
       type: object
+      required:
+      - errorType
+      - message
       properties:
-        success:
-          type: boolean
-          default: true
+        errorType:
+          type: string
+        message:
+          type: string
     SMSSentForTenant:
       type: object
       required:
@@ -201,16 +205,12 @@ components:
         cursor:
           type: string
           description: A string to pass as the cursor GET parameter to fetch records that occur after this one
-    Error:
+    Success:
       type: object
-      required:
-      - errorType
-      - message
       properties:
-        errorType:
-          type: string
-        message:
-          type: string
+        success:
+          type: boolean
+          default: true
   securitySchemes:
     Authorization:
       type: http

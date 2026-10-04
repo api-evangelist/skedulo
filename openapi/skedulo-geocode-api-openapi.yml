@@ -48,6 +48,66 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GeocodeResult'
+    LatLng:
+      type: object
+      required:
+      - lat
+      - lng
+      properties:
+        lat:
+          description: -90 <= y <= 90
+          type: number
+        lng:
+          description: -180 <= x <= 180
+          type: number
+    GeocodeRequestIndividualRequests:
+      type: object
+      required:
+      - requests
+      properties:
+        requests:
+          type: array
+          items:
+            $ref: '#/components/schemas/GeocodeRequestIndividualRequest'
+        language:
+          type: string
+          description: Return addresses in the given language. Must be a language code.
+        responseType:
+          $ref: '#/components/schemas/GeocodeRequestResponseType'
+    GeocodeRequest:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/GeocodeRequestAddressesOnly'
+      - $ref: '#/components/schemas/GeocodeRequestIndividualRequests'
+    GeocodeFailure:
+      required:
+      - address
+      - reason
+      properties:
+        address:
+          type: string
+        reason:
+          $ref: '#/components/schemas/GeocodeError'
+    GeocodeMultipleMatchSuccess:
+      type: array
+      items:
+        $ref: '#/components/schemas/GeocodeSuccess'
+    GeocodeRequestResponseType:
+      type: string
+      description: Determines whether GeocodeSuccess or GeocodeMultipleMatchSuccess is returned in the response.
+      enum:
+      - allMatches
+      - firstMatch
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
     GeocodeSuccess:
       required:
       - address
@@ -64,19 +124,15 @@ components:
           - streetAddress
           - other
           description: Specifies the most granular address element that matches the geocoding query.
-    GeocodeError:
+    GeocodeRequestIndividualRequest:
       type: object
       required:
-      - msg
+      - address
       properties:
-        msg:
+        address:
           type: string
-    GeocodeRequestResponseType:
-      type: string
-      description: Determines whether GeocodeSuccess or GeocodeMultipleMatchSuccess is returned in the response.
-      enum:
-      - allMatches
-      - firstMatch
+        bounds:
+          $ref: '#/components/schemas/GeocodeRequestBounds'
     GeocodeRequestAddressesOnly:
       type: object
       required:
@@ -91,6 +147,13 @@ components:
           description: Return addresses in the given language. Must be a language code.
         responseType:
           $ref: '#/components/schemas/GeocodeRequestResponseType'
+    GeocodeError:
+      type: object
+      required:
+      - msg
+      properties:
+        msg:
+          type: string
     GeocodeResult:
       type: object
       description: Only one of the keys 'GeocodeSuccess', 'GeocodeMultipleMatchSuccess' or 'GeocodeFailure' will be present in the response.
@@ -101,41 +164,6 @@ components:
           $ref: '#/components/schemas/GeocodeFailure'
         GeocodeMultipleMatchSuccess:
           $ref: '#/components/schemas/GeocodeMultipleMatchSuccess'
-    GeocodeMultipleMatchSuccess:
-      type: array
-      items:
-        $ref: '#/components/schemas/GeocodeSuccess'
-    GeocodeFailure:
-      required:
-      - address
-      - reason
-      properties:
-        address:
-          type: string
-        reason:
-          $ref: '#/components/schemas/GeocodeError'
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
-    LatLng:
-      type: object
-      required:
-      - lat
-      - lng
-      properties:
-        lat:
-          description: -90 <= y <= 90
-          type: number
-        lng:
-          description: -180 <= x <= 180
-          type: number
     GeocodeRequestBounds:
       type: object
       required:
@@ -146,34 +174,6 @@ components:
           $ref: '#/components/schemas/LatLng'
         southeast:
           $ref: '#/components/schemas/LatLng'
-    GeocodeRequestIndividualRequests:
-      type: object
-      required:
-      - requests
-      properties:
-        requests:
-          type: array
-          items:
-            $ref: '#/components/schemas/GeocodeRequestIndividualRequest'
-        language:
-          type: string
-          description: Return addresses in the given language. Must be a language code.
-        responseType:
-          $ref: '#/components/schemas/GeocodeRequestResponseType'
-    GeocodeRequestIndividualRequest:
-      type: object
-      required:
-      - address
-      properties:
-        address:
-          type: string
-        bounds:
-          $ref: '#/components/schemas/GeocodeRequestBounds'
-    GeocodeRequest:
-      type: object
-      oneOf:
-      - $ref: '#/components/schemas/GeocodeRequestAddressesOnly'
-      - $ref: '#/components/schemas/GeocodeRequestIndividualRequests'
   securitySchemes:
     Authorization:
       type: apiKey

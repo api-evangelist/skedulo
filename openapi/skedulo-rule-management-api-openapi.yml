@@ -224,13 +224,17 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    ApiResultUnit:
+    UserRulesResult:
       required:
-      - result
+      - rules
       type: object
       properties:
-        result:
-          $ref: '#/components/schemas/Unit'
+        rules:
+          type: array
+          description: The fully resolved set of rules for a user.
+          items:
+            $ref: '#/components/schemas/ResolvedRuleResult'
+      description: The record access rules for a user.
     RuleInput:
       required:
       - accessType
@@ -276,29 +280,6 @@ components:
             type: string
             description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
             format: uuid
-    ApiResultListRuleResult:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleResult'
-    ApiResultRuleResult:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/RuleResult'
-    ApiResultUserRulesResult:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/UserRulesResult'
     ErrorDetails:
       type: object
       properties:
@@ -330,19 +311,13 @@ components:
           - deny
           - allow
       description: A record access rule that is enabled for the current user and has had placeholders resolved.
-    UserRulesResult:
+    ApiResultUnit:
       required:
-      - rules
+      - result
       type: object
       properties:
-        rules:
-          type: array
-          description: The fully resolved set of rules for a user.
-          items:
-            $ref: '#/components/schemas/ResolvedRuleResult'
-      description: The record access rules for a user.
-    Unit:
-      type: object
+        result:
+          $ref: '#/components/schemas/Unit'
     RuleResult:
       required:
       - accessType
@@ -394,6 +369,31 @@ components:
             description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
             format: uuid
       description: A record access rule that controls access to data.
+    Unit:
+      type: object
+    ApiResultListRuleResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleResult'
+    ApiResultRuleResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/RuleResult'
+    ApiResultUserRulesResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/UserRulesResult'
   securitySchemes:
     ApiKeyAuth:
       type: http

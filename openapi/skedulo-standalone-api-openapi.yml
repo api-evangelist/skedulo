@@ -194,6 +194,82 @@ paths:
       - Standalone
 components:
   schemas:
+    NewStandaloneCustomFieldColumn:
+      type: object
+      required:
+      - type
+      discriminator:
+        propertyName: type
+      properties:
+        type:
+          type: string
+          enum:
+          - string
+          - textarea
+          - url
+          - picklist
+          - multipicklist
+          - int
+          - decimal
+          - boolean
+          - date
+          - datetime
+          - time
+          - reference
+    NewStandaloneCustomSchemaField:
+      type: object
+      required:
+      - name
+      - column
+      properties:
+        name:
+          type: string
+          description: Internal name
+        label:
+          type: string
+          description: Display name
+        description:
+          type: string
+          description: Description display only when modifying this fields definition
+        accessMode:
+          type: string
+          enum:
+          - read_only
+          - read_write
+          - insert_only
+          default: read_write
+        column:
+          $ref: '#/components/schemas/NewStandaloneCustomFieldColumn'
+        showIf:
+          type: string
+        isAlert:
+          description: Should this field be promoted and shown at the top? Only one field per object can have this set.
+          type: boolean
+          default: false
+        showDesktop:
+          type: boolean
+          default: true
+        showMobile:
+          type: boolean
+          default: false
+        editableOnMobile:
+          type: boolean
+          default: false
+        requiredOnMobile:
+          type: boolean
+          default: false
+        displayOrder:
+          type: integer
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
     NewStandaloneCustomSchema:
       type: object
       required:
@@ -366,72 +442,6 @@ components:
           default: false
         displayOrder:
           type: integer
-    NewStandaloneCustomFieldColumn:
-      type: object
-      required:
-      - type
-      discriminator:
-        propertyName: type
-      properties:
-        type:
-          type: string
-          enum:
-          - string
-          - textarea
-          - url
-          - picklist
-          - multipicklist
-          - int
-          - decimal
-          - boolean
-          - date
-          - datetime
-          - time
-          - reference
-    NewStandaloneCustomSchemaField:
-      type: object
-      required:
-      - name
-      - column
-      properties:
-        name:
-          type: string
-          description: Internal name
-        label:
-          type: string
-          description: Display name
-        description:
-          type: string
-          description: Description display only when modifying this fields definition
-        accessMode:
-          type: string
-          enum:
-          - read_only
-          - read_write
-          - insert_only
-          default: read_write
-        column:
-          $ref: '#/components/schemas/NewStandaloneCustomFieldColumn'
-        showIf:
-          type: string
-        isAlert:
-          description: Should this field be promoted and shown at the top? Only one field per object can have this set.
-          type: boolean
-          default: false
-        showDesktop:
-          type: boolean
-          default: true
-        showMobile:
-          type: boolean
-          default: false
-        editableOnMobile:
-          type: boolean
-          default: false
-        requiredOnMobile:
-          type: boolean
-          default: false
-        displayOrder:
-          type: integer
     CustomSchema:
       type: object
       required:
@@ -454,16 +464,6 @@ components:
         mapping:
           type: string
           description: The name of the object in the remote system (e.g. 'order' for Skedulo platform or 'Order__c' for Salesforce)
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
   securitySchemes:
     Authorization:
       type: http

@@ -208,6 +208,11 @@ components:
               type: string
         newCustomerModel:
           type: boolean
+    ResultOKTeamConfig:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/TeamConfig'
     TeamConfigAuth0Lock:
       type: object
       required:
@@ -232,18 +237,25 @@ components:
                 properties:
                   displayName:
                     type: string
-    ResultOKTeamConfig:
-      type: object
+    LayoutRelatedDataRelatedObject:
+      required:
+      - type
+      - object
       properties:
-        result:
-          $ref: '#/components/schemas/TeamConfig'
-    LayoutRelatedData:
-      oneOf:
-      - $ref: '#/components/schemas/LayoutRelatedDataRelatedObject'
-      discriminator:
-        propertyName: type
-        mapping:
-          relatedObjects: '#/components/schemas/LayoutRelatedDataRelatedObject'
+        type:
+          type: string
+          enum:
+          - relatedObjects
+        reference:
+          type: string
+        object:
+          type: string
+        label:
+          type: string
+        listFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/LayoutRelatedDataRelatedObjectField'
     Layout:
       type: object
       required:
@@ -265,31 +277,19 @@ components:
           type: string
         errorId:
           type: string
+    LayoutRelatedData:
+      oneOf:
+      - $ref: '#/components/schemas/LayoutRelatedDataRelatedObject'
+      discriminator:
+        propertyName: type
+        mapping:
+          relatedObjects: '#/components/schemas/LayoutRelatedDataRelatedObject'
     LayoutRelatedDataRelatedObjectField:
       required:
       - fieldName
       properties:
         fieldName:
           type: string
-    LayoutRelatedDataRelatedObject:
-      required:
-      - type
-      - object
-      properties:
-        type:
-          type: string
-          enum:
-          - relatedObjects
-        reference:
-          type: string
-        object:
-          type: string
-        label:
-          type: string
-        listFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/LayoutRelatedDataRelatedObjectField'
   securitySchemes:
     Authorization:
       type: http

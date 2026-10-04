@@ -42,6 +42,30 @@ paths:
       - Avatar
 components:
   schemas:
+    AvatarResults:
+      type: object
+      additionalProperties:
+        type: string
+    AvatarError:
+      type: object
+      required:
+      - errorType
+      - errorMsg
+      properties:
+        errorType:
+          type: string
+        errorMsg:
+          type: string
+    AvatarAuth:
+      type: object
+      required:
+      - signature
+      - expiry
+      properties:
+        signature:
+          type: string
+        expiry:
+          type: string
     AvatarFullResult:
       type: object
       properties:
@@ -59,30 +83,6 @@ components:
       type: object
       additionalProperties:
         $ref: '#/components/schemas/AvatarAuth'
-    AvatarAuth:
-      type: object
-      required:
-      - signature
-      - expiry
-      properties:
-        signature:
-          type: string
-        expiry:
-          type: string
-    AvatarResults:
-      type: object
-      additionalProperties:
-        type: string
-    AvatarError:
-      type: object
-      required:
-      - errorType
-      - errorMsg
-      properties:
-        errorType:
-          type: string
-        errorMsg:
-          type: string
   securitySchemes:
     Authorization:
       type: http

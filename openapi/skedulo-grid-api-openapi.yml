@@ -210,6 +210,277 @@ paths:
       - Grid
 components:
   schemas:
+    TimeStamp:
+      type: string
+      format: date-time
+      description: Can be either ISO8601 date time string or Unix timestamp number ( in milliseconds ). Always returned in ISO8601 format.
+    MatchedGroup:
+      type: object
+      additionalProperties: false
+      properties:
+        objectType:
+          type: string
+        groupId:
+          type: string
+        matched:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              attr:
+                type: string
+              expected:
+                type: array
+                items:
+                  type: string
+        matchedRecordFilterIds:
+          type: array
+          items:
+            type: string
+      required:
+      - objectType
+      - groupId
+    SchedulingGridBodyResourceIds:
+      type: object
+      example: "{\n  \"resourceIds\": [\n    \"0005ade1-2a42-431f-a468-594ec4cb3261\",\n    \"0005ea18-61c1-49d9-9b50-d16a31a21c20\"\n  ],\n  \"job\": {\n    \"location\": {\n      \"lat\": -27.457865,\n      \"lng\": 153.037271\n    }\n  },\n  \"gridSize\": 1800,\n  \"scheduleStart\": \"2018-11-22T22:00:00.000Z\",\n  \"scheduleEnd\": \"2018-11-23T01:00:00.000Z\",\n  \"maxTravelTimeInSeconds\": 600,\n  \"includeTravelTimeToAndFromHome\": true,\n  \"regionId\": \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n  \"availabilityFilterValues\": [\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": {\n        \"Type\": \"Maintenance\",\n        \"Urgency\": \"Critical\"\n      }\n    }\n  ]\n}\n"
+      properties:
+        resourceIds:
+          type: array
+          description: An array of resource IDs to generate availability slots.
+          items:
+            type: string
+        job:
+          type: object
+          description: Job properties that needs to be considered when generating slots for the grid.
+          properties:
+            location:
+              type: object
+              description: Geocoordinates of the job. When this is set, travel time is considered when generating slots.
+              properties:
+                lat:
+                  type: number
+                  description: Latitude
+                lng:
+                  type: number
+                  description: Longitude
+              required:
+              - lat
+              - lng
+        availabilityFilterValues:
+          type: array
+          description: 'An array of object types and their associated field values to filter availability intervals on. Mutually exclusive with `availabilityFilterEntityIds`.
+
+            '
+          items:
+            type: object
+            required:
+            - objectType
+            - values
+            properties:
+              objectType:
+                type: string
+                description: The type of object that the fields values are going to be filtered on.
+                example: Jobs
+              values:
+                type: object
+                description: 'A dictionary of type-specific attributes that define requirements to be evaluated against preferences for
+
+                  resource availability. These attributes (such as job type, urgency, custom fields, etc.) are used to
+
+                  determine which resources are suitable for the job based on their availability preferences. If no
+
+                  attributes are provided, then availability preferences will not be considered.
+
+                  '
+                example: '{"Type": "Maintenance", "Urgency": "Critical"}'
+        availabilityFilterEntityIds:
+          type: object
+          description: 'A map of entity types to arrays of entity IDs. The server derives filter criteria from the referenced entities. Mutually exclusive with `availabilityFilterValues`. Total number of entity IDs across all types cannot exceed 50.
+
+            '
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          example:
+            Jobs:
+            - 0014cac9-4ba2-4944-b7ca-b4d2c40b1403
+        gridSize:
+          type: integer
+          minimum: 300
+          description: The size of the grid slots (in seconds).
+        gridInterval:
+          type: integer
+          minimum: 1
+          description: 'The recurring interval (in seconds) in which to create grid slots.  If not set, then by default it is set to be same as grid size which will generate
+
+            non-overlapping slots.
+
+            '
+        includeTravelTimeToAndFromHome:
+          type: boolean
+          default: false
+          description: Consider travel time from and to the resources home when checking whether the resource is feasible for an availability slot.
+        ignoreResourceOverrideLocations:
+          type: boolean
+          default: false
+          description: 'When using resource overrides (temporary region assignments), do not override the resources location with the location
+
+            specified on the override.
+
+            '
+        maxTravelTimeInSeconds:
+          type: integer
+          minimum: 1
+          description: 'The maximum travel time allowed in seconds for a resource to travel from a location to the Jobs location
+
+            if specified.  This can be either travel time to and from home or to adn from other jobs.  By default this
+
+            functionality is disabled.
+
+            '
+        scheduleStart:
+          $ref: '#/components/schemas/TimeStamp'
+        scheduleEnd:
+          $ref: '#/components/schemas/TimeStamp'
+        regionId:
+          type: string
+          description: 'Resource availability will be based on when resources are available in the region specified.  Availability depends
+
+            on the primary region of the resource or whether the resource has Temporary or Secondary regions assigned.
+
+            '
+      required:
+      - job
+      - resourceIds
+      - scheduleStart
+      - scheduleEnd
+      - gridSize
+    RecordFilter:
+      type: object
+      additionalProperties: false
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        expression:
+          type: string
+        objectType:
+          type: string
+    SchedulingGridResponse:
+      type: object
+      example: "{\n  \"result\": [\n    {\n      \"start\": \"2018-11-22T22:00:00.000Z\",\n      \"end\": \"2018-11-22T22:30:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-22T22:30:00.000Z\",\n      \"end\": \"2018-11-22T23:00:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-22T23:00:00.000Z\",\n      \"end\": \"2018-11-22T23:30:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-22T23:30:00.000Z\",\n      \"end\": \"2018-11-23T00:00:00.000Z\",\n      \"availableResources\": [\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-23T00:00:00.000Z\",\n      \"end\": \"2018-11-23T00:30:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-23T00:30:00.000Z\",\n      \"end\": \"2018-11-23T01:00:00.000Z\",\n      \"availableResources\": [\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    }\n  ]\n}\n"
+      properties:
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              start:
+                $ref: '#/components/schemas/TimeStamp'
+              end:
+                $ref: '#/components/schemas/TimeStamp'
+              availableResources:
+                type: array
+                description: Resource ids of available resources.
+                items:
+                  type: string
+                  description: List of the resources that are available.
+              explainRef:
+                type: object
+                description: Present only when request.explain.enabled=true. Maps resourceId -> explanationId. If no resource has an explanation in the slot, this object will be empty. Resources without contributors or matched groups for a slot will not appear in this map (it may omit some available resources).
+                additionalProperties:
+                  type: string
+            required:
+            - start
+            - end
+            - availableResources
+        metadata:
+          type: object
+          additionalProperties: false
+          properties:
+            preferences:
+              type: object
+              additionalProperties: false
+              description: Present only when any matchedRecordFilterIds appear in explanations. Contains only used IDs.
+              properties:
+                recordFiltersById:
+                  type: object
+                  additionalProperties:
+                    $ref: '#/components/schemas/RecordFilter'
+            explanationsById:
+              type: object
+              description: Registry of unique explanations when explain is enabled. IDs are response-local and not stable across requests; do not store or assume global uniqueness. Deduplicated within a single response (per resource).
+              additionalProperties:
+                $ref: '#/components/schemas/GridWindowExplanation'
+    ReasonContributor:
+      type: object
+      additionalProperties: false
+      properties:
+        entity:
+          type: string
+          enum:
+          - AvailabilityPatterns
+          - Holidays
+          - Availabilities
+        id:
+          type: string
+        isAvailable:
+          type: boolean
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        start:
+          $ref: '#/components/schemas/TimeStamp'
+        end:
+          $ref: '#/components/schemas/TimeStamp'
+        precedence:
+          type: integer
+        extra:
+          type: object
+          properties:
+            patternId:
+              type: string
+            patternType:
+              type: string
+            availabilityType:
+              type: string
+            matchedRecordFilterIds:
+              type: array
+              items:
+                type: string
+            global:
+              type: boolean
+            status:
+              type: string
+            customAvailabilityType:
+              type: string
+            createdDate:
+              $ref: '#/components/schemas/TimeStamp'
+      required:
+      - entity
+      - id
+      - isAvailable
+      - start
+      - end
+      - precedence
+    SchedulingGridExplain:
+      type: object
+      additionalProperties: false
+      properties:
+        enabled:
+          type: boolean
+          default: false
+      description: When enabled, the response contains per-slot references and a registry of explanations for available windows only.
     SchedulingGridBodyResources:
       type: object
       example: "{\n  \"resources\": {\n    \"0005ade1-2a42-431f-a468-594ec4cb3261\": [\n      {\n        \"start\": \"2018-11-22T22:00:00.000Z\",\n        \"end\": \"2018-11-23T01:00:00.000Z\"\n      }\n    ]\n  },\n  \"job\": {\n    \"location\": {\n      \"lat\": -27.457865,\n      \"lng\": 153.037271\n    }\n  },\n  \"gridSize\": 1800,\n  \"scheduleStart\": \"2018-11-22T22:00:00.000Z\",\n  \"scheduleEnd\": \"2018-11-23T01:00:00.000Z\",\n  \"maxTravelTimeInSeconds\": 600,\n  \"includeTravelTimeToAndFromHome\": true,\n  \"regionId\": \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n  \"availabilityFilterValues\": [\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": {\n        \"Type\": \"Maintenance\",\n        \"Urgency\": \"Critical\"\n      }\n    }\n  ]\n}\n"
@@ -332,18 +603,6 @@ components:
       - scheduleStart
       - scheduleEnd
       - gridSize
-    SchedulingGridExplain:
-      type: object
-      additionalProperties: false
-      properties:
-        enabled:
-          type: boolean
-          default: false
-      description: When enabled, the response contains per-slot references and a registry of explanations for available windows only.
-    TimeStamp:
-      type: string
-      format: date-time
-      description: Can be either ISO8601 date time string or Unix timestamp number ( in milliseconds ). Always returned in ISO8601 format.
     GridWindowExplanation:
       type: object
       additionalProperties: false
@@ -358,265 +617,6 @@ components:
           description: Contributors are returned in the upstream order.
           items:
             $ref: '#/components/schemas/ReasonContributor'
-    SchedulingGridBodyResourceIds:
-      type: object
-      example: "{\n  \"resourceIds\": [\n    \"0005ade1-2a42-431f-a468-594ec4cb3261\",\n    \"0005ea18-61c1-49d9-9b50-d16a31a21c20\"\n  ],\n  \"job\": {\n    \"location\": {\n      \"lat\": -27.457865,\n      \"lng\": 153.037271\n    }\n  },\n  \"gridSize\": 1800,\n  \"scheduleStart\": \"2018-11-22T22:00:00.000Z\",\n  \"scheduleEnd\": \"2018-11-23T01:00:00.000Z\",\n  \"maxTravelTimeInSeconds\": 600,\n  \"includeTravelTimeToAndFromHome\": true,\n  \"regionId\": \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n  \"availabilityFilterValues\": [\n    {\n      \"objectType\": \"Jobs\",\n      \"values\": {\n        \"Type\": \"Maintenance\",\n        \"Urgency\": \"Critical\"\n      }\n    }\n  ]\n}\n"
-      properties:
-        resourceIds:
-          type: array
-          description: An array of resource IDs to generate availability slots.
-          items:
-            type: string
-        job:
-          type: object
-          description: Job properties that needs to be considered when generating slots for the grid.
-          properties:
-            location:
-              type: object
-              description: Geocoordinates of the job. When this is set, travel time is considered when generating slots.
-              properties:
-                lat:
-                  type: number
-                  description: Latitude
-                lng:
-                  type: number
-                  description: Longitude
-              required:
-              - lat
-              - lng
-        availabilityFilterValues:
-          type: array
-          description: 'An array of object types and their associated field values to filter availability intervals on. Mutually exclusive with `availabilityFilterEntityIds`.
-
-            '
-          items:
-            type: object
-            required:
-            - objectType
-            - values
-            properties:
-              objectType:
-                type: string
-                description: The type of object that the fields values are going to be filtered on.
-                example: Jobs
-              values:
-                type: object
-                description: 'A dictionary of type-specific attributes that define requirements to be evaluated against preferences for
-
-                  resource availability. These attributes (such as job type, urgency, custom fields, etc.) are used to
-
-                  determine which resources are suitable for the job based on their availability preferences. If no
-
-                  attributes are provided, then availability preferences will not be considered.
-
-                  '
-                example: '{"Type": "Maintenance", "Urgency": "Critical"}'
-        availabilityFilterEntityIds:
-          type: object
-          description: 'A map of entity types to arrays of entity IDs. The server derives filter criteria from the referenced entities. Mutually exclusive with `availabilityFilterValues`. Total number of entity IDs across all types cannot exceed 50.
-
-            '
-          additionalProperties:
-            type: array
-            items:
-              type: string
-          example:
-            Jobs:
-            - 0014cac9-4ba2-4944-b7ca-b4d2c40b1403
-        gridSize:
-          type: integer
-          minimum: 300
-          description: The size of the grid slots (in seconds).
-        gridInterval:
-          type: integer
-          minimum: 1
-          description: 'The recurring interval (in seconds) in which to create grid slots.  If not set, then by default it is set to be same as grid size which will generate
-
-            non-overlapping slots.
-
-            '
-        includeTravelTimeToAndFromHome:
-          type: boolean
-          default: false
-          description: Consider travel time from and to the resources home when checking whether the resource is feasible for an availability slot.
-        ignoreResourceOverrideLocations:
-          type: boolean
-          default: false
-          description: 'When using resource overrides (temporary region assignments), do not override the resources location with the location
-
-            specified on the override.
-
-            '
-        maxTravelTimeInSeconds:
-          type: integer
-          minimum: 1
-          description: 'The maximum travel time allowed in seconds for a resource to travel from a location to the Jobs location
-
-            if specified.  This can be either travel time to and from home or to adn from other jobs.  By default this
-
-            functionality is disabled.
-
-            '
-        scheduleStart:
-          $ref: '#/components/schemas/TimeStamp'
-        scheduleEnd:
-          $ref: '#/components/schemas/TimeStamp'
-        regionId:
-          type: string
-          description: 'Resource availability will be based on when resources are available in the region specified.  Availability depends
-
-            on the primary region of the resource or whether the resource has Temporary or Secondary regions assigned.
-
-            '
-      required:
-      - job
-      - resourceIds
-      - scheduleStart
-      - scheduleEnd
-      - gridSize
-    SchedulingGridResponse:
-      type: object
-      example: "{\n  \"result\": [\n    {\n      \"start\": \"2018-11-22T22:00:00.000Z\",\n      \"end\": \"2018-11-22T22:30:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-22T22:30:00.000Z\",\n      \"end\": \"2018-11-22T23:00:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-22T23:00:00.000Z\",\n      \"end\": \"2018-11-22T23:30:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-22T23:30:00.000Z\",\n      \"end\": \"2018-11-23T00:00:00.000Z\",\n      \"availableResources\": [\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-23T00:00:00.000Z\",\n      \"end\": \"2018-11-23T00:30:00.000Z\",\n      \"availableResources\": [\n        \"0005ea18-61c1-49d9-9b50-d16a31a21c20\",\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    },\n    {\n      \"start\": \"2018-11-23T00:30:00.000Z\",\n      \"end\": \"2018-11-23T01:00:00.000Z\",\n      \"availableResources\": [\n        \"0005ade1-2a42-431f-a468-594ec4cb3261\"\n      ]\n    }\n  ]\n}\n"
-      properties:
-        result:
-          type: array
-          items:
-            type: object
-            properties:
-              start:
-                $ref: '#/components/schemas/TimeStamp'
-              end:
-                $ref: '#/components/schemas/TimeStamp'
-              availableResources:
-                type: array
-                description: Resource ids of available resources.
-                items:
-                  type: string
-                  description: List of the resources that are available.
-              explainRef:
-                type: object
-                description: Present only when request.explain.enabled=true. Maps resourceId -> explanationId. If no resource has an explanation in the slot, this object will be empty. Resources without contributors or matched groups for a slot will not appear in this map (it may omit some available resources).
-                additionalProperties:
-                  type: string
-            required:
-            - start
-            - end
-            - availableResources
-        metadata:
-          type: object
-          additionalProperties: false
-          properties:
-            preferences:
-              type: object
-              additionalProperties: false
-              description: Present only when any matchedRecordFilterIds appear in explanations. Contains only used IDs.
-              properties:
-                recordFiltersById:
-                  type: object
-                  additionalProperties:
-                    $ref: '#/components/schemas/RecordFilter'
-            explanationsById:
-              type: object
-              description: Registry of unique explanations when explain is enabled. IDs are response-local and not stable across requests; do not store or assume global uniqueness. Deduplicated within a single response (per resource).
-              additionalProperties:
-                $ref: '#/components/schemas/GridWindowExplanation'
-    MatchedGroup:
-      type: object
-      additionalProperties: false
-      properties:
-        objectType:
-          type: string
-        groupId:
-          type: string
-        matched:
-          type: array
-          items:
-            type: object
-            additionalProperties: false
-            properties:
-              attr:
-                type: string
-              expected:
-                type: array
-                items:
-                  type: string
-        matchedRecordFilterIds:
-          type: array
-          items:
-            type: string
-      required:
-      - objectType
-      - groupId
-    ReasonContributor:
-      type: object
-      additionalProperties: false
-      properties:
-        entity:
-          type: string
-          enum:
-          - AvailabilityPatterns
-          - Holidays
-          - Availabilities
-        id:
-          type: string
-        isAvailable:
-          type: boolean
-        name:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        start:
-          $ref: '#/components/schemas/TimeStamp'
-        end:
-          $ref: '#/components/schemas/TimeStamp'
-        precedence:
-          type: integer
-        extra:
-          type: object
-          properties:
-            patternId:
-              type: string
-            patternType:
-              type: string
-            availabilityType:
-              type: string
-            matchedRecordFilterIds:
-              type: array
-              items:
-                type: string
-            global:
-              type: boolean
-            status:
-              type: string
-            customAvailabilityType:
-              type: string
-            createdDate:
-              $ref: '#/components/schemas/TimeStamp'
-      required:
-      - entity
-      - id
-      - isAvailable
-      - start
-      - end
-      - precedence
-    RecordFilter:
-      type: object
-      additionalProperties: false
-      properties:
-        uid:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        expression:
-          type: string
-        objectType:
-          type: string
   securitySchemes:
     BearerAuth:
       type: http

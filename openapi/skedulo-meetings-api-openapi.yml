@@ -97,36 +97,6 @@ paths:
       - Meetings
 components:
   schemas:
-    BaseMeetingRequest:
-      type: object
-      properties:
-        topic:
-          type: string
-          description: Topic of the virtual meeting
-        agenda:
-          type: string
-          description: Agenda of the virtual meeting
-        startTime:
-          type: string
-          format: date-time
-          description: Start time of the virtual meeting in ISO8601 format
-        duration:
-          type: integer
-          description: Duration (in minutes) of the virtual meeting
-        password:
-          type: string
-          description: Password of the virtual meeting
-        zoom:
-          type: object
-          description: Optional Zoom specific information about the virtual meeting (when Zoom is the meeting provider). Most Zoom meetings can be created without this.
-        teams:
-          type: object
-          description: Optional MS Teams specific information about the virtual meeting (when Teams is the meeting provider). Most Teams meetings can be created without this.
-      required:
-      - topic
-      - agenda
-      - startTime
-      - duration
     MeetingResponse:
       type: object
       properties:
@@ -170,3 +140,33 @@ components:
             description: Resource Id of the resource that hosts the virtual meeting
         required:
         - hostResourceId
+    BaseMeetingRequest:
+      type: object
+      properties:
+        topic:
+          type: string
+          description: Topic of the virtual meeting
+        agenda:
+          type: string
+          description: Agenda of the virtual meeting
+        startTime:
+          type: string
+          format: date-time
+          description: Start time of the virtual meeting in ISO8601 format
+        duration:
+          type: integer
+          description: Duration (in minutes) of the virtual meeting
+        password:
+          type: string
+          description: Password of the virtual meeting
+        zoom:
+          type: object
+          description: Optional Zoom specific information about the virtual meeting (when Zoom is the meeting provider). Most Zoom meetings can be created without this.
+        teams:
+          type: object
+          description: Optional MS Teams specific information about the virtual meeting (when Teams is the meeting provider). Most Teams meetings can be created without this.
+      required:
+      - topic
+      - agenda
+      - startTime
+      - duration

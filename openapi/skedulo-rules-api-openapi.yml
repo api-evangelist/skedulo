@@ -77,22 +77,6 @@ components:
           enum:
           - allow
           - deny
-    ResultOKResolvedAccessRules:
-      type: object
-      properties:
-        valid:
-          description: Whether all of the supplied rules resolved successfully (i.e. are valid)
-          type: boolean
-        accessRules:
-          description: The resolved access rules (one for each object type)
-          type: array
-          items:
-            $ref: '#/components/schemas/ResolvedAccessRule'
-        errors:
-          description: Any errors for rules that couldn't be resolved
-          type: array
-          items:
-            $ref: '#/components/schemas/ResolvedAccessRuleError'
     ResolvedAccessRuleError:
       description: Error details when resolving access rules for an object type
       type: object
@@ -118,6 +102,22 @@ components:
         filter:
           description: EQL filter that is applied when accessing records of the object type
           type: string
+    ResultOKResolvedAccessRules:
+      type: object
+      properties:
+        valid:
+          description: Whether all of the supplied rules resolved successfully (i.e. are valid)
+          type: boolean
+        accessRules:
+          description: The resolved access rules (one for each object type)
+          type: array
+          items:
+            $ref: '#/components/schemas/ResolvedAccessRule'
+        errors:
+          description: Any errors for rules that couldn't be resolved
+          type: array
+          items:
+            $ref: '#/components/schemas/ResolvedAccessRuleError'
     ResultOKAccessRules:
       type: object
       properties:

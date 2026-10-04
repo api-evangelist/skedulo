@@ -41,6 +41,18 @@ paths:
       - Subscriptions
 components:
   schemas:
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+        errorId:
+          type: string
     GraphQLResult:
       type: object
       properties:
@@ -68,18 +80,6 @@ components:
             column:
               type: string
               description: Column number
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
-        errorId:
-          type: string
   securitySchemes:
     Authorization:
       type: http
