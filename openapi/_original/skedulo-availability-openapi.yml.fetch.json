@@ -1,0 +1,12 @@
+{
+ "url": "https://docs.skedulo.com/specs/filtered-availability.yaml",
+ "requested_url": "https://docs.skedulo.com/specs/filtered-availability.yaml",
+ "status": 200,
+ "content_type": "application/x-yaml",
+ "bytes": 68157,
+ "sha256": "efe5ca05d634896dbd42765f1dc9b318c41b975d159be1feaa6025386c365b5e",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
