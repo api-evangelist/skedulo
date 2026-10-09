@@ -2,7 +2,7 @@
 name: Run a schedule optimization
 description: Start a Skedulo optimization run, poll for results, and save the optimized schedule.
 api: openapi/skedulo-optimization-openapi.yml
-operations: ["Schedule Run", "Get Schedule Run By Id", "Get Schedule Run Results", "Schedule Run Save"]
+operations: ["ScheduleRun", "GetScheduleRunById", "GetScheduleRunResults", "ScheduleRunSave"]
 ---
 
 # Run a schedule optimization
