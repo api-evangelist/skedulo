@@ -42,10 +42,15 @@ paths:
       - Avatar
 components:
   schemas:
-    AvatarResults:
+    AvatarFullResult:
       type: object
-      additionalProperties:
-        type: string
+      properties:
+        result:
+          $ref: '#/components/schemas/AvatarResults'
+        errors:
+          $ref: '#/components/schemas/AvatarErrors'
+        extra:
+          $ref: '#/components/schemas/AvatarAuths'
     AvatarError:
       type: object
       required:
@@ -56,6 +61,14 @@ components:
           type: string
         errorMsg:
           type: string
+    AvatarErrors:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/AvatarError'
+    AvatarResults:
+      type: object
+      additionalProperties:
+        type: string
     AvatarAuth:
       type: object
       required:
@@ -66,19 +79,6 @@ components:
           type: string
         expiry:
           type: string
-    AvatarFullResult:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/AvatarResults'
-        errors:
-          $ref: '#/components/schemas/AvatarErrors'
-        extra:
-          $ref: '#/components/schemas/AvatarAuths'
-    AvatarErrors:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/AvatarError'
     AvatarAuths:
       type: object
       additionalProperties:

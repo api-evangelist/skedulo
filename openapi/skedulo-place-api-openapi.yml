@@ -47,6 +47,19 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    PlaceDetail:
+      type: object
+      required:
+      - addressComponents
+      - formattedAddress
+      - geometry
+      properties:
+        addressComponents:
+          $ref: '#/components/schemas/AddressComponents'
+        formattedAddress:
+          type: string
+        geometry:
+          $ref: '#/components/schemas/LatLng'
     LatLng:
       type: object
       required:
@@ -91,19 +104,6 @@ components:
           type: string
         message:
           type: string
-    PlaceDetail:
-      type: object
-      required:
-      - addressComponents
-      - formattedAddress
-      - geometry
-      properties:
-        addressComponents:
-          $ref: '#/components/schemas/AddressComponents'
-        formattedAddress:
-          type: string
-        geometry:
-          $ref: '#/components/schemas/LatLng'
     PlaceDetailRequest:
       type: object
       required:

@@ -143,76 +143,6 @@ paths:
       x-operation-id-original: Get Feature Suggestions
 components:
   schemas:
-    CorePVRPSuggestionShape:
-      required:
-      - resourceId
-      - allocationId
-      - suggestedStart
-      - score
-      type: object
-      properties:
-        resourceId:
-          type: string
-        allocationId:
-          type: string
-        suggestedStart:
-          type: string
-          format: date-time
-        score:
-          $ref: '#/components/schemas/ScoreShape'
-    ScoreShape:
-      required:
-      - hard
-      - medium
-      - soft
-      type: object
-      properties:
-        hard:
-          type: number
-          format: double
-        medium:
-          type: number
-          format: double
-        soft:
-          type: number
-          format: double
-      description: Raw solver penalty breakdown; lower is better, 0 is ideal.
-    FeatureSuggestResponseShape:
-      required:
-      - suggestions
-      type: object
-      properties:
-        suggestions:
-          type: array
-          items:
-            $ref: '#/components/schemas/CorePVRPSuggestionShape'
-    SuggestRequestShape:
-      required:
-      - jobId
-      - resourceIds
-      - suggestWindow
-      - timezone
-      type: object
-      properties:
-        jobId:
-          type: string
-        resourceRequirementId:
-          type: string
-        resourceIds:
-          type: array
-          items:
-            type: string
-        recipeId:
-          type: string
-        suggestWindow:
-          $ref: '#/components/schemas/BoundedIntervalInstantShape'
-        timezone:
-          type: string
-        persistenceStrategy:
-          type: string
-          enum:
-          - save
-          - optimize
     SuggestResponseShape:
       required:
       - suggestions
@@ -258,6 +188,76 @@ components:
         end:
           type: string
           format: date-time
+    SuggestRequestShape:
+      required:
+      - jobId
+      - resourceIds
+      - suggestWindow
+      - timezone
+      type: object
+      properties:
+        jobId:
+          type: string
+        resourceRequirementId:
+          type: string
+        resourceIds:
+          type: array
+          items:
+            type: string
+        recipeId:
+          type: string
+        suggestWindow:
+          $ref: '#/components/schemas/BoundedIntervalInstantShape'
+        timezone:
+          type: string
+        persistenceStrategy:
+          type: string
+          enum:
+          - save
+          - optimize
+    CorePVRPSuggestionShape:
+      required:
+      - resourceId
+      - allocationId
+      - suggestedStart
+      - score
+      type: object
+      properties:
+        resourceId:
+          type: string
+        allocationId:
+          type: string
+        suggestedStart:
+          type: string
+          format: date-time
+        score:
+          $ref: '#/components/schemas/ScoreShape'
+    ScoreShape:
+      required:
+      - hard
+      - medium
+      - soft
+      type: object
+      properties:
+        hard:
+          type: number
+          format: double
+        medium:
+          type: number
+          format: double
+        soft:
+          type: number
+          format: double
+      description: Raw solver penalty breakdown; lower is better, 0 is ideal.
+    FeatureSuggestResponseShape:
+      required:
+      - suggestions
+      type: object
+      properties:
+        suggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CorePVRPSuggestionShape'
   securitySchemes:
     httpAuth:
       type: http

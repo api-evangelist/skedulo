@@ -42,37 +42,6 @@ components:
       items:
         description: Permission keys assigned to the user
         type: string
-    Roles:
-      type: array
-      items:
-        type: string
-        enum:
-        - administrator
-        - scheduler
-        - resource
-    UserInfo:
-      type: object
-      required:
-      - username
-      - userId
-      - tenantId
-      - roles
-      - vendorInfo
-      properties:
-        username:
-          type: string
-        userId:
-          type: string
-        tenantId:
-          type: string
-        roles:
-          $ref: '#/components/schemas/Roles'
-        resourceId:
-          type: string
-        vendorInfo:
-          $ref: '#/components/schemas/VendorInfo'
-        permissions:
-          $ref: '#/components/schemas/Permissions'
     VendorInfo:
       oneOf:
       - type: object
@@ -109,6 +78,37 @@ components:
       properties:
         result:
           $ref: '#/components/schemas/UserInfo'
+    UserInfo:
+      type: object
+      required:
+      - username
+      - userId
+      - tenantId
+      - roles
+      - vendorInfo
+      properties:
+        username:
+          type: string
+        userId:
+          type: string
+        tenantId:
+          type: string
+        roles:
+          $ref: '#/components/schemas/Roles'
+        resourceId:
+          type: string
+        vendorInfo:
+          $ref: '#/components/schemas/VendorInfo'
+        permissions:
+          $ref: '#/components/schemas/Permissions'
+    Roles:
+      type: array
+      items:
+        type: string
+        enum:
+        - administrator
+        - scheduler
+        - resource
   securitySchemes:
     Authorization:
       type: http

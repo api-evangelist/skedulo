@@ -302,6 +302,29 @@ paths:
       - Vocabulary
 components:
   schemas:
+    VocabularyItem:
+      type: object
+      required:
+      - label
+      - value
+      - active
+      - defaultValue
+      - validFor
+      properties:
+        label:
+          type: string
+        value:
+          type: string
+        active:
+          type: boolean
+        defaultValue:
+          type: boolean
+        controllingField:
+          type: string
+        validFor:
+          type: array
+          items:
+            type: string
     FieldDependencyEntryInput:
       type: object
       required:
@@ -318,22 +341,6 @@ components:
           type: string
         entry:
           $ref: '#/components/schemas/FieldDependencyEntry'
-    ModifiedVocabularyItem:
-      type: object
-      properties:
-        label:
-          type: string
-        active:
-          type: boolean
-        defaultValue:
-          type: boolean
-    ResultOKEmpty:
-      type: object
-      required:
-      - result
-      properties:
-        result:
-          properties: {}
     FieldDependencyInput:
       type: object
       required:
@@ -352,6 +359,38 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FieldDependencyEntry'
+    FieldDependencyEntry:
+      type: object
+      required:
+      - dependentValue
+      - controllingValue
+      properties:
+        dependentValue:
+          type: string
+        controllingValue:
+          type: string
+    FieldDependencyKeyInput:
+      type: object
+      required:
+      - schemaName
+      - dependentField
+      - controllingField
+      properties:
+        schemaName:
+          type: string
+        dependentField:
+          type: string
+        controllingField:
+          type: string
+    ModifiedVocabularyItem:
+      type: object
+      properties:
+        label:
+          type: string
+        active:
+          type: boolean
+        defaultValue:
+          type: boolean
     ResultOKVocabulary:
       type: object
       required:
@@ -385,52 +424,13 @@ components:
           type: string
         message:
           type: string
-    FieldDependencyKeyInput:
+    ResultOKEmpty:
       type: object
       required:
-      - schemaName
-      - dependentField
-      - controllingField
+      - result
       properties:
-        schemaName:
-          type: string
-        dependentField:
-          type: string
-        controllingField:
-          type: string
-    VocabularyItem:
-      type: object
-      required:
-      - label
-      - value
-      - active
-      - defaultValue
-      - validFor
-      properties:
-        label:
-          type: string
-        value:
-          type: string
-        active:
-          type: boolean
-        defaultValue:
-          type: boolean
-        controllingField:
-          type: string
-        validFor:
-          type: array
-          items:
-            type: string
-    FieldDependencyEntry:
-      type: object
-      required:
-      - dependentValue
-      - controllingValue
-      properties:
-        dependentValue:
-          type: string
-        controllingValue:
-          type: string
+        result:
+          properties: {}
   securitySchemes:
     Authorization:
       type: http

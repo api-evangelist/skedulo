@@ -254,16 +254,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ResourceResult:
-      type: object
-      properties:
-        resourceId:
-          type: string
-        protocol:
-          type: string
-        error:
-          description: null if the notification was sent successfully
-          $ref: '#/components/schemas/Error'
     CancelOfferResponse:
       type: object
       properties:
@@ -279,23 +269,6 @@ components:
               example:
               - 001449b0-1130-4e8c-9b8d-d30d812db84b
               - 001334b0-1130-5e8c-9b8d-d30d812db84b
-    NotifyResources:
-      type: object
-      properties:
-        resourceOfferIds:
-          type: array
-          items:
-            type: string
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
     SuccessAndStatus:
       type: object
       properties:
@@ -321,6 +294,33 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ResourceResult'
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+    ResourceResult:
+      type: object
+      properties:
+        resourceId:
+          type: string
+        protocol:
+          type: string
+        error:
+          description: null if the notification was sent successfully
+          $ref: '#/components/schemas/Error'
+    NotifyResources:
+      type: object
+      properties:
+        resourceOfferIds:
+          type: array
+          items:
+            type: string
   securitySchemes:
     Authorization:
       type: http

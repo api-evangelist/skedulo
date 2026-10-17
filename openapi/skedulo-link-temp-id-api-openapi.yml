@@ -40,6 +40,10 @@ paths:
       - Link Temp Id
 components:
   schemas:
+    LinkTempIdMap:
+      type: object
+      additionalProperties:
+        type: string
     ApiResultLinkTempIds:
       type: object
       properties:
@@ -47,10 +51,6 @@ components:
           type: object
           additionalProperties:
             type: string
-    LinkTempIdMap:
-      type: object
-      additionalProperties:
-        type: string
   securitySchemes:
     Authorization:
       type: http

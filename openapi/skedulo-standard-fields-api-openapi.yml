@@ -62,27 +62,6 @@ components:
         message:
           type: string
           example: This endpoint is only supported for Skedulo on Salesforce tenants
-    SchemaNotFoundError:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-          example: schema_not_found
-        message:
-          type: string
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
     StandardField:
       type: object
       required:
@@ -95,6 +74,16 @@ components:
         mapping:
           type: string
           description: The field mapping in the remote system
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
     ResultOKStandardFields:
       type: object
       required:
@@ -104,6 +93,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StandardField'
+    SchemaNotFoundError:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+          example: schema_not_found
+        message:
+          type: string
   securitySchemes:
     Authorization:
       type: http

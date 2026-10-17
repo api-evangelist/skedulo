@@ -140,7 +140,27 @@ paths:
       operationId: postOneoff
       x-operation-id-source: derived
 components:
+  requestBodies:
+    NotifyRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotifyRequest'
+      required: true
   schemas:
+    NotifyRequest:
+      type: object
+      required:
+      - jobId
+      properties:
+        jobId:
+          type: string
+        resourceId:
+          type: string
+        resourceIds:
+          type: array
+          items:
+            type: string
     DispatchResponse:
       type: object
       properties:
@@ -156,6 +176,16 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ResourceResult'
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
     ResourceResult:
       type: object
       properties:
@@ -173,36 +203,6 @@ components:
       properties:
         jobId:
           type: string
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
-    NotifyRequest:
-      type: object
-      required:
-      - jobId
-      properties:
-        jobId:
-          type: string
-        resourceId:
-          type: string
-        resourceIds:
-          type: array
-          items:
-            type: string
-  requestBodies:
-    NotifyRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/NotifyRequest'
-      required: true
   securitySchemes:
     Authorization:
       type: http

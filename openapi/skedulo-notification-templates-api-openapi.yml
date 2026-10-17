@@ -130,31 +130,23 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    NotificationTemplateV2Template:
+    NotificationTemplateV2Defaults:
       type: object
       required:
-      - text
-      - parts
+      - job_dispatch
+      - job_reminder
+      - job_cancelled
+      - job_offer
       properties:
-        text:
-          type: string
-        parts:
-          type: array
-          items:
-            $ref: '#/components/schemas/NotificationTemplateV2Part'
-    NotificationTemplateV2Part:
-      type: object
-      discriminator:
-        propertyName: type
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - text
-          - variable
-          - function
+        job_dispatch:
+          $ref: '#/components/schemas/NotificationTemplateV2Template'
+        job_reminder:
+          $ref: '#/components/schemas/NotificationTemplateV2Template'
+        job_cancelled:
+          $ref: '#/components/schemas/NotificationTemplateV2Template'
+        job_offer:
+          $ref: '#/components/schemas/NotificationTemplateV2Template'
+      additionalProperties: false
     NotificationTemplateV2:
       type: object
       required:
@@ -179,33 +171,6 @@ components:
           type: string
         template:
           $ref: '#/components/schemas/NotificationTemplateV2Template'
-    NotificationTemplateV2Defaults:
-      type: object
-      required:
-      - job_dispatch
-      - job_reminder
-      - job_cancelled
-      - job_offer
-      properties:
-        job_dispatch:
-          $ref: '#/components/schemas/NotificationTemplateV2Template'
-        job_reminder:
-          $ref: '#/components/schemas/NotificationTemplateV2Template'
-        job_cancelled:
-          $ref: '#/components/schemas/NotificationTemplateV2Template'
-        job_offer:
-          $ref: '#/components/schemas/NotificationTemplateV2Template'
-      additionalProperties: false
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
     NotificationTemplateV2Error:
       type: object
       required:
@@ -231,7 +196,51 @@ components:
         error:
           description: A description of the error
           type: string
+    NotificationTemplateV2Template:
+      type: object
+      required:
+      - text
+      - parts
+      properties:
+        text:
+          type: string
+        parts:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationTemplateV2Part'
+    NotificationTemplateV2Part:
+      type: object
+      discriminator:
+        propertyName: type
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - text
+          - variable
+          - function
+    Error:
+      type: object
+      required:
+      - errorType
+      - message
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
   parameters:
+    NotificationTemplateProtocol:
+      name: protocol
+      in: path
+      required: true
+      schema:
+        type: string
+        enum:
+        - sms
+        - push
     NotificationTemplateType:
       name: type
       in: path
@@ -243,15 +252,6 @@ components:
         - job_reminder
         - job_cancelled
         - job_offer
-    NotificationTemplateProtocol:
-      name: protocol
-      in: path
-      required: true
-      schema:
-        type: string
-        enum:
-        - sms
-        - push
   securitySchemes:
     Authorization:
       type: http

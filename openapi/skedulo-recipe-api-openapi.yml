@@ -647,6 +647,66 @@ paths:
       x-operation-id-original: Get Default Recipe
 components:
   schemas:
+    UserIdsShape:
+      oneOf:
+      - $ref: '#/components/schemas/InternalAdminUserId'
+      - $ref: '#/components/schemas/VendorUserIds'
+    RecipeRecordShape:
+      required:
+      - id
+      - name
+      - description
+      - status
+      - system
+      - objectiveWeights
+      - options
+      - createdAt
+      - default
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum:
+          - active
+          - archived
+        system:
+          type: boolean
+        tenantId:
+          type: string
+        objectiveWeights:
+          $ref: '#/components/schemas/ObjectiveWeightsShape'
+        options:
+          $ref: '#/components/schemas/RecipeOptionsShape'
+        createdAt:
+          type: string
+          format: date-time
+        createdBy:
+          $ref: '#/components/schemas/UserIdsShape'
+        modifiedAt:
+          type: string
+          format: date-time
+        modifiedBy:
+          $ref: '#/components/schemas/UserIdsShape'
+        default:
+          type: boolean
+        setAsDefaultBy:
+          $ref: '#/components/schemas/UserIdsShape'
+        setAsDefaultAt:
+          type: string
+          format: date-time
+    InternalAdminUserId:
+      required:
+      - userId
+      type: object
+      properties:
+        userId:
+          type: string
     VendorUserRecipeRequestShape:
       required:
       - name
@@ -662,17 +722,6 @@ components:
           $ref: '#/components/schemas/ObjectiveWeightsShape'
         options:
           $ref: '#/components/schemas/RecipeOptionsShape'
-    UserIdsShape:
-      oneOf:
-      - $ref: '#/components/schemas/InternalAdminUserId'
-      - $ref: '#/components/schemas/VendorUserIds'
-    InternalAdminUserId:
-      required:
-      - userId
-      type: object
-      properties:
-        userId:
-          type: string
     ObjectiveWeightsShape:
       type: object
       properties:
@@ -696,6 +745,19 @@ components:
           type: integer
         overtime:
           type: integer
+    Paging:
+      required:
+      - limit
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int32
+        nextCursor:
+          type: string
+        total:
+          type: integer
+          format: int32
     RecipeOptionsShape:
       required:
       - ignoreTravelTime
@@ -746,19 +808,6 @@ components:
           minItems: 1
         rollingScheduleWindowInterval:
           description: The interval used to split the schedule window into rolling sub-windows. Accepts "monthly", "quarterly", or a positive integer representing a fixed number of days.
-    Paging:
-      required:
-      - limit
-      type: object
-      properties:
-        limit:
-          type: integer
-          format: int32
-        nextCursor:
-          type: string
-        total:
-          type: integer
-          format: int32
     VendorUserIds:
       required:
       - userId
@@ -769,55 +818,6 @@ components:
           type: string
         vendorUserId:
           type: string
-    RecipeRecordShape:
-      required:
-      - id
-      - name
-      - description
-      - status
-      - system
-      - objectiveWeights
-      - options
-      - createdAt
-      - default
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        status:
-          type: string
-          enum:
-          - active
-          - archived
-        system:
-          type: boolean
-        tenantId:
-          type: string
-        objectiveWeights:
-          $ref: '#/components/schemas/ObjectiveWeightsShape'
-        options:
-          $ref: '#/components/schemas/RecipeOptionsShape'
-        createdAt:
-          type: string
-          format: date-time
-        createdBy:
-          $ref: '#/components/schemas/UserIdsShape'
-        modifiedAt:
-          type: string
-          format: date-time
-        modifiedBy:
-          $ref: '#/components/schemas/UserIdsShape'
-        default:
-          type: boolean
-        setAsDefaultBy:
-          $ref: '#/components/schemas/UserIdsShape'
-        setAsDefaultAt:
-          type: string
-          format: date-time
   securitySchemes:
     httpAuth:
       type: http

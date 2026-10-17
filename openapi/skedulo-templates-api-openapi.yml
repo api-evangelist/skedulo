@@ -57,6 +57,13 @@ components:
     TemplateId:
       type: string
       format: uuid
+    ResultOKTemplates:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Template'
     Template:
       type: object
       required:
@@ -70,13 +77,6 @@ components:
           type: string
         schemaName:
           type: string
-    ResultOKTemplates:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Template'
   securitySchemes:
     Authorization:
       type: http

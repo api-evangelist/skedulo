@@ -503,6 +503,215 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
+    RuleViolationInput:
+      required:
+      - link
+      - regionId
+      - resourceIds
+      - ruleId
+      - sourceId
+      - sourceType
+      - targetId
+      - targetType
+      type: object
+      properties:
+        ruleId:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: The type of rule that was violated. Custom violations must have any non-empty rule ID.
+          example: unsafeArea
+        targetId:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: The UID of the object that the rule violation affects. Target IDs should be unique across all object types.
+          example: b055d7c1-ef2f-40e9-bcd2-634e9835e69b
+        sourceId:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: The UID of the object that caused rule violation (may be the same as the target). Source IDs should be unique across all object types.
+          example: 5c832cd6-006b-454a-b747-5cb62beef885
+        targetType:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: The object type of the target object. This must be a standard or custom data model object type in singular camelCase.
+          example: job
+        sourceType:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: The object type of the source object. This must be a standard or custom data model object type in singular camelCase.
+          example: job
+        startTime:
+          type: string
+          description: The time at which the violation starts. This is used for filtering by time window.
+          format: date-time
+        endTime:
+          type: string
+          description: The time at which the violation ends. This is used for filtering by time window.
+          format: date-time
+        regionId:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: The region of the target object. Used for filtering results.
+          example: 6cdd3be8-6fab-44c5-a6b7-e9ddc6860eb7
+        resourceIds:
+          maxItems: 100
+          minItems: 0
+          uniqueItems: true
+          type: array
+          description: The resources that the violation applies to, if any. Used for filtering results.
+          items:
+            maxLength: 255
+            minLength: 1
+            type: string
+            example: d5ed41db-87ee-4dd2-a65c-dd37dc253d3b
+        description:
+          maxLength: 1024
+          minLength: 1
+          type: string
+          description: A user-friendly description of the rule violation, to be displayed by the UI.
+          example: Job is in an area that may be unsafe
+        link:
+          $ref: '#/components/schemas/RuleViolationLink'
+        context:
+          type: object
+      description: Details of the custom Rule Violation. The ruleId, targetId and sourceId form a unique key.
+    ApiResultRuleViolationListResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/RuleViolationListResult'
+    ApiResultResetViolationOffsetsResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/ResetViolationOffsetsResult'
+    ApiResultListCustomRuleResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomRuleResult'
+    CustomRuleViolationKeyInput:
+      required:
+      - ruleId
+      - sourceId
+      - targetId
+      type: object
+      properties:
+        ruleId:
+          type: string
+          description: The type of rule that was violated.
+          example: unsafeArea
+        targetId:
+          type: string
+          description: The UID of the object that the rule violation affects.
+          example: b055d7c1-ef2f-40e9-bcd2-634e9835e69b
+        sourceId:
+          type: string
+          description: The UID of the object that caused rule violation (may be the same as the target).
+          example: 5c832cd6-006b-454a-b747-5cb62beef885
+      description: Uniquely identifies a Custom Rule Violation.
+    RuleIdSearchFilter:
+      type: object
+      properties:
+        core:
+          $ref: '#/components/schemas/RuleIdFilter'
+        custom:
+          $ref: '#/components/schemas/RuleIdFilter'
+      description: Rule id search filter parameters.
+    IncludeType:
+      type: string
+      enum:
+      - all
+      - only
+    ApiResultBigInteger:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          type: integer
+    ApiResultRuleViolationSearchResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/RuleViolationSearchResult'
+    RuleViolationAssignUserInput:
+      required:
+      - violationId
+      type: object
+      properties:
+        violationId:
+          type: integer
+          description: The ID of the Rule Violation to assign to the user
+          example: 2756
+        user:
+          type: string
+          description: The user to assign to the Rule Violation
+          example: a521ed9f-a353-4952-b6cd-e7b5e02c3591
+      description: Details of the Rule Violation user assignment.
+    RuleViolationAssignStatusInput:
+      required:
+      - status
+      - violationId
+      type: object
+      properties:
+        violationId:
+          type: integer
+          description: The ID of the Rule Violation to assign the status
+          example: 2756
+        status:
+          type: string
+          description: The status to assign to the Rule Violation
+          example: In Progress
+      description: Details of the Rule Violation status assignment.
+    RuleViolationContext:
+      required:
+      - _type
+      type: object
+      properties:
+        _type:
+          type: string
+      description: A JSON object containing extra information for the violation
+      discriminator:
+        propertyName: _type
+        mapping:
+          custom: '#/components/schemas/CustomContext'
+          insufficientTravelTime: '#/components/schemas/InsufficientTravelTimeContext'
+          jobDependencies: '#/components/schemas/JobDependenciesContext'
+          jobOverallocated: '#/components/schemas/JobOverallocatedContext'
+          jobTimeConstraints: '#/components/schemas/JobTimeConstraintsContext'
+          missingJobTags: '#/components/schemas/MissingJobTagsContext'
+          missingOptionalJobTags: '#/components/schemas/MissingJobTagsContext'
+          resourceAccountExcluded: '#/components/schemas/ResourceAccountExcludedContext'
+          resourceAccountNotIncluded: '#/components/schemas/ResourceAccountNotIncludedContext'
+          resourceInactive: '#/components/schemas/ResourceInactiveContext'
+          resourceLocationExcluded: '#/components/schemas/ResourceLocationExcludedContext'
+          resourceLocationNotIncluded: '#/components/schemas/ResourceLocationNotIncludedContext'
+          resourceUnavailable: '#/components/schemas/ResourceUnavailableContext'
+          workOverlap: '#/components/schemas/WorkOverlapContext'
+    ErrorDetails:
+      type: object
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
     RuleViolationSearchResult:
       required:
       - hasNextPage
@@ -530,114 +739,20 @@ components:
           format: int64
           example: 300
       description: Results of a search Rule Violations query.
-    ApiResultResetViolationOffsetsResult:
+    ResetViolationOffsetsResult:
       required:
-      - result
+      - tenantId
+      - violationsReset
       type: object
       properties:
-        result:
-          $ref: '#/components/schemas/ResetViolationOffsetsResult'
-    RuleIdFilter:
-      required:
-      - include
-      type: object
-      properties:
-        include:
-          $ref: '#/components/schemas/IncludeType'
-      description: Filter parameters.
-      discriminator:
-        propertyName: include
-        mapping:
-          all: '#/components/schemas/IncludeAllRuleId'
-          only: '#/components/schemas/IncludeOnlyRuleId'
-    AssignedToFilter:
-      required:
-      - includeUnassigned
-      type: object
-      properties:
-        userIds:
-          maxItems: 100
-          minItems: 0
-          uniqueItems: true
-          type: array
-          description: Include only violations that are assigned to these specific user IDs.
-          items:
-            type: string
-            example: 44bb347c-457d-4dbe-be9c-a6c6fe5d57f5
-        includeUnassigned:
-          type: boolean
-          description: If true, include violations that are not assigned to user IDs.
-          example: true
-      description: AssignedTo search filter parameters.
-    RuleViolationsInput:
-      required:
-      - violations
-      type: object
-      properties:
-        violations:
-          maxItems: 100
-          minItems: 0
-          type: array
-          description: The type of rule that was violated.
-          example: unsafeArea
-          items:
-            $ref: '#/components/schemas/RuleViolationInput'
-      description: A list of violations.
-    RuleViolationAssignStatusInput:
-      required:
-      - status
-      - violationId
-      type: object
-      properties:
-        violationId:
-          type: integer
-          description: The ID of the Rule Violation to assign the status
-          example: 2756
-        status:
+        tenantId:
           type: string
-          description: The status to assign to the Rule Violation
-          example: In Progress
-      description: Details of the Rule Violation status assignment.
-    RuleViolationSearchInput:
-      required:
-      - filter
-      type: object
-      properties:
-        filter:
-          $ref: '#/components/schemas/RuleViolationSearchFilterInput'
-        limit:
-          maximum: 2000
-          minimum: 1
+          description: The tenant whose violation offsets were reset.
+        violationsReset:
           type: integer
-          description: Pagination limit (number of violations per page). If not specified, a default limit of 200 is used.
-          format: int32
-          example: 200
-        offset:
-          maximum: 9223372036854776000
-          minimum: 0
-          type: integer
-          description: Pagination offset (zero-based). Defaults to 0.
+          description: The number of core (non-custom) violations whose change event offset was reset to 0.
           format: int64
-          example: 100
-        sortBy:
-          type: array
-          description: 'List of Rule Violation fields the results should be ordered by. Any results that are equal after ordering will be ordered by ''id ASC''.
-
-
-            If not provided, the default ordering is ''startTime ASC'' followed by ''id ASC''.'
-          items:
-            $ref: '#/components/schemas/Order'
-      description: Parameters of a search Rule Violations query.
-    CustomRuleResult:
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          type: string
-          description: Identifier for the rule.
-          example: unsafeArea
-      description: Details of a custom rule.
+          example: 42
     RuleViolationSearchFilterInput:
       required:
       - startTime
@@ -703,72 +818,36 @@ components:
 
 
         For the time range filter, Rule Violations whose [startTime, endTime] interval overlaps with the provided search time range are returned. Time ranges are treated as half-open intervals, meaning that violations that start at the end time of the range will not be returned.'
-    CustomRuleViolationKeyInput:
+    RuleViolationSearchInput:
       required:
-      - ruleId
-      - sourceId
-      - targetId
+      - filter
       type: object
       properties:
-        ruleId:
-          type: string
-          description: The type of rule that was violated.
-          example: unsafeArea
-        targetId:
-          type: string
-          description: The UID of the object that the rule violation affects.
-          example: b055d7c1-ef2f-40e9-bcd2-634e9835e69b
-        sourceId:
-          type: string
-          description: The UID of the object that caused rule violation (may be the same as the target).
-          example: 5c832cd6-006b-454a-b747-5cb62beef885
-      description: Uniquely identifies a Custom Rule Violation.
-    IncludeType:
-      type: string
-      enum:
-      - all
-      - only
-    ApiResultRuleViolationListResult:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/RuleViolationListResult'
-    RuleViolationLink:
-      required:
-      - name
-      - type
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/RuleViolationLinkType'
-        name:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: The name of the link.
-          example: Job
-      description: Link details to the target of the violation.
-      discriminator:
-        propertyName: type
-        mapping:
-          skedulo: '#/components/schemas/SkeduloRuleViolationLink'
-          external: '#/components/schemas/ExternalRuleViolationLink'
-    ApiResultBigInteger:
-      required:
-      - result
-      type: object
-      properties:
-        result:
+        filter:
+          $ref: '#/components/schemas/RuleViolationSearchFilterInput'
+        limit:
+          maximum: 2000
+          minimum: 1
           type: integer
-    ApiResultRuleViolationSearchResult:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/RuleViolationSearchResult'
+          description: Pagination limit (number of violations per page). If not specified, a default limit of 200 is used.
+          format: int32
+          example: 200
+        offset:
+          maximum: 9223372036854776000
+          minimum: 0
+          type: integer
+          description: Pagination offset (zero-based). Defaults to 0.
+          format: int64
+          example: 100
+        sortBy:
+          type: array
+          description: 'List of Rule Violation fields the results should be ordered by. Any results that are equal after ordering will be ordered by ''id ASC''.
+
+
+            If not provided, the default ordering is ''startTime ASC'' followed by ''id ASC''.'
+          items:
+            $ref: '#/components/schemas/Order'
+      description: Parameters of a search Rule Violations query.
     RuleViolationResult:
       required:
       - context
@@ -860,13 +939,48 @@ components:
           description: Last modified timestamp
           format: date-time
       description: Details of a Rule Violation that was either generated by the core engine or inserted by a client.
-    ErrorDetails:
+    RuleIdFilter:
+      required:
+      - include
       type: object
       properties:
-        errorType:
+        include:
+          $ref: '#/components/schemas/IncludeType'
+      description: Filter parameters.
+      discriminator:
+        propertyName: include
+        mapping:
+          all: '#/components/schemas/IncludeAllRuleId'
+          only: '#/components/schemas/IncludeOnlyRuleId'
+    CustomRuleViolationKeysInput:
+      required:
+      - keys
+      type: object
+      properties:
+        keys:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: The type of rule that was violated.
+          example: unsafeArea
+          items:
+            $ref: '#/components/schemas/CustomRuleViolationKeyInput'
+      description: A list of violation keys.
+    CustomRuleResult:
+      required:
+      - id
+      type: object
+      properties:
+        id:
           type: string
-        message:
-          type: string
+          description: Identifier for the rule.
+          example: unsafeArea
+      description: Details of a custom rule.
+    RuleViolationLinkType:
+      type: string
+      enum:
+      - skedulo
+      - external
     RuleViolationTargetIdsInput:
       required:
       - targetIds
@@ -881,20 +995,39 @@ components:
             type: string
             example: b055d7c1-ef2f-40e9-bcd2-634e9835e69b
       description: A list of target object UIDs.
-    ResetViolationOffsetsResult:
+    AssignedToFilter:
       required:
-      - tenantId
-      - violationsReset
+      - includeUnassigned
       type: object
       properties:
-        tenantId:
-          type: string
-          description: The tenant whose violation offsets were reset.
-        violationsReset:
-          type: integer
-          description: The number of core (non-custom) violations whose change event offset was reset to 0.
-          format: int64
-          example: 42
+        userIds:
+          maxItems: 100
+          minItems: 0
+          uniqueItems: true
+          type: array
+          description: Include only violations that are assigned to these specific user IDs.
+          items:
+            type: string
+            example: 44bb347c-457d-4dbe-be9c-a6c6fe5d57f5
+        includeUnassigned:
+          type: boolean
+          description: If true, include violations that are not assigned to user IDs.
+          example: true
+      description: AssignedTo search filter parameters.
+    RuleViolationsInput:
+      required:
+      - violations
+      type: object
+      properties:
+        violations:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: The type of rule that was violated.
+          example: unsafeArea
+          items:
+            $ref: '#/components/schemas/RuleViolationInput'
+      description: A list of violations.
     Order:
       required:
       - direction
@@ -913,152 +1046,6 @@ components:
           - ASC
           - DESC
       description: The order in which to sort results
-    ApiResultListCustomRuleResult:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomRuleResult'
-    CustomRuleViolationKeysInput:
-      required:
-      - keys
-      type: object
-      properties:
-        keys:
-          maxItems: 100
-          minItems: 0
-          type: array
-          description: The type of rule that was violated.
-          example: unsafeArea
-          items:
-            $ref: '#/components/schemas/CustomRuleViolationKeyInput'
-      description: A list of violation keys.
-    ApiResultRuleViolationResult:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/RuleViolationResult'
-    RuleIdSearchFilter:
-      type: object
-      properties:
-        core:
-          $ref: '#/components/schemas/RuleIdFilter'
-        custom:
-          $ref: '#/components/schemas/RuleIdFilter'
-      description: Rule id search filter parameters.
-    RuleViolationContext:
-      required:
-      - _type
-      type: object
-      properties:
-        _type:
-          type: string
-      description: A JSON object containing extra information for the violation
-      discriminator:
-        propertyName: _type
-        mapping:
-          custom: '#/components/schemas/CustomContext'
-          insufficientTravelTime: '#/components/schemas/InsufficientTravelTimeContext'
-          jobDependencies: '#/components/schemas/JobDependenciesContext'
-          jobOverallocated: '#/components/schemas/JobOverallocatedContext'
-          jobTimeConstraints: '#/components/schemas/JobTimeConstraintsContext'
-          missingJobTags: '#/components/schemas/MissingJobTagsContext'
-          missingOptionalJobTags: '#/components/schemas/MissingJobTagsContext'
-          resourceAccountExcluded: '#/components/schemas/ResourceAccountExcludedContext'
-          resourceAccountNotIncluded: '#/components/schemas/ResourceAccountNotIncludedContext'
-          resourceInactive: '#/components/schemas/ResourceInactiveContext'
-          resourceLocationExcluded: '#/components/schemas/ResourceLocationExcludedContext'
-          resourceLocationNotIncluded: '#/components/schemas/ResourceLocationNotIncludedContext'
-          resourceUnavailable: '#/components/schemas/ResourceUnavailableContext'
-          workOverlap: '#/components/schemas/WorkOverlapContext'
-    RuleViolationInput:
-      required:
-      - link
-      - regionId
-      - resourceIds
-      - ruleId
-      - sourceId
-      - sourceType
-      - targetId
-      - targetType
-      type: object
-      properties:
-        ruleId:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: The type of rule that was violated. Custom violations must have any non-empty rule ID.
-          example: unsafeArea
-        targetId:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: The UID of the object that the rule violation affects. Target IDs should be unique across all object types.
-          example: b055d7c1-ef2f-40e9-bcd2-634e9835e69b
-        sourceId:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: The UID of the object that caused rule violation (may be the same as the target). Source IDs should be unique across all object types.
-          example: 5c832cd6-006b-454a-b747-5cb62beef885
-        targetType:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: The object type of the target object. This must be a standard or custom data model object type in singular camelCase.
-          example: job
-        sourceType:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: The object type of the source object. This must be a standard or custom data model object type in singular camelCase.
-          example: job
-        startTime:
-          type: string
-          description: The time at which the violation starts. This is used for filtering by time window.
-          format: date-time
-        endTime:
-          type: string
-          description: The time at which the violation ends. This is used for filtering by time window.
-          format: date-time
-        regionId:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: The region of the target object. Used for filtering results.
-          example: 6cdd3be8-6fab-44c5-a6b7-e9ddc6860eb7
-        resourceIds:
-          maxItems: 100
-          minItems: 0
-          uniqueItems: true
-          type: array
-          description: The resources that the violation applies to, if any. Used for filtering results.
-          items:
-            maxLength: 255
-            minLength: 1
-            type: string
-            example: d5ed41db-87ee-4dd2-a65c-dd37dc253d3b
-        description:
-          maxLength: 1024
-          minLength: 1
-          type: string
-          description: A user-friendly description of the rule violation, to be displayed by the UI.
-          example: Job is in an area that may be unsafe
-        link:
-          $ref: '#/components/schemas/RuleViolationLink'
-        context:
-          type: object
-      description: Details of the custom Rule Violation. The ruleId, targetId and sourceId form a unique key.
-    RuleViolationLinkType:
-      type: string
-      enum:
-      - skedulo
-      - external
     RuleViolationListResult:
       required:
       - limitReached
@@ -1074,6 +1061,13 @@ components:
           type: boolean
           description: True if the maximum number of violations retrievable in a single query has been reached (currently 2000 violations).
       description: Results of a find Rule Violations by list of target object UIDs query.
+    ApiResultRuleViolationResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/RuleViolationResult'
     ApiResultListBigInteger:
       required:
       - result
@@ -1083,20 +1077,26 @@ components:
           type: array
           items:
             type: integer
-    RuleViolationAssignUserInput:
+    RuleViolationLink:
       required:
-      - violationId
+      - name
+      - type
       type: object
       properties:
-        violationId:
-          type: integer
-          description: The ID of the Rule Violation to assign to the user
-          example: 2756
-        user:
+        type:
+          $ref: '#/components/schemas/RuleViolationLinkType'
+        name:
+          maxLength: 255
+          minLength: 1
           type: string
-          description: The user to assign to the Rule Violation
-          example: a521ed9f-a353-4952-b6cd-e7b5e02c3591
-      description: Details of the Rule Violation user assignment.
+          description: The name of the link.
+          example: Job
+      description: Link details to the target of the violation.
+      discriminator:
+        propertyName: type
+        mapping:
+          skedulo: '#/components/schemas/SkeduloRuleViolationLink'
+          external: '#/components/schemas/ExternalRuleViolationLink'
   securitySchemes:
     ApiKeyAuth:
       type: http

@@ -34,6 +34,28 @@ paths:
       - Metadata
 components:
   schemas:
+    ResourceMetadata:
+      type: object
+      required:
+      - id
+      - timezone
+      properties:
+        id:
+          type: string
+        category:
+          type: string
+        employmentType:
+          type: string
+        address:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        mobilePhone:
+          type: string
+        timezone:
+          type: string
     TeamMetadata:
       type: object
       required:
@@ -63,28 +85,6 @@ components:
           type: string
         customer:
           description: The customer name.
-          type: string
-    ResourceMetadata:
-      type: object
-      required:
-      - id
-      - timezone
-      properties:
-        id:
-          type: string
-        category:
-          type: string
-        employmentType:
-          type: string
-        address:
-          type: string
-        latitude:
-          type: number
-        longitude:
-          type: number
-        mobilePhone:
-          type: string
-        timezone:
           type: string
     UserMetadata:
       type: object

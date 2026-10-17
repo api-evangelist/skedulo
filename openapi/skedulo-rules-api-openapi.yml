@@ -58,38 +58,6 @@ paths:
       - Rules
 components:
   schemas:
-    RecordAccessRule:
-      type: object
-      required:
-      - objectType
-      - filter
-      - accessType
-      properties:
-        objectType:
-          description: The type of object that the rule applies to
-          type: string
-        filter:
-          description: EQL filter that is applied when accessing records of the object type
-          type: string
-        accessType:
-          description: Whether the rule allows or denies access
-          type: string
-          enum:
-          - allow
-          - deny
-    ResolvedAccessRuleError:
-      description: Error details when resolving access rules for an object type
-      type: object
-      required:
-      - objectType
-      - message
-      properties:
-        objectType:
-          description: The object type of the rule in error
-          type: string
-        message:
-          description: The error message
-          type: string
     ResolvedAccessRule:
       type: object
       required:
@@ -118,6 +86,25 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ResolvedAccessRuleError'
+    RecordAccessRule:
+      type: object
+      required:
+      - objectType
+      - filter
+      - accessType
+      properties:
+        objectType:
+          description: The type of object that the rule applies to
+          type: string
+        filter:
+          description: EQL filter that is applied when accessing records of the object type
+          type: string
+        accessType:
+          description: Whether the rule allows or denies access
+          type: string
+          enum:
+          - allow
+          - deny
     ResultOKAccessRules:
       type: object
       properties:
@@ -125,6 +112,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ResolvedAccessRule'
+    ResolvedAccessRuleError:
+      description: Error details when resolving access rules for an object type
+      type: object
+      required:
+      - objectType
+      - message
+      properties:
+        objectType:
+          description: The object type of the rule in error
+          type: string
+        message:
+          description: The error message
+          type: string
   securitySchemes:
     Authorization:
       type: http

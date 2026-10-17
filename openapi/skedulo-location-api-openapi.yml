@@ -230,16 +230,10 @@ paths:
       - Location
 components:
   schemas:
-    PagedResultLocationHistory:
+    LatestLocationResult:
       type: object
-      required:
-      - paging
-      - result
-      properties:
-        paging:
-          $ref: '#/components/schemas/Paging'
-        result:
-          $ref: '#/components/schemas/LocationHistory'
+      additionalProperties:
+        $ref: '#/components/schemas/Location'
     Location:
       type: object
       required:
@@ -294,6 +288,10 @@ components:
           description: 'Vertical position accuracy (m).
 
             '
+    LocationHistory:
+      type: array
+      items:
+        $ref: '#/components/schemas/Location'
     Error:
       type: object
       properties:
@@ -301,26 +299,6 @@ components:
           type: string
         message:
           type: string
-    LatestLocationResult:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/Location'
-    Paging:
-      type: object
-      required:
-      - total
-      - offset
-      - limit
-      properties:
-        total:
-          type: number
-          format: int64
-        offset:
-          type: number
-          format: int64
-        limit:
-          type: number
-          format: int64
     DistanceFromLocation:
       type: object
       description: Position and Distance from a location
@@ -350,15 +328,37 @@ components:
           type: number
           format: double
           description: Accuracy of the position
-    LocationHistory:
-      type: array
-      items:
-        $ref: '#/components/schemas/Location'
     ResourceDistanceFromLocationResult:
       type: object
       description: Map resource ids to their distance from a location
       additionalProperties:
         $ref: '#/components/schemas/DistanceFromLocation'
+    Paging:
+      type: object
+      required:
+      - total
+      - offset
+      - limit
+      properties:
+        total:
+          type: number
+          format: int64
+        offset:
+          type: number
+          format: int64
+        limit:
+          type: number
+          format: int64
+    PagedResultLocationHistory:
+      type: object
+      required:
+      - paging
+      - result
+      properties:
+        paging:
+          $ref: '#/components/schemas/Paging'
+        result:
+          $ref: '#/components/schemas/LocationHistory'
   securitySchemes:
     Authorization:
       type: apiKey

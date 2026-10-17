@@ -86,6 +86,22 @@ paths:
       - Graph QL
 components:
   schemas:
+    GraphQLError:
+      type: object
+      description: errors
+      properties:
+        message:
+          type: string
+          description: Error message.
+        location:
+          type: object
+          properties:
+            line:
+              type: string
+              description: Line Number
+            column:
+              type: string
+              description: Column number
     Error:
       type: object
       required:
@@ -109,22 +125,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GraphQLError'
-    GraphQLError:
-      type: object
-      description: errors
-      properties:
-        message:
-          type: string
-          description: Error message.
-        location:
-          type: object
-          properties:
-            line:
-              type: string
-              description: Line Number
-            column:
-              type: string
-              description: Column number
   securitySchemes:
     Authorization:
       type: http

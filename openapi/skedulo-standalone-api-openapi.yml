@@ -194,28 +194,25 @@ paths:
       - Standalone
 components:
   schemas:
-    NewStandaloneCustomFieldColumn:
+    NewStandaloneCustomSchema:
       type: object
       required:
-      - type
-      discriminator:
-        propertyName: type
+      - name
       properties:
-        type:
+        name:
           type: string
-          enum:
-          - string
-          - textarea
-          - url
-          - picklist
-          - multipicklist
-          - int
-          - decimal
-          - boolean
-          - date
-          - datetime
-          - time
-          - reference
+          description: Internal name
+        label:
+          type: string
+          description: Display name
+        description:
+          type: string
+          description: Description display only when modifying this field's definition
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewStandaloneCustomSchemaField'
+          description: Fields to create at the same time as the object. These fields are allowed to be required and have no default as there is no data in the object yet.
     NewStandaloneCustomSchemaField:
       type: object
       required:
@@ -260,21 +257,64 @@ components:
           default: false
         displayOrder:
           type: integer
-    Error:
-      type: object
-      required:
-      - errorType
-      - message
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
-    NewStandaloneCustomSchema:
+    NewStandaloneCustomField:
       type: object
       required:
       - name
+      - schemaName
+      - column
       properties:
+        name:
+          type: string
+          description: Internal name
+        schemaName:
+          type: string
+          description: The name of the object this field belongs to
+        label:
+          type: string
+          description: Display name
+        description:
+          type: string
+          description: Description display only when modifying this field's definition
+        accessMode:
+          type: string
+          enum:
+          - read_only
+          - read_write
+          - insert_only
+          default: read_write
+        column:
+          $ref: '#/components/schemas/NewStandaloneCustomFieldColumn'
+        showIf:
+          type: string
+        isAlert:
+          description: Should this field be promoted and shown at the top? Only one field per object can have this set.
+          type: boolean
+          default: false
+        showDesktop:
+          type: boolean
+          default: true
+        showMobile:
+          type: boolean
+          default: false
+        editableOnMobile:
+          type: boolean
+          default: false
+        requiredOnMobile:
+          type: boolean
+          default: false
+        displayOrder:
+          type: integer
+    CustomSchema:
+      type: object
+      required:
+      - id
+      - name
+      - mapping
+      properties:
+        id:
+          type: string
+          format: uuid
         name:
           type: string
           description: Internal name
@@ -284,11 +324,31 @@ components:
         description:
           type: string
           description: Description display only when modifying this field's definition
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/NewStandaloneCustomSchemaField'
-          description: Fields to create at the same time as the object. These fields are allowed to be required and have no default as there is no data in the object yet.
+        mapping:
+          type: string
+          description: The name of the object in the remote system (e.g. 'order' for Skedulo platform or 'Order__c' for Salesforce)
+    NewStandaloneCustomFieldColumn:
+      type: object
+      required:
+      - type
+      discriminator:
+        propertyName: type
+      properties:
+        type:
+          type: string
+          enum:
+          - string
+          - textarea
+          - url
+          - picklist
+          - multipicklist
+          - int
+          - decimal
+          - boolean
+          - date
+          - datetime
+          - time
+          - reference
     CustomField:
       type: object
       required:
@@ -394,76 +454,16 @@ components:
           type: boolean
         displayOrder:
           type: integer
-    NewStandaloneCustomField:
+    Error:
       type: object
       required:
-      - name
-      - schemaName
-      - column
+      - errorType
+      - message
       properties:
-        name:
+        errorType:
           type: string
-          description: Internal name
-        schemaName:
+        message:
           type: string
-          description: The name of the object this field belongs to
-        label:
-          type: string
-          description: Display name
-        description:
-          type: string
-          description: Description display only when modifying this field's definition
-        accessMode:
-          type: string
-          enum:
-          - read_only
-          - read_write
-          - insert_only
-          default: read_write
-        column:
-          $ref: '#/components/schemas/NewStandaloneCustomFieldColumn'
-        showIf:
-          type: string
-        isAlert:
-          description: Should this field be promoted and shown at the top? Only one field per object can have this set.
-          type: boolean
-          default: false
-        showDesktop:
-          type: boolean
-          default: true
-        showMobile:
-          type: boolean
-          default: false
-        editableOnMobile:
-          type: boolean
-          default: false
-        requiredOnMobile:
-          type: boolean
-          default: false
-        displayOrder:
-          type: integer
-    CustomSchema:
-      type: object
-      required:
-      - id
-      - name
-      - mapping
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-          description: Internal name
-        label:
-          type: string
-          description: Display name
-        description:
-          type: string
-          description: Description display only when modifying this field's definition
-        mapping:
-          type: string
-          description: The name of the object in the remote system (e.g. 'order' for Skedulo platform or 'Order__c' for Salesforce)
   securitySchemes:
     Authorization:
       type: http

@@ -87,13 +87,6 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    ErrorDetails:
-      type: object
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
     TenantStatusResponse:
       required:
       - status
@@ -113,6 +106,13 @@ components:
           - deleting
           - deleted
       description: The current status of a tenant in event-store
+    ErrorDetails:
+      type: object
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
   securitySchemes:
     ApiKeyAuth:
       type: http

@@ -224,73 +224,22 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    UserRulesResult:
+    ApiResultUnit:
       required:
-      - rules
+      - result
       type: object
       properties:
-        rules:
-          type: array
-          description: The fully resolved set of rules for a user.
-          items:
-            $ref: '#/components/schemas/ResolvedRuleResult'
-      description: The record access rules for a user.
-    RuleInput:
+        result:
+          $ref: '#/components/schemas/Unit'
+    ApiResultListRuleResult:
       required:
-      - accessType
-      - description
-      - filter
-      - objectType
-      - permissionsExcluded
-      - policyId
-      - rolesExcluded
+      - result
       type: object
       properties:
-        policyId:
-          type: string
-          description: ID of the parent policy.
-          format: uuid
-        description:
-          maxLength: 250
-          minLength: 0
-          type: string
-          description: Describes the purpose of the rule.
-        objectType:
-          type: string
-          description: The object type (schema) that the rule applies to. This may be a custom object.
-        filter:
-          type: string
-          description: A filter expressed in the Skedulo Elastic Query Language (EQL), possibly with placeholders. This filter must be valid with respect to the object type and the custom data model.
-        accessType:
-          type: string
-          description: Specifies whether the filter allows or denies access. All Deny rules will be applied with the AND operator and then all Allow filters will be applied with the OR operator.
-          enum:
-          - deny
-          - allow
-        permissionsExcluded:
+        result:
           type: array
-          description: An optional set of permission keys for which this rule should be ignored. If the user has any of these permissions, the rule will not be applied.
           items:
-            type: string
-            description: An optional set of permission keys for which this rule should be ignored. If the user has any of these permissions, the rule will not be applied.
-        rolesExcluded:
-          type: array
-          description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
-          items:
-            type: string
-            description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
-            format: uuid
-    ErrorDetails:
-      type: object
-      properties:
-        errorType:
-          type: string
-        message:
-          type: string
-        extraFields:
-          type: object
-          additionalProperties:
-            type: object
+            $ref: '#/components/schemas/RuleResult'
     ResolvedRuleResult:
       required:
       - accessType
@@ -311,13 +260,42 @@ components:
           - deny
           - allow
       description: A record access rule that is enabled for the current user and has had placeholders resolved.
-    ApiResultUnit:
+    UserRulesResult:
+      required:
+      - rules
+      type: object
+      properties:
+        rules:
+          type: array
+          description: The fully resolved set of rules for a user.
+          items:
+            $ref: '#/components/schemas/ResolvedRuleResult'
+      description: The record access rules for a user.
+    ApiResultUserRulesResult:
       required:
       - result
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/Unit'
+          $ref: '#/components/schemas/UserRulesResult'
+    ApiResultRuleResult:
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/RuleResult'
+    ErrorDetails:
+      type: object
+      properties:
+        errorType:
+          type: string
+        message:
+          type: string
+        extraFields:
+          type: object
+          additionalProperties:
+            type: object
     RuleResult:
       required:
       - accessType
@@ -371,29 +349,51 @@ components:
       description: A record access rule that controls access to data.
     Unit:
       type: object
-    ApiResultListRuleResult:
+    RuleInput:
       required:
-      - result
+      - accessType
+      - description
+      - filter
+      - objectType
+      - permissionsExcluded
+      - policyId
+      - rolesExcluded
       type: object
       properties:
-        result:
+        policyId:
+          type: string
+          description: ID of the parent policy.
+          format: uuid
+        description:
+          maxLength: 250
+          minLength: 0
+          type: string
+          description: Describes the purpose of the rule.
+        objectType:
+          type: string
+          description: The object type (schema) that the rule applies to. This may be a custom object.
+        filter:
+          type: string
+          description: A filter expressed in the Skedulo Elastic Query Language (EQL), possibly with placeholders. This filter must be valid with respect to the object type and the custom data model.
+        accessType:
+          type: string
+          description: Specifies whether the filter allows or denies access. All Deny rules will be applied with the AND operator and then all Allow filters will be applied with the OR operator.
+          enum:
+          - deny
+          - allow
+        permissionsExcluded:
           type: array
+          description: An optional set of permission keys for which this rule should be ignored. If the user has any of these permissions, the rule will not be applied.
           items:
-            $ref: '#/components/schemas/RuleResult'
-    ApiResultRuleResult:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/RuleResult'
-    ApiResultUserRulesResult:
-      required:
-      - result
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/UserRulesResult'
+            type: string
+            description: An optional set of permission keys for which this rule should be ignored. If the user has any of these permissions, the rule will not be applied.
+        rolesExcluded:
+          type: array
+          description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
+          items:
+            type: string
+            description: An optional set of role ids for which this rule should be ignored. If the user has any of these roles, the rule will not be applied.
+            format: uuid
   securitySchemes:
     ApiKeyAuth:
       type: http

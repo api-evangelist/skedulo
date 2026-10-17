@@ -137,6 +137,11 @@ paths:
       - Attachment
 components:
   schemas:
+    ApiResultAttachmentMetadata:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/AttachmentMetadata'
     DeletedApiResult:
       type: object
       required:
@@ -144,6 +149,16 @@ components:
       properties:
         deleted:
           type: string
+    FileSaveResult:
+      type: object
+      required:
+      - id
+      - success
+      properties:
+        id:
+          type: string
+        success:
+          type: boolean
     ExifData:
       type: object
       description: EXIF metadata extracted from an image or video file. All fields are optional — present only when the file contains the corresponding tag.
@@ -216,21 +231,6 @@ components:
           description: Whether the file format supports EXIF metadata. When false, the exif object will be empty.
         exif:
           $ref: '#/components/schemas/ExifData'
-    FileSaveResult:
-      type: object
-      required:
-      - id
-      - success
-      properties:
-        id:
-          type: string
-        success:
-          type: boolean
-    ApiResultAttachmentMetadata:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/AttachmentMetadata'
   securitySchemes:
     Authorization:
       type: http
