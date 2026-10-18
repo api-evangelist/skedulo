@@ -12,8 +12,38 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 18
+edge_count: 20
 edges:
+- tag: Optimize
+  spec_file: skedulo-optimize-api-openapi.yml
+  capability_id: BC-1050.20
+  capability_id_l1: BC-1050
+  capability_name: Service Dispatch Management
+  confidence: 0.85
+  evidence: POST /optimize/suggest — "Suggest times for a single job"; POST /optimize/resource_suggestions
+    — "Suggest resources for a given job"
+  reason: Operations recommend time slots and resources (technicians) for jobs — this is scheduling/dispatch
+    optimisation for a mobile field workforce, matching Service Dispatch Management (technician scheduling,
+    routing, dispatch).
+- tag: Resource Allocations
+  spec_file: skedulo-resource-allocations-api-openapi.yml
+  capability_id: BC-1050.20
+  capability_id_l1: BC-1050
+  capability_name: Service Dispatch Management
+  confidence: 0.85
+  evidence: POST /schedules/job_allocations — "Create/update job allocations for resources"
+  reason: Allocating jobs to resources on recurring schedules is technician scheduling/dispatch for a
+    deskless field workforce.
+- tag: Scheduling
+  spec_file: skedulo-scheduling-api-openapi.yml
+  capability_id: BC-1050.20
+  capability_id_l1: BC-1050
+  capability_name: Service Dispatch Management
+  confidence: 0.85
+  evidence: POST /sync/dispatch  dispatchSchedule  Dispatch allocated work; POST /copy  copySchedule  Make
+    a copy of scheduled work
+  reason: Explicitly dispatches allocated work and manipulates scheduled work (copy, apply shift/job templates)
+    with JobCopyRequest/ShiftCopyRequest/DispatchResult schemas — squarely technician scheduling and dispatch.
 - tag: Features
   spec_file: skedulo-features-api-openapi.yml
   capability_id: BC-4210.50
@@ -25,26 +55,17 @@ edges:
   reason: Operations read and search feature flag state and descriptions per tenant (schemas FeatureFlags,
     TenantFeatureFlagsResult), which is squarely Feature Flag Management within software release/deployment.
     Slight ambiguity with tenant configuration management, hence 0.8.
-- tag: Optimize
-  spec_file: skedulo-optimize-api-openapi.yml
+- tag: Job Notifications and Responses
+  spec_file: skedulo-job-notifications-and-responses-api-openapi.yml
   capability_id: BC-1050.20
   capability_id_l1: BC-1050
   capability_name: Service Dispatch Management
   confidence: 0.8
-  evidence: POST /optimize/suggest  'Suggest times for a single job'; POST /optimize/resource_suggestions
-    'Suggest resources for a given job'
-  reason: Operations suggest times and resources for jobs — i.e. technician scheduling/assignment for
-    a field service platform, matching Service Dispatch Management (technician scheduling, routing, dispatch).
-- tag: Resource Allocations
-  spec_file: skedulo-resource-allocations-api-openapi.yml
-  capability_id: BC-1050.20
-  capability_id_l1: BC-1050
-  capability_name: Service Dispatch Management
-  confidence: 0.8
-  evidence: POST /schedules/job_allocations  upsertJobAllocations  'Create/update job allocations for
-    resources'
-  reason: Allocating jobs to resources on recurring schedules is technician scheduling/dispatch for a
-    field workforce platform.
+  evidence: POST /dispatch postDispatch Dispatch resources; POST /notify Notify resources about an allocated
+    job
+  reason: Operations explicitly dispatch and notify field resources about allocated jobs and cancellations,
+    which is technician dispatch within field service management. Some of the surface is pure messaging,
+    hence not 0.95.
 - tag: Rules
   spec_file: skedulo-rules-api-openapi.yml
   capability_id: BC-620.20
@@ -66,25 +87,6 @@ edges:
   reason: Optimization Manager runs that compute and save schedules and routes for resources (GraphQLResource,
     Job, ResourceAvailabilityShape) on a field workforce platform — i.e. technician scheduling and routing,
     which is Service Dispatch Management.
-- tag: Scheduling
-  spec_file: skedulo-scheduling-api-openapi.yml
-  capability_id: BC-1050.20
-  capability_id_l1: BC-1050
-  capability_name: Service Dispatch Management
-  confidence: 0.8
-  evidence: 'POST /sync/dispatch dispatchSchedule Dispatch allocated work; schemas: DispatchResult, ShiftCopyRequest'
-  reason: Schedule Management API that copies scheduled work, applies schedule templates and dispatches
-    allocated work to resources — technician scheduling and dispatch on a field service platform.
-- tag: Job Notifications and Responses
-  spec_file: skedulo-job-notifications-and-responses-api-openapi.yml
-  capability_id: BC-1050.20
-  capability_id_l1: BC-1050
-  capability_name: Service Dispatch Management
-  confidence: 0.78
-  evidence: POST /dispatch  postDispatch  Dispatch resources; POST /notify  Notify resources about an
-    allocated job
-  reason: Operations dispatch and notify field resources about allocated jobs — technician dispatch/notification
-    within field service management, not generic messaging.
 - tag: Job scheduling
   spec_file: skedulo-job-scheduling-api-openapi.yml
   capability_id: BC-1050.20
@@ -104,6 +106,17 @@ edges:
     createPolicy / updatePolicy / deletePolicy'
   reason: CRUD over authorisation policies within an auth service managing roles and permissions — access
     management. Could be argued as pure plumbing, hence moderate confidence.
+- tag: Run
+  spec_file: skedulo-run-api-openapi.yml
+  capability_id: BC-1050.20
+  capability_id_l1: BC-1050
+  capability_name: Service Dispatch Management
+  confidence: 0.75
+  evidence: GET /run/{runId}/results — "Get results of an optimization run"; schemas DiffScheduleShape,
+    ResourceAvailabilityShape, ARCShiftScheduledAllocationShape
+  reason: Optimisation runs produce scheduled resource/shift allocations and schedule diffs, i.e. the
+    output of workforce scheduling and dispatch optimisation; slight uncertainty as the surface is run-metadata
+    retrieval.
 - tag: Suggest
   spec_file: skedulo-suggest-api-openapi.yml
   capability_id: BC-1050.20
@@ -113,6 +126,19 @@ edges:
   evidence: POST /suggest Suggest Get scheduling suggestions for a job
   reason: Produces scheduling suggestions for a job (candidate resource/time slots) on a field workforce
     platform — decision support for technician scheduling and dispatch.
+- tag: Availability
+  spec_file: skedulo-availability-api-openapi.yml
+  capability_id: BC-1050.20
+  capability_id_l1: BC-1050
+  capability_name: Service Dispatch Management
+  confidence: 0.72
+  evidence: GET /availability getAvailability "Fetch resource availability"; POST /availability/resources
+    "Fetch available resources"; schemas AvailabilityPatternIntervals, UnavailabilityEntries
+  reason: 'Skedulo is a field service / deskless workforce platform; this tag exposes technician (resource)
+    availability windows and patterns, which is the input to technician scheduling and dispatch. Mapped
+    to Service Dispatch Management rather than a generic workforce capability because the vendor context
+    is field service. Some ambiguity: availability could also be read as pure workforce scheduling, hence
+    moderate confidence.'
 - tag: Offers
   spec_file: skedulo-offers-api-openapi.yml
   capability_id: BC-1050.20
@@ -124,6 +150,17 @@ edges:
   reason: Job and shift offers accepted/declined by resources are the offer-based allocation mechanism
     for assigning field work to technicians, i.e. dispatch; some overlap with workforce scheduling keeps
     confidence moderate.
+- tag: Solve
+  spec_file: skedulo-solve-api-openapi.yml
+  capability_id: BC-1050.20
+  capability_id_l1: BC-1050
+  capability_name: Service Dispatch Management
+  confidence: 0.72
+  evidence: POST /solve  Solve  Start an optimization run for a model; schemas GraphQLJobAllocation, ResourceAvailabilityShape,
+    AllocationGroupShape
+  reason: Solver endpoints that compute job-to-resource allocations against availability and constraints
+    — the optimisation engine behind workforce scheduling/dispatch. Slightly lower confidence because
+    the surface is a generic solver interface rather than named dispatch operations.
 - tag: Webhooks
   spec_file: skedulo-webhooks-api-openapi.yml
   capability_id: BC-4270.80
@@ -146,20 +183,6 @@ edges:
   reason: Administrative operations on tenants in the multi-tenant fleet, including tenant data deletion,
     align with tenant provisioning and decommissioning. Confidence moderated because only two operations
     are shown and data deletion could alternatively read as tenant backup/export (BC-4230.60).
-- tag: Availability
-  spec_file: skedulo-availability-api-openapi.yml
-  capability_id: BC-1050.20
-  capability_id_l1: BC-1050
-  capability_name: Service Dispatch Management
-  confidence: 0.7
-  evidence: GET /availability  getAvailability  Fetch resource availability; POST /availability/resources  postAvailableResources  Fetch
-    available resources; POST /availability/patterns  Upsert availability patterns
-  reason: Skedulo is a field service / deskless workforce platform; these operations manage field resource
-    (technician) availability and availability patterns, which is the input to technician scheduling and
-    dispatch. Mapped to Field Service Management / Service Dispatch Management rather than HR workforce
-    planning because the entities are schedulable 'resources' in a dispatch engine. Some ambiguity remains
-    about whether availability belongs to dispatch or a broader scheduling sub-capability, hence moderate
-    confidence.
 - tag: Internal
   spec_file: skedulo-internal-api-openapi.yml
   capability_id: BC-4230.10
@@ -170,6 +193,16 @@ edges:
   reason: Single internal operation that initialises a tenant (schema InitializeInput), matching tenant
     provisioning/creation in a multi-tenant SaaS; context is thin (no description, one operation) so confidence
     is moderate.
+- tag: Location
+  spec_file: skedulo-location-api-openapi.yml
+  capability_id: BC-1050
+  capability_id_l1: BC-1050
+  capability_name: Field Service Management
+  confidence: 0.7
+  evidence: GET /location/resources_within_distance locationResourcesWithinDistance Locate resources with
+    a set distance; GET /location/latest Latest locations
+  reason: Tracks and queries field resource (technician) locations, supporting field service operations.
+    Sits between dispatch/routing and on-site execution, so only the L1 is asserted.
 - tag: Rule Management
   spec_file: skedulo-rule-management-api-openapi.yml
   capability_id: BC-620.20
@@ -191,14 +224,3 @@ edges:
   reason: Recurring schedules of jobs for deskless workers — scheduling of field work. Sub-capability
     choice (dispatch/scheduling) is the best fit but the surface is read-only summaries, hence moderate
     confidence.
-- tag: Solve
-  spec_file: skedulo-solve-api-openapi.yml
-  capability_id: BC-1050.20
-  capability_id_l1: BC-1050
-  capability_name: Service Dispatch Management
-  confidence: 0.7
-  evidence: 'POST /solve Solve Start an optimization run for a model; schemas: GraphQLJobAllocation, ResourceAvailabilityShape,
-    AllocationShape1'
-  reason: Optimization solver that allocates jobs to resources subject to availability and dependency
-    constraints — the scheduling/routing engine behind field technician dispatch. Somewhat abstract (generic
-    solver surface), so moderate confidence.
