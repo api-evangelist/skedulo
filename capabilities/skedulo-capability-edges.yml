@@ -3,6 +3,7 @@ provider: Skedulo
 generated_by: planning/capability-mapping/scripts/classify_capabilities.py
 model: claude-opus-5
 frame:
+- Manufacturing & Industrial
 - Software & Technology
 min_confidence: 0.7
 capability_model:
@@ -11,18 +12,118 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 4
+edge_count: 18
 edges:
+- tag: Features
+  spec_file: skedulo-features-api-openapi.yml
+  capability_id: BC-4210.50
+  capability_id_l1: BC-4210
+  capability_name: Feature Flag Management
+  confidence: 0.8
+  evidence: GET /features/descriptions  getFeaturesDescriptions  Feature flag status, description, and
+    type; GET /features/{tenant_id}  getFeaturesByTenantId  Tenant Feature flag statuses
+  reason: Operations read and search feature flag state and descriptions per tenant (schemas FeatureFlags,
+    TenantFeatureFlagsResult), which is squarely Feature Flag Management within software release/deployment.
+    Slight ambiguity with tenant configuration management, hence 0.8.
+- tag: Optimize
+  spec_file: skedulo-optimize-api-openapi.yml
+  capability_id: BC-1050.20
+  capability_id_l1: BC-1050
+  capability_name: Service Dispatch Management
+  confidence: 0.8
+  evidence: POST /optimize/suggest  'Suggest times for a single job'; POST /optimize/resource_suggestions
+    'Suggest resources for a given job'
+  reason: Operations suggest times and resources for jobs — i.e. technician scheduling/assignment for
+    a field service platform, matching Service Dispatch Management (technician scheduling, routing, dispatch).
+- tag: Resource Allocations
+  spec_file: skedulo-resource-allocations-api-openapi.yml
+  capability_id: BC-1050.20
+  capability_id_l1: BC-1050
+  capability_name: Service Dispatch Management
+  confidence: 0.8
+  evidence: POST /schedules/job_allocations  upsertJobAllocations  'Create/update job allocations for
+    resources'
+  reason: Allocating jobs to resources on recurring schedules is technician scheduling/dispatch for a
+    field workforce platform.
 - tag: Rules
   spec_file: skedulo-rules-api-openapi.yml
   capability_id: BC-620.20
   capability_id_l1: BC-620
   capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /rules/resolve  'Resolve record access rules'; GET /rules/user  'Record access rules
+    for the current user'
+  reason: Resolution of record-level access rules for the authenticated user is plainly access control
+    / authorisation.
+- tag: Schedule
+  spec_file: skedulo-schedule-api-openapi.yml
+  capability_id: BC-1050.20
+  capability_id_l1: BC-1050
+  capability_name: Service Dispatch Management
+  confidence: 0.8
+  evidence: POST /schedule ScheduleRun Start an one-off optimization run; GET /schedule/run/{runId}/routes
+    GetScheduleRunRoutes Get the routes for a schedule run
+  reason: Optimization Manager runs that compute and save schedules and routes for resources (GraphQLResource,
+    Job, ResourceAvailabilityShape) on a field workforce platform — i.e. technician scheduling and routing,
+    which is Service Dispatch Management.
+- tag: Scheduling
+  spec_file: skedulo-scheduling-api-openapi.yml
+  capability_id: BC-1050.20
+  capability_id_l1: BC-1050
+  capability_name: Service Dispatch Management
+  confidence: 0.8
+  evidence: 'POST /sync/dispatch dispatchSchedule Dispatch allocated work; schemas: DispatchResult, ShiftCopyRequest'
+  reason: Schedule Management API that copies scheduled work, applies schedule templates and dispatches
+    allocated work to resources — technician scheduling and dispatch on a field service platform.
+- tag: Job Notifications and Responses
+  spec_file: skedulo-job-notifications-and-responses-api-openapi.yml
+  capability_id: BC-1050.20
+  capability_id_l1: BC-1050
+  capability_name: Service Dispatch Management
+  confidence: 0.78
+  evidence: POST /dispatch  postDispatch  Dispatch resources; POST /notify  Notify resources about an
+    allocated job
+  reason: Operations dispatch and notify field resources about allocated jobs — technician dispatch/notification
+    within field service management, not generic messaging.
+- tag: Job scheduling
+  spec_file: skedulo-job-scheduling-api-openapi.yml
+  capability_id: BC-1050.20
+  capability_id_l1: BC-1050
+  capability_name: Service Dispatch Management
   confidence: 0.75
-  evidence: POST /rules/resolve  Resolve record access rules; GET /rules/user  Record access rules for
-    the current user; schema RecordAccessRule
-  reason: Despite the generic tag, the operations resolve record-level access rules for the authenticated
-    user — authorisation/access control, which sits under Identity & Access Management.
+  evidence: POST /schedules/jobs  createRecurringSchedule  Create a recurring schedule
+  reason: Creating and previewing recurring job schedules for a deskless workforce platform is technician
+    scheduling, the core of Service Dispatch Management; some ambiguity vs service execution.
+- tag: Policy Management
+  spec_file: skedulo-policy-management-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: 'openapi description: ''Auth Service API provides management of user roles and permissions.'';
+    createPolicy / updatePolicy / deletePolicy'
+  reason: CRUD over authorisation policies within an auth service managing roles and permissions — access
+    management. Could be argued as pure plumbing, hence moderate confidence.
+- tag: Suggest
+  spec_file: skedulo-suggest-api-openapi.yml
+  capability_id: BC-1050.20
+  capability_id_l1: BC-1050
+  capability_name: Service Dispatch Management
+  confidence: 0.75
+  evidence: POST /suggest Suggest Get scheduling suggestions for a job
+  reason: Produces scheduling suggestions for a job (candidate resource/time slots) on a field workforce
+    platform — decision support for technician scheduling and dispatch.
+- tag: Offers
+  spec_file: skedulo-offers-api-openapi.yml
+  capability_id: BC-1050.20
+  capability_id_l1: BC-1050
+  capability_name: Service Dispatch Management
+  confidence: 0.72
+  evidence: POST /offer/job/resource/{resource_job_offer_id}/accept  Accept a job offer; POST /offer/shift/{shift_offer_id}/notify  Notify
+    associated resources about a shift offer
+  reason: Job and shift offers accepted/declined by resources are the offer-based allocation mechanism
+    for assigning field work to technicians, i.e. dispatch; some overlap with workforce scheduling keeps
+    confidence moderate.
 - tag: Webhooks
   spec_file: skedulo-webhooks-api-openapi.yml
   capability_id: BC-4270.80
@@ -45,6 +146,20 @@ edges:
   reason: Administrative operations on tenants in the multi-tenant fleet, including tenant data deletion,
     align with tenant provisioning and decommissioning. Confidence moderated because only two operations
     are shown and data deletion could alternatively read as tenant backup/export (BC-4230.60).
+- tag: Availability
+  spec_file: skedulo-availability-api-openapi.yml
+  capability_id: BC-1050.20
+  capability_id_l1: BC-1050
+  capability_name: Service Dispatch Management
+  confidence: 0.7
+  evidence: GET /availability  getAvailability  Fetch resource availability; POST /availability/resources  postAvailableResources  Fetch
+    available resources; POST /availability/patterns  Upsert availability patterns
+  reason: Skedulo is a field service / deskless workforce platform; these operations manage field resource
+    (technician) availability and availability patterns, which is the input to technician scheduling and
+    dispatch. Mapped to Field Service Management / Service Dispatch Management rather than HR workforce
+    planning because the entities are schedulable 'resources' in a dispatch engine. Some ambiguity remains
+    about whether availability belongs to dispatch or a broader scheduling sub-capability, hence moderate
+    confidence.
 - tag: Internal
   spec_file: skedulo-internal-api-openapi.yml
   capability_id: BC-4230.10
@@ -55,3 +170,35 @@ edges:
   reason: Single internal operation that initialises a tenant (schema InitializeInput), matching tenant
     provisioning/creation in a multi-tenant SaaS; context is thin (no description, one operation) so confidence
     is moderate.
+- tag: Rule Management
+  spec_file: skedulo-rule-management-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: GET /policies/rules/resolved  'Get the resolved rules for the current user'; 'Auth Service
+    API provides management of user roles and permissions.'
+  reason: Authorisation rules resolved per user inside the auth service — access management rather than
+    any business rule engine.
+- tag: Schedule summaries
+  spec_file: skedulo-schedule-summaries-api-openapi.yml
+  capability_id: BC-1050.20
+  capability_id_l1: BC-1050
+  capability_name: Service Dispatch Management
+  confidence: 0.7
+  evidence: 'GET /schedules listRecurringSchedules Recurring schedules summaries; schemas: RecurringScheduleSummary,
+    DetailedJob'
+  reason: Recurring schedules of jobs for deskless workers — scheduling of field work. Sub-capability
+    choice (dispatch/scheduling) is the best fit but the surface is read-only summaries, hence moderate
+    confidence.
+- tag: Solve
+  spec_file: skedulo-solve-api-openapi.yml
+  capability_id: BC-1050.20
+  capability_id_l1: BC-1050
+  capability_name: Service Dispatch Management
+  confidence: 0.7
+  evidence: 'POST /solve Solve Start an optimization run for a model; schemas: GraphQLJobAllocation, ResourceAvailabilityShape,
+    AllocationShape1'
+  reason: Optimization solver that allocates jobs to resources subject to availability and dependency
+    constraints — the scheduling/routing engine behind field technician dispatch. Somewhat abstract (generic
+    solver surface), so moderate confidence.
