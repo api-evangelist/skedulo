@@ -12,16 +12,17 @@
       "source": "https://developerblog.skedulo.com/",
       "feed_url": "https://developer.skedulo.com/blog/feed.xml",
       "title": "",
-      "saved": 1,
+      "saved": 0,
       "method": "discovered"
     },
     {
-      "source": "https://support.skedulo.com",
-      "feed_url": "",
+      "source": "https://developer.skedulo.com/blog/feed.xml",
+      "feed_url": "https://developer.skedulo.com/blog/feed.xml",
+      "title": "",
       "saved": 0,
-      "skipped": "community-shaped; a vendor feed already saved this run (roadmap#239)"
+      "method": "feed"
     }
   ],
-  "post_count": 1,
-  "fetched": "2026-10-10T13:15:00Z"
+  "post_count": 34,
+  "fetched": "2026-10-17T14:53:57Z"
 }
